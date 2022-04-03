@@ -10,6 +10,10 @@ ssc_ft is a module that houses the scripts for querying data from RapidAPI and w
 global prog_time
 prog_time = None
 
+"""
+This is to test branch functionality GIT/Pycharm
+"""
+
 
 def get_financials(ticker_entry: "string" = "MSFT"):
     import time

@@ -10,6 +10,10 @@ This module 'simplestockchecker_storetool.py' stores information
 in the database sscdb, under the table logentry.
 """
 
+"""
+This is to test branch functionality GIT/Pycharm
+"""
+
 def db_chksetup():
     try:
         with connect(
