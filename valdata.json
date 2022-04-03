@@ -1,0 +1,17 @@
+{
+     "historical valuation measures": [
+          {
+               "Market Cap (intraday)": "N/A", 
+               "Enterprise Value": "N/A", 
+               "Trailing P/E": "N/A", 
+               "Forward P/E": "N/A", 
+               "PEG Ratio (5 yr expected)": "N/A", 
+               "Price/Sales (ttm)": "N/A", 
+               "Price/Book (mrq)": "N/A", 
+               "Enterprise Value/Revenue": "N/A", 
+               "Enterprise Value/EBITDA": "N/A"
+          }
+     ], 
+     "date": "2022-02-10T17:20:26.120809", 
+     "status": "success"
+}

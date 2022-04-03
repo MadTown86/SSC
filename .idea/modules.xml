@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/SimpleStockChecker_REV1.iml" filepath="$PROJECT_DIR$/.idea/SimpleStockChecker_REV1.iml" />
+      <module fileurl="file://$APPLICATION_CONFIG_DIR$/scratches/.idea/scratches.iml" filepath="$APPLICATION_CONFIG_DIR$/scratches/.idea/scratches.iml" />
+    </modules>
+  </component>
+</project>
