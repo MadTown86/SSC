@@ -176,61 +176,119 @@ return ticker_entry
 
 
 class FetchStoreSSC:
-    def __init__(self):
-        pass
 
-    def fetchstore(self, ticker, key, idssc, fetch_data):
+    def fetchstore(self, ticker, key, idssc, fetch_data, fetchstoreshelf = "fetchfiledb", *args, **kwargs):
         import shelve
-        filedb = shelve.open('fetchfiledb')
+        filedb = shelve.open(fetchstoreshelf)
         filedb[str(ticker) + "__" + str(key) + "__" +
                str(idssc)] = fetch_data
 
         filedb.close()
 
 
+class FetchAddSSC:
+    """
+    This class is going to combine variables and pass to FetchCycler as arguments for 'requests' module
+    It will also allow you to add another fetch
+    """
+
+    def __addfetchssc(self, fetchnamessc, fetchurlssc, fetchqsssc, fetchheadersssc, shelfnamessc = "fetchurlshelfdb", *args, **kwargs):
+        fetchshelf = shelve.open(shelfnamessc)
+        fetchshelf["fetch_bank"].update({str(fetchnamessc): {"url": fetchurlssc
+            , "qs": fetchqsssc}, "headers": fetchheadersssc})
+
+        fetchshelf.close()
+
+
+class FetchRequestShelfSSC:
+    """
+    This class is going to pull the fetchshelf information
+    """
+
+    def __pullfetchshelf(self, fetchurlshelfnamessc = "fetchurlshelfdb", *args, **kwargs):
+        FetchFirstInitialize.__fetchshelfinitialize()
+        fetchshelf = shelve.open(fetchurlshelfnamessc)
+        bank = fetchshelf["fetch_bank"]
+        fetchshelf.close()
+        return bank
+
+
+class FetchCheckPrimer:
+    """
+    This class checks to see if the shelf file exists
+    """
+
+    def __init__(self, pathbakssc="fetchurlshelfdb.bak", pathdatssc="fetchurlshelfdb.dat",
+                 pathdirssc="fetchurlshelfdb.dir", *args, **kwargs):
+        self.pathbakssc = pathbakssc
+        self.pathdatssc = pathdatssc
+        self.pathdirssc = pathdirssc
+
+    def __checkpaths(self):
+        fetchpaths = [self.pathbakssc, self.pathdatssc, self.pathdirssc]
+        count = 0
+        for path in fetchpaths:
+            if os.path.exists(path):
+                count += 1
+
+        if count == 3:
+            return True
+        else:
+            return False
+
+
+class FetchFirstInitialize:
+    def __fetchshelfinitialize(self):
+        if not FetchCheckPrimer.__checkpaths():
+            # These are variables holding the API locations for the information calls
+            url_income = "https://stock-market-data.p.rapidapi.com/stock/financials/income-statement/annual-historical"
+            url_balance = "https://stock-market-data.p.rapidapi.com/stock/financials/balance-sheet/annual-historical"
+            url_ar = "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-upgrades-downgrades"
+            url_val = "https://stock-market-data.p.rapidapi.com/stock/valuation/historical-valuation-measures"
+
+            # 2/8/22 - GD - Adding sector data, need to start to grade by sector eventually
+            url_sectordata = "https://stock-market-data.p.rapidapi.com/stock/company-info"
+
+            # These are the two variables necessary to ping the API's, first two take qs, url_ar takes 2
+            qs_inc_bal = {"ticker_symbol": self.ticker, "format": "json"}
+            qs_ar = {"symbol": self.ticker, "region": "US"}
+            qs_val = {"ticker_symbol": self.ticker, "format": "json"}
+            qs_sector = {"ticker_symbol": self.ticker}
+
+            # header information including RAPI_key environment variable, necessary for API data fetch
+            headers = {
+                'x-rapidapi-host': "stock-market-data.p.rapidapi.com",
+                'x-rapidapi-key': os.getenv("RAPI_key")
+            }
+
+            # Header for the _ar request
+            headers_ar = {
+                'x-rapidapi-host': "apidojo-yahoo-finance-v1.p.rapidapi.com",
+                'x-rapidapi-key': os.getenv("RAPI_key")
+            }
+
+            # Create and prime shelf with core necessary fetches
+            fetchshelf = shelve.open("fetchurlshelfdb")
+            fetchshelf["fetch_bank"] = {"url_income": {"url": url_income, "qs": qs_inc_bal, "headers": headers},
+                                        "url_balance": {"url": url_balance, "qs": qs_inc_bal, "headers": headers},
+                                        "url_ar": {"url": url_ar, "qs": qs_ar, "headers": headers_ar},
+                                        "url_val": {"url": url_val, "qs": qs_val, "headers": headers},
+                                        "url_sectordata": {"url": url_sectordata, "qs": qs_sector, "headers": headers}}
+            fetchshelf.close()
+        else:
+            pass
+
+
 class FetchCycler:
-    def __init__(self, ticker):
+    def __init__(self, ticker="MSFT"):
         self.ticker = ticker
 
-    def initialize_querydata(self):
-        # These are three variables holding the API locations for the information calls
-        url_income = "https://stock-market-data.p.rapidapi.com/stock/financials/income-statement/annual-historical"
-        url_balance = "https://stock-market-data.p.rapidapi.com/stock/financials/balance-sheet/annual-historical"
-        url_ar = "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-upgrades-downgrades"
-        url_val = "https://stock-market-data.p.rapidapi.com/stock/valuation/historical-valuation-measures"
-
-        # 2/8/22 - GD - Adding sector data, need to start to grade by sector eventually
-        url_sectordata = "https://stock-market-data.p.rapidapi.com/stock/company-info"
-
-        # These are the two variables necessary to ping the API's, first two take qs, url_ar takes 2
-        qs_inc_bal = {"ticker_symbol": self.ticker, "format": "json"}
-        qs_ar = {"symbol": self.ticker, "region": "US"}
-        qs_val = {"ticker_symbol": self.ticker, "format": "json"}
-        qs_sector = {"ticker_symbol": self.ticker}
-
-        # header information including RAPI_key environment variable, necessary for API data fetch
-        headers = {
-            'x-rapidapi-host': "stock-market-data.p.rapidapi.com",
-            'x-rapidapi-key': os.getenv("RAPI_key")
-        }
-
-        # Header for the _ar request
-        headers_ar = {
-            'x-rapidapi-host': "apidojo-yahoo-finance-v1.p.rapidapi.com",
-            'x-rapidapi-key': os.getenv("RAPI_key")
-        }
-
-        self.url_bank = {"url_income": [url_income, qs_inc_bal, headers], "url_balance": [url_balance, qs_inc_bal, headers],
-                    "url_ar": [url_ar, qs_ar, headers_ar],
-                    "url_val": [url_val, qs_val, headers],
-                    "url_sectordata": [url_sectordata, qs_sector, headers]}
-
     async def rapid_fetch(self):
-        self.initialize_querydata()
+        self.url_bank = FetchRequestShelfSSC.__pullfetchshelf()
         for key in self.url_bank.keys():
-            url = self.url_bank[key][0]
-            qs = self.url_bank[key][1]
-            head = self.url_bank[key][2]
+            url = self.url_bank[key]["url"]
+            qs = self.url_bank[key]["qs"]
+            head = self.url_bank[key]["headers"]
             response = requests.request("GET", url, headers=head, params=qs)  # Request data
             self.response = response
             if response.status_code == 200:  # If received 'all good' response from API for first request, continue
@@ -238,18 +296,18 @@ class FetchCycler:
                 Lert = FetchStoreSSC()
                 Lert.fetchstore(self.ticker, key, id(self), self.fetch_data)
             await asyncio.sleep(1)
-
         print("success")
 
 
 class FetchStarter:
-
     """
-    This class is built to fetch the data from rapid api and store it for use in the grading system and elsewhere
-    updating to use asyncio module to coroutine fetch cycles
+    This class accepts the tickerlist from user input as an arg, then starts parsing with asyncio and a maximum of 5
+    concurrent fetches (max simultaneous RapidAPI will allow for my payment level)
     """
 
-    def __init__(self, tickerlist):
+    def __init__(self, tickerlist=None):
+        if tickerlist is None:
+            tickerlist = ["MSFT", "AMD", "TTD", "ETSY", "UAA"]
         self.tickerlist = tickerlist
 
     async def fetch_cycle(self):
@@ -266,32 +324,60 @@ class FetchStarter:
                 for indexno in range(len(self.tickerlist)):
                     await asyncio.gather(FetchCycler(self.tickerlist.pop(0)).rapid_fetch())
 
+class FetchContainer:
+    def __init__(self):
+        FetchContainer.__initializeself(self)
+        pass
+
+    def __initializeself(self):
+        self.fetchstoressc = FetchStoreSSC()
+        self.fetchaddssc = FetchAddSSC()
+        self.fetchrequestshelfssc = FetchRequestShelfSSC()
+        self.fetchcheckprimer = FetchCheckPrimer()
+        self.fetchfirstinitialize = FetchFirstInitialize()
+        self.fetchcycler = FetchCycler()
+        self.fetchstarter = FetchStarter()
+
 
 if __name__ == "__main__":
-    async def testsscfetch():
-        FS1 = FetchStarter(["TTD", "MU"])
-        print(FS1.tickerlist)
+    class FetchTestSwitchBoard:
+        """
+        Constructor acts as a switchboard, 1 - 0 == True - False, select which tests to perform
+        """
+        def __init__(self, fetchstoressc, fetchaddssc, fetchrequestshelfssc, fetchcheckprimer, fetchfirstinitialize,
+                     fetchcycler, fetchstarter, fetchcontainer):
+            self.fetchcontainer = fetchcontainer
+            self.fetchstarter = fetchstarter
+            self.fetchcycler = fetchcycler
+            self.fetchfirstinitialize = fetchfirstinitialize
+            self.fetchcheckprimer = fetchcheckprimer
+            self.fetchrequestshelfssc = fetchrequestshelfssc
+            self.fetchaddssc = fetchaddssc
+            self.fetchstoressc = fetchstoressc
 
-        FC1 = FetchCycler("MSFT")
-        FC1.initialize_querydata()
-        for key in FC1.url_bank.keys():
-            print("Value: %s ::: Key: %s" % (FC1.url_bank[key], key))
+        async def testsscfetch():
+            FS1 = FetchStarter(["TTD", "MU"])
+            print(FS1.tickerlist)
 
-        await FS1.fetch_cycle()
+            FC1 = FetchCycler("MSFT")
+            FC1.initialize_querydata()
+            for key in FC1.url_bank.keys():
+                print("Value: %s ::: Key: %s" % (FC1.url_bank[key], key))
 
-    asyncio.run(testsscfetch())
-
-    def test_shelve():
-        filedb = shelve.open('fetchfiledb')
-        for key in filedb:
-            print(key)
-            if isinstance(filedb[key], requests.models.Response):
-                print("Value:  %.50s" % (dict(json.loads(filedb[key].text))))
-            elif isinstance(filedb[key], dict):
-                print("Value:  %.50s" % (filedb[key]))
-
-    test_shelve()
+            await FS1.fetch_cycle()
 
 
+        asyncio.run(testsscfetch())
 
 
+        def test_shelve():
+            filedb = shelve.open('fetchfiledb')
+            for key in filedb:
+                print(key)
+                if isinstance(filedb[key], requests.models.Response):
+                    print("Value:  %.50s" % (dict(json.loads(filedb[key].text))))
+                elif isinstance(filedb[key], dict):
+                    print("Value:  %.50s" % (filedb[key]))
+
+
+        test_shelve()
