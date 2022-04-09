@@ -1,4 +1,6 @@
 import json
+import shelve
+import asyncio
 import requests
 import os
 import sys
@@ -172,6 +174,20 @@ print("Done with fetch")
 return ticker_entry
 """
 
+
+class FetchStoreSSC:
+    def __init__(self):
+        pass
+
+    def fetchstore(self, ticker, key, idssc, fetch_data):
+        import shelve
+        filedb = shelve.open('fetchfiledb')
+        filedb[str(ticker) + "__" + str(key) + "__" +
+               str(idssc)] = fetch_data
+
+        filedb.close()
+
+
 class FetchCycler:
     def __init__(self, ticker):
         self.ticker = ticker
@@ -209,24 +225,20 @@ class FetchCycler:
                     "url_val": [url_val, qs_val, headers],
                     "url_sectordata": [url_sectordata, qs_sector, headers]}
 
-    def rapid_fetch(self):
+    async def rapid_fetch(self):
         self.initialize_querydata()
         for key in self.url_bank.keys():
             url = self.url_bank[key][0]
             qs = self.url_bank[key][1]
             head = self.url_bank[key][2]
-            response = requests.request("GET", url, headers=head, params=qs)  # Request data for url_income
+            response = requests.request("GET", url, headers=head, params=qs)  # Request data
             self.response = response
             if response.status_code == 200:  # If received 'all good' response from API for first request, continue
                 self.fetch_data = dict(json.loads(response.text))
+                Lert = FetchStoreSSC()
+                Lert.fetchstore(self.ticker, key, id(self), self.fetch_data)
+            await asyncio.sleep(1)
 
-                import shelve
-                import time
-                filedb = shelve.open('fetchfiledb')
-                filedb[str(self.ticker) + "__" + str(key) + "__" +
-                       str(int(str(time.time()).replace('.', '')))] = response
-
-                filedb.close()
         print("success")
 
 
@@ -234,19 +246,30 @@ class FetchStarter:
 
     """
     This class is built to fetch the data from rapid api and store it for use in the grading system and elsewhere
+    updating to use asyncio module to coroutine fetch cycles
     """
 
     def __init__(self, tickerlist):
         self.tickerlist = tickerlist
 
-    def fetch_cycle(self):
-        for ticker in self.tickerlist:
-            FetchCycler(ticker).rapid_fetch()
+    async def fetch_cycle(self):
+        while self.tickerlist:
+            if len(self.tickerlist) > 5:
+                await asyncio.gather(
+                    FetchCycler(self.tickerlist.pop(0)).rapid_fetch(),
+                    FetchCycler(self.tickerlist.pop(0)).rapid_fetch(),
+                    FetchCycler(self.tickerlist.pop(0)).rapid_fetch(),
+                    FetchCycler(self.tickerlist.pop(0)).rapid_fetch(),
+                    FetchCycler(self.tickerlist.pop(0)).rapid_fetch(),
+                )
+            else:
+                for indexno in range(len(self.tickerlist)):
+                    await asyncio.gather(FetchCycler(self.tickerlist.pop(0)).rapid_fetch())
 
 
 if __name__ == "__main__":
-    def testsscfetch():
-        FS1 = FetchStarter(["MSFT"])
+    async def testsscfetch():
+        FS1 = FetchStarter(["TTD", "MU"])
         print(FS1.tickerlist)
 
         FC1 = FetchCycler("MSFT")
@@ -254,9 +277,21 @@ if __name__ == "__main__":
         for key in FC1.url_bank.keys():
             print("Value: %s ::: Key: %s" % (FC1.url_bank[key], key))
 
-        print(FC1.rapid_fetch())
+        await FS1.fetch_cycle()
 
-    testsscfetch()
+    asyncio.run(testsscfetch())
+
+    def test_shelve():
+        filedb = shelve.open('fetchfiledb')
+        for key in filedb:
+            print(key)
+            if isinstance(filedb[key], requests.models.Response):
+                print("Value:  %.50s" % (dict(json.loads(filedb[key].text))))
+            elif isinstance(filedb[key], dict):
+                print("Value:  %.50s" % (filedb[key]))
+
+    test_shelve()
+
 
 
 
