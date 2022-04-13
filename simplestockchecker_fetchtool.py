@@ -200,11 +200,13 @@ class FetchAddSSC:
 
     def addfetchssc(self, fetchnamessc="DEFAULTNAME", fetchurlssc="DEFAULTURL", fetchqsssc="DEFAULTSSC",
                       fetchheadersssc="DEFAULTHEADER", shelfnamessc = "fetchurlshelfdb", *args, **kwargs):
-        fetchshelf = shelve.open(shelfnamessc)
-        if fetchshelf["fetch_bank"]:
-            fetchshelf["fetch_bank"].update({str(fetchnamessc): {"url": str(fetchurlssc),
-                                                                   "qs": str(fetchqsssc), "headers": fetchheadersssc}})
-            fetchshelf.close()
+        with shelve.open(shelfnamessc) as fetchshelf:
+            if fetchshelf["fetch_bank"]:
+                fetchshelf["fetch_bank"].update({str(fetchnamessc): {"url": str(fetchurlssc),
+                                                                       "qs": str(fetchqsssc), "headers": fetchheadersssc}})
+            else:
+                fetchshelf["fetch_bank"] = {}
+                fetchshelf.close()
 
 
 class FetchRequestShelfSSC:
@@ -245,6 +247,28 @@ class FetchCheckPrimer:
             return True
         else:
             return False
+
+class ClearURLShelfSSC:
+    """
+    Process to purge existing URL shelf
+    """
+    def clearurlshelfssc(self, path="fetchurlshelfdb"):
+        if FetchCheckPrimer.checkpaths():
+            with shelve.open(path) as fetchshelf:
+                for key in fetchshelf.keys():
+                    del fetchshelf[key]
+            fetchshelf.close()
+
+
+class CreateTestShelf:
+    """
+    Create test shelf with own passed in file name 'str'
+    """
+    def createtestshelfssc(self, path="fetchurlshelfdb"):
+        with shelve.open(path) as testshelfssc:
+            testshelfssc["test"] = {"test1": 1, "test2": 2, "test3": 3}
+            testshelfssc.close()
+
 
 
 class FetchFirstInitialize:
@@ -404,8 +428,15 @@ if __name__ == "__main__":
             result = ''
             FASSC1 = FetchAddSSC()
             fetchshelf = shelve.open("fetchurlshelfdb")
+            print("Beginning type testing")
+            for x in fetchshelf:
+                print(x)
+
+            for x in fetchshelf["fetch_bank"]:
+                print(type(x))
+                print(x)
             def repeattest():
-                if "DEFAULTNAME" in fetchshelf["fetch_bank"].keys():
+                if "DEFAULTNAME" in dict(fetchshelf["fetch_bank"]).keys():
                     fetchshelf["fetch_bank"].pop("DEFAULTNAME")
                     return "True"
                 else:
