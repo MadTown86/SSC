@@ -4,6 +4,7 @@ import asyncio
 import requests
 import os
 import sys
+import unittest
 
 """
 2/4/22 - GD
@@ -201,12 +202,10 @@ class FetchAddSSC:
     def addfetchssc(self, fetchnamessc="DEFAULTNAME", fetchurlssc="DEFAULTURL", fetchqsssc="DEFAULTSSC",
                       fetchheadersssc="DEFAULTHEADER", shelfnamessc = "fetchurlshelfdb", *args, **kwargs):
         with shelve.open(shelfnamessc) as fetchshelf:
-            if fetchshelf["fetch_bank"]:
-                fetchshelf["fetch_bank"].update({str(fetchnamessc): {"url": str(fetchurlssc),
-                                                                       "qs": str(fetchqsssc), "headers": fetchheadersssc}})
-            else:
-                fetchshelf["fetch_bank"] = {}
-                fetchshelf.close()
+            temp_bank = dict(fetchshelf["fetch_bank"])
+            temp_bank.update({fetchnamessc: {"url": fetchurlssc, "qs": fetchqsssc, "headers": fetchheadersssc}})
+            fetchshelf["fetch_bank"] = temp_bank
+            fetchshelf.close()
 
 
 class FetchRequestShelfSSC:
@@ -395,8 +394,110 @@ class FetchContainer:
         self.fetchstarter = FetchStarter()
 
 
+class TestSSCShelvSystem(unittest.TestCase):
+    def test_fetchcheckprimer(self):
+        FCP1 = FetchCheckPrimer()
+        print("Enterring First Test")
+        self.assertEqual(FCP1.checkpaths(), True, "Files will be created after first run")
+
+    def test_fetchshelfinitialize(self):
+        FFI1 = FetchFirstInitialize()
+        FFI1.fetchshelfinitialize()
+        fetchdb = shelve.open("fetchurlshelfdb")
+        bank = fetchdb["fetch_bank"]
+        fetchdb.close()
+        self.assertEqual(bank, FFI1.fetchbank, "Check Shelf for errors")
+
+    def test_addfetchssc(self):
+        result = ''
+        FASSC1 = FetchAddSSC()
+
+        def testdisplayer():
+            print("\n\n")
+            with shelve.open("fetchfiledb") as fetchshelf:
+                test_bank1 = dict(fetchshelf["fetch_bank"])
+                for key in test_bank1.keys():
+                    print("KEY::: %s  ::::: VALUE::: %s" % (key, test_bank1[key]))
+                fetchshelf.close()
+
+        def resultadd():
+            nonlocal result
+            with shelve.open("fetchfiledb") as fetchshelf:
+                test_bank2 = dict(fetchshelf["fetch_bank"])
+                result += str(bool("DEFAULTNAME" in test_bank2.keys()))
+                fetchshelf.close()
+
+        testdisplayer()
+        resultadd()
+        FASSC1.addfetchssc()
+        testdisplayer()
+        resultadd()
+        with shelve.open("fetchfiledb") as fetchshelf:
+            test_bank3 = dict(fetchshelf["fetch_bank"])
+            test_bank3.pop("DEFAULTNAME")
+            fetchshelf = test_bank3
+            fetchshelf.close()
+        testdisplayer()
+        resultadd()
+
+        resultadd()
+        testdisplayer()
+        self.assertEqual(result, "FalseTrueFalse")
+
+    """
+
+    def test_fetchrequestshelfssc(self):
+        FRS1 = FetchRequestShelfSSC()
+        fileshelf = shelve.open("fetchurlshelfdb")
+        bank = fileshelf["fetch_bank"]
+        self.assertEqual(FRS1.pullfetchshelf(), bank, "Check Shelf - fetchurlshelfdb")
+
+    def test_fetchstoreshelf(self):
+        fstore1 = FetchStoreSSC()
+        fstore1.fetchstore()
+        result = ''
+        filedb = shelve.open("fetchfiledb")
+        if bool(filedb["MSFT__DEFAULTKEY__DEFAULTID"]):
+            result += True
+        else:
+            result += False
+
+        filedb.pop("MSFT__DEFAULTKEY__DEFAULTID")
+        if "MSFT__DEFAULTKEY__DEFAULTID" in filedb.keys():
+            result += True
+        else:
+            result += False
+
+        self.assertEqual(result, "TrueFalse", "Check Test Fetch Store Shelf")
+
+    def test_fetchcycler(self):
+        FC1t = FetchCycler()
+        FPDB = FetchPullDBSSC()
+        idtemp = id(FC1t)
+        FC1t.rapid_fetch()
+        bank = FPDB.fetchdbpull()
+        flag = False
+        for key in bank.keys():
+            if str(idtemp) in str(key):
+                flag = True
+                break
+            else:
+                continue
+
+        self.assertEqual(flag, True, "Check the instance ID and ensure it comes from where you want")
+
+    def test_fetchstarter(self):
+        FS1 = FetchStarter()
+        listlen = len(FS1.tickerlist)
+        FPDB1 = FetchPullDBSSC()
+        bankleninit = len(FPDB1.fetchdbpull().keys)
+        FS1.fetch_cycle()
+        banklenafter = len(FPDB1.fetchdbpull().keys)
+        self.assertEqual((bankleninit + listlen), banklenafter, "Something is wrong with FetchStarter")
+    """
+
 if __name__ == "__main__":
-    import unittest
+    unittest.main()
 
     """
     async def testsscfetch(self):
@@ -410,98 +511,6 @@ if __name__ == "__main__":
 
         await FS1.fetch_cycle()
     """
-
-    class TestSSCShelvSystem(unittest.TestCase):
-        def test_fetchcheckprimer(self):
-            FCP1 = FetchCheckPrimer()
-            self.assertEqual(FCP1.checkpaths(), True, "Files will be created after first run")
-
-        def test_fetchshelfinitialize(self):
-            FFI1 = FetchFirstInitialize()
-            FFI1.fetchshelfinitialize()
-            fetchdb = shelve.open("fetchurlshelfdb")
-            bank = fetchdb["fetch_bank"]
-            fetchdb.close()
-            self.assertEqual(bank, FFI1.fetchbank, "Check Shelf for errors")
-
-        def test_addfetchssc(self):
-            result = ''
-            FASSC1 = FetchAddSSC()
-            fetchshelf = shelve.open("fetchurlshelfdb")
-            print("Beginning type testing")
-            for x in fetchshelf:
-                print(x)
-
-            for x in fetchshelf["fetch_bank"]:
-                print(type(x))
-                print(x)
-            def repeattest():
-                if "DEFAULTNAME" in dict(fetchshelf["fetch_bank"]).keys():
-                    fetchshelf["fetch_bank"].pop("DEFAULTNAME")
-                    return "True"
-                else:
-                    return "False"
-
-            result += repeattest()
-            FASSC1.addfetchssc()
-            result += repeattest()
-            result += repeattest()
-            fetchshelf.close()
-            self.assertEqual(result, "FalseTrueFalse")
-
-        """
-
-        def test_fetchrequestshelfssc(self):
-            FRS1 = FetchRequestShelfSSC()
-            fileshelf = shelve.open("fetchurlshelfdb")
-            bank = fileshelf["fetch_bank"]
-            self.assertEqual(FRS1.pullfetchshelf(), bank, "Check Shelf - fetchurlshelfdb")
-
-        def test_fetchstoreshelf(self):
-            fstore1 = FetchStoreSSC()
-            fstore1.fetchstore()
-            result = ''
-            filedb = shelve.open("fetchfiledb")
-            if bool(filedb["MSFT__DEFAULTKEY__DEFAULTID"]):
-                result += True
-            else:
-                result += False
-
-            filedb.pop("MSFT__DEFAULTKEY__DEFAULTID")
-            if "MSFT__DEFAULTKEY__DEFAULTID" in filedb.keys():
-                result += True
-            else:
-                result += False
-
-            self.assertEqual(result, "TrueFalse", "Check Test Fetch Store Shelf")
-
-        def test_fetchcycler(self):
-            FC1t = FetchCycler()
-            FPDB = FetchPullDBSSC()
-            idtemp = id(FC1t)
-            FC1t.rapid_fetch()
-            bank = FPDB.fetchdbpull()
-            flag = False
-            for key in bank.keys():
-                if str(idtemp) in str(key):
-                    flag = True
-                    break
-                else:
-                    continue
-
-            self.assertEqual(flag, True, "Check the instance ID and ensure it comes from where you want")
-
-        def test_fetchstarter(self):
-            FS1 = FetchStarter()
-            listlen = len(FS1.tickerlist)
-            FPDB1 = FetchPullDBSSC()
-            bankleninit = len(FPDB1.fetchdbpull().keys)
-            FS1.fetch_cycle()
-            banklenafter = len(FPDB1.fetchdbpull().keys)
-            self.assertEqual((bankleninit + listlen), banklenafter, "Something is wrong with FetchStarter")
-        """
-
-    unittest.main()
 
 
 
