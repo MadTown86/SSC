@@ -427,14 +427,6 @@ class TestSSCShelvSystem(unittest.TestCase):
         result = ''
         FASSC1 = FetchAddSSC()
 
-        def testdisplayer():
-            print("\n\n")
-            with shelve.open("fetchurlshelfdb") as fetchshelf1:
-                test_bank1 = dict(fetchshelf1["fetch_bank"])
-                for key in test_bank1.keys():
-                    print("KEY::: %s  ::::: VALUE::: %s" % (key, test_bank1[key]))
-                fetchshelf1.close()
-
         def resultadd():
             nonlocal result
             with shelve.open("fetchurlshelfdb") as fetchshelf2:
@@ -442,17 +434,14 @@ class TestSSCShelvSystem(unittest.TestCase):
                 result += str(bool("DEFAULTNAME" in test_bank2.keys()))
                 fetchshelf2.close()
 
-        testdisplayer()
         resultadd()
         FASSC1.addfetchssc()
-        testdisplayer()
         resultadd()
         with shelve.open("fetchurlshelfdb") as fetchshelf3:
             test_bank3 = dict(fetchshelf3["fetch_bank"])
             test_bank3.pop("DEFAULTNAME")
             fetchshelf3["fetch_bank"] = test_bank3
             fetchshelf3.close()
-        testdisplayer()
         resultadd()
         self.assertEqual(result, "FalseTrueFalse")
 
