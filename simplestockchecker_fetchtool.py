@@ -228,11 +228,15 @@ class FetchRequestShelfSSC:
     """
 
     def pullfetchshelf(self, fetchurlshelfnamessc = "fetchurlshelfdb", *args, **kwargs):
-        FetchFirstInitializeSSC.fetchshelfinitialize()
-        fetchshelf = shelve.open(fetchurlshelfnamessc)
-        bank = fetchshelf["fetch_bank"]
-        fetchshelf.close()
-        return bank
+        FFISSC = FetchFirstInitializeSSC()
+        FFISSC.fetchshelfinitialize()
+        with shelve.open(fetchurlshelfnamessc) as fetchshelfpullssc:
+            if fetchshelfpullssc["fetch_bank"]:
+                bank = dict(fetchshelfpullssc["fetch_bank"])
+                fetchshelfpullssc.close()
+                return bank
+            else:
+                print("error in pullfetchshelf")
 
 
 class FetchCheckPrimerSSC:
@@ -411,6 +415,9 @@ class FetchContainerSSC:
 
 
 class TestSSCShelvSystem(unittest.TestCase):
+    """
+    This test class houses unit tests for each class when possible
+    """
     def test_fetchcheckprimer(self):
         FCP1 = FetchCheckPrimerSSC()
         self.assertEqual(FCP1.checkpaths(), True, "Files will be created after first run")
@@ -469,14 +476,20 @@ class TestSSCShelvSystem(unittest.TestCase):
 
         self.assertEqual(result_clfessc, "TrueFalse")
 
-    """
 
     def test_fetchrequestshelfssc(self):
         FRS1 = FetchRequestShelfSSC()
-        fileshelf = shelve.open("fetchurlshelfdb")
-        bank = fileshelf["fetch_bank"]
-        self.assertEqual(FRS1.pullfetchshelf(), bank, "Check Shelf - fetchurlshelfdb")
+        frsssc_bank = FRS1.pullfetchshelf()
+        urllistssc = ["url_income", "url_balance", "url_ar", "url_val", "url_sectordata"]
+        resultfetchssc=''
+        for urltestname in urllistssc:
+            if urltestname in frsssc_bank.keys():
+                resultfetchssc += "TRUE"
+            else:
+                resultfetchssc += "FALSE"
+            self.assertIn(resultfetchssc, "TRUETRUETRUETRUETRUE")
 
+    """
     def test_fetchstoreshelf(self):
         fstore1 = FetchStoreSSC()
         fstore1.fetchstore()
