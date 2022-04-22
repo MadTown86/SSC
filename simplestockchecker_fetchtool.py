@@ -183,12 +183,11 @@ class FetchStoreSSC:
     """
 
     def fetchstore(self, ticker="MSFT", key="url_income", idssc="DEFAULTID", fetch_data="DEFAULTDATA", fetchstoreshelf = "fetchfiledb", *args, **kwargs):
-        import shelve
         filedb = shelve.open(fetchstoreshelf)
-        filedb[str(ticker) + "__" + str(key) + "__" +
-               str(idssc)] = fetch_data
-
+        fetchstorename = str(ticker) + "__" + str(key) + "__" + str(idssc)
+        filedb[fetchstorename] = fetch_data
         filedb.close()
+        return fetchstorename
 
 
 class FetchAddSSC:
@@ -399,6 +398,7 @@ class FetchStarterSSC:
                 for indexno in range(len(self.tickerlist)):
                     await asyncio.gather(FetchCyclerSSC(self.tickerlist.pop(0)).rapid_fetch())
 
+
 class FetchContainerSSC:
     def __init__(self, *args, **kwargs):
         FetchContainerSSC.__initializeself(self)
@@ -476,7 +476,6 @@ class TestSSCShelvSystem(unittest.TestCase):
 
         self.assertEqual(result_clfessc, "TrueFalse")
 
-
     def test_fetchrequestshelfssc(self):
         FRS1 = FetchRequestShelfSSC()
         frsssc_bank = FRS1.pullfetchshelf()
@@ -489,22 +488,21 @@ class TestSSCShelvSystem(unittest.TestCase):
                 resultfetchssc += "FALSE"
             self.assertIn(resultfetchssc, "TRUETRUETRUETRUETRUE")
 
-    """
     def test_fetchstoreshelf(self):
         fstore1 = FetchStoreSSC()
-        fstore1.fetchstore()
+        test_fetchstorename = fstore1.fetchstore()
         result = ''
         filedb = shelve.open("fetchfiledb")
-        if bool(filedb["MSFT__DEFAULTKEY__DEFAULTID"]):
-            result += True
+        if bool(filedb[test_fetchstorename]):
+            result += "True"
         else:
-            result += False
+            result += "False"
 
-        filedb.pop("MSFT__DEFAULTKEY__DEFAULTID")
-        if "MSFT__DEFAULTKEY__DEFAULTID" in filedb.keys():
-            result += True
+        filedb.pop(test_fetchstorename)
+        if test_fetchstorename in filedb.keys():
+            result += "True"
         else:
-            result += False
+            result += "False"
 
         self.assertEqual(result, "TrueFalse", "Check Test Fetch Store Shelf")
 
@@ -523,6 +521,8 @@ class TestSSCShelvSystem(unittest.TestCase):
                 continue
 
         self.assertEqual(flag, True, "Check the instance ID and ensure it comes from where you want")
+    """
+
 
     def test_fetchstarter(self):
         FS1 = FetchStarterSSC()
