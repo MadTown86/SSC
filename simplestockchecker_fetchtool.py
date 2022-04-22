@@ -476,7 +476,6 @@ class TestSSCShelvSystem(unittest.TestCase):
 
         self.assertEqual(result_clfessc, "TrueFalse")
 
-
     def test_fetchrequestshelfssc(self):
         FRS1 = FetchRequestShelfSSC()
         frsssc_bank = FRS1.pullfetchshelf()
@@ -489,25 +488,27 @@ class TestSSCShelvSystem(unittest.TestCase):
                 resultfetchssc += "FALSE"
             self.assertIn(resultfetchssc, "TRUETRUETRUETRUETRUE")
 
-    """
+
     def test_fetchstoreshelf(self):
         fstore1 = FetchStoreSSC()
         fstore1.fetchstore()
         result = ''
+        test_filename = "MSFT__url_income__DEFAULTID"
         filedb = shelve.open("fetchfiledb")
-        if bool(filedb["MSFT__DEFAULTKEY__DEFAULTID"]):
-            result += True
+        if bool(filedb[test_filename]):
+            result += "True"
         else:
-            result += False
+            result += "False"
 
-        filedb.pop("MSFT__DEFAULTKEY__DEFAULTID")
-        if "MSFT__DEFAULTKEY__DEFAULTID" in filedb.keys():
-            result += True
+        filedb.pop("test_filename")
+        if test_filename in filedb.keys():
+            result += "True"
         else:
-            result += False
+            result += "False"
 
         self.assertEqual(result, "TrueFalse", "Check Test Fetch Store Shelf")
 
+    """
     def test_fetchcycler(self):
         FC1t = FetchCyclerSSC()
         FPDB = FetchPullDBSSC()
