@@ -5,6 +5,10 @@ import requests
 import os
 import sys
 import unittest
+from unittest.mock import Mock
+from unittest.mock import patch
+
+
 
 """
 2/4/22 - GD
@@ -176,22 +180,23 @@ return ticker_entry
 """
 
 
-class FetchStoreSSC:
+# fetchurlshelfdb - default
+class FetchDataStoreSSC:
     """
     This class will store the fetched data into the shelf after it is received from API.
     #5
     """
 
     def fetchstore(self, ticker="MSFT", key="url_income", idssc="DEFAULTID", fetch_data="DEFAULTDATA", fetchstoreshelf = "fetchfiledb", *args, **kwargs):
-        import shelve
         filedb = shelve.open(fetchstoreshelf)
-        filedb[str(ticker) + "__" + str(key) + "__" +
-               str(idssc)] = fetch_data
-
+        fetchstorename = str(ticker) + "__" + str(key) + "__" + str(idssc)
+        filedb[fetchstorename] = fetch_data
         filedb.close()
+        return fetchstorename
 
 
-class FetchAddSSC:
+# fetchurlshelfdb - default
+class FetchUrlAddSSC:
     """
     This class is going to combine variables and pass to FetchCyclerSSC as arguments for 'requests' module
     It will also allow you to add another fetch
@@ -208,7 +213,8 @@ class FetchAddSSC:
             fetchshelf.close()
 
 
-class FetchDeleteSSC:
+# fetchurlshelfdb - default
+class FetchUrlDeleteSSC:
     """
     This class deletes a fetch dictionary from the shelf defined
     #5
@@ -221,7 +227,8 @@ class FetchDeleteSSC:
             fetchshelfdel.close()
 
 
-class FetchRequestShelfSSC:
+# fetchurlshelfdb - default
+class FetchUrlRequestShelfSSC:
     """
     This class is going to pull the fetchshelf information and return a dictionary containing the arguments for requests
     #4
@@ -239,7 +246,8 @@ class FetchRequestShelfSSC:
                 print("error in pullfetchshelf")
 
 
-class FetchCheckPrimerSSC:
+# fetchurlshelfdb - default
+class FetchUrlCheckPrimerSSC:
     """
     This class checks to see if shelf already initialized to bypass over-writing shelf that stores fetch variables
 
@@ -265,7 +273,8 @@ class FetchCheckPrimerSSC:
             return False
 
 
-class FetchCheckShelfSSC:
+# fetchurlshelfdb - default
+class FetchUrlCheckShelfSSC:
     """
     Checks for existence of information on shelf at filepath
     """
@@ -277,12 +286,15 @@ class FetchCheckShelfSSC:
                 return False
 
 
+# either shelf can be cleared
 class ClearFetchShelfSSC:
     """
-    Process to purge existing URL shelf
+    Process to purge existing URL shelf - Default filename = fetchurlshelfdb
+
+    You can pass in "fetchfiledb" to clear other shelf
     """
     def clearfetchshelfssc(self, path="fetchurlshelfdb"):
-        FEPrimerClearFetch = FetchCheckPrimerSSC()
+        FEPrimerClearFetch = FetchUrlCheckPrimerSSC()
         if FEPrimerClearFetch.checkpaths():
             with shelve.open(path) as fetchshelf:
                 for key in fetchshelf.keys():
@@ -290,6 +302,7 @@ class ClearFetchShelfSSC:
                 fetchshelf.close()
 
 
+# fetchurlshelfdb - default
 class FetchFirstInitializeSSC:
     """
     These are the initial hardcoded fetches from API, it packages and stores them in a shelf
@@ -297,7 +310,7 @@ class FetchFirstInitializeSSC:
     """
     def fetchshelfinitialize(self, ticker="MSFT"):
         self.ticker = ticker
-        FCP1 = FetchCheckPrimerSSC()
+        FCP1 = FetchUrlCheckPrimerSSC()
         if FCP1.checkpaths():
             # These are variables holding the API locations for the information calls
             url_income = "https://stock-market-data.p.rapidapi.com/stock/financials/income-statement/annual-historical"
@@ -327,45 +340,53 @@ class FetchFirstInitializeSSC:
 
             # Create and prime shelf with core necessary fetches
             fetchshelf = shelve.open("fetchurlshelfdb")
-            fetchshelf["fetch_bank"] = {"url_income": {"url": url_income, "qs": qs_inc_bal, "headers": headers},
-                                        "url_balance": {"url": url_balance, "qs": qs_inc_bal, "headers": headers},
-                                        "url_ar": {"url": url_ar, "qs": qs_ar, "headers": headers_ar},
-                                        "url_val": {"url": url_val, "qs": qs_val, "headers": headers},
-                                        "url_sectordata": {"url": url_sectordata, "qs": qs_sector, "headers": headers}}
+            self.fetch_apidict = {"url_income": {"url": url_income, "qs": qs_inc_bal, "headers": headers},
+                             "url_balance": {"url": url_balance, "qs": qs_inc_bal, "headers": headers},
+                             "url_ar": {"url": url_ar, "qs": qs_ar, "headers": headers_ar},
+                             "url_val": {"url": url_val, "qs": qs_val, "headers": headers},
+                             "url_sectordata": {"url": url_sectordata, "qs": qs_sector, "headers": headers}}
+            fetchshelf["fetch_bank"] = self.fetch_apidict
             self.fetchbank = fetchshelf["fetch_bank"]
             fetchshelf.close()
-
         else:
-            print("else")
+            return 1
 
 
+# fetchfiledb - default
 class FetchPullDBSSC:
     def __init__(self, shelffile="fetchfiledb", *args, **kwargs):
         self.shelffile = shelffile
         pass
 
-    def fetchdbpull(self, shelffile):
-        filedb = shelve.open(shelffile)
-        bank = filedb["fetch_bank"]
-        return bank
+    def fetchdbpull(self, *args, **kwargs):
+        with shelve.open(self.shelffile) as fetchshelf_pull:
+            if fetchshelf_pull.keys():
+                bank = dict(fetchshelf_pull)
+                fetchshelf_pull.close()
+                return bank
+            else:
+                print("Shelf Empty")
 
 
 class FetchCyclerSSC:
     def __init__(self, ticker="MSFT", *args, **kwargs):
         self.ticker = ticker
 
-    async def rapid_fetch(self, *args, **kwargs):
-        self.url_bank = FetchRequestShelfSSC.pullfetchshelf()
+    async def rapid_fetch(self, url_bank, *args, **kwargs):
+        self.url_bank = url_bank
+        print(self.url_bank)
+        for key in self.url_bank.keys():
+            print("KEY:  %s :::: Value:  %s  ::" % (key, self.url_bank[key]))
         for key in self.url_bank.keys():
             url = self.url_bank[key]["url"]
             qs = self.url_bank[key]["qs"]
             head = self.url_bank[key]["headers"]
-            response = requests.request("GET", url, headers=head, params=qs)  # Request data
+            response = requests.request("GET", url=url, headers=head, params=qs)  # Request data
             self.response = response
             if response.status_code == 200:  # If received 'all good' response from API for first request, continue
                 self.fetch_data = dict(json.loads(response.text))
-                Lert = FetchStoreSSC()
-                Lert.fetchstore(self.ticker, key, id(self), self.fetch_data)
+                FSTORESSC = FetchDataStoreSSC()
+                FSTORESSC.fetchstore(self.ticker, key, id(self), self.fetch_data)
                 self.statusfetch = True
             else:
                 self.statusfetch = False
@@ -399,16 +420,17 @@ class FetchStarterSSC:
                 for indexno in range(len(self.tickerlist)):
                     await asyncio.gather(FetchCyclerSSC(self.tickerlist.pop(0)).rapid_fetch())
 
+
 class FetchContainerSSC:
     def __init__(self, *args, **kwargs):
         FetchContainerSSC.__initializeself(self)
         pass
 
     def __initializeself(self):
-        self.fetchstoressc = FetchStoreSSC()
-        self.fetchaddssc = FetchAddSSC()
-        self.fetchrequestshelfssc = FetchRequestShelfSSC()
-        self.fetchcheckprimer = FetchCheckPrimerSSC()
+        self.fetchstoressc = FetchDataStoreSSC()
+        self.fetchaddssc = FetchUrlAddSSC()
+        self.fetchrequestshelfssc = FetchUrlRequestShelfSSC()
+        self.fetchcheckprimer = FetchUrlCheckPrimerSSC()
         self.fetchfirstinitialize = FetchFirstInitializeSSC()
         self.fetchcycler = FetchCyclerSSC()
         self.fetchstarter = FetchStarterSSC()
@@ -419,7 +441,7 @@ class TestSSCShelvSystem(unittest.TestCase):
     This test class houses unit tests for each class when possible
     """
     def test_fetchcheckprimer(self):
-        FCP1 = FetchCheckPrimerSSC()
+        FCP1 = FetchUrlCheckPrimerSSC()
         self.assertEqual(FCP1.checkpaths(), True, "Files will be created after first run")
 
     def test_fetchshelfinitialize(self):
@@ -432,7 +454,7 @@ class TestSSCShelvSystem(unittest.TestCase):
 
     def test_addfetchssc(self):
         result = ''
-        FASSC1 = FetchAddSSC()
+        FASSC1 = FetchUrlAddSSC()
 
         def resultadd():
             nonlocal result
@@ -454,7 +476,7 @@ class TestSSCShelvSystem(unittest.TestCase):
 
     def test_clearfetchurlssc(self):
         result_clfessc = ''
-        FECheckShelf = FetchCheckShelfSSC()
+        FECheckShelf = FetchUrlCheckShelfSSC()
         FEClearShelf = ClearFetchShelfSSC()
         if FECheckShelf.checkshelfcontent():
             result_clfessc += "True"
@@ -464,7 +486,7 @@ class TestSSCShelvSystem(unittest.TestCase):
             else:
                 result_clfessc += "False"
         else:
-            FEAdd = FetchAddSSC()
+            FEAdd = FetchUrlAddSSC()
             FEAdd.addfetchssc()
             if FECheckShelf.checkshelfcontent():
                 result_clfessc += "True"
@@ -477,7 +499,7 @@ class TestSSCShelvSystem(unittest.TestCase):
         self.assertEqual(result_clfessc, "TrueFalse")
 
     def test_fetchrequestshelfssc(self):
-        FRS1 = FetchRequestShelfSSC()
+        FRS1 = FetchUrlRequestShelfSSC()
         frsssc_bank = FRS1.pullfetchshelf()
         urllistssc = ["url_income", "url_balance", "url_ar", "url_val", "url_sectordata"]
         resultfetchssc=''
@@ -488,55 +510,27 @@ class TestSSCShelvSystem(unittest.TestCase):
                 resultfetchssc += "FALSE"
             self.assertIn(resultfetchssc, "TRUETRUETRUETRUETRUE")
 
-
     def test_fetchstoreshelf(self):
-        fstore1 = FetchStoreSSC()
-        fstore1.fetchstore()
+        fstore1 = FetchDataStoreSSC()
+        test_fetchstorename = fstore1.fetchstore()
         result = ''
-        test_filename = "MSFT__url_income__DEFAULTID"
         filedb = shelve.open("fetchfiledb")
-        if bool(filedb[test_filename]):
+        if bool(filedb[test_fetchstorename]):
             result += "True"
         else:
             result += "False"
 
-        filedb.pop("test_filename")
-        if test_filename in filedb.keys():
+        filedb.pop(test_fetchstorename)
+        if test_fetchstorename in filedb.keys():
             result += "True"
         else:
             result += "False"
 
         self.assertEqual(result, "TrueFalse", "Check Test Fetch Store Shelf")
 
-    """
-    def test_fetchcycler(self):
-        FC1t = FetchCyclerSSC()
-        FPDB = FetchPullDBSSC()
-        idtemp = id(FC1t)
-        FC1t.rapid_fetch()
-        bank = FPDB.fetchdbpull()
-        flag = False
-        for key in bank.keys():
-            if str(idtemp) in str(key):
-                flag = True
-                break
-            else:
-                continue
-
-        self.assertEqual(flag, True, "Check the instance ID and ensure it comes from where you want")
-
-    def test_fetchstarter(self):
-        FS1 = FetchStarterSSC()
-        listlen = len(FS1.tickerlist)
-        FPDB1 = FetchPullDBSSC()
-        bankleninit = len(FPDB1.fetchdbpull().keys)
-        FS1.fetch_cycle()
-        banklenafter = len(FPDB1.fetchdbpull().keys)
-        self.assertEqual((bankleninit + listlen), banklenafter, "Something is wrong with FetchStarterSSC")
-    """
-
-if __name__ == "__main__":
-    unittest.main()
+    def test_fetchpulldb(self):
+        FPDBTest = FetchPullDBSSC()
+        bank = FPDBTest.fetchdbpull()
 
     """
     async def testsscfetch(self):
@@ -549,7 +543,26 @@ if __name__ == "__main__":
             print("Value: %s ::: Key: %s" % (FC1.url_bank[key], key))
 
         await FS1.fetch_cycle()
+
+
+    def test_fetchstarter(self):
+        FS1 = FetchStarterSSC()
+        listlen = len(FS1.tickerlist)
+        FPDB1 = FetchPullDBSSC()
+        bankleninit = len(FPDB1.fetchdbpull().keys)
+        FS1.fetch_cycle()
+        banklenafter = len(FPDB1.fetchdbpull().keys)
+        self.assertEqual((bankleninit + listlen), banklenafter, "Something is wrong with FetchStarterSSC")
     """
+
+
+
+
+if __name__ == "__main__":
+    unittest.main()
+
+
+
 
 
 
