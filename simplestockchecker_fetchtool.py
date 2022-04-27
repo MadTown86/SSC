@@ -372,8 +372,9 @@ class FetchCyclerSSC:
     def __init__(self, ticker="MSFT", *args, **kwargs):
         self.ticker = ticker
 
-    async def rapid_fetch(self, url_bank, *args, **kwargs):
-        self.url_bank = url_bank
+    async def rapid_fetch(self, *args, **kwargs):
+        FetchRF = FetchUrlRequestShelfSSC()
+        self.url_bank = FetchRF.pullfetchshelf()
         print(self.url_bank)
         for key in self.url_bank.keys():
             print("KEY:  %s :::: Value:  %s  ::" % (key, self.url_bank[key]))
