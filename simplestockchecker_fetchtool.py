@@ -402,10 +402,8 @@ class FetchStarterSSC:
     concurrent fetches (max simultaneous RapidAPI will allow for my payment level)
     """
 
-    def __init__(self, tickerlist=None):
-        if tickerlist is None:
-            tickerlist = ["MSFT", "AMD", "TTD", "ETSY", "UAA"]
-        self.tickerlist = tickerlist
+    def __init__(self, tickerlist="MSFT, AMD, TTD, MU, NVDA"):
+        self.tickerlist = tickerlist.split(", ")
 
     async def fetch_cycle(self, *args, **kwargs):
         while self.tickerlist:
@@ -534,18 +532,6 @@ class TestSSCShelvSystem(unittest.TestCase):
         bank = FPDBTest.fetchdbpull()
 
     """
-    async def testsscfetch(self):
-        FS1 = FetchStarterSSC(["TTD", "MU"])
-        print(FS1.tickerlist)
-
-        FC1 = FetchCyclerSSC("MSFT")
-        FC1.initialize_querydata()
-        for key in FC1.url_bank.keys():
-            print("Value: %s ::: Key: %s" % (FC1.url_bank[key], key))
-
-        await FS1.fetch_cycle()
-
-
     def test_fetchstarter(self):
         FS1 = FetchStarterSSC()
         listlen = len(FS1.tickerlist)

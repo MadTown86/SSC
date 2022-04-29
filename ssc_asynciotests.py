@@ -7,7 +7,7 @@ from unittest.mock import patch
 
 
 
-class FetchCyclerTest_Asyncio(unittest.IsolatedAsyncioTestCase):
+class Test_FetchCyclerTest_Asyncio(unittest.IsolatedAsyncioTestCase):
 
     """
     This class tests FetchCycler using unittest.IsolatedAsyncioTestCase and Mock
@@ -40,6 +40,19 @@ class FetchCyclerTest_Asyncio(unittest.IsolatedAsyncioTestCase):
 
         FC1T = simplestockchecker_fetchtool.FetchCyclerSSC("MSFT")
         await FC1T.rapid_fetch()
+
+
+class Test_FetchStarterFinal(unittest.IsolatedAsyncioTestCase):
+
+    @patch(simplestockchecker_fetchtool.FetchCyclerSSC)
+    async def test_fetchstarter(self, MockFetchCycler):
+        mock_fetchcyclerclassvar = MockFetchCycler()
+        mock_fetchcyclervar = unittest.mock.MagicMock(return_value="rapid_fetch_called")
+        type(mock_fetchcyclerclassvar).rapid_fetch = mock_fetchcyclervar
+
+        FSF1 = simplestockchecker_fetchtool.FetchStarterSSC("MSFT, AMD, MU, TTD, NVDA, TSLA")
+        await FSF1.fetch_cycle()
+
 
 
 if __name__ == "__main__":
