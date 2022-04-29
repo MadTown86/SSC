@@ -406,18 +406,20 @@ class FetchStarterSSC:
         self.tickerlist = tickerlist.split(", ")
 
     async def fetch_cycle(self, *args, **kwargs):
-        while self.tickerlist:
-            if len(self.tickerlist) > 5:
+        tickerlistvar_fetchssc = self.tickerlist
+        while tickerlistvar_fetchssc:
+            if len(tickerlistvar_fetchssc) > 5:
                 await asyncio.gather(
-                    FetchCyclerSSC(self.tickerlist.pop(0)).rapid_fetch(),
-                    FetchCyclerSSC(self.tickerlist.pop(0)).rapid_fetch(),
-                    FetchCyclerSSC(self.tickerlist.pop(0)).rapid_fetch(),
-                    FetchCyclerSSC(self.tickerlist.pop(0)).rapid_fetch(),
-                    FetchCyclerSSC(self.tickerlist.pop(0)).rapid_fetch(),
+                    FetchCyclerSSC(tickerlistvar_fetchssc.pop(0)).rapid_fetch(),
+                    FetchCyclerSSC(tickerlistvar_fetchssc.pop(0)).rapid_fetch(),
+                    FetchCyclerSSC(tickerlistvar_fetchssc.pop(0)).rapid_fetch(),
+                    FetchCyclerSSC(tickerlistvar_fetchssc.pop(0)).rapid_fetch(),
+                    FetchCyclerSSC(tickerlistvar_fetchssc.pop(0)).rapid_fetch(),
                 )
             else:
-                for indexno in range(len(self.tickerlist)):
-                    await asyncio.gather(FetchCyclerSSC(self.tickerlist.pop(0)).rapid_fetch())
+                for indexno in range(len(tickerlistvar_fetchssc)):
+                    await asyncio.gather(FetchCyclerSSC(tickerlistvar_fetchssc.pop(0)).rapid_fetch())
+            await asyncio.sleep(1)
 
 
 class FetchContainerSSC:

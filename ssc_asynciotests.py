@@ -6,7 +6,6 @@ from unittest.mock import Mock
 from unittest.mock import patch
 
 
-
 class Test_FetchCyclerTest_Asyncio(unittest.IsolatedAsyncioTestCase):
 
     """
@@ -42,15 +41,16 @@ class Test_FetchCyclerTest_Asyncio(unittest.IsolatedAsyncioTestCase):
         await FC1T.rapid_fetch()
 
 
+
 class Test_FetchStarterFinal(unittest.IsolatedAsyncioTestCase):
 
-    @patch(simplestockchecker_fetchtool.FetchCyclerSSC)
+    @patch('simplestockchecker_fetchtool.FetchCyclerSSC')
     async def test_fetchstarter(self, MockFetchCycler):
         mock_fetchcyclerclassvar = MockFetchCycler()
-        mock_fetchcyclervar = unittest.mock.MagicMock(return_value="rapid_fetch_called")
+        mock_fetchcyclervar = unittest.mock.MagicMock()
         type(mock_fetchcyclerclassvar).rapid_fetch = mock_fetchcyclervar
 
-        FSF1 = simplestockchecker_fetchtool.FetchStarterSSC("MSFT, AMD, MU, TTD, NVDA, TSLA")
+        FSF1 = simplestockchecker_fetchtool.FetchStarterSSC("MSFT, AMD, NVDA, TSLA, ORCL, AAPL, NVDA, GME, GE, FORD")
         await FSF1.fetch_cycle()
 
 
