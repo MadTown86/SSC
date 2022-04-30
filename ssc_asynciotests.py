@@ -46,12 +46,16 @@ class Test_FetchStarterFinal(unittest.IsolatedAsyncioTestCase):
 
     @patch('simplestockchecker_fetchtool.FetchCyclerSSC')
     async def test_fetchstarter(self, MockFetchCycler):
-        mock_fetchcyclerclassvar = MockFetchCycler()
-        mock_fetchcyclervar = unittest.mock.MagicMock()
-        type(mock_fetchcyclerclassvar).rapid_fetch = mock_fetchcyclervar
 
-        FSF1 = simplestockchecker_fetchtool.FetchStarterSSC("MSFT, AMD, NVDA, TSLA, ORCL, AAPL, NVDA, GME, GE, FORD")
+        mock_fetchcyclerclassvar = MockFetchCycler()
+        mock_returntest = unittest.mock.AsyncMock(auto_spec=simplestockchecker_fetchtool.FetchCyclerSSC)
+        mock_fetchcyclervar = unittest.mock.AsyncMock(return_value=mock_returntest)
+
+        type(mock_fetchcyclerclassvar).rapid_fetch = mock_fetchcyclervar
+        test_tickerlist = "MSFT, AMD, NVDA, TSLA, ORCL, AAPL, NVDA, GME, GE, FORD"
+        FSF1 = simplestockchecker_fetchtool.FetchStarterSSC(test_tickerlist)
         await FSF1.fetch_cycle()
+        self.assertEqual(len(test_tickerlist.split(', ')), len(mock_fetchcyclervar.mock_calls), "Missmatch")
 
 
 

@@ -532,6 +532,12 @@ class TestSSCShelvSystem(unittest.TestCase):
     def test_fetchpulldb(self):
         FPDBTest = FetchPullDBSSC()
         bank = FPDBTest.fetchdbpull()
+        test_fetchpulldbresult = 0
+        if bank:
+            test_fetchpulldbresult += 1
+        else:
+            pass
+        self.assertEqual(test_fetchpulldbresult, 1, "bank not true")
 
     """
     def test_fetchstarter(self):
