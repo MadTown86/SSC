@@ -184,10 +184,11 @@ return ticker_entry
 class FetchDataStoreSSC:
     """
     This class will store the fetched data into the shelf after it is received from API.
-    #5
+
     """
 
-    def fetchstore(self, ticker="MSFT", key="url_income", idssc="DEFAULTID", fetch_data="DEFAULTDATA", fetchstoreshelf = "fetchfiledb", *args, **kwargs):
+    def fetchstore(self, ticker="MSFT", key="url_income", idssc="DEFAULTID", fetch_data="DEFAULTDATA",
+                   fetchstoreshelf = "fetchfiledb", *args, **kwargs):
         filedb = shelve.open(fetchstoreshelf)
         fetchstorename = str(ticker) + "__" + str(key) + "__" + str(idssc)
         filedb[fetchstorename] = fetch_data
@@ -549,8 +550,6 @@ class TestSSCShelvSystem(unittest.TestCase):
         banklenafter = len(FPDB1.fetchdbpull().keys)
         self.assertEqual((bankleninit + listlen), banklenafter, "Something is wrong with FetchStarterSSC")
     """
-
-
 
 
 if __name__ == "__main__":

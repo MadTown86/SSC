@@ -5,43 +5,40 @@ import os
 import os.path
 import time
 import datetime as dt
+import unittest
+import unittest.mock
 
+import simplestockchecker_parsetool
 
 """
-This is to test branch functionality GIT/Pycharm
+4/30/22 - Branch Start - Change To OOP Structure
 """
 
-"""
-Date: 8/13/2021
-Author: GD
+def dictpull(arg, header):
+    """
+    No Need for this to be a class, a recurse function
+    :param arg:
+    :param header:
+    :return:
+    """
+    if isinstance(arg, dict):
+        for b in arg.keys():
+            if b == header:
+                return arg[b]
+            elif isinstance(arg[b], dict):
+                return dictpull(arg[b], header)
+            else:
+                continue
+    else:
+        for z in arg:
+            return dictpull(arg, header)
 
-simplestockchecker_parsetool.py:
 
-The purpose of this script is to parse the data that was fetched from RapidAPI
-Then process it into a grade and store this grade along with the other information in the mySQL database
 
-Date: 2/3/2022 - NOTES
-I am well aware of the unnecessary casting of multiple variables for passing/storing of the same values and the 
-un-used or wholely unnecessary returning of variables in some of the def blocks.  
-First 'real' python program.  Will return eventually and clean up all 'simplestockchecker_' files.
-"""
 
 def parsetool():
     """
-    This function will not take any arguments.  This function opens the three data files, parses the information
-    into more manageable chunks for grading purposes.
 
-    For bsheets_zip and isheets_zip, I used list(zip(list comprehension, list comprehension, list comprehension, etc)))
-    To iterate through four identically formatted dictionaries of string/float pair.  Example: Information from four
-    chronological Balance Sheets for a given company were separated out in a list of dictionaries. [{}, {}, {}, {}]
-    I iterated through the four dictionaries, combining their values into one list of list.[[Revenue year TTM],
-    [Rev Now - YR], [Rev Now - 2YR], [Rev NOW - 3YR]]
-    I then created a dictionary to add the labels back in but now for a list of four values {"REVENUE": [[], [], [], []],
-    "GROSS PROFIT":[[], [], [], []].  This allowed me to evaluatethe change in revenue from one year to next via
-    index position within the list. #needs verification that the lists don't sort, otherwise a way around is
-    to create a dictionary of dictionaries.
-
-    This was done for incomesheets.json data and balancesheets.json data and stored in local variables
     """
 
     def dictpull(arg, header):
@@ -1221,7 +1218,22 @@ def grade_tool(bsheets_zip: "list", isheets_zip: "list", isheets_dict: "dict", b
 
     return gv
 
+class Test_ParseToolSSC_dictpull(unittest.TestCase):
+    def test_dictpull(self):
+        mock_arg = unittest.mock.MagicMock()
+        type(mock_arg).value = unittest.mock.MagicMock(return_value=dict({"TEST LEVEL A": {"TEST LEVEL B": "TLB VAL1",
+                                                                          "TEST LEVEL B2": "TLB VAL2",
+                                                                          "TEST LEVEL B3": {"TEST LEVEL C":
+                                                                            ["TLC VAL1", {"TEST FINAL": "TRUE"}]}}}))
+        test_headerdictpull = "TEST FINAL"
+        print(test_headerdictpull)
+        print(mock_arg.value())
+        print(dictpull(mock_arg.value(), test_headerdictpull))
+
+
+        #self.assertEqual("True", test_dictpullresult, "Review: 'test_dictpull'")
+
+
 
 if __name__ == '__main__':
-    parsetool()
-    grade_tool()
+    unittest.main()
