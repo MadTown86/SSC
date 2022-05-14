@@ -13,7 +13,6 @@ from unittest.mock import patch
 class FetchDataStoreSSC:
     """
     This class will store the fetched data into the shelf after it is received from API.
-
     """
 
     def fetchstore(self, ticker="MSFT", key="url_income", idssc="DEFAULTID", fetch_data="DEFAULTDATA",
