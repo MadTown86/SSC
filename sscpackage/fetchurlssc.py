@@ -84,15 +84,15 @@ class FetchUrlSSC:
     def deletefetchssc(self, delfetchnamessc="DEFAULTNAME", *args, **kwargs):
         with shelve.open(self.pathnamefetchurls) as fetchshelfdel:
             temp_bankdel = dict(fetchshelfdel[self.shelfkey])
-            temp_bankdel.pop(fetchnamessc)
+            temp_bankdel.pop(delfetchnamessc)
             fetchshelfdel[self.shelfkey] = temp_bankdel
             fetchshelfdel.close()
 
     def pullfetchshelf(self, fetchurlshelfnamessc = "fetchurlshelfdb", *args, **kwargs):
         self.fetchshelfinitialize()
         with shelve.open(fetchurlshelfnamessc) as fetchshelfpullssc:
-            if fetchshelfpullssc["fetch_bank"]:
-                bank = dict(fetchshelfpullssc["fetch_bank"])
+            if dict(fetchshelfpullssc[self.shelfkey]):
+                bank = dict(fetchshelfpullssc[self.shelfkey])
                 fetchshelfpullssc.close()
                 return bank
             else:
@@ -111,3 +111,7 @@ class FetchUrlSSC:
                 for key in fetchshelf.keys():
                     del fetchshelf[key]
                 fetchshelf.close()
+
+if __name__ == '__main__':
+    FS1 = FetchUrlSSC()
+    FS1.clearfetchshelfssc()
