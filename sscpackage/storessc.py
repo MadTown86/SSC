@@ -5,15 +5,17 @@ import simplestockchecker_parsetool as sscp
 import pandas as pd
 
 class StoreSSC:
-    def __init__(self, *args, **kwargs):
-        pass
+    def __init__(self, host="localhost", user="DB_USER", password="DB_PASS", **kwargs):
+        self.host = host
+        self.user = user
+        self.password = password
 
     def db_chksetup(self):
         try:
             with connect(
-                    host="localhost",
-                    user=str(os.getenv("DB_USER")),
-                    password=str(os.getenv("DB_PASS")),
+                    host=self.host,
+                    user=str(os.getenv(self.user)),
+                    password=str(os.getenv(self.password)),
             ) as connection:
 
                 db_check="""
@@ -40,7 +42,7 @@ class StoreSSC:
                 with connection.cursor(buffered=True) as cursor:
                     cursor.execute(db_check)
                     if cursor.fetchone()[0] == 1:
-                        print("DB Exists")
+                        return True
                     else:
                         cursor.execute(dbtbl_create)
                         cursor.commit()
