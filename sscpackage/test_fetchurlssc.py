@@ -6,7 +6,7 @@ import shelve
 import sscpackage.fetchurlssc
 from sscpackage.fetchurlssc import FetchUrlSSC as FSSC
 
-
+"Need to change this to push again, for some reason it didn't pull on work computer"
 def dictprinter(d):
     for key in d.keys():
         labelr = "This is KEY: %s,  This is VALUE: %s" % (key, d[key])
