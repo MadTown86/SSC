@@ -82,7 +82,6 @@ class FetchUrlSSC:
             fetchshelf.close()
 
     def deletefetchssc(self, delfetchnamessc="DEFAULTNAME", *args, **kwargs):
-        self.delfetchnamessc = delfetchnamessc
         with shelve.open(self.pathnamefetchurls) as fetchshelfdel:
             temp_bankdel = dict(fetchshelfdel[self.shelfkey])
             temp_bankdel.pop(delfetchnamessc)
@@ -92,27 +91,27 @@ class FetchUrlSSC:
     def pullfetchshelf(self, fetchurlshelfnamessc = "fetchurlshelfdb", *args, **kwargs):
         self.fetchshelfinitialize()
         with shelve.open(fetchurlshelfnamessc) as fetchshelfpullssc:
-            if fetchshelfpullssc[self.shelfkey]:
+            if dict(fetchshelfpullssc[self.shelfkey]):
                 bank = dict(fetchshelfpullssc[self.shelfkey])
                 fetchshelfpullssc.close()
                 return bank
             else:
                 print("error in pullfetchshelf")
-                fetchshelfpullssc.close()
 
     def checkshelfcontent(self, shelfname="fetchurlshelfdb"):
-        if self.checkpaths():
-            with shelve.open(shelfname) as fetchshelfcheck:
-                res = bool(dict(fetchshelfcheck))
-                fetchshelfcheck.close()
-                if res:
-                    return True
-                else:
-                    return False
+        with shelve.open(shelfname) as fetchshelfcheck:
+            if fetchshelfcheck:
+                return True
+            else:
+                return False
 
     def clearfetchshelfssc(self, path="fetchurlshelfdb"):
         if self.checkpaths():
             with shelve.open(path) as fetchshelf:
                 for key in fetchshelf.keys():
-                    del fetchshelf[str(key)]
+                    del fetchshelf[key]
                 fetchshelf.close()
+
+if __name__ == '__main__':
+    FS1 = FetchUrlSSC()
+    FS1.clearfetchshelfssc()
