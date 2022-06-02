@@ -31,16 +31,8 @@ def dictpull(arg, header):
         for z in arg:
             return dictpull(arg, header)
 
-def safe_open_w(path):
-    """
-    Open "path" for writing, creating any parent directories as needed.
-    """
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    return open(path, 'w')
 
 class GradeSSC:
-    def __init__(self):
-        pass
 
 
     def grade_tool(self, bsheets_zip: "list", isheets_zip: "list", isheets_dict: "dict", bsheets_dict: "dict") -> "str":
@@ -63,27 +55,40 @@ class GradeSSC:
                   str(int(str(time.time()).replace('.', ''))) + "_" + "GradeS.json"
 
         # Copy from above def statements in parse_tool.  Didn't want to alter and make top level
+        def safe_open_w(path):
 
+            """
+            Open "path" for writing, creating any parent directories as needed.
+            """
 
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+            return open(path, 'w')
 
-        self.grade_tool.erlist = []  # This will store the errors/missing data from the analysis for review
+        # This will store the errors/missing data from the analysis for review
+        self.grade_tool.erlist = []
         erlist = []
 
+        # This will store the initial analyst grades
+        self.grade_tool.arlist = []
 
-        self.grade_tool.arlist = [] #  This will store the initial analyst grades
+        # this is going to store the total points and increment as the various factors pass logical pathways
+        self.grade_tool.tp = 0
 
-        self.grade_tool.tp = 0 # this is going to store the total points and increment as the various factors pass logical pathways
+        # this stores the ar - analyst ratings dictionaries wrapped in a list to store or pull to analyze
+        self.grade_tool.ar_dict_strip = []
 
-        self.grade_tool.ar_dict_strip = [] # this stores the ar - analyst ratings dictionaries wrapped in a list to store or pull to analyze
-
+        # this may be an unnecessary redundancy, but purpose initially is cast the passed in data to local variables
         bdict = bsheets_dict
         idict = isheets_dict
 
-        self.grade_tool.g = 0 # This may be redundant as well, using a function attribute to store the following gv variable
+        # This may be redundant as well, using a function attribute to store the following gv variable
+        self.grade_tool.g = 0
 
-        gv = 0 # GV is going to be the variable that increments the awarded points
+        # GV is going to be the variable that increments the awarded points
+        gv = 0
 
-        in_sheets = self.parsetool.isheets # This stores the function variables isheets and bsheets in local variables, which may be a redundancy to look at
+        # This stores the function variables isheets and bsheets in local variables, which may be a redundancy to look at
+        in_sheets = self.parsetool.isheets
         bal_sheets = self.parsetool.bsheets
 
         # This is to simplify the typing of new line escape - should have done this sooner
@@ -1001,6 +1006,30 @@ class GradeSSC:
 
 
     def parsetool(self):
+        """
+
+        """
+
+        def dictpull(arg, header):
+            """
+            This function uses recursion to iterate through the layers of nested dictionaries until it finds the
+            "key" it is looking for and returns the associated dictionary or value of that key.
+
+            :param arg: (a mixed array of nested list/dict statemetns
+            :param header: (The 'key' to what you are trying to pull out of the nested JSON)
+            :return: dict[header]: value
+            """
+            if isinstance(arg, dict):
+                for b in arg.keys():
+                    if b == header:
+                        return arg[b]
+                    elif isinstance(arg[b], dict):
+                        return dictpull(arg[b], header)
+                    else:
+                        continue
+            else:
+                for z in arg:
+                    return dictpull(arg, header)
 
         # bsheets parses 4 separate dictionaries of 'balance sheet financials' : value pairs and combines them into one list
         # the list of arrays only stores the 4 values in chronological order but no 'key' is carried over

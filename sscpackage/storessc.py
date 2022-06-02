@@ -3,26 +3,31 @@ import json
 import os
 import simplestockchecker_parsetool as sscp
 import pandas as pd
+from unittest.mock import patch
+
 
 class StoreSSC:
-    def __init__(self, *args, **kwargs):
-        pass
+    def __init__(self, host="localhost", user="DB_USER", password="DB_PASS", *args, **kwargs):
+        self.host = host
+        self.user = user
+        self.password = password
+
 
     def db_chksetup(self):
         try:
             with connect(
-                    host="localhost",
-                    user=str(os.getenv("DB_USER")),
-                    password=str(os.getenv("DB_PASS")),
+                    host=self.host,
+                    user=str(os.getenv(self.user)),
+                    password=str(os.getenv(self.password)),
             ) as connection:
 
-                db_check="""
+                db_check = """
                 SELECT COUNT(*)
                 FROM INFORMATION_SCHEMA.SCHEMATA
                 WHERE SCHEMA_NAME = 'sscdb'
                 """
 
-                dbtbl_create="""
+                dbtbl_create = """
                 CREATE DATABASE sscdb;
                 USE sscdb;
                 CREATE TABLE logentry (
@@ -40,7 +45,7 @@ class StoreSSC:
                 with connection.cursor(buffered=True) as cursor:
                     cursor.execute(db_check)
                     if cursor.fetchone()[0] == 1:
-                        print("DB Exists")
+                        return True
                     else:
                         cursor.execute(dbtbl_create)
                         cursor.commit()
@@ -49,6 +54,13 @@ class StoreSSC:
             print("Error in ssc_st - TRY1: " + str(e))
 
     def log_entry(self, ticker_entry="MSFT", res_json="DEFAULTJSON"):
+
+        self.insert_db_table = "INSERT INTO logentry (ticker, fetchdata, idict, bdict, grade, elist, arlist) VALUES(" + '"' \
+                               + str(ticker_entry) + '",' + json.dumps(res_json) + ',' \
+                               + "'" + json.dumps(sscp.GradeSSC.idict) + "'" + ',' \
+                               + "'" + json.dumps(sscp.GradeSSC.bdict) + "'" + "," + "'" + sscp.GradeSSC.grade + "'" \
+                               + "," + "'" + json.dumps(sscp.GradeSSC.erlist) + "'" + "," + "'" \
+                               + json.dumps(sscp.GradeSSC.ar_dict_strip) + "'" + ")"
         """
         This function is taking the ticker symbol, fetch data from API, parse data
         and the rest of the information and storing it in a local mysql db with the
@@ -60,32 +72,29 @@ class StoreSSC:
         :return: None
         """
         # The following sql.connector object adds information from '..._parsetool.py' function attributes to 'logentry'
+
         try:
             with connect(
-                host="localhost",
-                user=str(os.getenv("DB_USER")),
-                password=str(os.getenv("DB_PASS")),
-                database="sscdb",
+                    host="localhost",
+                    user=str(os.getenv("DB_USER")),
+                    password=str(os.getenv("DB_PASS")),
+                    database="sscdb",
             ) as connection:
 
                 # The following code is mySQL
-                insert_db_table = "INSERT INTO logentry (ticker, fetchdata, idict, bdict, grade, elist, arlist) VALUES(" + '"' \
-                                  + str(ticker_entry) + '",' + json.dumps(res_json) + ',' \
-                                  + "'" + json.dumps(sscp.parsetool.idict) + "'" + ',' \
-                                  + "'" + json.dumps(sscp.parsetool.bdict) + "'" + "," + "'" + sscp.grade_tool.grade + "'" \
-                                  + "," + "'" + json.dumps(sscp.grade_tool.erlist) + "'" + "," + "'" \
-                                  + json.dumps(sscp.grade_tool.ar_dict_strip) + "'" + ")"
+
 
                 show_db_ticker = "SELECT * FROM logentry"
-                with connection.cursor(buffered=True) as cursor:
-                    cursor.execute(insert_db_table)
-                    connection.commit()
+
+                with patch.dict(self.insert_db_table, {"TEST":"TEST"}):
+                    with connection.cursor(buffered=True) as cursor:
+                        cursor.execute(self.insert_db_table)
+                        connection.commit()
 
         except Error as e:
             print("Error in ssc_st - TRY2: " + str(e))
 
         return None
-
 
     def show_db(self):
         """
@@ -95,10 +104,10 @@ class StoreSSC:
         """
         try:
             with connect(
-                host="localhost",
-                user=str(os.getenv("DB_USER")),
-                password=str(os.getenv("DB_PASS")),
-                database="sscdb",
+                    host="localhost",
+                    user=str(os.getenv("DB_USER")),
+                    password=str(os.getenv("DB_PASS")),
+                    database="sscdb",
             ) as connection:
                 show_db_ticker = "SELECT * FROM logentry"
                 with connection.cursor() as cursor:
@@ -141,7 +150,3 @@ class StoreSSC:
 if __name__ == '__main__':
     S_SSC = StoreSSC()
     S_SSC.db_chksetup()
-
-
-
-
