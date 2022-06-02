@@ -82,6 +82,7 @@ class FetchUrlSSC:
             fetchshelf.close()
 
     def deletefetchssc(self, delfetchnamessc="DEFAULTNAME", *args, **kwargs):
+        self.delfetchnamessc = delfetchnamessc
         with shelve.open(self.pathnamefetchurls) as fetchshelfdel:
             temp_bankdel = dict(fetchshelfdel[self.shelfkey])
             temp_bankdel.pop(delfetchnamessc)
