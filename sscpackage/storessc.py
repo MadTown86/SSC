@@ -1,4 +1,5 @@
-from mysql.connector import connect, Error
+import mysql.connector
+#from mysql.connector import connect, Error
 import json
 import os
 import simplestockchecker_parsetool as sscp
@@ -7,6 +8,9 @@ from unittest.mock import patch
 
 
 class StoreSSC:
+    """
+    Class for checking, storing and fetching data from a local, predefined DB
+    """
     def __init__(self, host="localhost", user="DB_USER", password="DB_PASS", *args, **kwargs):
         self.host = host
         self.user = user
@@ -14,8 +18,16 @@ class StoreSSC:
 
 
     def db_chksetup(self):
+        """
+        Checks to ensure that the 'sscdb' exists on server 'localhost', if it doesn't, it creates the database and
+        table 'logentry'
+        Requires - local environment variables for username and password
+
+        *Note: Fails if no server 'localhost' exists.
+        :return:
+        """
         try:
-            with connect(
+            with mysql.connector.connect(
                     host=self.host,
                     user=str(os.getenv(self.user)),
                     password=str(os.getenv(self.password)),
@@ -50,11 +62,10 @@ class StoreSSC:
                         cursor.execute(dbtbl_create)
                         cursor.commit()
 
-        except Error as e:
+        except mysql.connector.Error as e:
             print("Error in ssc_st - TRY1: " + str(e))
 
     def log_entry(self, ticker_entry="MSFT", res_json="DEFAULTJSON"):
-
         self.insert_db_table = "INSERT INTO logentry (ticker, fetchdata, idict, bdict, grade, elist, arlist) VALUES(" + '"' \
                                + str(ticker_entry) + '",' + json.dumps(res_json) + ',' \
                                + "'" + json.dumps(sscp.GradeSSC.idict) + "'" + ',' \
@@ -74,7 +85,7 @@ class StoreSSC:
         # The following sql.connector object adds information from '..._parsetool.py' function attributes to 'logentry'
 
         try:
-            with connect(
+            with mysql.connector.connect(
                     host="localhost",
                     user=str(os.getenv("DB_USER")),
                     password=str(os.getenv("DB_PASS")),
@@ -86,24 +97,27 @@ class StoreSSC:
 
                 show_db_ticker = "SELECT * FROM logentry"
 
-                with patch.dict(self.insert_db_table, {"TEST":"TEST"}):
-                    with connection.cursor(buffered=True) as cursor:
-                        cursor.execute(self.insert_db_table)
-                        connection.commit()
+                with connection.cursor(buffered=True) as cursor:
+                    cursor.execute(self.insert_db_table)
+                    connection.commit()
+                    connection.close()
 
-        except Error as e:
+        except mysql.connector.Error as e:
             print("Error in ssc_st - TRY2: " + str(e))
+
+        finally:
+            connection.close()
 
         return None
 
     def show_db(self):
         """
-        2/4/22 - GD
-        This function is used in ssc_gui.  It is bound to 'show db' tk.button.
+        Pulls data on sscdb.
+        bound to 'show db' tk.button on user GUI
         :return: results (response string from API - JSON)
         """
         try:
-            with connect(
+            with mysql.connector.connect(
                     host="localhost",
                     user=str(os.getenv("DB_USER")),
                     password=str(os.getenv("DB_PASS")),
@@ -115,8 +129,11 @@ class StoreSSC:
                     results = cursor.fetchall()
                     connection.commit()
 
-        except Error as e:
+        except mysql.connector.Error as e:
             print(e)
+
+        finally:
+            connection.close()
 
         return results
 
@@ -129,7 +146,7 @@ class StoreSSC:
         :return:
         """
         try:
-            with connect(
+            with mysql.connector.connect(
                     host="localhost",
                     user=str(os.getenv("DB_USER")),
                     password=str(os.getenv("DB_PASS")),
@@ -143,9 +160,11 @@ class StoreSSC:
                     df.head()
                     df.to_excel('SSC.xlsx', sheet_name='DATA', index=False)
 
-        except Error as e:
+        except mysql.connector.Error as e:
             print("Error in ssc_st - 'def export_excel'  :  " + str(e))
 
+        finally:
+            connection.close()
 
 if __name__ == '__main__':
     S_SSC = StoreSSC()
