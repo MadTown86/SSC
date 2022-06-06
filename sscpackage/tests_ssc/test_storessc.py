@@ -76,6 +76,8 @@ class Test_StoreSSC(unittest.TestCase):
 
         mock_pd.read_sql.return_value.to_excel.assert_called_with('SSC.xlsx', sheet_name='DATA', index=False)
         self.assertEqual(connect_calls_xls, mock_connector_xls.method_calls)
+        print(miniprinter(mock_connector_xls.mock_calls))
+
 
 if __name__ == '__main__':
     unittest.main()
