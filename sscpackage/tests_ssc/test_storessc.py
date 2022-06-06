@@ -60,6 +60,7 @@ class Test_StoreSSC(unittest.TestCase):
 
         mock_connector.connect.return_value.__enter__.return_value.cursor.return_value.\
             __enter__.return_value.execute.assert_called_with('SELECT * FROM logentry')
+
     @patch('sscpackage.storessc.mysql.connector')
     @patch('sscpackage.storessc.pd')
     def test_export_excel(self, mock_pd, mock_connector_xls):
@@ -76,7 +77,7 @@ class Test_StoreSSC(unittest.TestCase):
 
         mock_pd.read_sql.return_value.to_excel.assert_called_with('SSC.xlsx', sheet_name='DATA', index=False)
         self.assertEqual(connect_calls_xls, mock_connector_xls.method_calls)
-        print(miniprinter(mock_connector_xls.mock_calls))
+
 
 
 if __name__ == '__main__':
