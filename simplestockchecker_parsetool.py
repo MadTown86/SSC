@@ -7,29 +7,12 @@ import time
 import datetime as dt
 import unittest
 import unittest.mock
+import sscpackage.dictpullssc
 
 """
 4/30/22 - Branch Start - Change To OOP Structure
 """
-
-def dictpull(arg, header):
-    """
-    No Need for this to be a class, a recurse function
-    :param arg:
-    :param header:
-    :return:
-    """
-    if isinstance(arg, dict):
-        for b in arg.keys():
-            if b == header:
-                return arg[b]
-            elif isinstance(arg[b], dict):
-                return dictpull(arg[b], header)
-            else:
-                continue
-    else:
-        for z in arg:
-            return dictpull(arg, header)
+DP1SSC = sscpackage.dictpullssc.DictPullSSC()
 
 
 class GradeSSC:
@@ -53,6 +36,7 @@ class GradeSSC:
         path_gs = "C:/SSC/SSC_GRADESHEETS/"
         pre_fix = "_" + str(sscf.get_financials.ticker_entryf) + "_" + \
                   str(int(str(time.time()).replace('.', ''))) + "_" + "GradeS.json"
+
 
         # Copy from above def statements in parse_tool.  Didn't want to alter and make top level
         def safe_open_w(path):
@@ -1007,29 +991,9 @@ class GradeSSC:
 
     def parsetool(self):
         """
-
+        Formats data from rapid API fetch
         """
 
-        def dictpull(arg, header):
-            """
-            This function uses recursion to iterate through the layers of nested dictionaries until it finds the
-            "key" it is looking for and returns the associated dictionary or value of that key.
-
-            :param arg: (a mixed array of nested list/dict statemetns
-            :param header: (The 'key' to what you are trying to pull out of the nested JSON)
-            :return: dict[header]: value
-            """
-            if isinstance(arg, dict):
-                for b in arg.keys():
-                    if b == header:
-                        return arg[b]
-                    elif isinstance(arg[b], dict):
-                        return dictpull(arg[b], header)
-                    else:
-                        continue
-            else:
-                for z in arg:
-                    return dictpull(arg, header)
 
         # bsheets parses 4 separate dictionaries of 'balance sheet financials' : value pairs and combines them into one list
         # the list of arrays only stores the 4 values in chronological order but no 'key' is carried over
@@ -1047,7 +1011,7 @@ class GradeSSC:
 
         try:
             with open("sectordata.json", 'r') as sd:
-                self.parsetool.sector = dictpull(json.load(sd), "Sector")
+                self.parsetool.sector = DP1SSC.dictpullssc(json.load(sd), "Sector")
                 print(str(self.parsetool.sector))
                 sd.close()
 
@@ -1057,7 +1021,7 @@ class GradeSSC:
 
         try:
             with open("sectordata.json", 'r') as sd:
-                self.parsetool.industry = dictpull(json.load(sd), "Industry")
+                self.parsetool.industry = DP1SSC.dictpullssc(json.load(sd), "Industry")
                 print(str(self.parsetool.sector))
                 sd.close()
 
@@ -1227,7 +1191,7 @@ class Test_ParseToolSSC_dictpull(unittest.TestCase):
         test_headerdictpull = "TEST FINAL"
         print(test_headerdictpull)
         print(mock_arg.value())
-        print(dictpull(mock_arg.value(), test_headerdictpull))
+        print(DP1SSC.dictpullssc(mock_arg.value(), test_headerdictpull))
 
 
         #self.assertEqual("True", test_dictpullresult, "Review: 'test_dictpull'")
