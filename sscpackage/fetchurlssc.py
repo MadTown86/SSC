@@ -76,7 +76,7 @@ class FetchUrlSSC:
                     fetchheadersssc="DEFAULTHEADER", *args, **kwargs):
         self.addfetchnamessc = addfetchnamessc
         with shelve.open(self.pathnamefetchurls) as fetchshelf:
-            temp_bankadd = dict(fetchshelf[self.shelfkey])
+            temp_bankadd = fetchshelf[self.shelfkey]
             temp_bankadd.update({addfetchnamessc: {"url": fetchurlssc, "qs": fetchqsssc, "headers": fetchheadersssc}})
             fetchshelf[self.shelfkey] = temp_bankadd
             fetchshelf.close()
