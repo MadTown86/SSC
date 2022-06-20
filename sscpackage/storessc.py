@@ -2,9 +2,8 @@ import mysql.connector
 #from mysql.connector import connect, Error
 import json
 import os
-import simplestockchecker_parsetool as sscp
+from sscpackage import parsessc as sscp
 import pandas as pd
-from unittest.mock import patch
 
 
 class StoreSSC:
@@ -15,6 +14,29 @@ class StoreSSC:
         self.host = host
         self.user = user
         self.password = password
+
+    """Need to finish"""
+    def create_table(self, tablename="test", *args, **kwargs):
+
+        ctable_assemblyvar = """
+                        USE sscdb;
+                        CREATE TABLE {tname} (
+                        {tablevarbody}
+                        );
+                        """.format(tname=tname, tablevarbody=tablevarbody)
+        dbtbl_create = """
+                        USE sscdb;
+                        CREATE TABLE {0} (
+                            id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                            ticker VARCHAR(5),
+                            logTime DATETIME DEFAULT CURRENT_TIMESTAMP,
+                            fetchdata LONGBLOB,
+                            idict JSON,
+                            bdict JSON,
+                            grade VARCHAR(2),
+                            elist JSON,
+                            arlist JSON
+                        );"""
 
 
     def db_chksetup(self):
@@ -38,6 +60,11 @@ class StoreSSC:
                 FROM INFORMATION_SCHEMA.SCHEMATA
                 WHERE SCHEMA_NAME = 'sscdb'
                 """
+
+                table_check="""
+                SELECT COUNT(*)
+                FROM INFORMATION_SCHEMA.COLUMNS
+                WHERE TABLE_NAME = {tablename}"""
 
                 dbtbl_create = """
                 CREATE DATABASE sscdb;

@@ -69,7 +69,6 @@ class GradeSSC:
         self.grade_tool.erlist = []  # This will store the errors/missing data from the analysis for review
         erlist = []
 
-
         self.grade_tool.arlist = [] #  This will store the initial analyst grades
 
         self.grade_tool.tp = 0 # this is going to store the total points and increment as the various factors pass logical pathways
@@ -868,7 +867,7 @@ class GradeSSC:
             ar_gr_denom = 0
             ar_gr_final = 0
 
-            with open("ardata.json", 'r') as arsheets:
+            with open("../ardata.json", 'r') as arsheets:
                 ardata = json.load(arsheets)
                 ardata_dict = ardata
                 ar_lists.append([ardata_dict["pageViews"][keys] for keys in ardata_dict["pageViews"] if
@@ -1017,7 +1016,7 @@ class GradeSSC:
         self.parsetool.industry = ""
 
         try:
-            with open("sectordata.json", 'r') as sd:
+            with open("../sectordata.json", 'r') as sd:
                 self.parsetool.sector = dictpull(json.load(sd), "Sector")
                 print(str(self.parsetool.sector))
                 sd.close()
@@ -1027,7 +1026,7 @@ class GradeSSC:
             print(Er)
 
         try:
-            with open("sectordata.json", 'r') as sd:
+            with open("../sectordata.json", 'r') as sd:
                 self.parsetool.industry = dictpull(json.load(sd), "Industry")
                 print(str(self.parsetool.sector))
                 sd.close()
@@ -1039,19 +1038,19 @@ class GradeSSC:
         # storing historical valuation information
         # 1/30/22 - Turns out that the information pulled from this API is spotty at best, most often ends up
         # with Empty data, may remove
-        with open("valdata.json", 'r') as valsheets:
+        with open("../valdata.json", 'r') as valsheets:
             vals_data = json.load(valsheets)
             val_dict = dict(vals_data)
             self.parsetool.valdict = val_dict
             valsheets.close()
 
         # storing analyst review data for parsing, should be possible to avoid this with function variables in fetch tool
-        with open("ardata.json", 'r') as arsheets:
+        with open("../ardata.json", 'r') as arsheets:
             ardata = json.load(arsheets)
             arsheets.close()
 
         # Open Balancesheets file, strip out values for 4 years and store in a list of lists
-        with open("balancesheets.json", 'r') as bsheets:
+        with open("../balancesheets.json", 'r') as bsheets:
             bsheets_data = json.load(bsheets)
 
             bsheets_zip = list(
@@ -1070,7 +1069,7 @@ class GradeSSC:
             bsheets.close()
 
         # Open incomestatements file, strip out values for 4 years and store in a list of lists
-        with open("incomestatements.json", 'r') as isheets:
+        with open("../incomestatements.json", 'r') as isheets:
             isheets_data = json.load(isheets)
 
             isheets_zip = list(
@@ -1187,23 +1186,3 @@ class GradeSSC:
                 f.close()
 
         return bsheets_zip, isheets_zip, isheets_dict, bsheets_dict
-
-class Test_ParseToolSSC_dictpull(unittest.TestCase):
-    def test_dictpull(self):
-        mock_arg = unittest.mock.MagicMock()
-        type(mock_arg).value = unittest.mock.MagicMock(return_value=dict({"TEST LEVEL A": {"TEST LEVEL B": "TLB VAL1",
-                                                                          "TEST LEVEL B2": "TLB VAL2",
-                                                                          "TEST LEVEL B3": {"TEST LEVEL C":
-                                                                            ["TLC VAL1", {"TEST FINAL": "TRUE"}]}}}))
-        test_headerdictpull = "TEST FINAL"
-        print(test_headerdictpull)
-        print(mock_arg.value())
-        print(dictpull(mock_arg.value(), test_headerdictpull))
-
-
-        #self.assertEqual("True", test_dictpullresult, "Review: 'test_dictpull'")
-
-
-
-if __name__ == '__main__':
-    unittest.main()

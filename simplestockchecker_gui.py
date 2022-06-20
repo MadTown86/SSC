@@ -1,8 +1,7 @@
 import tkinter as tk
 import simplestockchecker_fetchtool as sscf
-import simplestockchecker_parsetool as sscp
 import os
-from sscpackage import storessc as sst
+from sscpackage import storessc as sst, parsessc as sscp
 import tkinter.font as tk_font
 from tkinter import filedialog as fd
 from tkinter.messagebox import showinfo
