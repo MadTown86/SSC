@@ -46,7 +46,7 @@ class Test_FetchRulSSC(unittest.TestCase):
         FSSC2 = sscpackage.fetchurlssc.FetchUrlSSC()
         FSSC2.addfetchssc()
         with shelve.open(FSSC2.pathnamefetchurls) as testadd_fd:
-            tempbank_testadd = dict(testadd_fd[FSSC2.shelfkey])
+            tempbank_testadd = dict(testadd_fd[str(FSSC2.shelfkey)])
             default_valueassert = False
             if FSSC2.addfetchnamessc in tempbank_testadd.keys():
                 default_valueassert = True
