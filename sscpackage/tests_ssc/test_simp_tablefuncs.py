@@ -1,9 +1,8 @@
 import unittest
 from unittest.mock import patch
-import simp_tablefuncs
 import os
 
-import sscpackage.tests_ssc.simp_tablefuncs
+import simp_tablefuncs
 
 testarg_create = {'testname': 'varchar(50)', 'testname2': 'json'}
 
@@ -35,19 +34,19 @@ class TestSimpTableFuncs(unittest.TestCase):
         del mock_connector
 
     def test_delete_table(self):
-        STF = sscpackage.tests_ssc.simp_tablefuncs.Simp_TableFuncs()
+        STF = simp_tablefuncs.Simp_TableFuncs()
         test_value = STF.delete_table("test")
         correct_value = "DROP TABLE IF EXISTS test;"
         self.assertEqual(test_value, correct_value)
         del STF
 
     def test_create_sqlfunc(self):
-        STF = sscpackage.tests_ssc.simp_tablefuncs.Simp_TableFuncs()
+        STF = simp_tablefuncs.Simp_TableFuncs()
         STF.create_sqlfunc(None)
         del STF
 
     def test_runfunc(self):
-        STF = sscpackage.tests_ssc.simp_tablefuncs.Simp_TableFuncs()
+        STF = simp_tablefuncs.Simp_TableFuncs()
         self.assertEqual(((STF.runfunc('tableExistsOrNot', 'logentry'))[0])[0], 1)
         del STF
 

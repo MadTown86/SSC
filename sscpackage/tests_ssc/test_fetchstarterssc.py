@@ -15,7 +15,7 @@ class Test_FetchStarterFinal(unittest.IsolatedAsyncioTestCase):
         type(mock_fetchcyclerclassvar).rapid_fetch = mock_fetchcyclervar
         test_tickerlist = "MSFT, AMD, NVDA, TSLA, ORCL, AAPL, NVDA, GME, GE, FORD"
         FSF1 = sscpackage.fetchstarterssc.FetchStarterSSC(test_tickerlist)
-        await FSF1.fetch_cycle()
+        await FSF1._fetch_cycle()
         self.assertEqual(2, len(MockFetchCycler.mock_calls), "Missmatch")
 
 

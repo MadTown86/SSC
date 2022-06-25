@@ -6,12 +6,14 @@ class FetchStarterSSC:
     """
     This class accepts the tickerlist from user input as an arg, then starts parsing with asyncio and a maximum of 5
     concurrent fetches (max simultaneous RapidAPI will allow for my payment level)
+
+    This class and 'fetch_cycle'
     """
 
     def __init__(self, tickerlist="MSFT, AMD, TTD, MU, NVDA"):
         self.tickerlist = tickerlist.split(", ")
 
-    async def fetch_cycle(self, *args, **kwargs):
+    async def _fetch_cycle(self, *args, **kwargs):
         tickerlistvar_fetchssc = self.tickerlist
         while tickerlistvar_fetchssc:
             if len(tickerlistvar_fetchssc) >= 5:
@@ -26,3 +28,4 @@ class FetchStarterSSC:
                 for indexno in range(len(tickerlistvar_fetchssc)):
                     await asyncio.gather(FetchSSC(tickerlistvar_fetchssc.pop(0)).rapid_fetch())
             await asyncio.sleep(1)
+
