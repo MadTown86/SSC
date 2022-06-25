@@ -5,7 +5,9 @@ import os
 
 import sscpackage.tests_ssc.simp_tablefuncs
 
-testarg_create = {'testname':'varchar(50)', 'testname2':'json'}
+testarg_create = {'testname': 'varchar(50)', 'testname2': 'json'}
+
+
 class TestSimpTableFuncs(unittest.TestCase):
 
     def test_createtable(self):
@@ -39,10 +41,15 @@ class TestSimpTableFuncs(unittest.TestCase):
         self.assertEqual(test_value, correct_value)
         del STF
 
-    def test_table_exists(self):
+    def test_create_sqlfunc(self):
         STF = sscpackage.tests_ssc.simp_tablefuncs.Simp_TableFuncs()
-        STF.funcdrop(None)
+        STF.create_sqlfunc(None)
+        del STF
 
+    def test_runfunc(self):
+        STF = sscpackage.tests_ssc.simp_tablefuncs.Simp_TableFuncs()
+        self.assertEqual(((STF.runfunc('tableExistsOrNot', 'logentry'))[0])[0], 1)
+        del STF
 
 
 if __name__ == '__main__':
