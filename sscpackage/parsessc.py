@@ -7,6 +7,8 @@ import time
 import datetime as dt
 import unittest
 import unittest.mock
+import fetchlogssc
+import fetchshelfssc_mod
 
 """
 4/30/22 - Branch Start - Change To OOP Structure
@@ -37,6 +39,65 @@ def safe_open_w(path):
     """
     os.makedirs(os.path.dirname(path), exist_ok=True)
     return open(path, 'w')
+
+class ParseIncome:
+    """
+    This is to take raw data for income statements and process it for use in algorithm.
+    May be easiest way to update in the future instead of having all in one class/method
+    """
+    def parseincome(self, uniquename, pi_rawdata):
+        uniquesplitlist = uniquename.split("__")
+        ticker, key, idssc = uniquesplitlist[0], uniquesplitlist("__")[1], uniquesplitlist[2]
+
+        isheets_data = json.load(pi_rawdata)
+
+        isheets_zip = list(
+            zip(
+                [isheets_data["annual_historical_income_statements"][0][keys] for keys in
+                 isheets_data["annual_historical_income_statements"][0]],
+                [isheets_data["annual_historical_income_statements"][1][keys] for keys in
+                 isheets_data["annual_historical_income_statements"][1]],
+                [isheets_data["annual_historical_income_statements"][2][keys] for keys in
+                 isheets_data["annual_historical_income_statements"][2]],
+                [isheets_data["annual_historical_income_statements"][3][keys] for keys in
+                 isheets_data["annual_historical_income_statements"][3]],
+            )
+        )
+
+        FST_SSC = fetchshelfssc_mod.FetchShelfSSC(ticker=ticker, fetchstoreshelf="../storage/isheetsdb")
+        FST_SSC.fetchstore(key=key, idssc=idssc, )
+
+        pass
+
+
+class ParseBalance:
+    """
+    Process raw JSON data for Balance Sheets to prepare for grading algorithm
+    """
+    def parsebalance(self, uniquename, pb_rawdata):
+        pass
+
+class ParseSector:
+    """
+    Process raw JSON data for Sector to prepare for grading algorithm
+    """
+    def parsesector(self, uniquename, ps_rawdata):
+        pass
+
+class ParseAr:
+    """
+    Process raw JSON data for upgrades-downgrades for grading algorithm
+    """
+    def parsear(self, uniquename, par_rawdata):
+        pass
+
+class ParseVal:
+    """
+    Process raw JSON data
+    """
+    def parseval(self, uniquename, pval_rawdata):
+        pass
+
 
 class GradeSSC:
     def __init__(self):
@@ -997,6 +1058,71 @@ class GradeSSC:
         f.close()
 
         return gv
+
+    def ssc_parselogstart(self):
+        """
+        1. opens log file with stored list of current keys
+        2. for loop through list to access fetchstore shelve and pull data
+        3. Filter data into respective instance variables for parsing.
+        """
+
+        FS_SSC = fetchshelfssc_mod.FetchShelfSSC()
+        shelvecopy_fromapi = FS_SSC.fetchdbpull()
+        del FS_SSC
+
+        FLOG = fetchlogssc.FetchLogSSC()
+        local_logcopy = FLOG.ssc_logfetch()
+        del FLOG
+
+        PI_SSC = ParseIncome()
+        PB_SSC = ParseBalance()
+        PVAL_SSC = ParseVal()
+        PAR_SSC = ParseAr()
+        PSEC_SSC = ParseSector()
+
+        inctag = "url_income"
+        baltag = "url_balance"
+        valtag = "url_val"
+        artag = "url_ar"
+        sectag = "url_sector"
+        tag_container = [inctag, baltag, valtag, artag, sectag]
+
+        dict_tagswitchboard = {inctag: lambda logentrylamb:
+                               PI_SSC.parseincome(logentrylamb, shelvecopy_fromapi[logentrylamb]),
+
+                               baltag: lambda logentrylamb:
+                               PB_SSC.parsebalance(logentrylamb, shelvecopy_fromapi[logentrylamb]),
+
+                               valtag: lambda logentrylamb:
+                               PVAL_SSC.parseval(logentrylamb, shelvecopy_fromapi[logentrylamb]),
+
+                               artag: lambda logentrylamb:
+                               PAR_SSC.parsear(logentrylamb, shelvecopy_fromapi[logentrylamb]),
+
+                               sectag: lambda logentrylamb:
+                               PSEC_SSC.parsesector(logentrylamb, shelvecopy_fromapi[logentrylamb])}
+
+        for logentry in local_logcopy:
+            for tag in tag_container:
+                if tag in logentry:
+                    (dict_tagswitchboard[tag])(logentry)
+                    break
+                else:
+                    continue
+
+        del PI_SSC
+        del PB_SSC
+        del PSEC_SSC
+        del PAR_SSC
+        del PVAL_SSC
+
+
+
+
+
+
+
+
 
 
     def parsetool(self):

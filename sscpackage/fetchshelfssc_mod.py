@@ -5,6 +5,7 @@ class FetchShelfSSC:
     Attributes:
         -self.ticker
         -self.fetchstoreshelf
+        -self.fetchstorename
 
     Methods:
         -fetchstore() - stores the fetch data in "fetchfiledb" shelve
@@ -13,6 +14,7 @@ class FetchShelfSSC:
     def __init__(self, ticker="MSFT", fetchstoreshelf="fetchfiledb"):
         self.ticker = ticker
         self.fetchstoreshelf = fetchstoreshelf
+        self.fetchstorename = ""
 
     def fetchstore(self, key="url_income", idssc="DEFAULTID", fetch_data="DEFAULTDATA",
                    *args, **kwargs):
@@ -20,6 +22,7 @@ class FetchShelfSSC:
         fetchstorename = str(self.ticker) + "__" + str(key) + "__" + str(idssc)
         filedb[fetchstorename] = fetch_data
         filedb.close()
+        self.fetchstorename = fetchstorename
         return fetchstorename
 
     def fetchdbpull(self, *args, **kwargs):

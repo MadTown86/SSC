@@ -3,7 +3,7 @@ count = 0
 
 def dictpull(seq, header):
     """
-    Dictpull takes a container as an argument and he name of the key you want to pull.  This only works to a 'key': 'value
+    Dictpull takes a container as an argument and the name of the key you want to pull.  This only works for a 'key': 'value
     pair from a complex, nested sequence.
 
     :param seq: (This is a nested array that can contain any combination of dict, list, set or tuple.
