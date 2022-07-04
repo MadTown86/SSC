@@ -5,7 +5,7 @@ class TestFetchLog(unittest.TestCase):
     def test_fetchlogwrite(self):
         FS = fetchlogssc.FetchLogSSC()
         FS.ssc_fetchlogwrite("TEST")
-        with open("fetchlog.txt", 'r') as fl:
+        with open("../storage/fetchlog.txt", 'r') as fl:
             res = fl.readline()
             fl.close()
         self.assertEqual(res, "TEST")
@@ -14,7 +14,7 @@ class TestFetchLog(unittest.TestCase):
     def test_fetchlogclear(self):
         FS = fetchlogssc.FetchLogSSC()
         FS.ssc_fetchlogclear()
-        with open("fetchlog.txt", 'r') as fl:
+        with open("../storage/fetchlog.txt", 'r') as fl:
             res = fl.readline()
             fl.close()
 

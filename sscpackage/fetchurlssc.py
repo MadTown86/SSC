@@ -8,8 +8,14 @@ class FetchUrlSSC:
 
     #3
     """
-    def __init__(self, ticker="MSFT", pathnamefetchurls="fetchurlshelfdb", pathbakssc="fetchurlshelfdb.bak", pathdatssc="fetchurlshelfdb.dat",
-                 pathdirssc="fetchurlshelfdb.dir", shelfkey="fetchbank", *args, **kwargs):
+    setpath_fetchurlssc = r'C:\SSC\SimpleStockChecker_REV1\sscpackage\storage'
+
+    def __init__(self, ticker="MSFT", pathnamefetchurls=
+                 setpath_fetchurlssc + r"\fetchurlshelfdb",
+                 pathbakssc=setpath_fetchurlssc + r"\fetchurlshelfdb.bak",
+                 pathdatssc=setpath_fetchurlssc + r"\fetchurlshelfdb.dat",
+                 pathdirssc=setpath_fetchurlssc + r"\fetchurlshelfdb.dir",
+                 shelfkey="fetchbank", *args, **kwargs):
         self.ticker = ticker
         self.pathbakssc = pathbakssc
         self.pathdatssc = pathdatssc
@@ -106,7 +112,7 @@ class FetchUrlSSC:
             else:
                 return False
 
-    def clearfetchshelfssc(self, path="fetchurlshelfdb"):
+    def clearfetchshelfssc(self, path: 'str' = "fetchurlshelfdb") -> None:
         if self.checkpaths():
             with shelve.open(path) as fetchshelf:
                 for key in fetchshelf.keys():

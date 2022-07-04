@@ -11,15 +11,18 @@ class FetchShelfSSC:
         -fetchstore() - stores the fetch data in "fetchfiledb" shelve
         -fetchdbpull() - pulls and returns the shelve "fetchfiledb"
     """
-    def __init__(self, ticker="MSFT", fetchstoreshelf="fetchfiledb"):
+    setpath_fetchshelfssc = r'C:\SSC\SimpleStockChecker_REV1\sscpackage\storage'
+
+    def __init__(self, ticker="MSFT",
+                 fetchstoreshelf=setpath_fetchshelfssc + r"\fetchfiledb"):
         self.ticker = ticker
         self.fetchstoreshelf = fetchstoreshelf
         self.fetchstorename = ""
 
-    def fetchstore(self, key="url_income", idssc="DEFAULTID", fetch_data="DEFAULTDATA",
+    def fetchstore(self, key="url_income", idssc="DEFAULTID", fetch_data="DEFAULTDATA", timestampidfs="DEFTSID",
                    *args, **kwargs):
         filedb = shelve.open(self.fetchstoreshelf)
-        fetchstorename = str(self.ticker) + "__" + str(key) + "__" + str(idssc)
+        fetchstorename = str(self.ticker) + "__" + str(key) + "__" + str(idssc) + "__" + str(timestampidfs)
         filedb[fetchstorename] = fetch_data
         filedb.close()
         self.fetchstorename = fetchstorename
@@ -33,3 +36,5 @@ class FetchShelfSSC:
                 return bank
             else:
                 print("Shelf Empty")
+
+
