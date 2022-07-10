@@ -1,5 +1,6 @@
 import json
 import fetchshelfssc_mod
+import shelve
 
 
 class ParseIncome:
@@ -7,6 +8,8 @@ class ParseIncome:
     Class for parseincome, in case API format changes and needs to be altered in the future, use inheritance without
     breaking application
     """
+    def __init__(self):
+        self.setpathssc_parsessc = r"C:\SSC\SimpleStockChecker_REV1\sscpackage\storage\parseincomeshelf"
 
     def parseincome(self, uniquename: 'str', pi_rawdata: 'json') -> None:
         """
@@ -42,11 +45,24 @@ class ParseIncome:
             for x in range(len(isheets_keys)):
                 isheets_dict[isheets_keys[x]] =isheets_zip[x]
 
-            setpathssc_parsessc = r"C:\SSC\SimpleStockChecker_REV1\sscpackage\storage\parseincomeshelf"
-            FST_SSC = fetchshelfssc_mod.FetchShelfSSC(ticker=ticker, fetchstoreshelf=setpathssc_parsessc)
+            FST_SSC = fetchshelfssc_mod.FetchShelfSSC(ticker=ticker, fetchstoreshelf=self.setpathssc_parsessc)
             FST_SSC.fetchstore(key=key, idssc=idssc, fetch_data=isheets_dict, timestampidfs=timestampidpi)
             del FST_SSC
 
         except Exception as Er:
             print("Exception in 'ParseIncome.parseincome'  ::  ")
             print(str(Er))
+
+    def fetch_parseincome(self, timestampidpi):
+        try:
+            with shelve.open(self.setpathssc_parsessc) as pibank:
+                for key in pibank.keys():
+                    if timestampidpi in key:
+                        pushdata = pibank[key]
+                    else:
+                        continue
+
+                return pushdata
+        except Exception as Er:
+            print("Exception: 'fetch_parseincome'\n")
+            print(Er)

@@ -12,6 +12,7 @@ def dictpull(seq, header):
     """
     dictpull.answer = None
     global dictpullsscflag
+    print(seq)
 
     if not seq:
         return [seq]
@@ -55,6 +56,12 @@ def dictpull(seq, header):
                             continue
                     else:
                         continue
+
+            elif isinstance(seq, int):
+                pass
+
+            elif isinstance(seq, float):
+                pass
 
             else:
                 for element in range(len(seq)):

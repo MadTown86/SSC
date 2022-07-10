@@ -1,6 +1,8 @@
 import unittest
 from unittest.mock import patch
 import sscpackage.fetchstarterssc
+import sscpackage.fetchssc
+
 
 
 class Test_FetchStarterFinal(unittest.IsolatedAsyncioTestCase):

@@ -17,6 +17,20 @@ class ParseVal:
         vals_data = json.loads(pval_rawdata)
         val_dict = dict(vals_data)
 
+        pv_tempkeylist = [key for key in vals_data.keys()]
+        pv_valstorelist = []
+        dictpack = val_dict["historical valuation measures"]
+
+        while dictpack:
+            for indexer in range(len(pv_tempkeylist)):
+                pv_valstorelist[indexer] = list(zip(pv_valstorelist[indexer], dictpack.pop(0)[pv_tempkeylist[indexer]]))
+
+
+
+
+
+
+
         FST_SSC = fetchshelfssc_mod.FetchShelfSSC(ticker=ticker, fetchstoreshelf=setpathssc_parsesscval)
         FST_SSC.fetchstore(key=key, idssc=idssc, fetch_data=val_dict, timestampidfs=timestampidpval)
         del FST_SSC

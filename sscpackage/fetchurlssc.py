@@ -23,6 +23,10 @@ class FetchUrlSSC:
         self.pathnamefetchurls = pathnamefetchurls
         self.shelfkey = shelfkey
 
+    def firstcreate_fetchurlssc(self):
+        with shelve.open(self.pathnamefetchurls) as shelvefetch:
+            shelvefetch.close()
+
 
     def checkpaths(self):
         fetchpaths = [self.pathbakssc, self.pathdatssc, self.pathdirssc]
@@ -34,7 +38,9 @@ class FetchUrlSSC:
         if count == 3:
             return True
         else:
-            return False
+            self.firstcreate_fetchurlssc()
+            self.checkpaths()
+
 
     def fetchshelfinitialize(self, ticker="MSFT"):
         self.ticker = ticker
@@ -97,7 +103,7 @@ class FetchUrlSSC:
 
     def pullfetchshelf(self, fetchurlshelfnamessc = "fetchurlshelfdb", *args, **kwargs):
         self.fetchshelfinitialize()
-        with shelve.open(fetchurlshelfnamessc) as fetchshelfpullssc:
+        with shelve.open(self.pathnamefetchurls) as fetchshelfpullssc:
             if dict(fetchshelfpullssc[self.shelfkey]):
                 bank = dict(fetchshelfpullssc[self.shelfkey])
                 fetchshelfpullssc.close()
@@ -105,16 +111,16 @@ class FetchUrlSSC:
             else:
                 print("error in pullfetchshelf")
 
-    def checkshelfcontent(self, shelfname="fetchurlshelfdb"):
-        with shelve.open(shelfname) as fetchshelfcheck:
+    def checkshelfcontent(self):
+        with shelve.open(self.pathnamefetchurls) as fetchshelfcheck:
             if fetchshelfcheck:
                 return True
             else:
                 return False
 
-    def clearfetchshelfssc(self, path: 'str' = "fetchurlshelfdb") -> None:
+    def clearfetchshelfssc(self) -> None:
         if self.checkpaths():
-            with shelve.open(path) as fetchshelf:
+            with shelve.open(self.pathnamefetchurls) as fetchshelf:
                 for key in fetchshelf.keys():
                     del fetchshelf[key]
                 fetchshelf.close()

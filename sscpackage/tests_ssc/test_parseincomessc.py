@@ -15,6 +15,7 @@ class MyTestCase(unittest.TestCase):
         if not SPEEK_SSC.fetchpeek(path=pincomepath, keysearch=namevar):
             with open(r'C:\SSC\SimpleStockChecker_REV1\sscpackage\storage\test_parse_income.json', 'r') as fd:
                 PISSC_test.parseincome(namevar, fd.read())
+                fd.close()
         else:
             pass
 

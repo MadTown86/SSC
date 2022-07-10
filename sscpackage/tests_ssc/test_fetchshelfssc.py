@@ -19,9 +19,9 @@ class Test_FetchShelfSSC(unittest.TestCase):
             MockShelveVar.open = mock_shelvemethod
             FS1 = FetchShelfSSC()
             fetchstorenamefromFS1 = FS1.fetchstore()
-        self.assertEqual("MSFT__url_income__DEFAULTID", fetchstorenamefromFS1, "First")
+        self.assertEqual("MSFT__url_income__DEFAULTID__DEFTSID", fetchstorenamefromFS1, "First")
         self.assertTrue(ShelveMock.called)
-        ShelveMock.assert_called_with("fetchfiledb")
+        ShelveMock.assert_called_with(r'C:\SSC\SimpleStockChecker_REV1\sscpackage\storage\fetchfiledb')
 
     @patch('shelve.open')
     def test_fetchdbpullssc(self, MockShelve):
@@ -32,7 +32,7 @@ class Test_FetchShelfSSC(unittest.TestCase):
         FS1 = sscpackage.fetchshelfssc_mod.FetchShelfSSC()
         FS1.fetchdbpull()
 
-        MockShelve.assert_called_with('fetchfiledb')
+        MockShelve.assert_called_with(r'C:\SSC\SimpleStockChecker_REV1\sscpackage\storage\fetchfiledb')
 
 if __name__ == '__main__':
     unittest.main()
