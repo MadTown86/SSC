@@ -18,13 +18,25 @@ class ParseVal:
         val_dict = dict(vals_data)
 
         pv_tempkeylist = [key for key in vals_data.keys()]
-        pv_valstorelist = []
-        dictpack = val_dict["historical valuation measures"]
+        datadict = val_dict["historical valuation measures"]
+        listcollection = []
 
-        while dictpack:
-            for indexer in range(len(pv_tempkeylist)):
-                pv_valstorelist[indexer] = list(zip(pv_valstorelist[indexer], dictpack.pop(0)[pv_tempkeylist[indexer]]))
+        keylist = [key for key in vals_data.keys()]
 
+        for indexer in range(len(datadict)):
+            listcollection.append([datadict[indexer][key] for key in datadict[indexer].keys()])
+
+        print(listcollection)
+
+        def zipperzip(*args):
+            return list(zip(*args))
+
+        newlist = zipperzip(*listcollection)
+
+        dictit = {}
+
+        for indexer in range(len(keylist)):
+            dictit[keylist[indexer]] = newlist[indexer]
 
 
 

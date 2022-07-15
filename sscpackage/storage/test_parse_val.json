@@ -1,0 +1,66 @@
+{
+    "historical valuation measures": [
+        {
+            "Market Cap (intraday)": 1940000000000.0,
+            "Enterprise Value": 1900000000000.0,
+            "Trailing P/E": 27.1,
+            "Forward P/E": 24.1,
+            "PEG Ratio (5 yr expected)": 1.75,
+            "Price/Sales (ttm)": 10.19,
+            "Price/Book (mrq)": 11.92,
+            "Enterprise Value/Revenue": 9.86,
+            "Enterprise Value/EBITDA": 19.25,
+            "Date": "2022-07-04T00:00:00"
+        },
+        {
+            "Market Cap (intraday)": 2310000000000.0,
+            "Enterprise Value": 2250000000000.0,
+            "Trailing P/E": 32.83,
+            "Forward P/E": 28.57,
+            "PEG Ratio (5 yr expected)": 2.12,
+            "Price/Sales (ttm)": 12.63,
+            "Price/Book (mrq)": 14.42,
+            "Enterprise Value/Revenue": 45.5,
+            "Enterprise Value/EBITDA": 91.79,
+            "Date": "2022-03-31T00:00:00"
+        },
+        {
+            "Market Cap (intraday)": 2520000000000.0,
+            "Enterprise Value": 2460000000000.0,
+            "Trailing P/E": 37.62,
+            "Forward P/E": 36.9,
+            "PEG Ratio (5 yr expected)": 2.87,
+            "Price/Sales (ttm)": 14.48,
+            "Price/Book (mrq)": 16.6,
+            "Enterprise Value/Revenue": 47.46,
+            "Enterprise Value/EBITDA": 92.52,
+            "Date": "2021-12-31T00:00:00"
+        },
+        {
+            "Market Cap (intraday)": 2120000000000.0,
+            "Enterprise Value": 2049999999999.9998,
+            "Trailing P/E": 35.02,
+            "Forward P/E": 31.55,
+            "PEG Ratio (5 yr expected)": 2.6,
+            "Price/Sales (ttm)": 12.76,
+            "Price/Book (mrq)": 14.91,
+            "Enterprise Value/Revenue": 45.34,
+            "Enterprise Value/EBITDA": 84.64,
+            "Date": "2021-09-30T00:00:00"
+        },
+        {
+            "Market Cap (intraday)": 2040000000000.0,
+            "Enterprise Value": 1980000000000.0,
+            "Trailing P/E": 36.91,
+            "Forward P/E": 32.57,
+            "PEG Ratio (5 yr expected)": 2.65,
+            "Price/Sales (ttm)": 12.91,
+            "Price/Book (mrq)": 15.14,
+            "Enterprise Value/Revenue": 42.88,
+            "Enterprise Value/EBITDA": 84.92,
+            "Date": "2021-06-30T00:00:00"
+        }
+    ],
+    "date": "2022-07-10T00:59:53.414552",
+    "status": "success"
+}
