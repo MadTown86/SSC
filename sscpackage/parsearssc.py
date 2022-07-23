@@ -29,9 +29,8 @@ class ParseAr:
                         pushdata = pibank[key]
                     else:
                         continue
-
-
                 return pushdata
+
         except Exception as Er:
             print("Exception: 'fetch_parsebalance'\n")
             print(Er)
