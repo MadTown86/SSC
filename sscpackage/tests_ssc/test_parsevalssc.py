@@ -11,7 +11,7 @@ class MyTestCase(unittest.TestCase):
         test_parsevaluniquename = "Testticker__Testkey__Testidssc__Testtimestampidval"
 
         with open(test_datapathparsevalssc, 'r') as pvssctest:
-            parsevaldata = json.loads(pvssctest.read())
+            parsevaldata = pvssctest.read()
             pvssctest.close()
 
         PSVAL.parseval(test_parsevaluniquename, parsevaldata)

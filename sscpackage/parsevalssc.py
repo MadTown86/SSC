@@ -1,6 +1,8 @@
 import json
 import fetchshelfssc_mod
 import shelve
+import shelfpeekssc
+
 
 
 class ParseVal:
@@ -11,6 +13,7 @@ class ParseVal:
         self.setpathssc_parsesscval = r"C:\SSC\SimpleStockChecker_REV1\sscpackage\storage\parsevalshelf"
 
     def parseval(self, uniquename, pval_rawdata):
+
         uniquesplitlist = uniquename.split("__")
         ticker, key, idssc, timestampidpval = uniquesplitlist[0], uniquesplitlist[1], uniquesplitlist[2], \
                                               uniquesplitlist[3]
