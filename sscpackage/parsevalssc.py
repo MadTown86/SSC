@@ -15,7 +15,7 @@ class ParseVal:
     def parseval(self, uniquename, pval_rawdata):
 
         uniquesplitlist = uniquename.split("__")
-        ticker, key, idssc, timestampidpval = uniquesplitlist[0], uniquesplitlist[1], uniquesplitlist[2], \
+        ticker, name_key, idssc, timestampidpval = uniquesplitlist[0], uniquesplitlist[1], uniquesplitlist[2], \
                                               uniquesplitlist[3]
 
         vals_data = json.loads(pval_rawdata)
@@ -24,27 +24,36 @@ class ParseVal:
         datadict = val_dict["historical valuation measures"]
         listcollection = []
 
-        keylist = [key for key in vals_data.keys()]
+        keylist = [data_key for data_key in datadict[0].keys()]
 
         for indexer in range(len(datadict)):
             listcollection.append([datadict[indexer][key] for key in datadict[indexer].keys()])
 
-        ziplistcollect = list(zip(*[line for line in listcollection]))
+        ziplistcollect = list(map(list, zip(*[line for line in listcollection])))
+
+        print("ZIP LIST COLLECTION::::    ", ziplistcollect)
 
         keyedlistcollect = {}
 
         for indexno in range(len(keylist)):
             keyedlistcollect[keylist[indexno]] = ziplistcollect[indexno]
 
+        for dataparseval_key in keyedlistcollect.keys():
+            print("KEY::: {key} VALUE::: {value}".format(key=dataparseval_key, value=keyedlistcollect[dataparseval_key]))
+
         FST_SSC = fetchshelfssc_mod.FetchShelfSSC(ticker=ticker, fetchstoreshelf=self.setpathssc_parsesscval)
-        FST_SSC.fetchstore(key=key, idssc=idssc, fetch_data=keyedlistcollect, timestampidfs=timestampidpval)
+        FST_SSC.fetchstore(key=name_key, idssc=idssc, fetch_data=keyedlistcollect, timestampidfs=timestampidpval)
         del FST_SSC
 
     def fetchparseval(self, timestampidpval):
         try:
             with shelve.open(self.setpathssc_parsesscval) as psscval:
-                if timestampidpval in psscval.keys():
-                    return psscval[timestampidpval]
+                if psscval.keys():
+                    for fetchparseval_key in psscval.keys():
+                        if timestampidpval in fetchparseval_key:
+                            return dict(psscval[fetchparseval_key])
+                        else:
+                            return 0
                 else:
                     return 0
 

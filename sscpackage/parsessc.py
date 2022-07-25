@@ -32,36 +32,36 @@ class ParseStart:
         PSEC_SSC = parsesectorssc.ParseSector()
         PIND_SSC = parseindssc.ParseIndustry()
 
-        inctag = "url_income"
-        baltag = "url_balance"
-        valtag = "url_val"
-        artag = "url_ar"
-        sectag = "url_sector"
-        tag_container = [inctag, baltag, valtag, artag, sectag]
 
+        tag_container = {}
+        tag_container["url_income"] = "inctag"
+        tag_container["url_balance"] = "baltag"
+        tag_container["url_val"] = "valtag"
+        tag_container["url_ar"] = "artag"
+        tag_container["url_sectordata"] = "sectag"
         def indsec(tag):
             PSEC_SSC.parsesector(tag, shelvecopy_fromapi[tag]),
             PIND_SSC.parseindustry(tag, shelvecopy_fromapi[tag])
 
-        dict_tagswitchboard = {inctag: lambda logentrylamb:
+        dict_tagswitchboard = {"inctag": lambda logentrylamb:
         PI_SSC.parseincome(logentrylamb, shelvecopy_fromapi[logentrylamb]),
 
-                               baltag: lambda logentrylamb:
+                               "baltag": lambda logentrylamb:
                                PB_SSC.parsebalance(logentrylamb, shelvecopy_fromapi[logentrylamb]),
 
-                               valtag: lambda logentrylamb:
+                               "valtag": lambda logentrylamb:
                                PVAL_SSC.parseval(logentrylamb, shelvecopy_fromapi[logentrylamb]),
 
-                               artag: lambda logentrylamb:
+                               "artag": lambda logentrylamb:
                                PAR_SSC.parsear(logentrylamb, shelvecopy_fromapi[logentrylamb]),
 
-                               sectag: lambda logentrylamb: indsec(logentrylamb)
+                               "sectag": lambda logentrylamb: indsec(logentrylamb)
                                }
 
         for logentry in local_logcopy:
-            for tag in tag_container:
+            for tag in tag_container.keys():
                 if tag in logentry:
-                    (dict_tagswitchboard[tag])(logentry)
+                    (dict_tagswitchboard[tag_container[tag]])(logentry)
                     break
                 else:
                     continue

@@ -24,7 +24,9 @@ class ParseIncome:
             ticker, key, idssc, timestampidpi = uniquesplitlist[0], uniquesplitlist[1], uniquesplitlist[2], \
                                                 uniquesplitlist[3]
 
-            isheets_data = json.loads(pi_rawdata)
+            isheets_data = pi_rawdata
+
+
 
             isheets_zip = list(
                 zip(

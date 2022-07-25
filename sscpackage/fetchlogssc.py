@@ -4,9 +4,9 @@ class FetchLogSSC:
 
 
     def ssc_fetchlogwrite(self, fetchstorename):
-        with open(self.fetchlogpath, 'w') as fl:
-            fl.write(fetchstorename)
-
+        with open(self.fetchlogpath, 'a') as fl:
+            fl.seek(0, 2)
+            fl.write(fetchstorename+", ")
             fl.close()
 
     def ssc_fetchlogclear(self):
@@ -17,8 +17,9 @@ class FetchLogSSC:
     def ssc_logfetch(self):
         logfetch_retval = []
         with open(self.fetchlogpath, 'r') as fl3:
-            for logentry in fl3.readlines():
+            fl3.seek(0, 0)
+            data = fl3.read().split(", ")
+            for logentry in data:
                 logfetch_retval.append(logentry)
-
             fl3.close()
         return logfetch_retval

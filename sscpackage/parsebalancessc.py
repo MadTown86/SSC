@@ -17,7 +17,7 @@ class ParseBalance:
 
             setpathssc_parsesscpb = r"C:\SSC\SimpleStockChecker_REV1\sscpackage\storage\parsebalanceshelf"
 
-            bsheets_data = json.loads(pb_rawdata)
+            bsheets_data = pb_rawdata
 
             bsheets_zip = list(
                 zip(
