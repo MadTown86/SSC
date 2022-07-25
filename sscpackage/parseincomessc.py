@@ -26,8 +26,6 @@ class ParseIncome:
 
             isheets_data = pi_rawdata
 
-
-
             isheets_zip = list(
                 zip(
                     [isheets_data["annual_historical_income_statements"][0][keys] for keys in

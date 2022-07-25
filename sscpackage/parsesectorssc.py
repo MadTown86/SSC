@@ -17,9 +17,8 @@ class ParseSector:
         ticker, key, idssc, timestampidpsec = uniquesplitlist[0], uniquesplitlist[1], uniquesplitlist[2], \
                                               uniquesplitlist[3]
 
-
         DP_SSCPSEC = dictpullssc.DictPullSSC()
-        secdata = DP_SSCPSEC.dictpullssc(json.loads(ps_rawdata), "Sector")
+        secdata = DP_SSCPSEC.dictpullssc(ps_rawdata, "Sector")
 
         FST_SSC = fetchshelfssc_mod.FetchShelfSSC(ticker=ticker, fetchstoreshelf=self.setpathssc_parsesscsec)
         FST_SSC.fetchstore(key=key, idssc=idssc, fetch_data=secdata, timestampidfs=timestampidpsec)

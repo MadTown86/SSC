@@ -12,7 +12,6 @@ def dictpull(seq, header):
     """
     dictpull.answer = None
     global dictpullsscflag
-    print(seq)
 
     if not seq:
         return [seq]

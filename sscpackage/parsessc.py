@@ -62,6 +62,7 @@ class ParseStart:
             for tag in tag_container.keys():
                 if tag in logentry:
                     (dict_tagswitchboard[tag_container[tag]])(logentry)
+                    print("ENTRY: TAG - {tag}::::: LOGENTRY - {logentry}::".format(logentry=logentry, tag=tag))
                     break
                 else:
                     continue
