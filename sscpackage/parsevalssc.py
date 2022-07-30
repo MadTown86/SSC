@@ -43,14 +43,18 @@ class ParseVal:
     def fetchparseval(self, timestampidpval):
         try:
             with shelve.open(self.setpathssc_parsesscval) as psscval:
-                if psscval.keys():
-                    for fetchparseval_key in psscval.keys():
-                        if timestampidpval in fetchparseval_key:
-                            return dict(psscval[fetchparseval_key])
-                        else:
-                            return 0
-                else:
+                shelfpointerprob = psscval.keys()
+                if not bool(shelfpointerprob):
+                    psscval.close()
                     return 0
+                else:
+                    for key in psscval.keys():
+                        if timestampidpval in key:
+                            retvalpsscval = psscval[key]
+                            psscval.close()
+                            return retvalpsscval
+                        else:
+                            continue
 
         except Exception as Er:
             print("Error: parsevalssc.fetchparseval")
