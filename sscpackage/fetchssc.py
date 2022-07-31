@@ -33,7 +33,7 @@ def myownrandom(keylength=10):
             place += 1
             theshuffler(binbasket, timestamp)
         elif place == 7:
-            seeder = "GroverDaniellePotterDonlonPennPants"
+            seeder = "GroverDaniellePotterShoeDonlonPennPantsMom"
             add = seeder[random.randint(1, 34)]
             keyresult += add
             place += 1

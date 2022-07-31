@@ -6,6 +6,21 @@ import json
 import os
 import os.path
 import fetchshelfssc_mod
+import gradeincomessc
+
+class GradeCollection:
+    """
+    Grade Process
+    1. Create dictionary of all parse shelves
+    1. Income Statement YoY grading - Key Metrics
+    2. Financial Ratio Grading % of Revenue
+    3. Financial Ratio Grading - Balance Sheet Metrics
+
+    """
+    def __init__(self):
+        self.totalpoints = 0
+        self.points = 0
+        self.gradeincome = gradeincomessc.GradeIncomeSSC()
 
 class GradeSSC:
     def __init__(self):
