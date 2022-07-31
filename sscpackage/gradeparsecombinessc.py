@@ -8,7 +8,6 @@ import parseincomessc
 import parseindssc
 import parsesectorssc
 import parsevalssc
-import fetchlogssc
 
 class GradeParseCombineSSC():
     def gradeparsecombinessc(self, ticker, logfileidssc):
