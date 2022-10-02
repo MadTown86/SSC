@@ -95,6 +95,7 @@ class ParseStart:
                     if len(logentry.split("__")) > 1:
                         tempsplit = logentry.split("__")
                         ticker = tempsplit[0]
+                        print(f'PARSESTART: {ticker}')
                         urlbinding = tempsplit[1]
                         temp_logentry = ticker + "__" + urlbinding
                         if temp_logentry in ticker_fail:

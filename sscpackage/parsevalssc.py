@@ -4,12 +4,25 @@ import fetchshelfssc_mod
 
 
 class ParseVal:
+
     """
     Process raw JSON data
     """
 
     def __init__(self):
         self.setpathssc_parsesscval = r"C:\SSC\SimpleStockChecker_REV1\sscpackage\storage\parsevalshelf"
+
+
+    def parseval_keys(self):
+        with shelve.open(self.setpathssc_parsesscval) as keys_parseval:
+            if keys_parseval:
+                return [x for x in keys_parseval.keys()]
+
+    def parseval_shelvefetch(self):
+        with shelve.open(self.setpathssc_parsesscval) as shelve_parseval:
+            if shelve_parseval.keys():
+                shelve_copy = dict(shelve_parseval)
+                return shelve_copy
 
     def parse_valpurge(self):
         try:

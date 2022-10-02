@@ -34,7 +34,7 @@ def myownrandom(keylength=10):
             timestamp = int(math.floor(time.time() * 2000))
             while math.floor(timestamp) > 61:
                 today = datetime.date.today()
-                timestamp /= int(random.randint(1, int(today.strftime("%d"))))
+                timestamp /= random.randint(1, (today.day+1))
             keyresult += binbasket[int(math.floor(timestamp))]
             place += 1
             theshuffler(binbasket, timestamp)
@@ -64,12 +64,16 @@ class FetchSSC:
 
     try:
         async def rapid_fetch(self, ticker, *args, **kwargs):
+            print("In rapid_fetch ::: " + str(ticker))
             try:
                 self.ticker = ticker
                 print(self.ticker)
                 timestampidrf = myownrandom(15)
+                print("After Timestamp")
                 FetchRF = sscpackage.fetchurlssc.FetchUrlSSC(self.ticker)
+                print("After FetchURL Instantiation")
                 FetchRF.fetchshelfinitialize()
+                print("After .fetchshelfinitialize")
                 self.url_bank = FetchRF.pullfetchshelf()
             except Exception as er:
                 print("Inner Exception: Block 1: Fetchssc")
@@ -78,7 +82,9 @@ class FetchSSC:
                 url = self.url_bank[key]["url"]
                 qs = self.url_bank[key]["qs"]
                 head = self.url_bank[key]["headers"]
+                print("Right before request")
                 response = requests.request("GET", url=url, headers=head, params=qs)  # Request data
+                print("Right after request")
                 self.response = response
                 if response.status_code == 200:  # If received 'all good' response from API for first request, continue
                     textcast_ssc = response.text
@@ -86,6 +92,7 @@ class FetchSSC:
                     FSSC = sscpackage.fetchshelfssc_mod.FetchShelfSSC()
                     FSSC.fetchstore(ticker=ticker, key=key, idssc=id(self), fetch_data=self.fetch_data, timestampidfs=timestampidrf)
                     self.statusfetch = True
+                    print(f'Success for ticker : {ticker}')
                 elif response.status_code == 401:
                     if key == list(self.url_bank.keys())[-1:]:
                         FetchSSC.ticker_fail += str(self.ticker) + "__" + str(url)
@@ -102,3 +109,7 @@ class FetchSSC:
 
     except Exception as er:
         print("Outer Level Exception: fetchssc - rapid_fetch")
+
+
+if __name__ == "__main__":
+    print(myownrandom())

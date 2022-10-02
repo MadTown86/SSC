@@ -6,7 +6,7 @@ import parsearssc
 
 class MyTestCase(unittest.TestCase):
     def test_parsear(self):
-        test_parseardatapath = r'C:\SSC\SimpleStockChecker_REV1\sscpackage\storage\test_parse_ar.json'
+        test_parseardatapath = r'.\storage\test_parse_ar.json'
         test_parsearuniquename = "TESTticker__TESTkey__TESTidssc__TESTtimestampidar"
         PARSSC = parsearssc.ParseAr()
         with open(test_parseardatapath) as testdoc:

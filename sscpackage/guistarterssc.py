@@ -299,12 +299,13 @@ class GuiStarterSSC(object):
 
                         # Begin main algorithm
                         if not GuiStarterSSC.cancel_start:
+                            print("Ticker List")
                             FS = sscf.FetchStarterSSC(self.ticker_list)
                             schedule.every(1).seconds.do(lambda: text_update(header=FS.pull_header(), msg=FS.pull_runlist()))
                             schedule.run_pending()
                             asyncio.run(FS._fetch_cycle())
                             schedule.clear()
-
+                        print("After Fetch")
                         GuiStarterSSC.end_fetchstart = True
                         if GuiStarterSSC.cancel_start:
                             GuiStarterSSC.schedule_boolfalse()
@@ -318,7 +319,7 @@ class GuiStarterSSC(object):
                             schedule.run_pending()
                             PS.ssc_parselogstart(fetchssc.FetchSSC.pull_fetchfaillist())
                             schedule.clear()
-
+                        print("After Parse")
                         GuiStarterSSC.end_parsestart = True
                         if GuiStarterSSC.cancel_start:
                             GuiStarterSSC.schedule_boolfalse()

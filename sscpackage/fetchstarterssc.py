@@ -53,6 +53,7 @@ class FetchStarterSSC:
     async def _fetch_cycle(self, *args, **kwargs):
         tickerlistvar_fetchssc = self.tickerlist[:]
         while tickerlistvar_fetchssc:
+            print(tickerlistvar_fetchssc)
             if FetchStarterSSC.fetch_cancel:
                 print("Broke Chain - FetchStarter")
                 break

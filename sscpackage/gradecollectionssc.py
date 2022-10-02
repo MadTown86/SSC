@@ -73,7 +73,7 @@ class GradeCollectionSSC:
 
         try:
             print("GC3")
-            # GTLTYoYSSC()
+            # GTLTYoYRatioSSC()
             pointbin.append(self.gradesectiontwo.grade_gtltyoyratiossc(self.ticker, self.parsecombossc, self.uniqueidssc,
                                                                        self.awardsystem))
         except Exception as er:
@@ -115,7 +115,8 @@ class GradeCollectionSSC:
 
         try:
             self.storeclass.log_entry(parsecombo=self.parsecombossc,
-                                      grade_ssc=str(self.finalgrade.final_grade_ssc), ticker_entry=str(self.ticker))
+                                      grade_ssc=str(self.finalgrade.final_grade_ssc), ticker_entry=str(self.ticker),
+                                      points=self.finalgrade.awardedpoints, basepoints=self.finalgrade.totalpoints)
         except Exception as er:
             print("Exception in GradeCollectionSSC: attribute 'storeclass.log_entry' ")
             print(er)

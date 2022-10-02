@@ -11,7 +11,7 @@ class MyTestCase(unittest.TestCase):
         PBSSC_test = parsebalancessc.ParseBalance()
         namevar = "test__test2__test3__test4"
         SPEEK_SSC = shelverssc.ShelverSSC(namevar)
-        pbalancepath = r'C:\SSC\SimpleStockChecker_REV1\sscpackage\storage\parsebalanceshelf'
+        pbalancepath = r'.\storage\parsebalanceshelf'
         testval1 = str(('2021-06-30', '2020-06-30', '2019-06-30', '2018-06-30'))
 
         if not SPEEK_SSC.fetchpeek(path=pbalancepath, keysearch=namevar):

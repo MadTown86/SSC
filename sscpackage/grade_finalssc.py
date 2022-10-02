@@ -5,6 +5,8 @@ class GradeFinalSSC(gradesheetprintssc.GradeSheetPrintSSC):
     def __init__(self):
         super().__init__()
         self.final_grade_ssc = ""
+        self.totalpoints = 0
+        self.awardedpoints = 0
 
     def grade_final_ssc(self, pointbin):
         totalpoints = 0
@@ -14,6 +16,9 @@ class GradeFinalSSC(gradesheetprintssc.GradeSheetPrintSSC):
             awardedpoints += currentpoints
 
         ratiores = awardedpoints / totalpoints
+
+        self.totalpoints = totalpoints
+        self.awardedpoints = awardedpoints
 
         if ratiores >= .94:
             self.final_grade_ssc = "A"
@@ -35,5 +40,5 @@ class GradeFinalSSC(gradesheetprintssc.GradeSheetPrintSSC):
 
 if __name__ == "__main__":
     GF = GradeFinalSSC()
-    GF.grade_final_ssc([(2, 2), (2, 2), (2, 2)])
+    GF.grade_final_ssc([(0, 2), (2, 2), (2, 2)])
     print(GF.final_grade_ssc)

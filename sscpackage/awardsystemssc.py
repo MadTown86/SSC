@@ -7,7 +7,7 @@ import shelverssc
 class AwardSystemSSC(shelverssc.ShelverSSC):
     def __init__(self, shelvename: 'str' = "awardsystemssc"):
         super().__init__(shelvename)
-        self.permstorpathssc = r'C:\SSC\SimpleStockChecker_REV1\sscpackage\storage\\'
+        self.permstorpathssc = r'.\sscpackage\storage\\'
         self.awardsystemcontainerssc = {}
 
     def deleteawardsystem(self, keynamedel):
