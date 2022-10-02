@@ -1,5 +1,9 @@
 import shelve
 import fetchlogssc
+import dotenv
+import os
+dotenv.load_dotenv(dotenv_path=r'C:\SSC\SimpleStockChecker_REV1\venv\.env')
+ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
 
 
 class FetchShelfSSC:
@@ -13,7 +17,7 @@ class FetchShelfSSC:
         -fetchstore() - stores the fetch data in "fetchfiledb" shelve
         -fetchdbpull() - pulls and returns the shelve "fetchfiledb"
     """
-    setpath_fetchshelfssc = r'C:\SSC\SimpleStockChecker_REV1\sscpackage\storage'
+    setpath_fetchshelfssc = ROOT_VAR_SSC
 
     def __init__(self,
                  fetchstoreshelf=setpath_fetchshelfssc + r"\fetchfiledb"):

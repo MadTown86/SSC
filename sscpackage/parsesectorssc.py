@@ -1,7 +1,10 @@
 import shelve
-
 import dictpullssc
 import fetchshelfssc_mod
+import dotenv
+import os
+dotenv.load_dotenv(dotenv_path=r'C:\SSC\SimpleStockChecker_REV1\venv\.env')
+ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
 
 
 class ParseSector:
@@ -10,7 +13,7 @@ class ParseSector:
     """
 
     def __init__(self):
-        self.setpathssc_parsesscsec = r"C:\SSC\SimpleStockChecker_REV1\sscpackage\storage\parsesecshelf"
+        self.setpathssc_parsesscsec = ROOT_VAR_SSC + "parsesecshelf"
 
     def parse_sectpurge(self):
         try:

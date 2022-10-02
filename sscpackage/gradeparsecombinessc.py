@@ -100,10 +100,15 @@ class GradeParseCombineSSC:
 
 
 if __name__ == "__main__":
+    import dotenv
+    import os
+
+    dotenv.load_dotenv(dotenv_path=r'C:\SSC\SimpleStockChecker_REV1\venv\.env')
+    ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
     import json
     import fetchlogssc
     # TODO: Look into .ENV file and replacing hord-coded paths
-    tempfilelocation = r'C:\SSC\SimpleStockChecker_REV1\sscpackage\storage\\'
+    tempfilelocation = ROOT_VAR_SSC
     FLOG = fetchlogssc.FetchLogSSC()
     local_fetchlog = FLOG.ssc_logfetch()
     testdict = {}

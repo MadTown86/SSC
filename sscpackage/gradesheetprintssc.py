@@ -2,11 +2,14 @@
 Superclass - adding data to Grade Sheet method
 """
 import datetime
-import os
-
 import openpyxl
 import openpyxl.utils.dataframe
 import pandas
+
+import dotenv
+import os
+dotenv.load_dotenv(dotenv_path=r'C:\SSC\SimpleStockChecker_REV1\venv\.env')
+ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
 
 
 class GradeSheetPrintSSC():
@@ -19,7 +22,7 @@ class GradeSheetPrintSSC():
     def __init__(self):
         self.gradesheetprinterprimer = {}
         self.gradesheetprinter = {}
-        self.permpathtoexcelssc = r'C:\SSC\SimpleStockChecker_REV1\sscpackage\storage\excelstorage\\'
+        self.permpathtoexcelssc = ROOT_VAR_SSC + "excelstorage\\"
         self.instancepath = ""
         self.logfilename = ""
 

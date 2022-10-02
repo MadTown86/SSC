@@ -2,12 +2,16 @@
 This class is going to house the point award system
 """
 import shelverssc
+import dotenv
+import os
+dotenv.load_dotenv(dotenv_path=r'C:\SSC\SimpleStockChecker_REV1\venv\.env')
+ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
 
 
 class AwardSystemSSC(shelverssc.ShelverSSC):
     def __init__(self, shelvename: 'str' = "awardsystemssc"):
         super().__init__(shelvename)
-        self.permstorpathssc = r'.\sscpackage\storage\\'
+        self.permstorpathssc = ROOT_VAR_SSC
         self.awardsystemcontainerssc = {}
 
     def deleteawardsystem(self, keynamedel):
@@ -111,6 +115,8 @@ class AwardSystemSSC(shelverssc.ShelverSSC):
 # TODO: create separate unittest for awardsystemssc
 
 if __name__ == "__main__":
+    ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
+    print(ROOT_VAR_SSC)
     AWssc = AwardSystemSSC()
     print(AWssc.awardsystemsprimer())
     print(AWssc.fetchawardsystem("Aeurnautics", "Infrastructure"))

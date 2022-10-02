@@ -1,7 +1,10 @@
 import json
 import shelve
-
 import fetchshelfssc_mod
+import dotenv
+import os
+dotenv.load_dotenv(dotenv_path=r'C:\SSC\SimpleStockChecker_REV1\venv\.env')
+ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
 
 
 class ParseIncome:
@@ -11,7 +14,7 @@ class ParseIncome:
     """
 
     def __init__(self):
-        self.setpathssc_parsessc = r"C:\SSC\SimpleStockChecker_REV1\sscpackage\storage\parseincomeshelf"
+        self.setpathssc_parsessc = ROOT_VAR_SSC + "parseincomeshelf"
 
     def parseincome_shelvkeys(self):
         with shelve.open(self.setpathssc_parsessc) as svinc:

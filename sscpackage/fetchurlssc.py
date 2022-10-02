@@ -1,6 +1,9 @@
 import os
 import shelve
-
+import dotenv
+import os
+dotenv.load_dotenv(dotenv_path=r'C:\SSC\SimpleStockChecker_REV1\venv\.env')
+ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
 
 class FetchUrlSSC:
     """
@@ -9,7 +12,7 @@ class FetchUrlSSC:
 
     #3
     """
-    setpath_fetchurlssc = r'C:\SSC\SimpleStockChecker_REV1\sscpackage\storage'
+    setpath_fetchurlssc = ROOT_VAR_SSC
 
     def __init__(self, ticker, pathnamefetchurls=
     setpath_fetchurlssc + r"\fetchurlshelfdb",

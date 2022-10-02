@@ -1,6 +1,9 @@
 import shelve
-
 import fetchshelfssc_mod
+import dotenv
+import os
+dotenv.load_dotenv(dotenv_path=r'C:\SSC\SimpleStockChecker_REV1\venv\.env')
+ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
 
 
 class ParseBalance:
@@ -9,7 +12,7 @@ class ParseBalance:
     """
 
     def __init__(self):
-        self.setpathssc_parsesscpb = r"C:\SSC\SimpleStockChecker_REV1\sscpackage\storage\parsebalanceshelf"
+        self.setpathssc_parsesscpb = ROOT_VAR_SSC + "parsebalanceshelf"
 
     def parse_shelvepullkeys(self):
         with shelve.open(self.setpathssc_parsesscpb) as svpk:

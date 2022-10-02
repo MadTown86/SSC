@@ -1,9 +1,13 @@
 import shelve
+import dotenv
+import os
+dotenv.load_dotenv(dotenv_path=r'C:\SSC\SimpleStockChecker_REV1\venv\.env')
+ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
 
 
 class ShelverSSC:
     def __init__(self, shelvename: 'str'):
-        self.permstorpathssc = r'C:\SSC\SimpleStockChecker_REV1\sscpackage\storage\\'
+        self.permstorpathssc = ROOT_VAR_SSC
         self.shelvename = shelvename
 
     def add_singleshelf(self, path, key, value):

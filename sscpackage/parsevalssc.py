@@ -1,7 +1,9 @@
 import shelve
-
 import fetchshelfssc_mod
-
+import dotenv
+import os
+dotenv.load_dotenv(dotenv_path=r'C:\SSC\SimpleStockChecker_REV1\venv\.env')
+ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
 
 class ParseVal:
 
@@ -10,7 +12,7 @@ class ParseVal:
     """
 
     def __init__(self):
-        self.setpathssc_parsesscval = r"C:\SSC\SimpleStockChecker_REV1\sscpackage\storage\parsevalshelf"
+        self.setpathssc_parsesscval = ROOT_VAR_SSC + "parsevalshelf"
 
 
     def parseval_keys(self):

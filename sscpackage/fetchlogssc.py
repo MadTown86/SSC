@@ -1,7 +1,12 @@
 import shelve
+import dotenv
+import os
+dotenv.load_dotenv(dotenv_path=r'C:\SSC\SimpleStockChecker_REV1\venv\.env')
+ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
+
 
 class FetchLogSSC:
-    _fetchlogpath = r'C:\SSC\SimpleStockChecker_REV1\sscpackage\storage\fetchlog'
+    _fetchlogpath = ROOT_VAR_SSC + "fetchlog"
     @staticmethod
     def ssc_fetchlogclear():
         with shelve.open(FetchLogSSC._fetchlogpath) as flc:
