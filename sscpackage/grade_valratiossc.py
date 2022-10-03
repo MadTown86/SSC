@@ -5,10 +5,19 @@ class GradeValRatioSSC(gradesheetprintssc.GradeSheetPrintSSC):
     def __init__(self):
         super().__init__()
         self.gradeprinterdict = {}
+        self.limitchecklist = ['Market Cap (intraday)',  'Enterprise Value']
 
     def grade_valratiossc(self, ticker, parsecombo, uniqueid, awardsystem):
+        # TODO: The ValRatioSSC needs a more in-depth grading mechanism than simple '>' '<' YoY system
         """
         27 Total Base Points - 9 metrics at 1 for 3 year comparisons
+
+        NOTES FOR GRADING:
+        Enterprise Value = "Theoretical Measure of a Company's Total Value"
+        f(x) = Common Shares + Preferred Shares + Market Value of Debt + Minority Interest - Cash and Equivalents
+
+        Minority Interest = Non-Controlling (Minority) Interest - aka ownership
+
         :param ticker:
         :param parsecombo:
         :param uniqueid:
@@ -19,7 +28,7 @@ class GradeValRatioSSC(gradesheetprintssc.GradeSheetPrintSSC):
             localvalratiodict = parsecombo['valdat']
             valratiopointbook = {}
 
-            for rationame in awardsystem["VALMETRICS"].keys():
+            for rationame in self.limitchecklist:
                 pointsper = awardsystem['VALMETRICS'][rationame]['points']
                 weightval = awardsystem['VALMETRICS'][rationame]['weight']
                 respointrunner = 0
@@ -55,13 +64,16 @@ if __name__ == "__main__":
     import gradeparsecombinessc
     import awardsystemssc
 
-    testlogvaridssc = 'NVDA__Y8bdxbfeWiliz3B'
+    testlogvaridssc = 'TSLA__yyXr8pbeOrad9fH'
     ticker, uniqueid = testlogvaridssc.split("__")
     AWS = awardsystemssc.AwardSystemSSC()
     awardsystempassin = AWS.fetchawardsystem("Industry", "Sector")
 
     GPSSC = gradeparsecombinessc.GradeParseCombineSSC()
-    gradeparsecombo = GPSSC.gradeparsecombinessc(ticker, uniqueid)['NVDA__Y8bdxbfeWiliz3B']
+    gradeparsecombo = GPSSC.gradeparsecombinessc(ticker, uniqueid)['TSLA__yyXr8pbeOrad9fH']
+
+    for item in gradeparsecombo["valdat"].items():
+        print(item)
 
     GVAL = GradeValRatioSSC()
     GVAL.printprimer("INCASRATIO", ticker, uniqueid, "SECTOR", "INDUSTRY")

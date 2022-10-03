@@ -25,7 +25,7 @@ class FetchShelfSSC:
         self.fetchstorename = ""
 
 
-    def fetchstore(self, ticker, key="url_income", idssc="DEFAULTID", fetch_data="DEFAULTDATA", timestampidfs="DEFTSID",
+    def fetchstore(self, ticker, key: str="url_income", idssc:str ="DEFAULTID", fetch_data="DEFAULTDATA", timestampidfs: str="DEFTSID",
                    *args, **kwargs):
         self.ticker = ticker
         try:

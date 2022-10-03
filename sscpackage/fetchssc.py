@@ -9,6 +9,11 @@ import math
 import random
 import string
 import time
+import shelve
+import dotenv
+import os
+dotenv.load_dotenv(dotenv_path=r'C:\SSC\SimpleStockChecker_REV1\venv\.env')
+ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
 
 import requests
 
@@ -53,7 +58,6 @@ def myownrandom(keylength=10):
 
 
 class FetchSSC:
-    ticker_fail = ""
 
     @staticmethod
     def pull_fetchfaillist():
@@ -62,19 +66,40 @@ class FetchSSC:
     def __init__(self, *args, **kwargs):
         pass
 
+    def ticker_fail(self, fetchname: str):
+        temp_list = []
+        with shelve.open(ROOT_VAR_SSC + "ticker_fail") as ticker_fshelve:
+            if ticker_fshelve["ticker_fail"]:
+                temp_list = ticker_fshelve["ticker_fail"]
+                temp_list.append(fetchname)
+                ticker_fshelve["ticker_fail"] = temp_list
+            else:
+                temp_list.append(fetchname)
+                ticker_fshelve["ticker_fail"] = temp_list
+
+    @staticmethod
+    def purge_tickerfail():
+        with shelve.open(ROOT_VAR_SSC + "ticker_fail") as ticker_failpurge:
+            if ticker_failpurge:
+                if ticker_failpurge.keys():
+                    for key in ticker_failpurge:
+                        del ticker_failpurge[key]
+                if ticker_failpurge.keys():
+                    return 1
+                else:
+                    return 0
+
+
     try:
         async def rapid_fetch(self, ticker, *args, **kwargs):
             print("In rapid_fetch ::: " + str(ticker))
             try:
                 self.ticker = ticker
-                print(self.ticker)
                 timestampidrf = myownrandom(15)
-                print("After Timestamp")
                 FetchRF = sscpackage.fetchurlssc.FetchUrlSSC(self.ticker)
-                print("After FetchURL Instantiation")
                 FetchRF.fetchshelfinitialize()
-                print("After .fetchshelfinitialize")
                 self.url_bank = FetchRF.pullfetchshelf()
+
             except Exception as er:
                 print("Inner Exception: Block 1: Fetchssc")
 
@@ -82,9 +107,7 @@ class FetchSSC:
                 url = self.url_bank[key]["url"]
                 qs = self.url_bank[key]["qs"]
                 head = self.url_bank[key]["headers"]
-                print("Right before request")
                 response = requests.request("GET", url=url, headers=head, params=qs)  # Request data
-                print("Right after request")
                 self.response = response
                 if response.status_code == 200:  # If received 'all good' response from API for first request, continue
                     textcast_ssc = response.text
@@ -94,15 +117,14 @@ class FetchSSC:
                     self.statusfetch = True
                     print(f'Success for ticker : {ticker}')
                 elif response.status_code == 401:
-                    if key == list(self.url_bank.keys())[-1:]:
-                        FetchSSC.ticker_fail += str(self.ticker) + "__" + str(url)
-                    FetchSSC.ticker_fail += str(self.ticker) + "__" + str(url) + ", "
+                    ticker_failname =  self.ticker + "__" + url
+                    self.ticker_fail(ticker_failname)
                     print("Invalid API Key - Check User Information")
                     self.statusfetch = False
                 else:
-                    if key == list(self.url_bank.keys())[-1:]:
-                        FetchSSC.ticker_fail += str(self.ticker) + "__" + str(url)
-                    FetchSSC.ticker_fail += str(self.ticker) + "__" + str(url) + ", "
+                    # TODO: Utilize FetchSSC.ticker_fail list to avoid parsing/grading tickers with failed fetches
+                    ticker_failname =  self.ticker + "__" + url
+                    self.ticker_fail(ticker_failname)
                     print(f'{self.ticker} - failed fetch')
                     self.statusfetch = False
                 await asyncio.sleep(1)

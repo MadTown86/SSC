@@ -69,6 +69,7 @@ class GradeStartSSC():
                     print(gradecollectionssc.GradeCollectionSSC.return_inst_count())
                     GCOL_SSC.gradecollectionssc()
                     print("After GCOL_SSC.gradecollectionssc()")
+                    FS_SSC.ssc_logcompletewrite(ticker, entrysscgs)
         except Exception as er:
             print("Exception in GradeStarterSSC: function 'gradestartssc' ")
             print(er)

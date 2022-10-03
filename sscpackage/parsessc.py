@@ -1,5 +1,6 @@
 import fetchlogssc
 import fetchshelfssc_mod
+import fetchssc
 import parsearssc
 import parsebalancessc
 import parseincomessc
@@ -46,7 +47,7 @@ class ParseStart:
         3. Filter data into respective instance variables for parsing.
         """
 
-
+        ticker_faillist = fetchssc.FetchSSC.pull_fetchfaillist()
 
         FS_SSC = fetchshelfssc_mod.FetchShelfSSC()
         shelvecopy_fromapi = FS_SSC.fetchdbpull()
@@ -90,7 +91,10 @@ class ParseStart:
                                "sectag": lambda logentrylamb: indsec(logentrylamb)
                                }
         try:
+            print(f'TICKER FAIL LIST: {ticker_fail}')
             for logentry in local_logcopy:
+                print(logentry)
+
                 if len(logentry) >= 1:
                     if len(logentry.split("__")) > 1:
                         tempsplit = logentry.split("__")
@@ -99,6 +103,7 @@ class ParseStart:
                         urlbinding = tempsplit[1]
                         temp_logentry = ticker + "__" + urlbinding
                         if temp_logentry in ticker_fail:
+                            print("In Ticker Fail")
                             continue
                         else:
                             ParseStart.set_parserun(ticker)
@@ -123,5 +128,5 @@ class ParseStart:
         del PIND_SSC
 
 if __name__ == "__main__":
-    PS = ParseStart()
-    PS.ssc_parselogstart()
+    FS_SSC = fetchlogssc.FetchLogSSC()
+    test_fetchlog = FS_SSC.ssc_logfetch()

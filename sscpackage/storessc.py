@@ -69,6 +69,7 @@ class StoreSSC:
                 FROM INFORMATION_SCHEMA.COLUMNS
                 WHERE TABLE_NAME = {tablename}"""
 
+            # TODO: Figure out why dbtbl_create doesn't work here but works in workbench
                 dbtbl_create = """
                 CREATE DATABASE IF NOT EXISTS sscdb;
                 USE sscdb;
@@ -78,14 +79,20 @@ class StoreSSC:
                     logTime DATETIME DEFAULT CURRENT_TIMESTAMP,
                     grade VARCHAR(2),
                     parsecombo JSON,
-                    points,
-                    basepoints
+                    points INT,
+                    basepoints INT
                 );"""
 
                 with connection.cursor(buffered=True) as cursor:
-                    cursor.execute(dbtbl_create, multi=True)
+                    print("In With Block")
+                    try:
+                        cursor.execute(dbtbl_create, multi=True)
+                    except Exception as er:
+                        print(er)
                     connection.commit()
                     cursor.close()
+                    connection.close()
+
 
         except mysql.connector.Error as e:
             print("Error in ssc_st - TRY1: " + str(e))
@@ -158,9 +165,9 @@ if __name__ == '__main__':
 
     S_SSC = StoreSSC()
     S_SSC.db_chksetup()
-    testlogvaridssc = 'Y8bdxbfeWiliz3B'
-    GS = gradeparsecombinessc.GradeParseCombineSSC()
-    testdict = GS.gradeparsecombinessc('NVDA', testlogvaridssc)
-    testdict_json = json.dumps(testdict, skipkeys=False)
-    ticker_testssc = "NVDA"
-    S_SSC.log_entry(parsecombo=testdict_json, grade_ssc="BC", ticker_entry="NVDA")
+    #testlogvaridssc = 'Y8bdxbfeWiliz3B'
+    #GS = gradeparsecombinessc.GradeParseCombineSSC()
+    #testdict = GS.gradeparsecombinessc('NVDA', testlogvaridssc)
+    #testdict_json = json.dumps(testdict, skipkeys=False)
+    #ticker_testssc = "NVDA"
+    #S_SSC.log_entry(parsecombo=testdict_json, grade_ssc="BC", ticker_entry="NVDA")

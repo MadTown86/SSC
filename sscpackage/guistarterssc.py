@@ -338,12 +338,16 @@ class GuiStarterSSC(object):
                             GS.gradestartssc()
                             schedule.clear()
 
+                        text_update("Ticker List Processed - Click 'Show DB' Button for Grade", "")
+
 
                         GuiStarterSSC.end_gradestart = True
                         if GuiStarterSSC.cancel_start:
                             GuiStarterSSC.schedule_boolfalse()
                             schedule.clear()
                             exit_btn['state'] = 'normal'
+
+                        
 
                         # TODO: Create a stop process to terminate fetch/parse actions
 
