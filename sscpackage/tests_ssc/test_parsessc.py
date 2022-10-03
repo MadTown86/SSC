@@ -1,12 +1,15 @@
 import unittest
 import unittest.mock
 from unittest.mock import patch
-
+import dotenv
 import parsessc
+import os
 
+dotenv.load_dotenv(dotenv_path=r'C:\SSC\SimpleStockChecker_REV1\venv\.ENV')
+ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
 
 class MyTestCase(unittest.TestCase):
-    storpath = r'C:\SSC\SimpleStockChecker_REV1\sscpackage\storage\test_fetchlog.txt'
+    storpath = ROOT_VAR_SSC + "test_fetchlog.txt"
 
     def setUp(self):
         with open(self.storpath, 'w') as sfile:
@@ -45,16 +48,26 @@ class MyTestCase(unittest.TestCase):
         type(MockParseBal()).parsebalance = unittest.mock.MagicMock(return_value="ParseBal")
         type(MockParseAr()).parsear = unittest.mock.MagicMock(return_value="ParseAr")
 
+        ticker_fail = "MSFT__url_balance"
+
         P = parsessc.ParseStart()
-        P.ssc_parselogstart()
+        P.ssc_parselogstart(ticker_fail)
         MockFetchS.assert_called()
+        print(MockFetchS.call_count)
         MockFetchL.assert_called()
+        print(MockFetchL.call_count)
         MockParseBal.assert_called()
+        print(MockParseBal.call_count)
         MockParseInc.assert_called()
+        print(MockParseInc.call_count)
         MockParseAr.assert_called()
+        print(MockParseAr.call_count)
         MockParseVal.assert_called()
+        print(MockParseVal.call_count)
         MockParseSec.assert_called()
+        print(MockParseSec.call_count)
         MockParseInd.assert_called()
+        print(MockParseInd.call_count)
 
 
 if __name__ == '__main__':

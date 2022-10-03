@@ -25,17 +25,15 @@ class FetchShelfSSC:
         self.fetchstorename = ""
 
 
-    def fetchstore(self, ticker, key: str="url_income", idssc:str ="DEFAULTID", fetch_data="DEFAULTDATA", timestampidfs: str="DEFTSID",
-                   *args, **kwargs):
+    def fetchstore(self, ticker, fetchstorename, fetch_data, sscrandomkey, tag, *args, **kwargs):
         self.ticker = ticker
         try:
+            self.fetchstorename = fetchstorename
             filedb = shelve.open(self.fetchstoreshelf)
-            fetchstorename = str(self.ticker) + "__" + str(key) + "__" + str(idssc) + "__" + str(timestampidfs)
             filedb[fetchstorename] = fetch_data
             filedb.close()
-            self.fetchstorename = fetchstorename
             FS_SSC = fetchlogssc.FetchLogSSC()
-            FS_SSC.ssc_fetchlogwrite(self.fetchstorename)
+            FS_SSC.ssc_fetchlogwrite(fetchstorename=self.fetchstorename)
             del FS_SSC
             return fetchstorename
         except Exception as er:

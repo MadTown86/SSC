@@ -33,9 +33,8 @@ class FetchLogSSC:
                         temp_log.append(fetchstorename)
                         shelvelog[self.logname] = temp_log
             else:
-                temp_log = []
-                temp_log.append(fetchstorename)
-                shelvelog[self.logname] = [x for x in temp_log]
+                temp_log = [fetchstorename]
+                shelvelog[self.logname] = temp_log
 
 
     def ssc_logfetch(self):
@@ -67,6 +66,16 @@ class FetchLogSSC:
                         if item not in tempcopy:
                             tempcopy.append(item)
                     fl4[self.logfinish] = tempcopy
+
+    def ssc_logcompletefetch(self):
+        with shelve.open(FetchLogSSC._fetchlogpath) as fl5:
+            if fl5.keys():
+                if self.logfinish in fl5.keys():
+                    return fl5[self.logfinish]
+                else:
+                    return 0
+            else:
+                return 0
 
 
 

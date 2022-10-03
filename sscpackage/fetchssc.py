@@ -12,13 +12,14 @@ import time
 import shelve
 import dotenv
 import os
+import requests
+import sscpackage.fetchshelfssc_mod
+import sscpackage.fetchurlssc
+
 dotenv.load_dotenv(dotenv_path=r'C:\SSC\SimpleStockChecker_REV1\venv\.env')
 ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
 
-import requests
 
-import sscpackage.fetchshelfssc_mod
-import sscpackage.fetchurlssc
 
 
 def theshuffler(basket, countage):
@@ -39,12 +40,12 @@ def myownrandom(keylength=10):
             timestamp = int(math.floor(time.time() * 2000))
             while math.floor(timestamp) > 61:
                 today = datetime.date.today()
-                timestamp /= random.randint(1, (today.day+1))
+                timestamp /= random.randint(1, (today.day + 1))
             keyresult += binbasket[int(math.floor(timestamp))]
             place += 1
             theshuffler(binbasket, timestamp)
         elif place == 7:
-            seeder = "GroverDaniellePotterShoeDonlonPennPantsMom"
+            seeder = "All Your Base Are Belong To Us Feeter Viper Ticked A Keck Of Lickled Freckles"
             add = seeder[random.randint(1, 34)]
             keyresult += add
             place += 1
@@ -53,8 +54,6 @@ def myownrandom(keylength=10):
             place += 1
 
     return keyresult
-
-
 
 
 class FetchSSC:
@@ -89,13 +88,12 @@ class FetchSSC:
                 else:
                     return 0
 
-
     try:
         async def rapid_fetch(self, ticker, *args, **kwargs):
             print("In rapid_fetch ::: " + str(ticker))
             try:
                 self.ticker = ticker
-                timestampidrf = myownrandom(15)
+                sscrandomkey = myownrandom(15)
                 FetchRF = sscpackage.fetchurlssc.FetchUrlSSC(self.ticker)
                 FetchRF.fetchshelfinitialize()
                 self.url_bank = FetchRF.pullfetchshelf()
@@ -103,27 +101,29 @@ class FetchSSC:
             except Exception as er:
                 print("Inner Exception: Block 1: Fetchssc")
 
-            for key in self.url_bank.keys():
-                url = self.url_bank[key]["url"]
-                qs = self.url_bank[key]["qs"]
-                head = self.url_bank[key]["headers"]
+            for tag in self.url_bank.keys():
+                url = self.url_bank[tag]["url"]
+                qs = self.url_bank[tag]["qs"]
+                head = self.url_bank[tag]["headers"]
                 response = requests.request("GET", url=url, headers=head, params=qs)  # Request data
                 self.response = response
                 if response.status_code == 200:  # If received 'all good' response from API for first request, continue
                     textcast_ssc = response.text
                     self.fetch_data = dict(json.loads(textcast_ssc))
                     FSSC = sscpackage.fetchshelfssc_mod.FetchShelfSSC()
-                    FSSC.fetchstore(ticker=ticker, key=key, idssc=id(self), fetch_data=self.fetch_data, timestampidfs=timestampidrf)
+                    fetchstorename = self.ticker + "__" + tag + "__" + str(id(self)) + "__" + sscrandomkey
+                    FSSC.fetchstore(ticker=ticker, tag=tag, sscrandomkey=sscrandomkey,
+                                    fetchstorename=fetchstorename, fetch_data=self.fetch_data)
                     self.statusfetch = True
                     print(f'Success for ticker : {ticker}')
                 elif response.status_code == 401:
-                    ticker_failname =  self.ticker + "__" + url
+                    ticker_failname = self.ticker + "__" + url
                     self.ticker_fail(ticker_failname)
                     print("Invalid API Key - Check User Information")
                     self.statusfetch = False
                 else:
                     # TODO: Utilize FetchSSC.ticker_fail list to avoid parsing/grading tickers with failed fetches
-                    ticker_failname =  self.ticker + "__" + url
+                    ticker_failname = self.ticker + "__" + url
                     self.ticker_fail(ticker_failname)
                     print(f'{self.ticker} - failed fetch')
                     self.statusfetch = False

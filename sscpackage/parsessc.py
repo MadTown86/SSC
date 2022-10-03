@@ -92,29 +92,36 @@ class ParseStart:
                                }
         try:
             print(f'TICKER FAIL LIST: {ticker_fail}')
-            for logentry in local_logcopy:
-                print(logentry)
 
-                if len(logentry) >= 1:
-                    if len(logentry.split("__")) > 1:
-                        tempsplit = logentry.split("__")
-                        ticker = tempsplit[0]
-                        print(f'PARSESTART: {ticker}')
-                        urlbinding = tempsplit[1]
-                        temp_logentry = ticker + "__" + urlbinding
-                        if temp_logentry in ticker_fail:
-                            print("In Ticker Fail")
-                            continue
-                        else:
-                            ParseStart.set_parserun(ticker)
-                            if ParseStart.parse_cancel:
+            for line in local_logcopy:
+                print(f'Local Log Copy Line: "{line}"')
+            for logentry in local_logcopy:
+                print(f'logentry: {logentry}')
+                if len(logentry.split("__")) > 1:
+                    tempsplit = logentry.split("__")
+                    ticker = tempsplit[0]
+                    print(f'PARSESTART: {ticker}')
+                    urlbinding = tempsplit[1]
+                    temp_logentry = ticker + "__" + urlbinding
+                    if temp_logentry not in ticker_fail:
+                        ParseStart.set_parserun(ticker)
+                        if ParseStart.parse_cancel:
+                            break
+                        for tag in tag_container.keys():
+                            tag_check = ticker + "__" + urlbinding
+                            if tag_check not in ticker_fail:
+                                print(f'TAG CHECK: {tag_check}')
+                                print(f'Made it into tag ticker OK')
+                                (dict_tagswitchboard[tag_container[tag]])(logentry)
                                 break
-                            for tag in tag_container.keys():
-                                if tag in logentry:
-                                    (dict_tagswitchboard[tag_container[tag]])(logentry)
-                                    break
-                                else:
-                                    continue
+                            else:
+                                print(f'Enterred tag-else for tag_check: {tag_check}')
+                                continue
+                    else:
+                        print(f'Temp Log Entry In Fail: "{temp_logentry}"')
+                        print("In Ticker Fail")
+                        continue
+
         except Exception as er:
             print("Exception in parsessc during loop:")
             if logentry and ticker and tag:

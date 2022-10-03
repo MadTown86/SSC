@@ -9,8 +9,6 @@ class FetchUrlSSC:
     """
     This class is going to combine variables and pass to FetchCyclerSSC as arguments for 'requests' module
     It will also allow you to add another fetch
-
-    #3
     """
     setpath_fetchurlssc = ROOT_VAR_SSC
 
