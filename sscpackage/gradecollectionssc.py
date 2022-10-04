@@ -1,6 +1,7 @@
 import json
 
 import awardsystemssc
+import fetchlogssc
 import grade_arssc
 import grade_finalssc
 import grade_finratiossc
@@ -45,6 +46,7 @@ class GradeCollectionSSC:
         print("GCC6")
         self.finalgrade = grade_finalssc.GradeFinalSSC()
         print("GCC7")
+        self.fetchlogcomplete = fetchlogssc.FetchLogSSC()
         self.awardsystem = awardsystemssc.AwardSystemSSC().fetchawardsystem(industry=self.parsecombossc["Industry"],
                                                                             sector=self.parsecombossc["Sector"])
 
@@ -121,6 +123,13 @@ class GradeCollectionSSC:
             print("Exception in GradeCollectionSSC: attribute 'storeclass.log_entry' ")
             print(er)
         print("GC10")
+
+        try:
+            self.fetchlogcomplete.ssc_logcompletewrite(ticker=self.ticker, uniqueid=self.uniqueidssc)
+        except Exception as er:
+            print("Exception in GradeCollectionSSC: 'fetchlogcompletessc'")
+            print(er)
+
         return pointbin
 
 

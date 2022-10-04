@@ -50,13 +50,16 @@ class FetchLogSSC:
         with shelve.open(FetchLogSSC._fetchlogpath) as fl4:
             if fl4.keys():
                 if fl4[self.logname]:
-                    log_listlocal = fl4[self.logname]
-                    for indexno in range(len(log_listlocal-1)):
+                    log_listlocal = [x for x in fl4[self.logname]]
+                    for indexno in range(len(log_listlocal)-1):
                         if ticker and uniqueid in log_listlocal[indexno]:
                             print(log_listlocal[indexno])
-                            transfer_tocomplete.append(log_listlocal.pop(log_listlocal[indexno]))
+                            transfer_tocomplete.append(log_listlocal.pop(indexno))
                         else:
                             continue
+                    fl4[self.logname] = log_listlocal
+
+
             if transfer_tocomplete:
                 if self.logfinish not in fl4.keys():
                     fl4[self.logfinish] = transfer_tocomplete
@@ -70,12 +73,22 @@ class FetchLogSSC:
     def ssc_logcompletefetch(self):
         with shelve.open(FetchLogSSC._fetchlogpath) as fl5:
             if fl5.keys():
-                if self.logfinish in fl5.keys():
+                if fl5[self.logfinish]:
                     return fl5[self.logfinish]
                 else:
                     return 0
-            else:
-                return 0
+
+
+    def ssc_logcompletepurge(self):
+        with shelve.open(FetchLogSSC._fetchlogpath) as fl6:
+            if fl6.keys():
+                if self.logfinish in fl6.keys():
+                    del fl6[self.logfinish]
+                    fl6[self.logfinish] = []
+                if fl6[self.logfinish]:
+                    return 0
+                else:
+                    return 1
 
 
 
