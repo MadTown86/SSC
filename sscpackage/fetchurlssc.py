@@ -29,6 +29,7 @@ class FetchUrlSSC:
         with shelve.open(self.pathnamefetchurls) as shelvefetch:
             shelvefetch.close()
 
+
     def checkpaths(self):
         try:
             fetchpaths = [self.pathbakssc, self.pathdatssc, self.pathdirssc]

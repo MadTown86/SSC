@@ -7,6 +7,7 @@ import sscpackage
 from sscpackage.fetchshelfssc_mod import FetchShelfSSC
 
 
+# TODO: fix test_fetchshelfsscmock - recreate test since many changes have taken place
 class Test_FetchShelfSSC(unittest.TestCase):
     @patch('shelve.open')
     def test_fetchshelfsscmock(self, ShelveMock):

@@ -14,6 +14,7 @@ class TestFetchLog(unittest.TestCase):
 
     def test_fetchlogwrite(self):
         FLOG = fetchlogssc.FetchLogSSC()
+        FLOG.ssc_fetchlogclear()
         FLOG.ssc_fetchlogwrite("TEST1")
 
         with shelve.open(ROOT_VAR_SSC + "fetchlog") as slv:
@@ -31,10 +32,27 @@ class TestFetchLog(unittest.TestCase):
 
         self.assertEqual(temp_shelvedict, {})
 
-    def test_logcompletefetch(self):
+    def test_fetchlogdeletedclear(self):
         FLOG = fetchlogssc.FetchLogSSC()
+        FLOG.ssc_logdelete_purge()
+        testval = FLOG.ssc_logdelete_fetch()
+        self.assertEqual(testval, [])
+
+    def test_fetchlogdeleted_add(self):
+        FLOG = fetchlogssc.FetchLogSSC()
+        FLOG.ssc_logdelete_purge()
+        FLOG.ssc_logdelete_testadd("TEST")
+        testval = FLOG.ssc_logdelete_fetch()
+        self.assertEqual(testval, "TEST")
+
+    def test_logcompletefetch_testwrite(self):
+        FLOG = fetchlogssc.FetchLogSSC()
+        FLOG.ssc_logcompletepurge()
+        FLOG.ssc_logcomplete_testwrite("TESTWRITE")
         output = FLOG.ssc_logcompletefetch()
-        print(output)
+        self.assertEqual(["TESTWRITE"], output)
+
+
     def test_logcompletewrite(self):
         FLOG = fetchlogssc.FetchLogSSC()
         FLOG.ssc_fetchlogclear()
@@ -62,13 +80,16 @@ class TestFetchLog(unittest.TestCase):
     def test_fetchlogdeleted(self):
         FLOG = fetchlogssc.FetchLogSSC()
         FLOG.ssc_fetchlogclear()
-        FLOG.ssc_logdeletepurge()
+        FLOG.ssc_logdelete_purge()
         FS = fetchssc.FetchSSC()
         FS.purge_tickerfail()
         ticker_list = ["MSFT__a1__b1__c1", "MSFT__a2__b2__c1", "MSFT__a3__b3__c1", "NVDA__g4__g5__g6"]
         ticker_fail = ["MSFT__a1__b1__c1"]
         for item in ticker_list:
             FLOG.ssc_fetchlogwrite(item)
+
+        log_test = FLOG.ssc_logfetch()
+        self.assertEqual(log_test, ticker_list)
 
         print(f'This is initial log: {FLOG.ssc_logfetch()}')
 

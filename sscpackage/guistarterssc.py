@@ -308,10 +308,14 @@ class GuiStarterSSC(object):
                             schedule.clear()
 
                         # Delete 'failed fetches' from FetchLog
-                        fail_list = fetchssc.FetchSSC().pull_tickerfail()
-                        FLOG = fetchlogssc.FetchLogSSC()
-                        for ticker, uniqueid in fail_list:
-                            FLOG.ssc_fetchlogdeleted(ticker, uniqueid)
+                        try:
+                            fail_list = fetchssc.FetchSSC().pull_tickerfail()
+                            FLOG = fetchlogssc.FetchLogSSC()
+                            for ticker, uniqueid in fail_list:
+                                FLOG.ssc_fetchlogdeleted(ticker, uniqueid)
+                        except Exception as er:
+                            print("Exception in guistarter -> fetchlogdelete")
+                            print(er)
 
 
                         print("After Fetch")

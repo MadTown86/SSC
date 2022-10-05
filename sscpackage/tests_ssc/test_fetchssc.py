@@ -3,7 +3,7 @@ from unittest.mock import patch
 
 import sscpackage.fetchssc
 
-
+# TODO Fix test_fetchssc: changes since last updated test, started to unit test locally
 class Test_FetchCyclerTest_Asyncio(unittest.IsolatedAsyncioTestCase):
     """
     This class tests FetchCycler using unittest.IsolatedAsyncioTestCase and Mock
