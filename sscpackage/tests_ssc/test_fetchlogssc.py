@@ -7,6 +7,7 @@ dotenv.load_dotenv(dotenv_path=r'C:\SSC\SimpleStockChecker_REV1\venv\.env')
 ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
 
 import fetchlogssc
+import fetchssc
 
 
 class TestFetchLog(unittest.TestCase):
@@ -57,6 +58,31 @@ class TestFetchLog(unittest.TestCase):
         print(f'Output_test 3 Values: {output_test3}')
         self.assertEqual(output_test2, ["MSFT-INCOME2", "MSFT-Crud3"])
         self.assertEqual(output_test3, ["MSFT-Balance1"])
+
+    def test_fetchlogdeleted(self):
+        FLOG = fetchlogssc.FetchLogSSC()
+        FLOG.ssc_fetchlogclear()
+        FLOG.ssc_logdeletepurge()
+        FS = fetchssc.FetchSSC()
+        FS.purge_tickerfail()
+        ticker_list = ["MSFT__a1__b1__c1", "MSFT__a2__b2__c1", "MSFT__a3__b3__c1", "NVDA__g4__g5__g6"]
+        ticker_fail = ["MSFT__a1__b1__c1"]
+        for item in ticker_list:
+            FLOG.ssc_fetchlogwrite(item)
+
+        print(f'This is initial log: {FLOG.ssc_logfetch()}')
+
+        for item2 in ticker_fail:
+            FS.ticker_fail(item2)
+
+        print(f'This is initial faillist: {FS.pull_tickerfail()}')
+
+        for item in FS.pull_tickerfail():
+            print(type(item))
+            print(item)
+            FLOG.ssc_fetchlogdeleted(*item)
+
+        self.assertEqual(FLOG.ssc_logfetch(), ["NVDA__g4__g5__g6"])
 
 
 

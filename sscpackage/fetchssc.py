@@ -20,8 +20,6 @@ dotenv.load_dotenv(dotenv_path=r'C:\SSC\SimpleStockChecker_REV1\venv\.env')
 ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
 
 
-
-
 def theshuffler(basket, countage):
     while countage > 0:
         random.shuffle(basket)
@@ -68,13 +66,31 @@ class FetchSSC:
     def ticker_fail(self, fetchname: str):
         temp_list = []
         with shelve.open(ROOT_VAR_SSC + "ticker_fail") as ticker_fshelve:
-            if ticker_fshelve["ticker_fail"]:
-                temp_list = ticker_fshelve["ticker_fail"]
-                temp_list.append(fetchname)
-                ticker_fshelve["ticker_fail"] = temp_list
+            if ticker_fshelve.keys():
+                if ticker_fshelve["ticker_fail"]:
+                    temp_list = ticker_fshelve["ticker_fail"]
+                    temp_list.append(fetchname)
+                    ticker_fshelve["ticker_fail"] = temp_list
+                else:
+                    temp_list.append(fetchname)
+                    ticker_fshelve["ticker_fail"] = temp_list
             else:
                 temp_list.append(fetchname)
                 ticker_fshelve["ticker_fail"] = temp_list
+
+    @staticmethod
+    def pull_tickerfail():
+        res_list = []
+        with shelve.open(ROOT_VAR_SSC + "ticker_fail") as ticker_fshelve2:
+            if ticker_fshelve2["ticker_fail"]:
+                templist = [x for x in ticker_fshelve2["ticker_fail"]]
+                for item in templist:
+                    ticker, delvar1, delvar2, uniqueid = item.split("__")
+                    res_list.append((ticker, uniqueid))
+                return res_list
+            else:
+                return 0
+
 
     @staticmethod
     def purge_tickerfail():
@@ -117,14 +133,12 @@ class FetchSSC:
                     self.statusfetch = True
                     print(f'Success for ticker : {ticker}')
                 elif response.status_code == 401:
-                    ticker_failname = self.ticker + "__" + url
-                    self.ticker_fail(ticker_failname)
+                    self.ticker_fail(fetchstorename)
                     print("Invalid API Key - Check User Information")
                     self.statusfetch = False
                 else:
                     # TODO: Utilize FetchSSC.ticker_fail list to avoid parsing/grading tickers with failed fetches
-                    ticker_failname = self.ticker + "__" + url
-                    self.ticker_fail(ticker_failname)
+                    self.ticker_fail(fetchstorename)
                     print(f'{self.ticker} - failed fetch')
                     self.statusfetch = False
                 await asyncio.sleep(1)

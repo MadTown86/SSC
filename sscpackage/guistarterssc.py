@@ -18,6 +18,7 @@ from tkinter.messagebox import showinfo
 import schedule
 
 import fetchssc
+import fetchlogssc
 import fetchstarterssc
 import fetchstarterssc as sscf
 import gradestarterssc
@@ -305,6 +306,14 @@ class GuiStarterSSC(object):
                             schedule.run_pending()
                             asyncio.run(FS._fetch_cycle())
                             schedule.clear()
+
+                        # Delete 'failed fetches' from FetchLog
+                        fail_list = fetchssc.FetchSSC().pull_tickerfail()
+                        FLOG = fetchlogssc.FetchLogSSC()
+                        for ticker, uniqueid in fail_list:
+                            FLOG.ssc_fetchlogdeleted(ticker, uniqueid)
+
+
                         print("After Fetch")
                         GuiStarterSSC.end_fetchstart = True
                         if GuiStarterSSC.cancel_start:

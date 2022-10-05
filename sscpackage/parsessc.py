@@ -57,6 +57,9 @@ class ParseStart:
         local_logcopy = FLOG.ssc_logfetch()
         del FLOG
 
+
+
+
         PI_SSC = parseincomessc.ParseIncome()
         PB_SSC = parsebalancessc.ParseBalance()
         PVAL_SSC = parsevalssc.ParseVal()

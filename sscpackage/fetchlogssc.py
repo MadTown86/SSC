@@ -21,6 +21,7 @@ class FetchLogSSC:
     def __init__(self):
         self.logname = "fetchlog"
         self.logfinish = "fetchlogfinished"
+        self.logdelete = "fetchlogdeleted"
         pass
 
     def ssc_fetchlogwrite(self, fetchstorename):
@@ -70,6 +71,52 @@ class FetchLogSSC:
                             tempcopy.append(item)
                     fl4[self.logfinish] = tempcopy
 
+    def ssc_fetchlogdeleted(self, ticker, uniqueid):
+        transfer_todelete = []
+        with shelve.open(FetchLogSSC._fetchlogpath) as fl4:
+            if fl4.keys():
+                if fl4[self.logname]:
+                    log_listlocal = [x for x in fl4[self.logname]]
+                    log_listdel = log_listlocal[:]
+                    print(f'LOG LIST LOCAL - ssc_fetchlog: {log_listlocal}')
+                    for indexno in range(len(log_listlocal)-1):
+                        print(indexno)
+                        if ticker and uniqueid in log_listlocal[indexno]:
+                            print(log_listlocal[indexno])
+                            transfer_todelete.append(log_listdel.pop(log_listdel.index(log_listlocal[indexno])))
+                        else:
+                            continue
+                    fl4[self.logname] = log_listdel
+
+            if transfer_todelete:
+                if self.logdelete not in fl4.keys():
+                    fl4[self.logdelete] = transfer_todelete
+                else:
+                    tempcopy = fl4[self.logdelete]
+                    for item in transfer_todelete:
+                        if item not in tempcopy:
+                            tempcopy.append(item)
+                    fl4[self.logfinish] = tempcopy
+
+    def ssc_logdeletefetch(self):
+        with shelve.open(FetchLogSSC._fetchlogpath) as fl6:
+            if fl6.keys():
+                if fl6[self.logdelete]:
+                    return fl6[self.logdelete]
+                else:
+                    return 0
+
+    def ssc_logdeletepurge(self):
+        with shelve.open(FetchLogSSC._fetchlogpath) as fl7:
+            if fl7.keys():
+                if fl7[self.logdelete]:
+                    del fl7[self.logdelete]
+                    fl7[self.logdelete] = []
+                if fl7[self.logdelete]:
+                    return 0
+                else:
+                    return 1
+
     def ssc_logcompletefetch(self):
         with shelve.open(FetchLogSSC._fetchlogpath) as fl5:
             if fl5.keys():
@@ -77,7 +124,6 @@ class FetchLogSSC:
                     return fl5[self.logfinish]
                 else:
                     return 0
-
 
     def ssc_logcompletepurge(self):
         with shelve.open(FetchLogSSC._fetchlogpath) as fl6:
