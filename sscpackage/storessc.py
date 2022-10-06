@@ -83,7 +83,7 @@ class StoreSSC:
                     basepoints INT
                 );"""
 
-                with connection.cursor(buffered=True) as cursor:
+                with connection.cursor(buffered=True, prepared=True) as cursor:
                     print("In With Block")
                     try:
                         cursor.execute(dbtbl_create, multi=True)

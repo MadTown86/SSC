@@ -14,34 +14,68 @@ def miniprinter(header, obj):
 
 
 class Test_StoreSSC(unittest.TestCase):
-    def test_chksetup(self):
+
+    @patch('sscpackage.storessc.mysql.connector')
+    def test_chksetup(self, mock_connector):
         """
         This tests to make sure a table exists before commits are mde
         :return: True / creates table / throws error if no server exists in which to create a table
         """
+
         S1 = sscpackage.storessc.StoreSSC()
+        called_withblock = """
+                CREATE DATABASE IF NOT EXISTS sscdb;
+                USE sscdb;
+                CREATE TABLE IF NOT EXISTS logentry (
+                    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                    ticker VARCHAR(5),
+                    logTime DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    grade VARCHAR(2),
+                    parsecombo JSON,
+                    points INT,
+                    basepoints INT
+                );"""
+
+        for value in mock_connector.method_calls:
+            print(value)
+
+        for value in mock_connector.connect.method_calls:
+            print(value)
+
+        for value in mock_connector.cursor.method_calls:
+            print(value)
+
         self.assertTrue(S1.db_chksetup())
 
     @patch('sscpackage.storessc.mysql.connector')
     @patch('sscpackage.storessc.json')
-    @patch('sscpackage.storessc.sscp.GradeSSC')
-    def test_logentry(self, mock_parse, mock_json, mock_methodvar):
+    def test_logentry(self, mock_json, mock_methodvar):
         """
         :param mock_parse:
         :param mock_json:
         :param mock_methodvar:
         :return:
         """
+        ticker_entry = unittest.mock.MagicMock()
+        grade_ssc = unittest.mock.MagicMock()
+        points = unittest.mock.MagicMock()
+        basepoints = unittest.mock.MagicMock()
+        parsecombo = unittest.mock.MagicMock()
+
+
+
         SC = sscpackage.storessc.StoreSSC()
-        SC.log_entry()
+        SC.log_entry(parsecombo, grade_ssc, ticker_entry, points, basepoints)
 
         mock_json.dumps.assert_called()
         mock_methodvar.connect.assert_called()
         connect_calls = [unittest.mock.call.connect(host='localhost', user=str(os.getenv("DB_USER")),
                                                     password=str(os.getenv("DB_PASS")), database='sscdb')]
+
+        for item in mock_methodvar.method_calls:
+            print(item)
         self.assertEqual(connect_calls, mock_methodvar.method_calls)
 
-        assert mock_parse is sscpackage.storessc.sscp.GradeSSC
         # TODO: need to update storetool and test_storetool
         assert mock_json is sscpackage.storessc.json
         assert mock_methodvar is sscpackage.storessc.mysql.connector

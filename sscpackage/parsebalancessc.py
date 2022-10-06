@@ -15,10 +15,14 @@ class ParseBalance:
     def __init__(self):
         self.setpathssc_parsesscpb = ROOT_VAR_SSC + "parsebalanceshelf"
 
+    # TODO: learn about raising own exceptions and proper format behind them
     def parse_shelvepullkeys(self):
         with shelve.open(self.setpathssc_parsesscpb) as svpk:
             if svpk.keys():
                 return [x for x in svpk.keys()]
+            else:
+                raise
+
 
     def parse_balancepurge(self):
         with shelve.open(self.setpathssc_parsesscpb) as purge_bal:
@@ -29,6 +33,7 @@ class ParseBalance:
                     return 1
                 else:
                     return 0
+            return 0
     def parsebalance(self, uniquename: 'str', pb_rawdata: dict) -> None:
         try:
             uniquesplitlist = uniquename.split("__")

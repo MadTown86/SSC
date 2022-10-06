@@ -24,6 +24,12 @@ class FetchUrlSSC:
         self.pathdirssc = pathdirssc
         self.pathnamefetchurls = pathnamefetchurls
         self.shelfkey = shelfkey
+        self.url_income = "https://stock-market-data.p.rapidapi.com/stock/financials/income-statement/annual-historical"
+        self.url_balance = "https://stock-market-data.p.rapidapi.com/stock/financials/balance-sheet/annual-historical"
+        self.url_ar = "https://yh-finance.p.rapidapi.com/stock/v2/get-upgrades-downgrades"
+        self.url_val = "https://stock-market-data.p.rapidapi.com/stock/valuation/historical-valuation-measures"
+        self.url_sectordata = "https://stock-market-data.p.rapidapi.com/stock/company-info"
+        self.qs_inc_bal = {"ticker_symbol": self.ticker, "format": "json"}
 
     def firstcreate_fetchurlssc(self):
         with shelve.open(self.pathnamefetchurls) as shelvefetch:
@@ -64,15 +70,7 @@ class FetchUrlSSC:
         try:
             if self.checkpaths():
                 self.purge_fetchurlshelf()
-                # These are variables holding the API locations for the information calls
-                url_income = "https://stock-market-data.p.rapidapi.com/stock/financials/income-statement/annual-historical"
-                url_balance = "https://stock-market-data.p.rapidapi.com/stock/financials/balance-sheet/annual-historical"
-                url_ar = "https://yh-finance.p.rapidapi.com/stock/v2/get-upgrades-downgrades"
-                url_val = "https://stock-market-data.p.rapidapi.com/stock/valuation/historical-valuation-measures"
-                url_sectordata = "https://stock-market-data.p.rapidapi.com/stock/company-info"
-
                 # These are the two variables necessary to ping the API's, first two take qs, url_ar takes 2
-                qs_inc_bal = {"ticker_symbol": self.ticker, "format": "json"}
                 qs_ar = {"symbol": self.ticker, "region": "US"}
                 qs_val = {"ticker_symbol": self.ticker, "format": "json"}
                 qs_sector = {"ticker_symbol": self.ticker}
@@ -91,11 +89,11 @@ class FetchUrlSSC:
 
                 # Create and prime shelf with core necessary fetches
                 fetchshelf = shelve.open(self.pathnamefetchurls)
-                self.fetch_apidict = {"url_income": {"url": url_income, "qs": qs_inc_bal, "headers": headers},
-                                      "url_balance": {"url": url_balance, "qs": qs_inc_bal, "headers": headers},
-                                      "url_ar": {"url": url_ar, "qs": qs_ar, "headers": headers_ar},
-                                      "url_val": {"url": url_val, "qs": qs_val, "headers": headers},
-                                      "url_sectordata": {"url": url_sectordata, "qs": qs_sector, "headers": headers}}
+                self.fetch_apidict = {"url_income": {"url": self.url_income, "qs": self.qs_inc_bal, "headers": headers},
+                                      "url_balance": {"url": self.url_balance, "qs": self.qs_inc_bal, "headers": headers},
+                                      "url_ar": {"url": self.url_ar, "qs": qs_ar, "headers": headers_ar},
+                                      "url_val": {"url": self.url_val, "qs": qs_val, "headers": headers},
+                                      "url_sectordata": {"url": self.url_sectordata, "qs": qs_sector, "headers": headers}}
                 fetchshelf[self.shelfkey] = self.fetch_apidict
                 self.fetchbank = fetchshelf[self.shelfkey]
                 fetchshelf.close()
