@@ -1,8 +1,9 @@
 import shelve
 import fetchshelfssc_mod
+
 import dotenv
 import os
-dotenv.load_dotenv(dotenv_path=r'C:\SSC\SimpleStockChecker_REV1\venv\.env')
+dotenv.load_dotenv(dotenv_path=os.getenv("LO_ROOT"))
 ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
 
 

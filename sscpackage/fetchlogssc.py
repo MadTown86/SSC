@@ -1,9 +1,12 @@
 import shelve
 import dotenv
 import os
+import time
 
-dotenv.load_dotenv(dotenv_path=r'C:\SSC\SimpleStockChecker_REV1\venv\.env')
+dotenv.load_dotenv(dotenv_path=os.getenv("LO_ROOT"))
 ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
+
+
 
 
 class FetchLogSSC:
@@ -36,13 +39,13 @@ class FetchLogSSC:
                 if shelvelog.keys():
                     if self.logname in shelvelog.keys():
                         temp_log = shelvelog[self.logname]
-                        if fetchstorename not in [x for x in temp_log]:
+                        if fetchstorename not in temp_log:
                             temp_log.append(fetchstorename)
                             shelvelog[self.logname] = temp_log
+                        else:
+                            pass
                     else:
-                        temp_log = shelvelog[self.logname]
-                        temp_log.append(fetchstorename)
-                        shelvelog[self.logname] = temp_log
+                        shelvelog[self.logname] = [fetchstorename]
                 else:
                     shelvelog[self.logname] = [fetchstorename]
         except Exception as er:

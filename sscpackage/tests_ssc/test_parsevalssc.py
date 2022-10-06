@@ -3,13 +3,17 @@ import shelve
 import unittest
 
 import parsevalssc
+import dotenv
+import os
+dotenv.load_dotenv(dotenv_path=os.getenv("LO_ROOT"))
+ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
 
 
 class MyTestCase(unittest.TestCase):
     def test_parseval(self):
         PSVAL = parsevalssc.ParseVal()
-        test_datapathparsevalssc = r'C:\SSC\SimpleStockchecker_Rev1\sscpackage\storage\test_parse_val.json'
-        test_dataparsevalresult1 = r'C:\SSC\SimpleStockchecker_Rev1\sscpackage\storage\test_parsevaltestresult.json'
+        test_datapathparsevalssc = ROOT_VAR_SSC + 'test_parse_val.json'
+        test_dataparsevalresult1 = ROOT_VAR_SSC + 'test_parsevaltestresult.json'
         test_parsevaluniquename = "Testticker1__Testkey1__Testidssc1__Testtimestampidval1"
 
         with shelve.open(PSVAL.setpathssc_parsesscval) as shelfclear:

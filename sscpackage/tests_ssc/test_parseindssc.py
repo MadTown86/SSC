@@ -3,6 +3,11 @@ import unittest
 
 import parseindssc
 
+import dotenv
+import os
+dotenv.load_dotenv(dotenv_path=os.getenv("LO_ROOT"))
+ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
+
 
 def quickdeleteop(path):
     with shelve.open(path) as funcdelshelf:
@@ -21,7 +26,7 @@ def shelveexist(path):
 
 class MyTestCase(unittest.TestCase):
     def test_parseindustry(self):
-        test_parseindustrydatapath = r'C:\SSC\SimpleStockChecker_REV1\sscpackage\storage\test_parse_sector.json'
+        test_parseindustrydatapath = ROOT_VAR_SSC + 'test_parse_sector.json'
         test_parseinduniquename = 'Test1__Test2__Test3__Test4'
         PIND = parseindssc.ParseIndustry()
 

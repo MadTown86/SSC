@@ -3,7 +3,7 @@ import os
 import dotenv
 import shelve
 
-dotenv.load_dotenv(dotenv_path=r'C:\SSC\SimpleStockChecker_REV1\venv\.env')
+dotenv.load_dotenv(dotenv_path=os.getenv("LO_ROOT"))
 ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
 
 import fetchlogssc
@@ -52,7 +52,6 @@ class TestFetchLog(unittest.TestCase):
         output = FLOG.ssc_logcompletefetch()
         self.assertEqual(["TESTWRITE"], output)
 
-
     def test_logcompletewrite(self):
         FLOG = fetchlogssc.FetchLogSSC()
         FLOG.ssc_fetchlogclear()
@@ -66,7 +65,7 @@ class TestFetchLog(unittest.TestCase):
             FLOG.ssc_fetchlogwrite(item)
         output_test = FLOG.ssc_logfetch()
         print(f'Output_test 1 Values: {output_test}')
-        #self.assertEqual(output_test, ["MSFT-Balance1", "MSFT-INCOME2", "MSFT-Crud3"])
+        # self.assertEqual(output_test, ["MSFT-Balance1", "MSFT-INCOME2", "MSFT-Crud3"])
 
         FLOG.ssc_logcompletewrite("MSFT", str(1))
 
@@ -78,17 +77,29 @@ class TestFetchLog(unittest.TestCase):
         self.assertEqual(output_test3, ["MSFT-Balance1"])
 
     def test_fetchlogdeleted(self):
-        FLOG = fetchlogssc.FetchLogSSC()
-        FLOG.ssc_fetchlogclear()
-        FLOG.ssc_logdelete_purge()
-        FS = fetchssc.FetchSSC()
-        FS.purge_tickerfail()
+        try:
+            FLOG = fetchlogssc.FetchLogSSC()
+            FLOG.ssc_fetchlogclear()
+            FLOG.ssc_logdelete_purge()
+            FS = fetchssc.FetchSSC()
+            FS.purge_tickerfail()
+        except Exception as er:
+            print("First try block - test_fetchlogdelete")
+            print(er)
+            pass
+
         ticker_list = ["MSFT__a1__b1__c1", "MSFT__a2__b2__c1", "MSFT__a3__b3__c1", "NVDA__g4__g5__g6"]
         ticker_fail = ["MSFT__a1__b1__c1"]
-        for item in ticker_list:
-            FLOG.ssc_fetchlogwrite(item)
 
-        log_test = FLOG.ssc_logfetch()
+        try:
+            for item in ticker_list:
+                FLOG.ssc_fetchlogwrite(item)
+
+            log_test = FLOG.ssc_logfetch()
+        except Exception as er:
+            print("Second try block - test_fetchlogdeleted")
+            print(er)
+
         self.assertEqual(log_test, ticker_list)
 
         print(f'This is initial log: {FLOG.ssc_logfetch()}')
@@ -97,15 +108,13 @@ class TestFetchLog(unittest.TestCase):
             FS.ticker_fail(item2)
 
         print(f'This is initial faillist: {FS.pull_tickerfail()}')
-
-        for item in FS.pull_tickerfail():
+        temp_faillist = FS.pull_tickerfail()
+        for item in temp_faillist:
             print(type(item))
             print(item)
             FLOG.ssc_fetchlogdeleted(*item)
 
         self.assertEqual(FLOG.ssc_logfetch(), ["NVDA__g4__g5__g6"])
-
-
 
 
 if __name__ == '__main__':

@@ -1,12 +1,16 @@
 import shelve
 import unittest
-
+import dotenv
+import os
 import parsearssc
+
+dotenv.load_dotenv(dotenv_path=os.getenv("LO_ROOT"))
+ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
 
 
 class MyTestCase(unittest.TestCase):
     def test_parsear(self):
-        test_parseardatapath = r'.\storage\test_parse_ar.json'
+        test_parseardatapath = ROOT_VAR_SSC + 'test_parse_ar.json'
         test_parsearuniquename = "TESTticker__TESTkey__TESTidssc__TESTtimestampidar"
         PARSSC = parsearssc.ParseAr()
         with open(test_parseardatapath) as testdoc:
@@ -33,7 +37,7 @@ class MyTestCase(unittest.TestCase):
                 del parshelv[key]
             parshelv.close()
 
-        test_parseardatapath = r'C:\SSC\SimpleStockChecker_REV1\sscpackage\storage\test_parse_ar.json'
+        test_parseardatapath = ROOT_VAR_SSC + 'test_parse_ar.json'
         test_parsearuniquename = "TESTticker__TESTkey__TESTidssc__TESTtimestampidar"
         test_parsetimestampid = "TESTtimestampidar"
 

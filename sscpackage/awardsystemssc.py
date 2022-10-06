@@ -4,8 +4,12 @@ This class is going to house the point award system
 import shelverssc
 import dotenv
 import os
-dotenv.load_dotenv(dotenv_path=r'C:\SSC\SimpleStockChecker_REV1\venv\.env')
+
+import dotenv
+import os
+dotenv.load_dotenv(dotenv_path=os.getenv("LO_ROOT"))
 ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
+
 
 
 class AwardSystemSSC(shelverssc.ShelverSSC):

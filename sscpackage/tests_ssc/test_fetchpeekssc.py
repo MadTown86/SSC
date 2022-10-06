@@ -2,6 +2,10 @@ import unittest
 
 import shelverssc
 
+import dotenv
+import os
+dotenv.load_dotenv(dotenv_path=os.getenv("LO_ROOT"))
+ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
 
 class MyTestCase(unittest.TestCase):
 
@@ -12,7 +16,7 @@ class MyTestCase(unittest.TestCase):
         """
         testkeytrue = "KEYTEST1"
         testkeyfalse = "KEYFALSETEST"
-        testpath = r'C:\SSC\SimpleStockChecker_REV1\sscpackage\storage\test_shelfpeekssc'
+        testpath = ROOT_VAR_SSC + 'test_shelfpeekssc'
 
         SHELFPEEKSSC = shelverssc.ShelverSSC()
         testres1 = SHELFPEEKSSC.fetchpeek(path=testpath, keysearch=testkeytrue)

@@ -1,11 +1,11 @@
 import unittest
 import unittest.mock
 from unittest.mock import patch
-import dotenv
 import parsessc
-import os
 
-dotenv.load_dotenv(dotenv_path=r'C:\SSC\SimpleStockChecker_REV1\venv\.ENV')
+import dotenv
+import os
+dotenv.load_dotenv(dotenv_path=os.getenv("LO_ROOT"))
 ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
 
 class MyTestCase(unittest.TestCase):
