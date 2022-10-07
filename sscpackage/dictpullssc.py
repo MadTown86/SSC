@@ -2,7 +2,7 @@ dictpullsscflag = False
 count = 0
 
 
-def dictpull(seq, header):
+def dictpull(seq: dict, header: str) -> {}:
     """
     Dictpull takes a container as an argument and the name of the key you want to pull.  This only works for a 'key': 'value
     pair from a complex, nested sequence.
@@ -82,18 +82,18 @@ def dictpull(seq, header):
 
 
 class DictPullSSC:
-    def __init__(self):
+    def __init__(self) -> None:
         pass
 
-    def dictpullssc(self, seq, header):
+    def dictpullssc(self, seq: dict, header: str) -> {}:
         dictpull(seq, header)
         self.answer = dictpull.answer
         return dictpull.answer
 
-    def setanswerattr(self, answer):
+    def setanswerattr(self, answer) -> None:
         self.answer = answer
 
-    def pullanswerattr(self):
+    def pullanswerattr(self) -> dict:
         return self.answer
 
 

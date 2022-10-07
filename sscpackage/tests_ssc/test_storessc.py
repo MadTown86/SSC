@@ -1,8 +1,7 @@
 import os
 import unittest
 from unittest.mock import patch
-
-import sscpackage.storessc
+import sscpackage
 
 
 def miniprinter(header, obj):
@@ -61,8 +60,6 @@ class Test_StoreSSC(unittest.TestCase):
         points = unittest.mock.MagicMock()
         basepoints = unittest.mock.MagicMock()
         parsecombo = unittest.mock.MagicMock()
-
-
 
         SC = sscpackage.storessc.StoreSSC()
         SC.log_entry(parsecombo, grade_ssc, ticker_entry, points, basepoints)

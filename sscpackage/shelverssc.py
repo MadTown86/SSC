@@ -1,6 +1,8 @@
 import shelve
 import dotenv
 import os
+import sscerrors
+
 dotenv.load_dotenv(dotenv_path=os.getenv("LO_ROOT"))
 ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
 
@@ -10,7 +12,7 @@ class ShelverSSC:
         self.permstorpathssc = ROOT_VAR_SSC
         self.shelvename = shelvename
 
-    def add_singleshelf(self, path, key, value):
+    def add_singleshelf(self, path: str, key: str, value: str) -> None:
         try:
             with shelve.open(path) as addss:
                 addss[key] = value
@@ -18,63 +20,61 @@ class ShelverSSC:
             print("Exception in ShelverSSC: method 'add_singleshelf' ")
             print(er)
 
-    def pull_shelverssc(self, shelvename, gradesystemname="DEFAULT"):
-        try:
-            with shelve.open(self.permstorpathssc + shelvename) as sscshelvemanager:
-                if gradesystemname in sscshelvemanager.keys():
-                    tempsscshelv = sscshelvemanager[gradesystemname]
-                    sscshelvemanager.close()
-                    return tempsscshelv
-                else:
-                    sscshelvemanager.close()
-                    return 0
-        except Exception as er:
-            print("Exception in ShelverSSC: method 'pull_shelverssc'")
-            print(er)
+    def pull_shelverssc(self, shelvename: str, gradesystemname="DEFAULT") -> shelve:
+        with shelve.open(self.permstorpathssc + shelvename) as sscshelvemanager:
+            if gradesystemname in sscshelvemanager.keys():
+                tempsscshelv = sscshelvemanager[gradesystemname]
+                sscshelvemanager.close()
+                return tempsscshelv
+            else:
+                raise sscerrors.NoShelveException
 
-    def inkeys_shelvercorekeysssc(self, shelvename, keyname):
+    def inkeys_shelvercorekeysssc(self, shelvename: str, keyname: str) -> bool:
         with shelve.open(self.permstorpathssc + shelvename) as sscshelvemanager:
             if keyname in sscshelvemanager.keys():
-                return 1
+                return True
             else:
-                return 0
+                return False
 
-    def pull_shelvercorekeysssc(self, shelvename):
+    def pull_shelvercorekeysssc(self, shelvename: str) -> list:
         with shelve.open(self.permstorpathssc + shelvename) as sscshelvemanager:
-            tempkey_list = [key for key in sscshelvemanager.keys()]
-            sscshelvemanager.close()
-            return tempkey_list
+            try:
+                return sscerrors.get_keysshelve(sscshelvemanager)
+            except sscerrors.EmptyShelveException as er:
+                print(er)
 
-    def pull_shelvesubcorekeys(self, shelvename, corenamessc):
+    def pull_shelvesubcorekeys(self, shelvename: str, corenamessc: str) -> list:
         with shelve.open(self.permstorpathssc + shelvename) as sscshelvemanager:
-            tempkey_list = [key for key in sscshelvemanager[corenamessc].keys()]
-            sscshelvemanager.close()
-            return tempkey_list
+            try:
+                if sscshelvemanager[corenamessc]:
+                    return sscerrors.get_keysshelve(sscshelvemanager[corenamessc])
+            except sscerrors.EmptyShelveException as er:
+                print(er)
 
-    def pull_shelvesubelementkeys(self, shelvename, corenamessc, subitemnamessc):
+    def pull_shelvesubelementkeys(self, shelvename: str, corenamessc: str, subitemnamessc: str) -> list:
         with shelve.open(self.permstorpathssc + shelvename) as sscshelvemanager:
             templist = sscshelvemanager[corenamessc][subitemnamessc]
             sscshelvemanager.close()
             return templist
 
-    def add_shelvecoreelementssc(self, shelvename: str, keywordssc: str, data, *args, **kwargs):
+    def add_shelvecoreelementssc(self, shelvename: str, keywordssc: str, data, *args, **kwargs) -> None:
         with shelve.open(self.permstorpathssc + shelvename) as sscshelvemanager:
             sscshelvemanager[keywordssc] = data
             sscshelvemanager.close()
 
-    def del_shelvecoreelementssc(self, shelvename: 'str', keywordssc: 'str'):
+    def del_shelvecoreelementssc(self, shelvename: 'str', keywordssc: 'str') -> None:
         with shelve.open(self.permstorpathssc + shelvename) as sscshelvemanager:
             del sscshelvemanager[keywordssc]
             sscshelvemanager.close()
 
     def add_shelvesubcoreelementssc(self, shelvename: 'str', systemkeywordssc: 'str', subcoreelementid: 'str', data,
-                                    *args, **kwargs):
+                                    *args, **kwargs) -> None:
         with shelve.open(self.permstorpathssc + shelvename) as sscshelvemanager:
             sscshelvemanager[systemkeywordssc] = {subcoreelementid: data}
             sscshelvemanager.close()
 
     def del_shelvesubcoreelementssc(self, shelvename: 'str', systemkeywordssc: 'str', subcoreelementid: 'str',
-                                    *args, **kwargs):
+                                    *args, **kwargs) -> bool:
         with shelve.open(self.permstorpathssc + shelvename) as sscshelvemanager:
             tempshelvedict = sscshelvemanager[systemkeywordssc]
             if isinstance(tempshelvedict, dict):
@@ -82,15 +82,15 @@ class ShelverSSC:
                     del tempshelvedict[subcoreelementid]
                     sscshelvemanager[systemkeywordssc] = tempshelvedict
                     sscshelvemanager.close()
-                    return 1
+                    return True
                 else:
                     sscshelvemanager.close()
-                    return 0
+                    return False
             else:
                 sscshelvemanager.close()
-                return 0
+                return False
 
-    def add_shelvesubelement(self, shelvename: 'str', systemkeywordssc: 'str', coremetricssc: 'str', *args, **kwargs):
+    def add_shelvesubelement(self, shelvename: 'str', systemkeywordssc: 'str', coremetricssc: 'str', *args, **kwargs) -> bool:
         with shelve.open(self.permstorpathssc + shelvename) as sscshelvemanager:
             tempcopy = sscshelvemanager[systemkeywordssc][coremetricssc]
             if isinstance(tempcopy, dict):
@@ -98,18 +98,18 @@ class ShelverSSC:
                     tempcopy[key] = kwargs[key]
                 sscshelvemanager[systemkeywordssc][coremetricssc] = tempcopy
                 sscshelvemanager.close()
-                return 1
+                return True
             elif isinstance(tempcopy, list):
                 if args:
                     for value in args:
                         tempcopy.append(value)
                     sscshelvemanager[systemkeywordssc][coremetricssc] = tempcopy
                     sscshelvemanager.close()
-                    return 1
+                    return True
             else:
-                return 0
+                return False
 
-    def del_shelvesubelement(self, shelvename: 'str', keywordssc: 'str', coremetricssc: 'str', *args, **kwargs):
+    def del_shelvesubelement(self, shelvename: 'str', keywordssc: 'str', coremetricssc: 'str', *args, **kwargs) -> bool:
         with shelve.open(self.permstorpathssc + shelvename) as sscshelvemanager:
             tempcopy = sscshelvemanager[keywordssc][coremetricssc]
             errstring = ""
@@ -122,7 +122,7 @@ class ShelverSSC:
                         continue
                 sscshelvemanager[keywordssc][coremetricssc] = tempcopy
                 sscshelvemanager.close()
-                return 1
+                return True
             elif isinstance(tempcopy, list):
                 for item in args:
                     if item in tempcopy:
@@ -132,10 +132,10 @@ class ShelverSSC:
                         continue
                 sscshelvemanager[keywordssc][coremetricssc] = tempcopy
                 sscshelvemanager.close()
-                return 1
+                return True
             else:
                 sscshelvemanager.close()
-                return 0, errstring
+                return False
 
     def fetchpeek(self, path: 'str', keysearch: 'str') -> bool:
         """
@@ -150,6 +150,6 @@ class ShelverSSC:
                     return True
                 else:
                     return False
-        except Exception as er:
+        except sscerrors.EmptyShelveException as er:
             print("Exception in ShelverSSC: method 'fetchpeek' ")
             print(er)

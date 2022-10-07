@@ -4,10 +4,12 @@ Superclass - adding data to Grade Sheet method
 import datetime
 import openpyxl
 import openpyxl.utils.dataframe
-import pandas
 
 import dotenv
 import os
+
+import pandas
+
 dotenv.load_dotenv(dotenv_path=os.getenv("LO_ROOT"))
 ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
 

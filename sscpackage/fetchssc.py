@@ -20,13 +20,13 @@ dotenv.load_dotenv(dotenv_path=os.getenv("LO_ROOT"))
 ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
 
 
-def theshuffler(basket, countage):
+def theshuffler(basket: [], countage: int) -> None:
     while countage > 0:
         random.shuffle(basket)
         countage -= 1
 
 
-def myownrandom(keylength=10):
+def myownrandom(keylength: int = 10) -> str:
     try:
         place = 0
         startbasket = string.digits + string.ascii_letters
@@ -64,10 +64,10 @@ class FetchSSC:
     def pull_fetchfaillist():
         return FetchSSC.ticker_fail
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         pass
 
-    def ticker_fail(self, fetchname: str):
+    def ticker_fail(self, fetchname: str) -> None:
         try:
             temp_list = []
             with shelve.open(ROOT_VAR_SSC + "ticker_fail") as ticker_fshelve:
@@ -101,7 +101,6 @@ class FetchSSC:
         except Exception as er:
             print("Exception in fetchssc-> pull_tickefail")
             print(er)
-
 
     @staticmethod
     def purge_tickerfail():

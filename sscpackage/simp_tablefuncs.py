@@ -1,12 +1,12 @@
 import os
-
 import mysql
 from mysql.connector import connect
+import sscerrors
 
 
 class Simp_TableFuncs:
-
-    def create_commit(self, commitstr, host='localhost', database='sscdb', multi=False):
+    @staticmethod
+    def create_commit(commitstr: str, host: str = 'localhost', database: str = 'sscdb', multi: bool = False) -> [()]:
         if not multi:
             try:
                 with mysql.connector.connect(
@@ -15,7 +15,7 @@ class Simp_TableFuncs:
                         password=str(os.getenv("DB_PASS")),
                         database=database,
                 ) as connection:
-                    with connection.cursor(buffered=True) as cursor:
+                    with connection.cursor(buffered=True, prepared=True) as cursor:
                         cursor.execute(str(commitstr))
                         result_commit = cursor.fetchall()
                         connection.commit()
@@ -37,7 +37,7 @@ class Simp_TableFuncs:
                         password=str(os.getenv("DB_PASS")),
                         database=database,
                 ) as connection:
-                    with connection.cursor(buffered=True, multi=True) as cursor:
+                    with connection.cursor(buffered=True, multi=True, prepared=True) as cursor:
                         cursor.execute(str(commitstr))
                         result_commit = cursor.fetchall()
                         connection.commit()
@@ -51,13 +51,13 @@ class Simp_TableFuncs:
 
             return result_commit
 
-    def check_dbval(self, objname):
+    def check_dbval(self, objname: str) -> [()]:
         sql_checkcommit = """USE sscdb
         SELECT COUNT(*) FROM information_schema.routines WHERE routine_schema = \
         DATABASE() and routine_name = {objname}""".format(objname=objname)
         return self.create_commit(sql_checkcommit)
 
-    def create_table(self, tablename='test', uniquekey=True, *args, **kwargs):
+    def create_table(self, tablename: str = 'test', uniquekey: bool = True, *args, **kwargs) -> str:
         """
         This method assembles the MySQL string to establish a table using mysql.connector.
 
@@ -85,48 +85,60 @@ class Simp_TableFuncs:
 
         return ctable_assemblyvar
 
-    def delete_table(self, tnamedel):
+    def delete_table(self, tnamedel: str) -> None:
+        """
+        Deletes SQL table "tnamedel" in default database for SSC
+
+        :param tnamedel:
+        :return:
+        """
         delstr = """DROP TABLE IF EXISTS {tnamedel};""".format(tnamedel=tnamedel)
         self.create_commit(delstr)
 
-    def create_sqlfunc(self, sql, tableexists=True):
-        if tableexists == True:
-            checkfunc = """DROP FUNCTION IF EXISTS tableExistsOrNot;
-            CREATE FUNCTION tableExistsOrNot (_tableName VARCHAR(255))
-            RETURNS BOOLEAN
-            DETERMINISTIC
-            BEGIN
-             IF 
-             (SELECT COUNT(*)FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = '_tableName') = 1
-             THEN
-             RETURN TRUE;
-              ELSE
-                RETURN FALSE;
-                END IF;
-            END;"""
-            self.create_commit(checkfunc)
-        else:
-            self.create_commit(sql)
+    def create_sqlfunc(self, sql: str, tableexists: bool = True) -> [()]:
+        try:
+            if tableexists:
+                checkfunc = """DROP FUNCTION IF EXISTS tableExistsOrNot;
+                CREATE FUNCTION tableExistsOrNot (_tableName VARCHAR(255))
+                RETURNS BOOLEAN
+                DETERMINISTIC
+                BEGIN
+                 IF 
+                 (SELECT COUNT(*)FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = '_tableName') = 1
+                 THEN
+                 RETURN TRUE;
+                  ELSE
+                    RETURN FALSE;
+                    END IF;
+                END;"""
+                self.create_commit(checkfunc)
+            else:
+                self.create_commit(sql)
+        except sscerrors.SqlParseException as er:
+            print("Error in 'simp_tablefuncs' -> create_sqlfunc")
+            print(er)
 
-        result = ""
+    def runfunc(self, funcname: str = 'tableExistsOrNot', *args, **kwargs) -> [()]:
+        try:
+            if len(args) > 1:
+                table_beg = "SELECT {funcname}('".format(funcname=funcname)
+                table_rest = ""
+                arglist = [x for x in args]
+                while arglist:
+                    if len(arglist) > 1:
+                        table_rest += "{argname}', '".format(argname=arglist.pop(0))
+                    else:
+                        table_rest += "{argname}')".format(argname=arglist.pop(0))
+                table_checkmultiarg = table_beg + table_rest
+                return self.create_commit(table_checkmultiarg)
+            else:
+                table_check = "SELECT {funcname}('{argname}');".format(funcname=funcname, argname=args[0])
+                return self.create_commit(table_check)
+        except sscerrors.SqlParseException as er:
+            print("Exception in 'simp_tablefuncs' -> runfunc")
+            print(er)
 
-    def runfunc(self, funcname='tableExistsOrNot', *args, **kwargs):
-        if len(args) > 1:
-            table_beg = "SELECT {funcname}('".format(funcname=funcname)
-            table_rest = ""
-            arglist = [x for x in args]
-            while arglist:
-                if len(arglist) > 1:
-                    table_rest += "{argname}', '".format(argname=arglist.pop(0))
-                else:
-                    table_rest += "{argname}')".format(argname=arglist.pop(0))
-            table_checkmultiarg = table_beg + table_rest
-            return self.create_commit(table_checkmultiarg)
-        else:
-            table_check = "SELECT {funcname}('{argname}');".format(funcname=funcname, argname=args[0])
-            return self.create_commit(table_check)
-
-    def funcdrop(self, funcname, tableexistsf=True):
+    def funcdrop(self, funcname: str = "", tableexistsf: bool = True) -> [()]:
         if tableexistsf == True:
             executestatement = """DROP FUNCTION IF EXISTS tableExistsOrNot;"""
             self.create_commit(executestatement)
