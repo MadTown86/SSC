@@ -35,7 +35,6 @@ def get_keysshelve(shelver: shelve) -> list:
         # shelver was empty
         raise EmptyShelveException
 
-
 class NoShelveException(Exception):
     pass
 

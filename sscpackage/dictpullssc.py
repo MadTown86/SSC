@@ -1,8 +1,9 @@
+from typing import Any
 dictpullsscflag = False
 count = 0
 
 
-def dictpull(seq: dict, header: str) -> {}:
+def dictpull(seq: dict[str, Any], header: str) -> {}:
     """
     Dictpull takes a container as an argument and the name of the key you want to pull.  This only works for a 'key': 'value
     pair from a complex, nested sequence.
