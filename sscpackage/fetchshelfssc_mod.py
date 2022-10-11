@@ -25,7 +25,7 @@ class FetchShelfSSC:
         self.fetchstoreshelf = fetchstoreshelf
         self.fetchstorename = ""
 
-    def fetchstore(self, ticker, fetchstorename, fetch_data, sscrandomkey, tag, *args, **kwargs):
+    def fetchstore(self, ticker, fetchstorename, fetch_data, *args, **kwargs):
         self.ticker = ticker
         try:
             self.fetchstorename = fetchstorename

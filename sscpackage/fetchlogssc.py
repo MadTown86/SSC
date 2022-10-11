@@ -198,6 +198,10 @@ class FetchLogSSC:
             print(er)
 
     def ssc_logcompletefetch(self):
+        """
+
+        :return:
+        """
         try:
             with shelve.open(FetchLogSSC._fetchlogpath) as fl5:
                 if fl5.keys():
@@ -209,17 +213,18 @@ class FetchLogSSC:
             print("Exception in fetchlogssc -> ssc_logcompletefetch")
             print(er)
 
-    def ssc_logcompletepurge(self):
+    def ssc_logcompletepurge(self) -> None:
+        """
+        Clears shelve at self.logfinish path
+        *Mainly for testing purposes
+        :return:
+        """
         try:
             with shelve.open(FetchLogSSC._fetchlogpath) as fl6:
                 if fl6.keys():
                     if self.logfinish in fl6.keys():
                         del fl6[self.logfinish]
                         fl6[self.logfinish] = []
-                    if fl6[self.logfinish]:
-                        return 0
-                    else:
-                        return 1
                 else:
                     fl6[self.logfinish] = []
         except Exception as er:

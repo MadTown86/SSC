@@ -38,6 +38,9 @@ def get_keysshelve(shelver: shelve) -> list:
 class NoShelveException(Exception):
     pass
 
+class EmptyDataFetch(Exception):
+    pass
+
 
 class EmptyShelveException(Exception):
     """Raised when a dict is empty"""
