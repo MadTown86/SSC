@@ -1,0 +1,918 @@
+{
+    "financialsTemplate": {
+        "code": "N", 
+        "maxAge": 1
+    }, 
+    "price": {
+        "quoteSourceName": "Delayed Quote", 
+        "regularMarketOpen": {
+            "raw": 133.55, 
+            "fmt": "133.55"
+        }, 
+        "averageDailyVolume3Month": {
+            "raw": 28227068, 
+            "fmt": "28.23M", 
+            "longFmt": "28,227,068"
+        }, 
+        "exchange": "NMS", 
+        "regularMarketTime": 1665432004, 
+        "volume24Hr": {}, 
+        "regularMarketDayHigh": {
+            "raw": 136.09, 
+            "fmt": "136.09"
+        }, 
+        "shortName": "Meta Platforms, Inc.", 
+        "averageDailyVolume10Day": {
+            "raw": 32588370, 
+            "fmt": "32.59M", 
+            "longFmt": "32,588,370"
+        }, 
+        "longName": "Meta Platforms, Inc.", 
+        "regularMarketChange": {
+            "raw": 0.33999634, 
+            "fmt": "0.34"
+        }, 
+        "currencySymbol": "$", 
+        "regularMarketPreviousClose": {
+            "raw": 133.45, 
+            "fmt": "133.45"
+        }, 
+        "postMarketTime": 1665446392, 
+        "preMarketPrice": {
+            "raw": 133.46, 
+            "fmt": "133.46"
+        }, 
+        "preMarketTime": 1665408598, 
+        "exchangeDataDelayedBy": 0, 
+        "toCurrency": null, 
+        "postMarketChange": {
+            "raw": 0.31001282, 
+            "fmt": "0.31"
+        }, 
+        "postMarketPrice": {
+            "raw": 134.1, 
+            "fmt": "134.10"
+        }, 
+        "exchangeName": "NasdaqGS", 
+        "preMarketChange": {
+            "raw": 0.0100098, 
+            "fmt": "0.01"
+        }, 
+        "circulatingSupply": {}, 
+        "regularMarketDayLow": {
+            "raw": 131.87, 
+            "fmt": "131.87"
+        }, 
+        "priceHint": {
+            "raw": 2, 
+            "fmt": "2", 
+            "longFmt": "2"
+        }, 
+        "currency": "USD", 
+        "regularMarketPrice": {
+            "raw": 133.79, 
+            "fmt": "133.79"
+        }, 
+        "regularMarketVolume": {
+            "raw": 24023982, 
+            "fmt": "24.02M", 
+            "longFmt": "24,023,982.00"
+        }, 
+        "lastMarket": null, 
+        "regularMarketSource": "FREE_REALTIME", 
+        "openInterest": {}, 
+        "marketState": "POSTPOST", 
+        "underlyingSymbol": null, 
+        "marketCap": {
+            "raw": 359567294464, 
+            "fmt": "359.57B", 
+            "longFmt": "359,567,294,464.00"
+        }, 
+        "quoteType": "EQUITY", 
+        "preMarketChangePercent": {
+            "raw": 7.50076e-05, 
+            "fmt": "0.01%"
+        }, 
+        "volumeAllCurrencies": {}, 
+        "postMarketSource": "DELAYED", 
+        "strikePrice": {}, 
+        "symbol": "META", 
+        "postMarketChangePercent": {
+            "raw": 0.00231716, 
+            "fmt": "0.23%"
+        }, 
+        "preMarketSource": "FREE_REALTIME", 
+        "maxAge": 1, 
+        "fromCurrency": null, 
+        "regularMarketChangePercent": {
+            "raw": 0.0025477433, 
+            "fmt": "0.25%"
+        }
+    }, 
+    "secFilings": {
+        "filings": [
+            {
+                "date": "2022-09-30", 
+                "epochDate": 1664573650, 
+                "type": "8-K", 
+                "title": "Change in Directors or Principal Officers", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-22-000094&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2022-08-09", 
+                "epochDate": 1660080909, 
+                "type": "8-K", 
+                "title": "Other Events, Financial Statements and Exhibits", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0000950103-22-013830&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2022-08-04", 
+                "epochDate": 1659618099, 
+                "type": "8-K", 
+                "title": "Other Events", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0000950103-22-013666&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2022-08-01", 
+                "epochDate": 1659389354, 
+                "type": "8-K/A", 
+                "title": "Change in Directors or Principal Officers", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-22-000090&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2022-07-28", 
+                "epochDate": 1659047357, 
+                "type": "8-K", 
+                "title": "Change in Directors or Principal Officers", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-22-000085&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2022-07-28", 
+                "epochDate": 1659006707, 
+                "type": "10-Q", 
+                "title": "Quarterly Report", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-22-000082&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2022-07-27", 
+                "epochDate": 1658956122, 
+                "type": "8-K", 
+                "title": "Results of Operations and Financial Condition, Financial Statements and Exhibits", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-22-000079&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2022-06-01", 
+                "epochDate": 1654117515, 
+                "type": "8-K", 
+                "title": "Change in Directors or Principal Officers", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-22-000073&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2022-05-31", 
+                "epochDate": 1654031990, 
+                "type": "8-K", 
+                "title": "Other Events, Financial Statements and Exhibits", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-22-000070&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2022-05-27", 
+                "epochDate": 1653650637, 
+                "type": "8-K", 
+                "title": "Submission of Matters to a Vote of Security Holders, Financial Statements and Exhibits", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-22-000066&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2022-04-28", 
+                "epochDate": 1651144545, 
+                "type": "10-Q", 
+                "title": "Quarterly Report", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-22-000057&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2022-04-27", 
+                "epochDate": 1651093803, 
+                "type": "8-K", 
+                "title": "Results of Operations and Financial Condition, Financial Statements and Exhibits", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-22-000054&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2022-03-01", 
+                "epochDate": 1646172789, 
+                "type": "8-K/A", 
+                "title": "Change in Directors or Principal Officers", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-22-000034&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2022-02-10", 
+                "epochDate": 1644530861, 
+                "type": "8-K", 
+                "title": "Change in Directors or Principal Officers", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-22-000030&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2022-02-10", 
+                "epochDate": 1644530639, 
+                "type": "8-K/A", 
+                "title": "Change in Directors or Principal Officers", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-22-000028&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2022-02-03", 
+                "epochDate": 1643886745, 
+                "type": "10-K", 
+                "title": "Annual Report", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-22-000018&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2022-02-02", 
+                "epochDate": 1643836169, 
+                "type": "8-K", 
+                "title": "Results of Operations and Financial Condition", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-22-000015&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2022-01-11", 
+                "epochDate": 1641936249, 
+                "type": "8-K", 
+                "title": "Change in Directors or Principal Officers", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-22-000006&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2021-10-28", 
+                "epochDate": 1635459831, 
+                "type": "8-K", 
+                "title": "Amendments to Articles of Inc. or Bylaws; Change in Fiscal Year", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-21-000071&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2021-10-26", 
+                "epochDate": 1635246250, 
+                "type": "10-Q", 
+                "title": "Quarterly Report", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-21-000065&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2021-10-25", 
+                "epochDate": 1635196132, 
+                "type": "8-K", 
+                "title": "Results of Operations and Financial Condition, Financial Statements and Exhibits", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-21-000062&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2021-09-22", 
+                "epochDate": 1632347087, 
+                "type": "8-K", 
+                "title": "Change in Directors or Principal Officers", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-21-000053&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2021-07-29", 
+                "epochDate": 1627556881, 
+                "type": "10-Q", 
+                "title": "Quarterly Report", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-21-000049&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2021-07-28", 
+                "epochDate": 1627506544, 
+                "type": "8-K", 
+                "title": "Results of Operations and Financial Condition", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-21-000047&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2021-05-27", 
+                "epochDate": 1622153885, 
+                "type": "8-K", 
+                "title": "Submission of Matters to a Vote of Security Holders", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-21-000040&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2021-04-29", 
+                "epochDate": 1619695643, 
+                "type": "10-Q", 
+                "title": "Quarterly Report", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-21-000033&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2021-04-28", 
+                "epochDate": 1619644244, 
+                "type": "8-K", 
+                "title": "Results of Operations and Financial Condition", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-21-000031&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2021-01-28", 
+                "epochDate": 1611831967, 
+                "type": "10-K", 
+                "title": "Annual Report", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-21-000014&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2021-01-27", 
+                "epochDate": 1611781732, 
+                "type": "8-K", 
+                "title": "Results of Operations and Financial Condition", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-21-000011&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2020-10-30", 
+                "epochDate": 1604056198, 
+                "type": "10-Q", 
+                "title": "Quarterly Report", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-20-000084&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2020-10-29", 
+                "epochDate": 1604005750, 
+                "type": "8-K", 
+                "title": "Results of Operations and Financial Condition", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-20-000081&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2020-07-31", 
+                "epochDate": 1596230354, 
+                "type": "10-Q", 
+                "title": "Quarterly Report", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-20-000076&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2020-07-30", 
+                "epochDate": 1596154753, 
+                "type": "8-K", 
+                "title": "Results of Operations and Financial Condition", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-20-000073&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2020-05-29", 
+                "epochDate": 1590787822, 
+                "type": "8-K", 
+                "title": "Disclosing Submission of Matters to a Vote of Security Holders", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-20-000058&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2020-04-30", 
+                "epochDate": 1588242622, 
+                "type": "10-Q", 
+                "title": "Quarterly Report", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-20-000048&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2020-04-29", 
+                "epochDate": 1588191122, 
+                "type": "8-K", 
+                "title": "Disclosing Results of Operations and Financial Condition", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-20-000046&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2020-03-26", 
+                "epochDate": 1585253644, 
+                "type": "8-K", 
+                "title": "Disclosing Change in Directors or Principal Officers", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-20-000031&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2020-03-09", 
+                "epochDate": 1583786126, 
+                "type": "8-K", 
+                "title": "Disclosing Change in Directors or Principal Officers", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-20-000023&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2020-02-03", 
+                "epochDate": 1580764874, 
+                "type": "8-K", 
+                "title": "Disclosing Change in Directors or Principal Officers", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-20-000018&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2020-01-30", 
+                "epochDate": 1580382138, 
+                "type": "10-K", 
+                "title": "Annual Report", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-20-000013&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2020-01-29", 
+                "epochDate": 1580332254, 
+                "type": "8-K", 
+                "title": "Disclosing Results of Operations and Financial Condition", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-20-000010&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2019-10-31", 
+                "epochDate": 1572516525, 
+                "type": "10-Q", 
+                "title": "Quarterly Report", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-19-000069&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2019-10-30", 
+                "epochDate": 1572466438, 
+                "type": "8-K", 
+                "title": "Disclosing Results of Operations and Financial Condition", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-19-000066&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2019-07-25", 
+                "epochDate": 1564049109, 
+                "type": "10-Q", 
+                "title": "Quarterly Report", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-19-000055&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2019-07-24", 
+                "epochDate": 1564000084, 
+                "type": "8-K", 
+                "title": "Disclosing Results of Operations and Financial Condition", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-19-000053&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }, 
+            {
+                "date": "2019-06-03", 
+                "epochDate": 1559594747, 
+                "type": "8-K", 
+                "title": "Disclosing Submission of Matters to a Vote of Security Holders", 
+                "edgarUrl": "https://yahoo.brand.edgar-online.com/DisplayFiling.aspx?TabIndex=2&dcn=0001326801-19-000043&nav=1&src=Yahoo", 
+                "maxAge": 1
+            }
+        ], 
+        "maxAge": 86400
+    }, 
+    "quoteType": {
+        "exchange": "NMS", 
+        "shortName": "Meta Platforms, Inc.", 
+        "longName": "Meta Platforms, Inc.", 
+        "exchangeTimezoneName": "America/New_York", 
+        "exchangeTimezoneShortName": "EDT", 
+        "isEsgPopulated": false, 
+        "gmtOffSetMilliseconds": "-14400000", 
+        "quoteType": "EQUITY", 
+        "symbol": "META", 
+        "messageBoardId": "finmb_20765463", 
+        "market": "us_market"
+    }, 
+    "calendarEvents": {
+        "maxAge": 1, 
+        "earnings": {
+            "earningsDate": [
+                {
+                    "raw": 1666609140, 
+                    "fmt": "2022-10-24"
+                }, 
+                {
+                    "raw": 1666958400, 
+                    "fmt": "2022-10-28"
+                }
+            ], 
+            "earningsAverage": {
+                "raw": 1.9, 
+                "fmt": "1.90"
+            }, 
+            "earningsLow": {
+                "raw": 1.22, 
+                "fmt": "1.22"
+            }, 
+            "earningsHigh": {
+                "raw": 2.57, 
+                "fmt": "2.57"
+            }, 
+            "revenueAverage": {
+                "raw": 27530900000, 
+                "fmt": "27.53B", 
+                "longFmt": "27,530,900,000"
+            }, 
+            "revenueLow": {
+                "raw": 26022000000, 
+                "fmt": "26.02B", 
+                "longFmt": "26,022,000,000"
+            }, 
+            "revenueHigh": {
+                "raw": 28493000000, 
+                "fmt": "28.49B", 
+                "longFmt": "28,493,000,000"
+            }
+        }, 
+        "exDividendDate": {}, 
+        "dividendDate": {}
+    }, 
+    "summaryDetail": {
+        "previousClose": {
+            "raw": 133.45, 
+            "fmt": "133.45"
+        }, 
+        "regularMarketOpen": {
+            "raw": 133.55, 
+            "fmt": "133.55"
+        }, 
+        "twoHundredDayAverage": {
+            "raw": 204.5072, 
+            "fmt": "204.51"
+        }, 
+        "trailingAnnualDividendYield": {
+            "raw": 0, 
+            "fmt": "0.00%"
+        }, 
+        "payoutRatio": {
+            "raw": 0, 
+            "fmt": "0.00%"
+        }, 
+        "volume24Hr": {}, 
+        "regularMarketDayHigh": {
+            "raw": 136.09, 
+            "fmt": "136.09"
+        }, 
+        "navPrice": {}, 
+        "averageDailyVolume10Day": {
+            "raw": 32588370, 
+            "fmt": "32.59M", 
+            "longFmt": "32,588,370"
+        }, 
+        "totalAssets": {}, 
+        "regularMarketPreviousClose": {
+            "raw": 133.45, 
+            "fmt": "133.45"
+        }, 
+        "fiftyDayAverage": {
+            "raw": 157.5084, 
+            "fmt": "157.51"
+        }, 
+        "trailingAnnualDividendRate": {
+            "raw": 0, 
+            "fmt": "0.00"
+        }, 
+        "open": {
+            "raw": 133.55, 
+            "fmt": "133.55"
+        }, 
+        "toCurrency": null, 
+        "averageVolume10days": {
+            "raw": 32588370, 
+            "fmt": "32.59M", 
+            "longFmt": "32,588,370"
+        }, 
+        "expireDate": {}, 
+        "yield": {}, 
+        "algorithm": null, 
+        "dividendRate": {}, 
+        "exDividendDate": {}, 
+        "beta": {
+            "raw": 1.318717, 
+            "fmt": "1.32"
+        }, 
+        "circulatingSupply": {}, 
+        "startDate": {}, 
+        "regularMarketDayLow": {
+            "raw": 131.87, 
+            "fmt": "131.87"
+        }, 
+        "priceHint": {
+            "raw": 2, 
+            "fmt": "2", 
+            "longFmt": "2"
+        }, 
+        "currency": "USD", 
+        "trailingPE": {
+            "raw": 11.55354, 
+            "fmt": "11.55"
+        }, 
+        "regularMarketVolume": {
+            "raw": 24023982, 
+            "fmt": "24.02M", 
+            "longFmt": "24,023,982"
+        }, 
+        "lastMarket": null, 
+        "maxSupply": {}, 
+        "openInterest": {}, 
+        "marketCap": {
+            "raw": 359567294464, 
+            "fmt": "359.57B", 
+            "longFmt": "359,567,294,464"
+        }, 
+        "volumeAllCurrencies": {}, 
+        "strikePrice": {}, 
+        "averageVolume": {
+            "raw": 28227068, 
+            "fmt": "28.23M", 
+            "longFmt": "28,227,068"
+        }, 
+        "priceToSalesTrailing12Months": {
+            "raw": 3.0111992, 
+            "fmt": "3.01"
+        }, 
+        "dayLow": {
+            "raw": 131.87, 
+            "fmt": "131.87"
+        }, 
+        "ask": {
+            "raw": 134.17, 
+            "fmt": "134.17"
+        }, 
+        "ytdReturn": {}, 
+        "askSize": {
+            "raw": 1200, 
+            "fmt": "1.2k", 
+            "longFmt": "1,200"
+        }, 
+        "volume": {
+            "raw": 24023982, 
+            "fmt": "24.02M", 
+            "longFmt": "24,023,982"
+        }, 
+        "fiftyTwoWeekHigh": {
+            "raw": 353.83, 
+            "fmt": "353.83"
+        }, 
+        "forwardPE": {
+            "raw": 12.34225, 
+            "fmt": "12.34"
+        }, 
+        "maxAge": 1, 
+        "fromCurrency": null, 
+        "fiveYearAvgDividendYield": {}, 
+        "fiftyTwoWeekLow": {
+            "raw": 131.87, 
+            "fmt": "131.87"
+        }, 
+        "bid": {
+            "raw": 134.06, 
+            "fmt": "134.06"
+        }, 
+        "tradeable": false, 
+        "dividendYield": {}, 
+        "bidSize": {
+            "raw": 900, 
+            "fmt": "900", 
+            "longFmt": "900"
+        }, 
+        "dayHigh": {
+            "raw": 136.09, 
+            "fmt": "136.09"
+        }, 
+        "coinMarketCapLink": null
+    }, 
+    "symbol": "META", 
+    "assetProfile": {
+        "zip": "94025", 
+        "sector": "Communication Services", 
+        "fullTimeEmployees": 83553, 
+        "compensationRisk": 10, 
+        "auditRisk": 10, 
+        "longBusinessSummary": "Meta Platforms, Inc. develops products that enable people to connect and share with friends and family through mobile devices, personal computers, virtual reality headsets, wearables, and in-home devices worldwide. It operates in two segments, Family of Apps and Reality Labs. The Family of Apps segment's products include Facebook, which enables people to share, discover, and connect with interests; Instagram, a community for sharing photos, videos, and private messages, as well as feed, stories, reels, video, live, and shops; Messenger, a messaging application for people to connect with friends, family, groups, and businesses across platforms and devices through chat, audio and video calls, and rooms; and WhatsApp, a messaging application that is used by people and businesses to communicate and transact privately. The Reality Labs segment provides augmented and virtual reality related products comprising virtual reality hardware, software, and content that help people feel connected, anytime, and anywhere. The company was formerly known as Facebook, Inc. and changed its name to Meta Platforms, Inc. in October 2021. Meta Platforms, Inc. was incorporated in 2004 and is headquartered in Menlo Park, California.", 
+        "city": "Menlo Park", 
+        "phone": "650 543 4800", 
+        "state": "CA", 
+        "shareHolderRightsRisk": 10, 
+        "compensationAsOfEpochDate": 1640908800, 
+        "governanceEpochDate": 1664582400, 
+        "boardRisk": 8, 
+        "country": "United States", 
+        "companyOfficers": [
+            {
+                "totalPay": {
+                    "raw": 26823061, 
+                    "fmt": "26.82M", 
+                    "longFmt": "26,823,061"
+                }, 
+                "exercisedValue": {
+                    "raw": 0, 
+                    "fmt": null, 
+                    "longFmt": "0"
+                }, 
+                "yearBorn": 1984, 
+                "name": "Mr. Mark Elliot Zuckerberg", 
+                "title": "Founder, Chairman & CEO", 
+                "maxAge": 1, 
+                "fiscalYear": 2021, 
+                "unexercisedValue": {
+                    "raw": 0, 
+                    "fmt": null, 
+                    "longFmt": "0"
+                }, 
+                "age": 37
+            }, 
+            {
+                "totalPay": {
+                    "raw": 2182600, 
+                    "fmt": "2.18M", 
+                    "longFmt": "2,182,600"
+                }, 
+                "exercisedValue": {
+                    "raw": 0, 
+                    "fmt": null, 
+                    "longFmt": "0"
+                }, 
+                "yearBorn": 1969, 
+                "name": "Mr. David M. Wehner", 
+                "title": "Chief Financial Officer", 
+                "maxAge": 1, 
+                "fiscalYear": 2021, 
+                "unexercisedValue": {
+                    "raw": 0, 
+                    "fmt": null, 
+                    "longFmt": "0"
+                }, 
+                "age": 52
+            }, 
+            {
+                "totalPay": {
+                    "raw": 6906792, 
+                    "fmt": "6.91M", 
+                    "longFmt": "6,906,792"
+                }, 
+                "exercisedValue": {
+                    "raw": 0, 
+                    "fmt": null, 
+                    "longFmt": "0"
+                }, 
+                "yearBorn": 1983, 
+                "name": "Mr. Christopher K. Cox", 
+                "title": "Chief Product Officer", 
+                "maxAge": 1, 
+                "fiscalYear": 2021, 
+                "unexercisedValue": {
+                    "raw": 0, 
+                    "fmt": null, 
+                    "longFmt": "0"
+                }, 
+                "age": 38
+            }, 
+            {
+                "totalPay": {
+                    "raw": 1449355, 
+                    "fmt": "1.45M", 
+                    "longFmt": "1,449,355"
+                }, 
+                "exercisedValue": {
+                    "raw": 0, 
+                    "fmt": null, 
+                    "longFmt": "0"
+                }, 
+                "yearBorn": 1971, 
+                "name": "Ms. Marne L. Levine", 
+                "title": "Chief Bus. Officer", 
+                "maxAge": 1, 
+                "fiscalYear": 2021, 
+                "unexercisedValue": {
+                    "raw": 0, 
+                    "fmt": null, 
+                    "longFmt": "0"
+                }, 
+                "age": 50
+            }, 
+            {
+                "maxAge": 1, 
+                "name": "Mr. Javier  Olivan", 
+                "age": 44, 
+                "title": "Chief Operating Officer", 
+                "yearBorn": 1977, 
+                "exercisedValue": {
+                    "raw": 0, 
+                    "fmt": null, 
+                    "longFmt": "0"
+                }, 
+                "unexercisedValue": {
+                    "raw": 0, 
+                    "fmt": null, 
+                    "longFmt": "0"
+                }
+            }, 
+            {
+                "maxAge": 1, 
+                "name": "Ms. Susan Jannifer Simone Taylor", 
+                "age": 52, 
+                "title": "Chief Accounting Officer", 
+                "yearBorn": 1969, 
+                "exercisedValue": {
+                    "raw": 0, 
+                    "fmt": null, 
+                    "longFmt": "0"
+                }, 
+                "unexercisedValue": {
+                    "raw": 0, 
+                    "fmt": null, 
+                    "longFmt": "0"
+                }
+            }, 
+            {
+                "maxAge": 1, 
+                "name": "Mr. Andrew  Bosworth", 
+                "title": "Chief Technology Officer", 
+                "exercisedValue": {
+                    "raw": 0, 
+                    "fmt": null, 
+                    "longFmt": "0"
+                }, 
+                "unexercisedValue": {
+                    "raw": 0, 
+                    "fmt": null, 
+                    "longFmt": "0"
+                }
+            }, 
+            {
+                "maxAge": 1, 
+                "name": "Mr. Atish  Banerjea", 
+                "age": 55, 
+                "title": "Chief Information Officer", 
+                "yearBorn": 1966, 
+                "exercisedValue": {
+                    "raw": 0, 
+                    "fmt": null, 
+                    "longFmt": "0"
+                }, 
+                "unexercisedValue": {
+                    "raw": 0, 
+                    "fmt": null, 
+                    "longFmt": "0"
+                }
+            }, 
+            {
+                "maxAge": 1, 
+                "name": "Ms. Deborah T. Crawford", 
+                "title": "VP of Investor Relations", 
+                "exercisedValue": {
+                    "raw": 0, 
+                    "fmt": null, 
+                    "longFmt": "0"
+                }, 
+                "unexercisedValue": {
+                    "raw": 0, 
+                    "fmt": null, 
+                    "longFmt": "0"
+                }
+            }, 
+            {
+                "maxAge": 1, 
+                "name": "Ms. Jennifer G. Newstead", 
+                "age": 51, 
+                "title": "Chief Legal Officer", 
+                "yearBorn": 1970, 
+                "fiscalYear": 2019, 
+                "exercisedValue": {
+                    "raw": 0, 
+                    "fmt": null, 
+                    "longFmt": "0"
+                }, 
+                "unexercisedValue": {
+                    "raw": 0, 
+                    "fmt": null, 
+                    "longFmt": "0"
+                }
+            }
+        ], 
+        "website": "https://investor.fb.com", 
+        "maxAge": 86400, 
+        "overallRisk": 10, 
+        "address1": "1601 Willow Road", 
+        "industry": "Internet Content & Information"
+    }, 
+    "pageViews": {
+        "shortTermTrend": "UP", 
+        "midTermTrend": "UP", 
+        "longTermTrend": "UP", 
+        "maxAge": 1
+    }
+}

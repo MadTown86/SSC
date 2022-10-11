@@ -1,6 +1,10 @@
 import asyncio
 from sscpackage.fetchssc import FetchSSC
+import dotenv
+import os
 
+dotenv.load_dotenv(dotenv_path=os.getenv("LO_ROOT"))
+ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
 
 class FetchStarterSSC:
     """
@@ -82,7 +86,7 @@ class FetchStarterSSC:
 
 
 if __name__ == "__main__":
-    test_pathfile = r'C:\SSC\SimpleStockChecker_REV1\sscpackage\storage\storageticker_sixlist.txt'
+    test_pathfile = ROOT_VAR_SSC + "storageticker_sixlist.txt"
     with open(test_pathfile, 'r') as tpf:
         FS = FetchStarterSSC(tpf.read().split(", "))
         asyncio.run(FS._fetch_cycle())

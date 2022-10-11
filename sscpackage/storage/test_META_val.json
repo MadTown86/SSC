@@ -1,0 +1,2703 @@
+{
+    "defaultKeyStatistics": {
+        "annualHoldingsTurnover": {}, 
+        "enterpriseToRevenue": {
+            "raw": 2.804, 
+            "fmt": "2.80"
+        }, 
+        "beta3Year": {}, 
+        "profitMargins": {
+            "raw": 0.28163, 
+            "fmt": "28.16%"
+        }, 
+        "enterpriseToEbitda": {
+            "raw": 6.971, 
+            "fmt": "6.97"
+        }, 
+        "52WeekChange": {
+            "raw": -0.58995235, 
+            "fmt": "-59.00%"
+        }, 
+        "morningStarRiskRating": {}, 
+        "forwardEps": {
+            "raw": 10.84, 
+            "fmt": "10.84"
+        }, 
+        "revenueQuarterlyGrowth": {}, 
+        "sharesOutstanding": {
+            "raw": 2280669952, 
+            "fmt": "2.28B", 
+            "longFmt": "2,280,669,952"
+        }, 
+        "fundInceptionDate": {}, 
+        "annualReportExpenseRatio": {}, 
+        "totalAssets": {}, 
+        "bookValue": {
+            "raw": 46.632, 
+            "fmt": "46.63"
+        }, 
+        "sharesShort": {
+            "raw": 29752984, 
+            "fmt": "29.75M", 
+            "longFmt": "29,752,984"
+        }, 
+        "sharesPercentSharesOut": {
+            "raw": 0.0111, 
+            "fmt": "1.11%"
+        }, 
+        "fundFamily": null, 
+        "lastFiscalYearEnd": {
+            "raw": 1640908800, 
+            "fmt": "2021-12-31"
+        }, 
+        "heldPercentInstitutions": {
+            "raw": 0.75289, 
+            "fmt": "75.29%"
+        }, 
+        "netIncomeToCommon": {
+            "raw": 33629999104, 
+            "fmt": "33.63B", 
+            "longFmt": "33,629,999,104"
+        }, 
+        "trailingEps": {
+            "raw": 11.58, 
+            "fmt": "11.58"
+        }, 
+        "lastDividendValue": {}, 
+        "SandP52WeekChange": {
+            "raw": -0.16544336, 
+            "fmt": "-16.54%"
+        }, 
+        "priceToBook": {
+            "raw": 2.8690598, 
+            "fmt": "2.87"
+        }, 
+        "heldPercentInsiders": {
+            "raw": 0.0054699997, 
+            "fmt": "0.55%"
+        }, 
+        "nextFiscalYearEnd": {
+            "raw": 1703980800, 
+            "fmt": "2023-12-31"
+        }, 
+        "yield": {}, 
+        "mostRecentQuarter": {
+            "raw": 1656547200, 
+            "fmt": "2022-06-30"
+        }, 
+        "shortRatio": {
+            "raw": 1.22, 
+            "fmt": "1.22"
+        }, 
+        "sharesShortPreviousMonthDate": {
+            "raw": 1660521600, 
+            "fmt": "2022-08-15"
+        }, 
+        "floatShares": {
+            "raw": 2239829772, 
+            "fmt": "2.24B", 
+            "longFmt": "2,239,829,772"
+        }, 
+        "beta": {
+            "raw": 1.318717, 
+            "fmt": "1.32"
+        }, 
+        "enterpriseValue": {
+            "raw": 334843346944, 
+            "fmt": "334.84B", 
+            "longFmt": "334,843,346,944"
+        }, 
+        "priceHint": {
+            "raw": 2, 
+            "fmt": "2", 
+            "longFmt": "2"
+        }, 
+        "threeYearAverageReturn": {}, 
+        "lastSplitDate": {}, 
+        "lastSplitFactor": null, 
+        "legalType": null, 
+        "lastDividendDate": {}, 
+        "morningStarOverallRating": {}, 
+        "earningsQuarterlyGrowth": {
+            "raw": -0.357, 
+            "fmt": "-35.70%"
+        }, 
+        "priceToSalesTrailing12Months": {}, 
+        "dateShortInterest": {
+            "raw": 1663200000, 
+            "fmt": "2022-09-15"
+        }, 
+        "pegRatio": {
+            "raw": 1.99, 
+            "fmt": "1.99"
+        }, 
+        "ytdReturn": {}, 
+        "forwardPE": {
+            "raw": 12.34225, 
+            "fmt": "12.34"
+        }, 
+        "maxAge": 1, 
+        "lastCapGain": {}, 
+        "shortPercentOfFloat": {
+            "raw": 0.013099999, 
+            "fmt": "1.31%"
+        }, 
+        "sharesShortPriorMonth": {
+            "raw": 28758877, 
+            "fmt": "28.76M", 
+            "longFmt": "28,758,877"
+        }, 
+        "impliedSharesOutstanding": {
+            "raw": 0, 
+            "fmt": null, 
+            "longFmt": "0"
+        }, 
+        "category": null, 
+        "fiveYearAverageReturn": {}
+    }, 
+    "financialsTemplate": {
+        "code": "N", 
+        "maxAge": 1
+    }, 
+    "price": {
+        "quoteSourceName": "Delayed Quote", 
+        "regularMarketOpen": {
+            "raw": 133.55, 
+            "fmt": "133.55"
+        }, 
+        "averageDailyVolume3Month": {
+            "raw": 28227068, 
+            "fmt": "28.23M", 
+            "longFmt": "28,227,068"
+        }, 
+        "exchange": "NMS", 
+        "regularMarketTime": 1665432004, 
+        "volume24Hr": {}, 
+        "regularMarketDayHigh": {
+            "raw": 136.09, 
+            "fmt": "136.09"
+        }, 
+        "shortName": "Meta Platforms, Inc.", 
+        "averageDailyVolume10Day": {
+            "raw": 32588370, 
+            "fmt": "32.59M", 
+            "longFmt": "32,588,370"
+        }, 
+        "longName": "Meta Platforms, Inc.", 
+        "regularMarketChange": {
+            "raw": 0.33999634, 
+            "fmt": "0.34"
+        }, 
+        "currencySymbol": "$", 
+        "regularMarketPreviousClose": {
+            "raw": 133.45, 
+            "fmt": "133.45"
+        }, 
+        "postMarketTime": 1665446392, 
+        "preMarketPrice": {
+            "raw": 133.46, 
+            "fmt": "133.46"
+        }, 
+        "preMarketTime": 1665408598, 
+        "exchangeDataDelayedBy": 0, 
+        "toCurrency": null, 
+        "postMarketChange": {
+            "raw": 0.31001282, 
+            "fmt": "0.31"
+        }, 
+        "postMarketPrice": {
+            "raw": 134.1, 
+            "fmt": "134.10"
+        }, 
+        "exchangeName": "NasdaqGS", 
+        "preMarketChange": {
+            "raw": 0.0100098, 
+            "fmt": "0.01"
+        }, 
+        "circulatingSupply": {}, 
+        "regularMarketDayLow": {
+            "raw": 131.87, 
+            "fmt": "131.87"
+        }, 
+        "priceHint": {
+            "raw": 2, 
+            "fmt": "2", 
+            "longFmt": "2"
+        }, 
+        "currency": "USD", 
+        "regularMarketPrice": {
+            "raw": 133.79, 
+            "fmt": "133.79"
+        }, 
+        "regularMarketVolume": {
+            "raw": 24023982, 
+            "fmt": "24.02M", 
+            "longFmt": "24,023,982.00"
+        }, 
+        "lastMarket": null, 
+        "regularMarketSource": "FREE_REALTIME", 
+        "openInterest": {}, 
+        "marketState": "POSTPOST", 
+        "underlyingSymbol": null, 
+        "marketCap": {
+            "raw": 359567294464, 
+            "fmt": "359.57B", 
+            "longFmt": "359,567,294,464.00"
+        }, 
+        "quoteType": "EQUITY", 
+        "preMarketChangePercent": {
+            "raw": 7.50076e-05, 
+            "fmt": "0.01%"
+        }, 
+        "volumeAllCurrencies": {}, 
+        "postMarketSource": "DELAYED", 
+        "strikePrice": {}, 
+        "symbol": "META", 
+        "postMarketChangePercent": {
+            "raw": 0.00231716, 
+            "fmt": "0.23%"
+        }, 
+        "preMarketSource": "FREE_REALTIME", 
+        "maxAge": 1, 
+        "fromCurrency": null, 
+        "regularMarketChangePercent": {
+            "raw": 0.0025477433, 
+            "fmt": "0.25%"
+        }
+    }, 
+    "financialData": {
+        "ebitdaMargins": {
+            "raw": 0.40225, 
+            "fmt": "40.22%"
+        }, 
+        "profitMargins": {
+            "raw": 0.28163, 
+            "fmt": "28.16%"
+        }, 
+        "grossMargins": {
+            "raw": 0.80474, 
+            "fmt": "80.47%"
+        }, 
+        "operatingCashflow": {
+            "raw": 58466000896, 
+            "fmt": "58.47B", 
+            "longFmt": "58,466,000,896"
+        }, 
+        "revenueGrowth": {
+            "raw": -0.009, 
+            "fmt": "-0.90%"
+        }, 
+        "operatingMargins": {
+            "raw": 0.33405, 
+            "fmt": "33.40%"
+        }, 
+        "ebitda": {
+            "raw": 48033001472, 
+            "fmt": "48.03B", 
+            "longFmt": "48,033,001,472"
+        }, 
+        "targetLowPrice": {
+            "raw": 140, 
+            "fmt": "140.00"
+        }, 
+        "recommendationKey": "buy", 
+        "grossProfits": {
+            "raw": 95280000000, 
+            "fmt": "95.28B", 
+            "longFmt": "95,280,000,000"
+        }, 
+        "freeCashflow": {
+            "raw": 29296625664, 
+            "fmt": "29.3B", 
+            "longFmt": "29,296,625,664"
+        }, 
+        "targetMedianPrice": {
+            "raw": 214, 
+            "fmt": "214.00"
+        }, 
+        "currentPrice": {
+            "raw": 133.79, 
+            "fmt": "133.79"
+        }, 
+        "earningsGrowth": {
+            "raw": -0.319, 
+            "fmt": "-31.90%"
+        }, 
+        "currentRatio": {
+            "raw": 2.52, 
+            "fmt": "2.52"
+        }, 
+        "returnOnAssets": {
+            "raw": 0.14648, 
+            "fmt": "14.65%"
+        }, 
+        "numberOfAnalystOpinions": {
+            "raw": 51, 
+            "fmt": "51", 
+            "longFmt": "51"
+        }, 
+        "targetMeanPrice": {
+            "raw": 222.78, 
+            "fmt": "222.78"
+        }, 
+        "debtToEquity": {
+            "raw": 13.262, 
+            "fmt": "13.26"
+        }, 
+        "returnOnEquity": {
+            "raw": 0.25478, 
+            "fmt": "25.48%"
+        }, 
+        "targetHighPrice": {
+            "raw": 466, 
+            "fmt": "466.00"
+        }, 
+        "totalCash": {
+            "raw": 40489000960, 
+            "fmt": "40.49B", 
+            "longFmt": "40,489,000,960"
+        }, 
+        "totalDebt": {
+            "raw": 16679000064, 
+            "fmt": "16.68B", 
+            "longFmt": "16,679,000,064"
+        }, 
+        "totalRevenue": {
+            "raw": 119409999872, 
+            "fmt": "119.41B", 
+            "longFmt": "119,409,999,872"
+        }, 
+        "totalCashPerShare": {
+            "raw": 15.065, 
+            "fmt": "15.06"
+        }, 
+        "financialCurrency": "USD", 
+        "maxAge": 86400, 
+        "revenuePerShare": {
+            "raw": 43.398, 
+            "fmt": "43.40"
+        }, 
+        "quickRatio": {
+            "raw": 2.341, 
+            "fmt": "2.34"
+        }, 
+        "recommendationMean": {
+            "raw": 2.1, 
+            "fmt": "2.10"
+        }
+    }, 
+    "quoteType": {
+        "exchange": "NMS", 
+        "shortName": "Meta Platforms, Inc.", 
+        "longName": "Meta Platforms, Inc.", 
+        "exchangeTimezoneName": "America/New_York", 
+        "exchangeTimezoneShortName": "EDT", 
+        "isEsgPopulated": false, 
+        "gmtOffSetMilliseconds": "-14400000", 
+        "quoteType": "EQUITY", 
+        "symbol": "META", 
+        "messageBoardId": "finmb_20765463", 
+        "market": "us_market"
+    }, 
+    "calendarEvents": {
+        "maxAge": 1, 
+        "earnings": {
+            "earningsDate": [
+                {
+                    "raw": 1666609140, 
+                    "fmt": "2022-10-24"
+                }, 
+                {
+                    "raw": 1666958400, 
+                    "fmt": "2022-10-28"
+                }
+            ], 
+            "earningsAverage": {
+                "raw": 1.9, 
+                "fmt": "1.90"
+            }, 
+            "earningsLow": {
+                "raw": 1.22, 
+                "fmt": "1.22"
+            }, 
+            "earningsHigh": {
+                "raw": 2.57, 
+                "fmt": "2.57"
+            }, 
+            "revenueAverage": {
+                "raw": 27530900000, 
+                "fmt": "27.53B", 
+                "longFmt": "27,530,900,000"
+            }, 
+            "revenueLow": {
+                "raw": 26022000000, 
+                "fmt": "26.02B", 
+                "longFmt": "26,022,000,000"
+            }, 
+            "revenueHigh": {
+                "raw": 28493000000, 
+                "fmt": "28.49B", 
+                "longFmt": "28,493,000,000"
+            }
+        }, 
+        "exDividendDate": {}, 
+        "dividendDate": {}
+    }, 
+    "summaryDetail": {
+        "previousClose": {
+            "raw": 133.45, 
+            "fmt": "133.45"
+        }, 
+        "regularMarketOpen": {
+            "raw": 133.55, 
+            "fmt": "133.55"
+        }, 
+        "twoHundredDayAverage": {
+            "raw": 204.5072, 
+            "fmt": "204.51"
+        }, 
+        "trailingAnnualDividendYield": {
+            "raw": 0, 
+            "fmt": "0.00%"
+        }, 
+        "payoutRatio": {
+            "raw": 0, 
+            "fmt": "0.00%"
+        }, 
+        "volume24Hr": {}, 
+        "regularMarketDayHigh": {
+            "raw": 136.09, 
+            "fmt": "136.09"
+        }, 
+        "navPrice": {}, 
+        "averageDailyVolume10Day": {
+            "raw": 32588370, 
+            "fmt": "32.59M", 
+            "longFmt": "32,588,370"
+        }, 
+        "totalAssets": {}, 
+        "regularMarketPreviousClose": {
+            "raw": 133.45, 
+            "fmt": "133.45"
+        }, 
+        "fiftyDayAverage": {
+            "raw": 157.5084, 
+            "fmt": "157.51"
+        }, 
+        "trailingAnnualDividendRate": {
+            "raw": 0, 
+            "fmt": "0.00"
+        }, 
+        "open": {
+            "raw": 133.55, 
+            "fmt": "133.55"
+        }, 
+        "toCurrency": null, 
+        "averageVolume10days": {
+            "raw": 32588370, 
+            "fmt": "32.59M", 
+            "longFmt": "32,588,370"
+        }, 
+        "expireDate": {}, 
+        "yield": {}, 
+        "algorithm": null, 
+        "dividendRate": {}, 
+        "exDividendDate": {}, 
+        "beta": {
+            "raw": 1.318717, 
+            "fmt": "1.32"
+        }, 
+        "circulatingSupply": {}, 
+        "startDate": {}, 
+        "regularMarketDayLow": {
+            "raw": 131.87, 
+            "fmt": "131.87"
+        }, 
+        "priceHint": {
+            "raw": 2, 
+            "fmt": "2", 
+            "longFmt": "2"
+        }, 
+        "currency": "USD", 
+        "trailingPE": {
+            "raw": 11.55354, 
+            "fmt": "11.55"
+        }, 
+        "regularMarketVolume": {
+            "raw": 24023982, 
+            "fmt": "24.02M", 
+            "longFmt": "24,023,982"
+        }, 
+        "lastMarket": null, 
+        "maxSupply": {}, 
+        "openInterest": {}, 
+        "marketCap": {
+            "raw": 359567294464, 
+            "fmt": "359.57B", 
+            "longFmt": "359,567,294,464"
+        }, 
+        "volumeAllCurrencies": {}, 
+        "strikePrice": {}, 
+        "averageVolume": {
+            "raw": 28227068, 
+            "fmt": "28.23M", 
+            "longFmt": "28,227,068"
+        }, 
+        "priceToSalesTrailing12Months": {
+            "raw": 3.0111992, 
+            "fmt": "3.01"
+        }, 
+        "dayLow": {
+            "raw": 131.87, 
+            "fmt": "131.87"
+        }, 
+        "ask": {
+            "raw": 134.17, 
+            "fmt": "134.17"
+        }, 
+        "ytdReturn": {}, 
+        "askSize": {
+            "raw": 1200, 
+            "fmt": "1.2k", 
+            "longFmt": "1,200"
+        }, 
+        "volume": {
+            "raw": 24023982, 
+            "fmt": "24.02M", 
+            "longFmt": "24,023,982"
+        }, 
+        "fiftyTwoWeekHigh": {
+            "raw": 353.83, 
+            "fmt": "353.83"
+        }, 
+        "forwardPE": {
+            "raw": 12.34225, 
+            "fmt": "12.34"
+        }, 
+        "maxAge": 1, 
+        "fromCurrency": null, 
+        "fiveYearAvgDividendYield": {}, 
+        "fiftyTwoWeekLow": {
+            "raw": 131.87, 
+            "fmt": "131.87"
+        }, 
+        "bid": {
+            "raw": 134.06, 
+            "fmt": "134.06"
+        }, 
+        "tradeable": false, 
+        "dividendYield": {}, 
+        "bidSize": {
+            "raw": 900, 
+            "fmt": "900", 
+            "longFmt": "900"
+        }, 
+        "dayHigh": {
+            "raw": 136.09, 
+            "fmt": "136.09"
+        }, 
+        "coinMarketCapLink": null
+    }, 
+    "symbol": "META", 
+    "pageViews": {
+        "shortTermTrend": "UP", 
+        "midTermTrend": "UP", 
+        "longTermTrend": "UP", 
+        "maxAge": 1
+    }, 
+    "quoteData": {
+        "AMZN": {
+            "sourceInterval": 15, 
+            "quoteSourceName": "Delayed Quote", 
+            "regularMarketOpen": {
+                "raw": 115.1, 
+                "fmt": "115.10"
+            }, 
+            "exchange": "NMS", 
+            "regularMarketTime": {
+                "raw": 1665432004, 
+                "fmt": "4:00PM EDT"
+            }, 
+            "fiftyTwoWeekRange": {
+                "raw": "101.26 - 188.1075", 
+                "fmt": "101.26 - 188.11"
+            }, 
+            "sharesOutstanding": {
+                "raw": 10187599872, 
+                "fmt": "10.188B", 
+                "longFmt": "10,187,599,872"
+            }, 
+            "regularMarketDayHigh": {
+                "raw": 116.25, 
+                "fmt": "116.25"
+            }, 
+            "shortName": "Amazon.com, Inc.", 
+            "longName": "Amazon.com, Inc.", 
+            "exchangeTimezoneName": "America/New_York", 
+            "regularMarketChange": {
+                "raw": -0.8899994, 
+                "fmt": "-0.89"
+            }, 
+            "regularMarketPreviousClose": {
+                "raw": 114.56, 
+                "fmt": "114.56"
+            }, 
+            "fiftyTwoWeekHighChange": {
+                "raw": -74.4375, 
+                "fmt": "-74.44"
+            }, 
+            "exchangeTimezoneShortName": "EDT", 
+            "fiftyTwoWeekLowChange": {
+                "raw": 12.409996, 
+                "fmt": "12.41"
+            }, 
+            "exchangeDataDelayedBy": 0, 
+            "customPriceAlertConfidence": "HIGH", 
+            "regularMarketDayLow": {
+                "raw": 112.43, 
+                "fmt": "112.43"
+            }, 
+            "priceHint": 2, 
+            "currency": "USD", 
+            "regularMarketPrice": {
+                "raw": 113.67, 
+                "fmt": "113.67"
+            }, 
+            "regularMarketVolume": {
+                "raw": 42339675, 
+                "fmt": "42.34M", 
+                "longFmt": "42,339,675"
+            }, 
+            "isLoading": false, 
+            "triggerable": true, 
+            "gmtOffSetMilliseconds": -14400000, 
+            "firstTradeDateMilliseconds": 863703000000, 
+            "region": "US", 
+            "marketState": "POSTPOST", 
+            "marketCap": {
+                "raw": 1158024396800, 
+                "fmt": "1.158T", 
+                "longFmt": "1,158,024,396,800"
+            }, 
+            "quoteType": "EQUITY", 
+            "invalid": false, 
+            "symbol": "AMZN", 
+            "language": "en-US", 
+            "fiftyTwoWeekLowChangePercent": {
+                "raw": 0.122555755, 
+                "fmt": "12.26%"
+            }, 
+            "regularMarketDayRange": {
+                "raw": "112.43 - 116.25", 
+                "fmt": "112.43 - 116.25"
+            }, 
+            "messageBoardId": "finmb_18749", 
+            "fiftyTwoWeekHigh": {
+                "raw": 188.1075, 
+                "fmt": "188.11"
+            }, 
+            "fiftyTwoWeekHighChangePercent": {
+                "raw": -0.3957179, 
+                "fmt": "-39.57%"
+            }, 
+            "uuid": "261fd26b-0151-3813-b0d0-97e4ed4c6505", 
+            "market": "us_market", 
+            "fiftyTwoWeekLow": {
+                "raw": 101.26, 
+                "fmt": "101.26"
+            }, 
+            "typeDisp": "Equity", 
+            "cryptoTradeable": false, 
+            "regularMarketChangePercent": {
+                "raw": -0.7768849, 
+                "fmt": "-0.78%"
+            }, 
+            "fullExchangeName": "NasdaqGS", 
+            "tradeable": false
+        }, 
+        "GOOG": {
+            "sourceInterval": 15, 
+            "quoteSourceName": "Delayed Quote", 
+            "regularMarketOpen": {
+                "raw": 99.85, 
+                "fmt": "99.85"
+            }, 
+            "exchange": "NMS", 
+            "regularMarketTime": {
+                "raw": 1665432004, 
+                "fmt": "4:00PM EDT"
+            }, 
+            "fiftyTwoWeekRange": {
+                "raw": "96.03 - 152.1", 
+                "fmt": "96.03 - 152.10"
+            }, 
+            "sharesOutstanding": {
+                "raw": 6162999808, 
+                "fmt": "6.163B", 
+                "longFmt": "6,162,999,808"
+            }, 
+            "regularMarketDayHigh": {
+                "raw": 99.99, 
+                "fmt": "99.99"
+            }, 
+            "shortName": "Alphabet Inc.", 
+            "longName": "Alphabet Inc.", 
+            "exchangeTimezoneName": "America/New_York", 
+            "regularMarketChange": {
+                "raw": -0.8600006, 
+                "fmt": "-0.86"
+            }, 
+            "regularMarketPreviousClose": {
+                "raw": 99.57, 
+                "fmt": "99.57"
+            }, 
+            "fiftyTwoWeekHighChange": {
+                "raw": -53.390007, 
+                "fmt": "-53.39"
+            }, 
+            "exchangeTimezoneShortName": "EDT", 
+            "fiftyTwoWeekLowChange": {
+                "raw": 2.6800003, 
+                "fmt": "2.68"
+            }, 
+            "exchangeDataDelayedBy": 0, 
+            "customPriceAlertConfidence": "HIGH", 
+            "regularMarketDayLow": {
+                "raw": 97.87, 
+                "fmt": "97.87"
+            }, 
+            "priceHint": 2, 
+            "currency": "USD", 
+            "regularMarketPrice": {
+                "raw": 98.71, 
+                "fmt": "98.71"
+            }, 
+            "regularMarketVolume": {
+                "raw": 16529897, 
+                "fmt": "16.53M", 
+                "longFmt": "16,529,897"
+            }, 
+            "isLoading": false, 
+            "triggerable": true, 
+            "gmtOffSetMilliseconds": -14400000, 
+            "firstTradeDateMilliseconds": 1092922200000, 
+            "region": "US", 
+            "marketState": "POSTPOST", 
+            "marketCap": {
+                "raw": 1281502609408, 
+                "fmt": "1.282T", 
+                "longFmt": "1,281,502,609,408"
+            }, 
+            "quoteType": "EQUITY", 
+            "invalid": false, 
+            "symbol": "GOOG", 
+            "language": "en-US", 
+            "fiftyTwoWeekLowChangePercent": {
+                "raw": 0.027907949, 
+                "fmt": "2.79%"
+            }, 
+            "regularMarketDayRange": {
+                "raw": "97.87 - 99.99", 
+                "fmt": "97.87 - 99.99"
+            }, 
+            "messageBoardId": "finmb_29096", 
+            "fiftyTwoWeekHigh": {
+                "raw": 152.1, 
+                "fmt": "152.10"
+            }, 
+            "fiftyTwoWeekHighChangePercent": {
+                "raw": -0.35101908, 
+                "fmt": "-35.10%"
+            }, 
+            "uuid": "ee8cce8c-2475-31c0-8436-ecdf889cbfbd", 
+            "market": "us_market", 
+            "fiftyTwoWeekLow": {
+                "raw": 96.03, 
+                "fmt": "96.03"
+            }, 
+            "typeDisp": "Equity", 
+            "cryptoTradeable": false, 
+            "regularMarketChangePercent": {
+                "raw": -0.86371464, 
+                "fmt": "-0.86%"
+            }, 
+            "fullExchangeName": "NasdaqGS", 
+            "tradeable": false
+        }, 
+        "TWTR": {
+            "sourceInterval": 15, 
+            "quoteSourceName": "Delayed Quote", 
+            "regularMarketOpen": {
+                "raw": 49.66, 
+                "fmt": "49.66"
+            }, 
+            "exchange": "NYQ", 
+            "regularMarketTime": {
+                "raw": 1665432203, 
+                "fmt": "4:03PM EDT"
+            }, 
+            "fiftyTwoWeekRange": {
+                "raw": "31.3 - 68.41", 
+                "fmt": "31.30 - 68.41"
+            }, 
+            "sharesOutstanding": {
+                "raw": 765246016, 
+                "fmt": "765.246M", 
+                "longFmt": "765,246,016"
+            }, 
+            "regularMarketDayHigh": {
+                "raw": 50.86, 
+                "fmt": "50.86"
+            }, 
+            "shortName": "Twitter, Inc.", 
+            "longName": "Twitter, Inc.", 
+            "exchangeTimezoneName": "America/New_York", 
+            "regularMarketChange": {
+                "raw": 1.1800003, 
+                "fmt": "1.18"
+            }, 
+            "regularMarketPreviousClose": {
+                "raw": 49.18, 
+                "fmt": "49.18"
+            }, 
+            "fiftyTwoWeekHighChange": {
+                "raw": -18.050003, 
+                "fmt": "-18.05"
+            }, 
+            "exchangeTimezoneShortName": "EDT", 
+            "fiftyTwoWeekLowChange": {
+                "raw": 19.060001, 
+                "fmt": "19.06"
+            }, 
+            "exchangeDataDelayedBy": 0, 
+            "customPriceAlertConfidence": "HIGH", 
+            "regularMarketDayLow": {
+                "raw": 49.5, 
+                "fmt": "49.50"
+            }, 
+            "priceHint": 2, 
+            "currency": "USD", 
+            "regularMarketPrice": {
+                "raw": 50.36, 
+                "fmt": "50.36"
+            }, 
+            "regularMarketVolume": {
+                "raw": 21458139, 
+                "fmt": "21.458M", 
+                "longFmt": "21,458,139"
+            }, 
+            "isLoading": false, 
+            "triggerable": true, 
+            "gmtOffSetMilliseconds": -14400000, 
+            "firstTradeDateMilliseconds": 1383834600000, 
+            "region": "US", 
+            "marketState": "POSTPOST", 
+            "marketCap": {
+                "raw": 38537789440, 
+                "fmt": "38.538B", 
+                "longFmt": "38,537,789,440"
+            }, 
+            "quoteType": "EQUITY", 
+            "invalid": false, 
+            "symbol": "TWTR", 
+            "language": "en-US", 
+            "fiftyTwoWeekLowChangePercent": {
+                "raw": 0.6089457, 
+                "fmt": "60.89%"
+            }, 
+            "regularMarketDayRange": {
+                "raw": "49.5 - 50.86", 
+                "fmt": "49.50 - 50.86"
+            }, 
+            "messageBoardId": "finmb_35962803", 
+            "fiftyTwoWeekHigh": {
+                "raw": 68.41, 
+                "fmt": "68.41"
+            }, 
+            "fiftyTwoWeekHighChangePercent": {
+                "raw": -0.26385033, 
+                "fmt": "-26.39%"
+            }, 
+            "uuid": "24740290-3933-3a8f-95f5-bf7f073867ca", 
+            "market": "us_market", 
+            "fiftyTwoWeekLow": {
+                "raw": 31.3, 
+                "fmt": "31.30"
+            }, 
+            "typeDisp": "Equity", 
+            "cryptoTradeable": false, 
+            "regularMarketChangePercent": {
+                "raw": 2.39935, 
+                "fmt": "2.40%"
+            }, 
+            "fullExchangeName": "NYSE", 
+            "tradeable": false
+        }, 
+        "SPOT": {
+            "sourceInterval": 15, 
+            "quoteSourceName": "Delayed Quote", 
+            "regularMarketOpen": {
+                "raw": 88.01, 
+                "fmt": "88.01"
+            }, 
+            "exchange": "NYQ", 
+            "regularMarketTime": {
+                "raw": 1665432002, 
+                "fmt": "4:00PM EDT"
+            }, 
+            "fiftyTwoWeekRange": {
+                "raw": "85.919 - 305.6", 
+                "fmt": "85.92 - 305.60"
+            }, 
+            "sharesOutstanding": {
+                "raw": 192659008, 
+                "fmt": "192.659M", 
+                "longFmt": "192,659,008"
+            }, 
+            "regularMarketDayHigh": {
+                "raw": 88.49, 
+                "fmt": "88.49"
+            }, 
+            "shortName": "Spotify Technology S.A.", 
+            "longName": "Spotify Technology S.A.", 
+            "exchangeTimezoneName": "America/New_York", 
+            "regularMarketChange": {
+                "raw": -2.040001, 
+                "fmt": "-2.04"
+            }, 
+            "regularMarketPreviousClose": {
+                "raw": 88.01, 
+                "fmt": "88.01"
+            }, 
+            "fiftyTwoWeekHighChange": {
+                "raw": -219.63, 
+                "fmt": "-219.63"
+            }, 
+            "exchangeTimezoneShortName": "EDT", 
+            "fiftyTwoWeekLowChange": {
+                "raw": 0.051002502, 
+                "fmt": "0.05"
+            }, 
+            "exchangeDataDelayedBy": 0, 
+            "customPriceAlertConfidence": "HIGH", 
+            "regularMarketDayLow": {
+                "raw": 85.92, 
+                "fmt": "85.92"
+            }, 
+            "priceHint": 2, 
+            "currency": "USD", 
+            "regularMarketPrice": {
+                "raw": 85.97, 
+                "fmt": "85.97"
+            }, 
+            "regularMarketVolume": {
+                "raw": 1150291, 
+                "fmt": "1.15M", 
+                "longFmt": "1,150,291"
+            }, 
+            "isLoading": false, 
+            "triggerable": true, 
+            "gmtOffSetMilliseconds": -14400000, 
+            "firstTradeDateMilliseconds": 1522762200000, 
+            "region": "US", 
+            "marketState": "POSTPOST", 
+            "marketCap": {
+                "raw": 16562894848, 
+                "fmt": "16.563B", 
+                "longFmt": "16,562,894,848"
+            }, 
+            "quoteType": "EQUITY", 
+            "invalid": false, 
+            "symbol": "SPOT", 
+            "language": "en-US", 
+            "fiftyTwoWeekLowChangePercent": {
+                "raw": 0.00059361145, 
+                "fmt": "0.06%"
+            }, 
+            "regularMarketDayRange": {
+                "raw": "85.92 - 88.49", 
+                "fmt": "85.92 - 88.49"
+            }, 
+            "messageBoardId": "finmb_225595077", 
+            "fiftyTwoWeekHigh": {
+                "raw": 305.6, 
+                "fmt": "305.60"
+            }, 
+            "fiftyTwoWeekHighChangePercent": {
+                "raw": -0.71868455, 
+                "fmt": "-71.87%"
+            }, 
+            "uuid": "5bac85a0-c611-3def-a4ab-0dfb383056f4", 
+            "market": "us_market", 
+            "fiftyTwoWeekLow": {
+                "raw": 85.919, 
+                "fmt": "85.92"
+            }, 
+            "typeDisp": "Equity", 
+            "cryptoTradeable": false, 
+            "regularMarketChangePercent": {
+                "raw": -2.3179195, 
+                "fmt": "-2.32%"
+            }, 
+            "fullExchangeName": "NYSE", 
+            "tradeable": false
+        }, 
+        "NFLX": {
+            "sourceInterval": 15, 
+            "quoteSourceName": "Delayed Quote", 
+            "regularMarketOpen": {
+                "raw": 225.64, 
+                "fmt": "225.64"
+            }, 
+            "exchange": "NMS", 
+            "regularMarketTime": {
+                "raw": 1665432004, 
+                "fmt": "4:00PM EDT"
+            }, 
+            "fiftyTwoWeekRange": {
+                "raw": "162.71 - 700.99", 
+                "fmt": "162.71 - 700.99"
+            }, 
+            "sharesOutstanding": {
+                "raw": 444705984, 
+                "fmt": "444.706M", 
+                "longFmt": "444,705,984"
+            }, 
+            "regularMarketDayHigh": {
+                "raw": 233.16, 
+                "fmt": "233.16"
+            }, 
+            "shortName": "Netflix, Inc.", 
+            "longName": "Netflix, Inc.", 
+            "exchangeTimezoneName": "America/New_York", 
+            "regularMarketChange": {
+                "raw": 5.2299957, 
+                "fmt": "5.23"
+            }, 
+            "regularMarketPreviousClose": {
+                "raw": 224.75, 
+                "fmt": "224.75"
+            }, 
+            "fiftyTwoWeekHighChange": {
+                "raw": -471.01, 
+                "fmt": "-471.01"
+            }, 
+            "exchangeTimezoneShortName": "EDT", 
+            "fiftyTwoWeekLowChange": {
+                "raw": 67.26999, 
+                "fmt": "67.27"
+            }, 
+            "exchangeDataDelayedBy": 0, 
+            "customPriceAlertConfidence": "HIGH", 
+            "regularMarketDayLow": {
+                "raw": 224.23, 
+                "fmt": "224.23"
+            }, 
+            "priceHint": 2, 
+            "currency": "USD", 
+            "regularMarketPrice": {
+                "raw": 229.98, 
+                "fmt": "229.98"
+            }, 
+            "regularMarketVolume": {
+                "raw": 9991145, 
+                "fmt": "9.991M", 
+                "longFmt": "9,991,145"
+            }, 
+            "isLoading": false, 
+            "triggerable": true, 
+            "gmtOffSetMilliseconds": -14400000, 
+            "firstTradeDateMilliseconds": 1022160600000, 
+            "region": "US", 
+            "marketState": "POSTPOST", 
+            "marketCap": {
+                "raw": 102273482752, 
+                "fmt": "102.273B", 
+                "longFmt": "102,273,482,752"
+            }, 
+            "quoteType": "EQUITY", 
+            "invalid": false, 
+            "symbol": "NFLX", 
+            "language": "en-US", 
+            "fiftyTwoWeekLowChangePercent": {
+                "raw": 0.41343486, 
+                "fmt": "41.34%"
+            }, 
+            "regularMarketDayRange": {
+                "raw": "224.23 - 233.16", 
+                "fmt": "224.23 - 233.16"
+            }, 
+            "messageBoardId": "finmb_32012", 
+            "fiftyTwoWeekHigh": {
+                "raw": 700.99, 
+                "fmt": "700.99"
+            }, 
+            "fiftyTwoWeekHighChangePercent": {
+                "raw": -0.67192113, 
+                "fmt": "-67.19%"
+            }, 
+            "uuid": "1a1cddac-4d41-374d-b202-739314177b67", 
+            "market": "us_market", 
+            "fiftyTwoWeekLow": {
+                "raw": 162.71, 
+                "fmt": "162.71"
+            }, 
+            "typeDisp": "Equity", 
+            "cryptoTradeable": false, 
+            "regularMarketChangePercent": {
+                "raw": 2.327028, 
+                "fmt": "2.33%"
+            }, 
+            "fullExchangeName": "NasdaqGS", 
+            "tradeable": false
+        }, 
+        "META": {
+            "sourceInterval": 15, 
+            "quoteSourceName": "Delayed Quote", 
+            "regularMarketOpen": {
+                "raw": 133.55, 
+                "fmt": "133.55"
+            }, 
+            "exchange": "NMS", 
+            "regularMarketTime": {
+                "raw": 1665432004, 
+                "fmt": "4:00PM EDT"
+            }, 
+            "fiftyTwoWeekRange": {
+                "raw": "131.87 - 353.83", 
+                "fmt": "131.87 - 353.83"
+            }, 
+            "sharesOutstanding": {
+                "raw": 2280669952, 
+                "fmt": "2.281B", 
+                "longFmt": "2,280,669,952"
+            }, 
+            "regularMarketDayHigh": {
+                "raw": 136.09, 
+                "fmt": "136.09"
+            }, 
+            "shortName": "Meta Platforms, Inc.", 
+            "longName": "Meta Platforms, Inc.", 
+            "exchangeTimezoneName": "America/New_York", 
+            "regularMarketChange": {
+                "raw": 0.33999634, 
+                "fmt": "0.34"
+            }, 
+            "regularMarketPreviousClose": {
+                "raw": 133.45, 
+                "fmt": "133.45"
+            }, 
+            "fiftyTwoWeekHighChange": {
+                "raw": -220.04, 
+                "fmt": "-220.04"
+            }, 
+            "exchangeTimezoneShortName": "EDT", 
+            "fiftyTwoWeekLowChange": {
+                "raw": 1.9199982, 
+                "fmt": "1.92"
+            }, 
+            "exchangeDataDelayedBy": 0, 
+            "customPriceAlertConfidence": "HIGH", 
+            "regularMarketDayLow": {
+                "raw": 131.87, 
+                "fmt": "131.87"
+            }, 
+            "priceHint": 2, 
+            "currency": "USD", 
+            "regularMarketPrice": {
+                "raw": 133.79, 
+                "fmt": "133.79"
+            }, 
+            "regularMarketVolume": {
+                "raw": 24023982, 
+                "fmt": "24.024M", 
+                "longFmt": "24,023,982"
+            }, 
+            "isLoading": false, 
+            "triggerable": true, 
+            "gmtOffSetMilliseconds": -14400000, 
+            "firstTradeDateMilliseconds": 1337347800000, 
+            "region": "US", 
+            "marketState": "POSTPOST", 
+            "marketCap": {
+                "raw": 359567294464, 
+                "fmt": "359.567B", 
+                "longFmt": "359,567,294,464"
+            }, 
+            "quoteType": "EQUITY", 
+            "invalid": false, 
+            "symbol": "META", 
+            "language": "en-US", 
+            "fiftyTwoWeekLowChangePercent": {
+                "raw": 0.01455978, 
+                "fmt": "1.46%"
+            }, 
+            "regularMarketDayRange": {
+                "raw": "131.87 - 136.09", 
+                "fmt": "131.87 - 136.09"
+            }, 
+            "messageBoardId": "finmb_20765463", 
+            "fiftyTwoWeekHigh": {
+                "raw": 353.83, 
+                "fmt": "353.83"
+            }, 
+            "fiftyTwoWeekHighChangePercent": {
+                "raw": -0.6218806, 
+                "fmt": "-62.19%"
+            }, 
+            "uuid": "e59f1c4f-b1aa-3d70-a8c3-eb59ff3e461b", 
+            "market": "us_market", 
+            "fiftyTwoWeekLow": {
+                "raw": 131.87, 
+                "fmt": "131.87"
+            }, 
+            "typeDisp": "Equity", 
+            "cryptoTradeable": false, 
+            "regularMarketChangePercent": {
+                "raw": 0.25477433, 
+                "fmt": "0.25%"
+            }, 
+            "fullExchangeName": "NasdaqGS", 
+            "tradeable": false
+        }, 
+        "TWLO": {
+            "sourceInterval": 15, 
+            "quoteSourceName": "Delayed Quote", 
+            "regularMarketOpen": {
+                "raw": 76.73, 
+                "fmt": "76.73"
+            }, 
+            "exchange": "NYQ", 
+            "regularMarketTime": {
+                "raw": 1665432001, 
+                "fmt": "4:00PM EDT"
+            }, 
+            "fiftyTwoWeekRange": {
+                "raw": "64.292 - 373.0", 
+                "fmt": "64.29 - 373.00"
+            }, 
+            "sharesOutstanding": {
+                "raw": 173308000, 
+                "fmt": "173.308M", 
+                "longFmt": "173,308,000"
+            }, 
+            "regularMarketDayHigh": {
+                "raw": 76.75, 
+                "fmt": "76.75"
+            }, 
+            "shortName": "Twilio Inc.", 
+            "longName": "Twilio Inc.", 
+            "exchangeTimezoneName": "America/New_York", 
+            "regularMarketChange": {
+                "raw": -4.8499985, 
+                "fmt": "-4.85"
+            }, 
+            "regularMarketPreviousClose": {
+                "raw": 76.84, 
+                "fmt": "76.84"
+            }, 
+            "fiftyTwoWeekHighChange": {
+                "raw": -301.01, 
+                "fmt": "-301.01"
+            }, 
+            "exchangeTimezoneShortName": "EDT", 
+            "fiftyTwoWeekLowChange": {
+                "raw": 7.697998, 
+                "fmt": "7.70"
+            }, 
+            "exchangeDataDelayedBy": 0, 
+            "customPriceAlertConfidence": "HIGH", 
+            "regularMarketDayLow": {
+                "raw": 70.98, 
+                "fmt": "70.98"
+            }, 
+            "priceHint": 2, 
+            "currency": "USD", 
+            "regularMarketPrice": {
+                "raw": 71.99, 
+                "fmt": "71.99"
+            }, 
+            "regularMarketVolume": {
+                "raw": 3806581, 
+                "fmt": "3.807M", 
+                "longFmt": "3,806,581"
+            }, 
+            "isLoading": false, 
+            "triggerable": true, 
+            "gmtOffSetMilliseconds": -14400000, 
+            "firstTradeDateMilliseconds": 1466688600000, 
+            "region": "US", 
+            "marketState": "POSTPOST", 
+            "marketCap": {
+                "raw": 13183167488, 
+                "fmt": "13.183B", 
+                "longFmt": "13,183,167,488"
+            }, 
+            "quoteType": "EQUITY", 
+            "invalid": false, 
+            "symbol": "TWLO", 
+            "language": "en-US", 
+            "fiftyTwoWeekLowChangePercent": {
+                "raw": 0.11973493, 
+                "fmt": "11.97%"
+            }, 
+            "regularMarketDayRange": {
+                "raw": "70.98 - 76.75", 
+                "fmt": "70.98 - 76.75"
+            }, 
+            "messageBoardId": "finmb_53507768", 
+            "fiftyTwoWeekHigh": {
+                "raw": 373, 
+                "fmt": "373.00"
+            }, 
+            "fiftyTwoWeekHighChangePercent": {
+                "raw": -0.80699736, 
+                "fmt": "-80.70%"
+            }, 
+            "uuid": "6477118e-cc1f-3b6b-8434-542d7310ad12", 
+            "market": "us_market", 
+            "fiftyTwoWeekLow": {
+                "raw": 64.292, 
+                "fmt": "64.29"
+            }, 
+            "typeDisp": "Equity", 
+            "cryptoTradeable": false, 
+            "regularMarketChangePercent": {
+                "raw": -6.3118153, 
+                "fmt": "-6.31%"
+            }, 
+            "fullExchangeName": "NYSE", 
+            "tradeable": false
+        }, 
+        "TCEHY": {
+            "sourceInterval": 15, 
+            "quoteSourceName": "Delayed Quote", 
+            "regularMarketOpen": {
+                "raw": 33.44, 
+                "fmt": "33.44"
+            }, 
+            "exchange": "PNK", 
+            "regularMarketTime": {
+                "raw": 1665431999, 
+                "fmt": "3:59PM EDT"
+            }, 
+            "fiftyTwoWeekRange": {
+                "raw": "32.87 - 66.04", 
+                "fmt": "32.87 - 66.04"
+            }, 
+            "sharesOutstanding": {
+                "raw": 9579530240, 
+                "fmt": "9.58B", 
+                "longFmt": "9,579,530,240"
+            }, 
+            "regularMarketDayHigh": {
+                "raw": 33.55, 
+                "fmt": "33.55"
+            }, 
+            "shortName": "TENCENT HOLDINGS LIMITED UNSP A", 
+            "longName": "Tencent Holdings Limited", 
+            "exchangeTimezoneName": "America/New_York", 
+            "regularMarketChange": {
+                "raw": -0.5999985, 
+                "fmt": "-0.60"
+            }, 
+            "regularMarketPreviousClose": {
+                "raw": 33.76, 
+                "fmt": "33.76"
+            }, 
+            "fiftyTwoWeekHighChange": {
+                "raw": -32.88, 
+                "fmt": "-32.88"
+            }, 
+            "exchangeTimezoneShortName": "EDT", 
+            "fiftyTwoWeekLowChange": {
+                "raw": 0.29000092, 
+                "fmt": "0.29"
+            }, 
+            "exchangeDataDelayedBy": 0, 
+            "customPriceAlertConfidence": "LOW", 
+            "regularMarketDayLow": {
+                "raw": 32.87, 
+                "fmt": "32.87"
+            }, 
+            "priceHint": 2, 
+            "currency": "USD", 
+            "regularMarketPrice": {
+                "raw": 33.16, 
+                "fmt": "33.16"
+            }, 
+            "regularMarketVolume": {
+                "raw": 2352840, 
+                "fmt": "2.353M", 
+                "longFmt": "2,352,840"
+            }, 
+            "isLoading": false, 
+            "triggerable": false, 
+            "gmtOffSetMilliseconds": -14400000, 
+            "firstTradeDateMilliseconds": 1262701800000, 
+            "region": "US", 
+            "marketState": "POSTPOST", 
+            "marketCap": {
+                "raw": 324289888256, 
+                "fmt": "324.29B", 
+                "longFmt": "324,289,888,256"
+            }, 
+            "quoteType": "EQUITY", 
+            "invalid": false, 
+            "symbol": "TCEHY", 
+            "language": "en-US", 
+            "fiftyTwoWeekLowChangePercent": {
+                "raw": 0.008822663, 
+                "fmt": "0.88%"
+            }, 
+            "regularMarketDayRange": {
+                "raw": "32.87 - 33.55", 
+                "fmt": "32.87 - 33.55"
+            }, 
+            "messageBoardId": "finmb_11042136", 
+            "fiftyTwoWeekHigh": {
+                "raw": 66.04, 
+                "fmt": "66.04"
+            }, 
+            "fiftyTwoWeekHighChangePercent": {
+                "raw": -0.49788007, 
+                "fmt": "-49.79%"
+            }, 
+            "uuid": "93daa8b6-450a-3714-adba-21bf8bc3c52c", 
+            "market": "us_market", 
+            "fiftyTwoWeekLow": {
+                "raw": 32.87, 
+                "fmt": "32.87"
+            }, 
+            "typeDisp": "Equity", 
+            "cryptoTradeable": false, 
+            "regularMarketChangePercent": {
+                "raw": -1.7772468, 
+                "fmt": "-1.78%"
+            }, 
+            "fullExchangeName": "Other OTC", 
+            "tradeable": false
+        }, 
+        "SNAP": {
+            "sourceInterval": 15, 
+            "quoteSourceName": "Delayed Quote", 
+            "regularMarketOpen": {
+                "raw": 10.62, 
+                "fmt": "10.62"
+            }, 
+            "exchange": "NYQ", 
+            "regularMarketTime": {
+                "raw": 1665432024, 
+                "fmt": "4:00PM EDT"
+            }, 
+            "fiftyTwoWeekRange": {
+                "raw": "9.34 - 79.3", 
+                "fmt": "9.34 - 79.30"
+            }, 
+            "sharesOutstanding": {
+                "raw": 1394700032, 
+                "fmt": "1.395B", 
+                "longFmt": "1,394,700,032"
+            }, 
+            "regularMarketDayHigh": {
+                "raw": 10.655, 
+                "fmt": "10.65"
+            }, 
+            "shortName": "Snap Inc.", 
+            "longName": "Snap Inc.", 
+            "exchangeTimezoneName": "America/New_York", 
+            "regularMarketChange": {
+                "raw": -0.25, 
+                "fmt": "-0.25"
+            }, 
+            "regularMarketPreviousClose": {
+                "raw": 10.66, 
+                "fmt": "10.66"
+            }, 
+            "fiftyTwoWeekHighChange": {
+                "raw": -68.89, 
+                "fmt": "-68.89"
+            }, 
+            "exchangeTimezoneShortName": "EDT", 
+            "fiftyTwoWeekLowChange": {
+                "raw": 1.0699997, 
+                "fmt": "1.07"
+            }, 
+            "exchangeDataDelayedBy": 0, 
+            "customPriceAlertConfidence": "HIGH", 
+            "regularMarketDayLow": {
+                "raw": 10.325, 
+                "fmt": "10.32"
+            }, 
+            "priceHint": 2, 
+            "currency": "USD", 
+            "regularMarketPrice": {
+                "raw": 10.41, 
+                "fmt": "10.41"
+            }, 
+            "regularMarketVolume": {
+                "raw": 18620419, 
+                "fmt": "18.62M", 
+                "longFmt": "18,620,419"
+            }, 
+            "isLoading": false, 
+            "triggerable": true, 
+            "gmtOffSetMilliseconds": -14400000, 
+            "firstTradeDateMilliseconds": 1488465000000, 
+            "region": "US", 
+            "marketState": "POSTPOST", 
+            "marketCap": {
+                "raw": 17165776896, 
+                "fmt": "17.166B", 
+                "longFmt": "17,165,776,896"
+            }, 
+            "quoteType": "EQUITY", 
+            "invalid": false, 
+            "symbol": "SNAP", 
+            "language": "en-US", 
+            "fiftyTwoWeekLowChangePercent": {
+                "raw": 0.11456099, 
+                "fmt": "11.46%"
+            }, 
+            "regularMarketDayRange": {
+                "raw": "10.325 - 10.655", 
+                "fmt": "10.32 - 10.65"
+            }, 
+            "messageBoardId": "finmb_224055283", 
+            "fiftyTwoWeekHigh": {
+                "raw": 79.3, 
+                "fmt": "79.30"
+            }, 
+            "fiftyTwoWeekHighChangePercent": {
+                "raw": -0.8687263, 
+                "fmt": "-86.87%"
+            }, 
+            "uuid": "9bd645c2-ef58-337f-93ff-32e6c927049a", 
+            "market": "us_market", 
+            "fiftyTwoWeekLow": {
+                "raw": 9.34, 
+                "fmt": "9.34"
+            }, 
+            "typeDisp": "Equity", 
+            "cryptoTradeable": false, 
+            "regularMarketChangePercent": {
+                "raw": -2.3452158, 
+                "fmt": "-2.35%"
+            }, 
+            "fullExchangeName": "NYSE", 
+            "tradeable": false
+        }, 
+        "GOOGL": {
+            "sourceInterval": 15, 
+            "quoteSourceName": "Delayed Quote", 
+            "regularMarketOpen": {
+                "raw": 99, 
+                "fmt": "99.00"
+            }, 
+            "exchange": "NMS", 
+            "regularMarketTime": {
+                "raw": 1665432004, 
+                "fmt": "4:00PM EDT"
+            }, 
+            "fiftyTwoWeekRange": {
+                "raw": "95.56 - 151.5465", 
+                "fmt": "95.56 - 151.55"
+            }, 
+            "sharesOutstanding": {
+                "raw": 5996000256, 
+                "fmt": "5.996B", 
+                "longFmt": "5,996,000,256"
+            }, 
+            "regularMarketDayHigh": {
+                "raw": 99.095, 
+                "fmt": "99.10"
+            }, 
+            "shortName": "Alphabet Inc.", 
+            "longName": "Alphabet Inc.", 
+            "exchangeTimezoneName": "America/New_York", 
+            "regularMarketChange": {
+                "raw": -0.8199997, 
+                "fmt": "-0.82"
+            }, 
+            "regularMarketPreviousClose": {
+                "raw": 98.68, 
+                "fmt": "98.68"
+            }, 
+            "fiftyTwoWeekHighChange": {
+                "raw": -53.686493, 
+                "fmt": "-53.69"
+            }, 
+            "exchangeTimezoneShortName": "EDT", 
+            "fiftyTwoWeekLowChange": {
+                "raw": 2.300003, 
+                "fmt": "2.30"
+            }, 
+            "exchangeDataDelayedBy": 0, 
+            "customPriceAlertConfidence": "HIGH", 
+            "regularMarketDayLow": {
+                "raw": 97.01, 
+                "fmt": "97.01"
+            }, 
+            "priceHint": 2, 
+            "currency": "USD", 
+            "regularMarketPrice": {
+                "raw": 97.86, 
+                "fmt": "97.86"
+            }, 
+            "regularMarketVolume": {
+                "raw": 18225094, 
+                "fmt": "18.225M", 
+                "longFmt": "18,225,094"
+            }, 
+            "isLoading": false, 
+            "triggerable": true, 
+            "gmtOffSetMilliseconds": -14400000, 
+            "firstTradeDateMilliseconds": 1092922200000, 
+            "region": "US", 
+            "marketState": "POSTPOST", 
+            "marketCap": {
+                "raw": 1281926889472, 
+                "fmt": "1.282T", 
+                "longFmt": "1,281,926,889,472"
+            }, 
+            "quoteType": "EQUITY", 
+            "invalid": false, 
+            "symbol": "GOOGL", 
+            "language": "en-US", 
+            "fiftyTwoWeekLowChangePercent": {
+                "raw": 0.02406868, 
+                "fmt": "2.41%"
+            }, 
+            "regularMarketDayRange": {
+                "raw": "97.01 - 99.095", 
+                "fmt": "97.01 - 99.10"
+            }, 
+            "messageBoardId": "finmb_29096", 
+            "fiftyTwoWeekHigh": {
+                "raw": 151.5465, 
+                "fmt": "151.55"
+            }, 
+            "fiftyTwoWeekHighChangePercent": {
+                "raw": -0.35425758, 
+                "fmt": "-35.43%"
+            }, 
+            "uuid": "e15ce71f-f533-3912-9f11-a46c09e2412b", 
+            "market": "us_market", 
+            "fiftyTwoWeekLow": {
+                "raw": 95.56, 
+                "fmt": "95.56"
+            }, 
+            "typeDisp": "Equity", 
+            "cryptoTradeable": false, 
+            "regularMarketChangePercent": {
+                "raw": -0.8309685, 
+                "fmt": "-0.83%"
+            }, 
+            "fullExchangeName": "NasdaqGS", 
+            "tradeable": false
+        }, 
+        "DASH": {
+            "sourceInterval": 15, 
+            "quoteSourceName": "Delayed Quote", 
+            "regularMarketOpen": {
+                "raw": 49.6, 
+                "fmt": "49.60"
+            }, 
+            "exchange": "NYQ", 
+            "regularMarketTime": {
+                "raw": 1665432002, 
+                "fmt": "4:00PM EDT"
+            }, 
+            "fiftyTwoWeekRange": {
+                "raw": "46.56 - 257.25", 
+                "fmt": "46.56 - 257.25"
+            }, 
+            "sharesOutstanding": {
+                "raw": 357960000, 
+                "fmt": "357.96M", 
+                "longFmt": "357,960,000"
+            }, 
+            "regularMarketDayHigh": {
+                "raw": 49.8, 
+                "fmt": "49.80"
+            }, 
+            "shortName": "DoorDash, Inc.", 
+            "longName": "DoorDash, Inc.", 
+            "exchangeTimezoneName": "America/New_York", 
+            "regularMarketChange": {
+                "raw": -1.6800003, 
+                "fmt": "-1.68"
+            }, 
+            "regularMarketPreviousClose": {
+                "raw": 49.39, 
+                "fmt": "49.39"
+            }, 
+            "fiftyTwoWeekHighChange": {
+                "raw": -209.54001, 
+                "fmt": "-209.54"
+            }, 
+            "exchangeTimezoneShortName": "EDT", 
+            "fiftyTwoWeekLowChange": {
+                "raw": 1.1499977, 
+                "fmt": "1.15"
+            }, 
+            "exchangeDataDelayedBy": 0, 
+            "customPriceAlertConfidence": "HIGH", 
+            "regularMarketDayLow": {
+                "raw": 46.56, 
+                "fmt": "46.56"
+            }, 
+            "priceHint": 2, 
+            "currency": "USD", 
+            "regularMarketPrice": {
+                "raw": 47.71, 
+                "fmt": "47.71"
+            }, 
+            "regularMarketVolume": {
+                "raw": 4583024, 
+                "fmt": "4.583M", 
+                "longFmt": "4,583,024"
+            }, 
+            "isLoading": false, 
+            "triggerable": true, 
+            "gmtOffSetMilliseconds": -14400000, 
+            "firstTradeDateMilliseconds": 1607524200000, 
+            "region": "US", 
+            "marketState": "POSTPOST", 
+            "marketCap": {
+                "raw": 18419875840, 
+                "fmt": "18.42B", 
+                "longFmt": "18,419,875,840"
+            }, 
+            "quoteType": "EQUITY", 
+            "invalid": false, 
+            "symbol": "DASH", 
+            "language": "en-US", 
+            "fiftyTwoWeekLowChangePercent": {
+                "raw": 0.024699263, 
+                "fmt": "2.47%"
+            }, 
+            "regularMarketDayRange": {
+                "raw": "46.56 - 49.8", 
+                "fmt": "46.56 - 49.80"
+            }, 
+            "messageBoardId": "finmb_243735719", 
+            "fiftyTwoWeekHigh": {
+                "raw": 257.25, 
+                "fmt": "257.25"
+            }, 
+            "fiftyTwoWeekHighChangePercent": {
+                "raw": -0.8145384, 
+                "fmt": "-81.45%"
+            }, 
+            "uuid": "abb5fed0-e670-3fad-a0ab-65c15b790508", 
+            "market": "us_market", 
+            "fiftyTwoWeekLow": {
+                "raw": 46.56, 
+                "fmt": "46.56"
+            }, 
+            "typeDisp": "Equity", 
+            "cryptoTradeable": false, 
+            "regularMarketChangePercent": {
+                "raw": -3.4014988, 
+                "fmt": "-3.40%"
+            }, 
+            "fullExchangeName": "NYSE", 
+            "tradeable": false
+        }, 
+        "TSLA": {
+            "sourceInterval": 15, 
+            "quoteSourceName": "Delayed Quote", 
+            "regularMarketOpen": {
+                "raw": 223.93, 
+                "fmt": "223.93"
+            }, 
+            "exchange": "NMS", 
+            "regularMarketTime": {
+                "raw": 1665432004, 
+                "fmt": "4:00PM EDT"
+            }, 
+            "fiftyTwoWeekRange": {
+                "raw": "206.85667 - 414.49667", 
+                "fmt": "206.86 - 414.50"
+            }, 
+            "sharesOutstanding": {
+                "raw": 3133469952, 
+                "fmt": "3.133B", 
+                "longFmt": "3,133,469,952"
+            }, 
+            "regularMarketDayHigh": {
+                "raw": 226.99, 
+                "fmt": "226.99"
+            }, 
+            "shortName": "Tesla, Inc.", 
+            "longName": "Tesla, Inc.", 
+            "exchangeTimezoneName": "America/New_York", 
+            "regularMarketChange": {
+                "raw": -0.11000061, 
+                "fmt": "-0.11"
+            }, 
+            "regularMarketPreviousClose": {
+                "raw": 223.07, 
+                "fmt": "223.07"
+            }, 
+            "fiftyTwoWeekHighChange": {
+                "raw": -191.53667, 
+                "fmt": "-191.54"
+            }, 
+            "exchangeTimezoneShortName": "EDT", 
+            "fiftyTwoWeekLowChange": {
+                "raw": 16.103333, 
+                "fmt": "16.10"
+            }, 
+            "exchangeDataDelayedBy": 0, 
+            "customPriceAlertConfidence": "HIGH", 
+            "regularMarketDayLow": {
+                "raw": 218.3582, 
+                "fmt": "218.36"
+            }, 
+            "priceHint": 2, 
+            "currency": "USD", 
+            "regularMarketPrice": {
+                "raw": 222.96, 
+                "fmt": "222.96"
+            }, 
+            "regularMarketVolume": {
+                "raw": 67925018, 
+                "fmt": "67.925M", 
+                "longFmt": "67,925,018"
+            }, 
+            "isLoading": false, 
+            "triggerable": true, 
+            "gmtOffSetMilliseconds": -14400000, 
+            "firstTradeDateMilliseconds": 1277818200000, 
+            "region": "US", 
+            "marketState": "POSTPOST", 
+            "marketCap": {
+                "raw": 698638467072, 
+                "fmt": "698.638B", 
+                "longFmt": "698,638,467,072"
+            }, 
+            "quoteType": "EQUITY", 
+            "invalid": false, 
+            "symbol": "TSLA", 
+            "language": "en-US", 
+            "fiftyTwoWeekLowChangePercent": {
+                "raw": 0.07784778, 
+                "fmt": "7.78%"
+            }, 
+            "regularMarketDayRange": {
+                "raw": "218.3582 - 226.99", 
+                "fmt": "218.36 - 226.99"
+            }, 
+            "messageBoardId": "finmb_27444752", 
+            "fiftyTwoWeekHigh": {
+                "raw": 414.49667, 
+                "fmt": "414.50"
+            }, 
+            "fiftyTwoWeekHighChangePercent": {
+                "raw": -0.46209458, 
+                "fmt": "-46.21%"
+            }, 
+            "uuid": "ec367bc4-f92c-397c-ac81-bf7b43cffaf7", 
+            "market": "us_market", 
+            "fiftyTwoWeekLow": {
+                "raw": 206.85667, 
+                "fmt": "206.86"
+            }, 
+            "typeDisp": "Equity", 
+            "cryptoTradeable": false, 
+            "regularMarketChangePercent": {
+                "raw": -0.049312145, 
+                "fmt": "-0.05%"
+            }, 
+            "fullExchangeName": "NasdaqGS", 
+            "tradeable": false
+        }, 
+        "BIDU": {
+            "sourceInterval": 15, 
+            "quoteSourceName": "Delayed Quote", 
+            "regularMarketOpen": {
+                "raw": 118.38, 
+                "fmt": "118.38"
+            }, 
+            "exchange": "NMS", 
+            "regularMarketTime": {
+                "raw": 1665432004, 
+                "fmt": "4:00PM EDT"
+            }, 
+            "fiftyTwoWeekRange": {
+                "raw": "101.62 - 182.6", 
+                "fmt": "101.62 - 182.60"
+            }, 
+            "sharesOutstanding": {
+                "raw": 345551008, 
+                "fmt": "345.551M", 
+                "longFmt": "345,551,008"
+            }, 
+            "regularMarketDayHigh": {
+                "raw": 118.74, 
+                "fmt": "118.74"
+            }, 
+            "shortName": "Baidu, Inc.", 
+            "longName": "Baidu, Inc.", 
+            "exchangeTimezoneName": "America/New_York", 
+            "regularMarketChange": {
+                "raw": -5.3899994, 
+                "fmt": "-5.39"
+            }, 
+            "regularMarketPreviousClose": {
+                "raw": 120.44, 
+                "fmt": "120.44"
+            }, 
+            "fiftyTwoWeekHighChange": {
+                "raw": -67.55, 
+                "fmt": "-67.55"
+            }, 
+            "exchangeTimezoneShortName": "EDT", 
+            "fiftyTwoWeekLowChange": {
+                "raw": 13.43, 
+                "fmt": "13.43"
+            }, 
+            "exchangeDataDelayedBy": 0, 
+            "customPriceAlertConfidence": "HIGH", 
+            "regularMarketDayLow": {
+                "raw": 114.08, 
+                "fmt": "114.08"
+            }, 
+            "priceHint": 2, 
+            "currency": "USD", 
+            "regularMarketPrice": {
+                "raw": 115.05, 
+                "fmt": "115.05"
+            }, 
+            "regularMarketVolume": {
+                "raw": 1588149, 
+                "fmt": "1.588M", 
+                "longFmt": "1,588,149"
+            }, 
+            "isLoading": false, 
+            "triggerable": true, 
+            "gmtOffSetMilliseconds": -14400000, 
+            "firstTradeDateMilliseconds": 1123248600000, 
+            "region": "US", 
+            "marketState": "POSTPOST", 
+            "marketCap": {
+                "raw": 40196976640, 
+                "fmt": "40.197B", 
+                "longFmt": "40,196,976,640"
+            }, 
+            "quoteType": "EQUITY", 
+            "invalid": false, 
+            "symbol": "BIDU", 
+            "language": "en-US", 
+            "fiftyTwoWeekLowChangePercent": {
+                "raw": 0.13215902, 
+                "fmt": "13.22%"
+            }, 
+            "regularMarketDayRange": {
+                "raw": "114.08 - 118.74", 
+                "fmt": "114.08 - 118.74"
+            }, 
+            "messageBoardId": "finmb_428613", 
+            "fiftyTwoWeekHigh": {
+                "raw": 182.6, 
+                "fmt": "182.60"
+            }, 
+            "fiftyTwoWeekHighChangePercent": {
+                "raw": -0.3699343, 
+                "fmt": "-36.99%"
+            }, 
+            "uuid": "dce9478c-eb4a-303c-a219-7348692ce9a8", 
+            "market": "us_market", 
+            "fiftyTwoWeekLow": {
+                "raw": 101.62, 
+                "fmt": "101.62"
+            }, 
+            "typeDisp": "Equity", 
+            "cryptoTradeable": false, 
+            "regularMarketChangePercent": {
+                "raw": -4.475257, 
+                "fmt": "-4.48%"
+            }, 
+            "fullExchangeName": "NasdaqGS", 
+            "tradeable": false
+        }, 
+        "AAPL": {
+            "sourceInterval": 15, 
+            "quoteSourceName": "Delayed Quote", 
+            "regularMarketOpen": {
+                "raw": 140.42, 
+                "fmt": "140.42"
+            }, 
+            "exchange": "NMS", 
+            "regularMarketTime": {
+                "raw": 1665432004, 
+                "fmt": "4:00PM EDT"
+            }, 
+            "fiftyTwoWeekRange": {
+                "raw": "129.04 - 182.94", 
+                "fmt": "129.04 - 182.94"
+            }, 
+            "sharesOutstanding": {
+                "raw": 16070800384, 
+                "fmt": "16.071B", 
+                "longFmt": "16,070,800,384"
+            }, 
+            "regularMarketDayHigh": {
+                "raw": 141.89, 
+                "fmt": "141.89"
+            }, 
+            "shortName": "Apple Inc.", 
+            "longName": "Apple Inc.", 
+            "exchangeTimezoneName": "America/New_York", 
+            "regularMarketChange": {
+                "raw": 0.33000183, 
+                "fmt": "0.33"
+            }, 
+            "regularMarketPreviousClose": {
+                "raw": 140.09, 
+                "fmt": "140.09"
+            }, 
+            "fiftyTwoWeekHighChange": {
+                "raw": -42.520004, 
+                "fmt": "-42.52"
+            }, 
+            "exchangeTimezoneShortName": "EDT", 
+            "fiftyTwoWeekLowChange": {
+                "raw": 11.380005, 
+                "fmt": "11.38"
+            }, 
+            "exchangeDataDelayedBy": 0, 
+            "customPriceAlertConfidence": "HIGH", 
+            "regularMarketDayLow": {
+                "raw": 138.5729, 
+                "fmt": "138.57"
+            }, 
+            "priceHint": 2, 
+            "currency": "USD", 
+            "regularMarketPrice": {
+                "raw": 140.42, 
+                "fmt": "140.42"
+            }, 
+            "regularMarketVolume": {
+                "raw": 73717951, 
+                "fmt": "73.718M", 
+                "longFmt": "73,717,951"
+            }, 
+            "isLoading": false, 
+            "triggerable": true, 
+            "gmtOffSetMilliseconds": -14400000, 
+            "firstTradeDateMilliseconds": 345479400000, 
+            "region": "US", 
+            "marketState": "POSTPOST", 
+            "marketCap": {
+                "raw": 2256661643264, 
+                "fmt": "2.257T", 
+                "longFmt": "2,256,661,643,264"
+            }, 
+            "quoteType": "EQUITY", 
+            "invalid": false, 
+            "symbol": "AAPL", 
+            "language": "en-US", 
+            "fiftyTwoWeekLowChangePercent": {
+                "raw": 0.08818975, 
+                "fmt": "8.82%"
+            }, 
+            "regularMarketDayRange": {
+                "raw": "138.5729 - 141.89", 
+                "fmt": "138.57 - 141.89"
+            }, 
+            "messageBoardId": "finmb_24937", 
+            "fiftyTwoWeekHigh": {
+                "raw": 182.94, 
+                "fmt": "182.94"
+            }, 
+            "fiftyTwoWeekHighChangePercent": {
+                "raw": -0.23242596, 
+                "fmt": "-23.24%"
+            }, 
+            "uuid": "8b10e4ae-9eeb-3684-921a-9ab27e4d87aa", 
+            "market": "us_market", 
+            "fiftyTwoWeekLow": {
+                "raw": 129.04, 
+                "fmt": "129.04"
+            }, 
+            "typeDisp": "Equity", 
+            "cryptoTradeable": false, 
+            "regularMarketChangePercent": {
+                "raw": 0.23556417, 
+                "fmt": "0.24%"
+            }, 
+            "fullExchangeName": "NasdaqGS", 
+            "tradeable": false
+        }, 
+        "PINS": {
+            "sourceInterval": 15, 
+            "quoteSourceName": "Delayed Quote", 
+            "regularMarketOpen": {
+                "raw": 25.03, 
+                "fmt": "25.03"
+            }, 
+            "exchange": "NYQ", 
+            "regularMarketTime": {
+                "raw": 1665432074, 
+                "fmt": "4:01PM EDT"
+            }, 
+            "fiftyTwoWeekRange": {
+                "raw": "16.14 - 66.0", 
+                "fmt": "16.14 - 66.00"
+            }, 
+            "sharesOutstanding": {
+                "raw": 582878016, 
+                "fmt": "582.878M", 
+                "longFmt": "582,878,016"
+            }, 
+            "regularMarketDayHigh": {
+                "raw": 25.38, 
+                "fmt": "25.38"
+            }, 
+            "shortName": "Pinterest, Inc.", 
+            "longName": "Pinterest, Inc.", 
+            "exchangeTimezoneName": "America/New_York", 
+            "regularMarketChange": {
+                "raw": -0.47000122, 
+                "fmt": "-0.47"
+            }, 
+            "regularMarketPreviousClose": {
+                "raw": 25.12, 
+                "fmt": "25.12"
+            }, 
+            "fiftyTwoWeekHighChange": {
+                "raw": -41.35, 
+                "fmt": "-41.35"
+            }, 
+            "exchangeTimezoneShortName": "EDT", 
+            "fiftyTwoWeekLowChange": {
+                "raw": 8.51, 
+                "fmt": "8.51"
+            }, 
+            "exchangeDataDelayedBy": 0, 
+            "customPriceAlertConfidence": "HIGH", 
+            "regularMarketDayLow": {
+                "raw": 24.275, 
+                "fmt": "24.27"
+            }, 
+            "priceHint": 2, 
+            "currency": "USD", 
+            "regularMarketPrice": {
+                "raw": 24.65, 
+                "fmt": "24.65"
+            }, 
+            "regularMarketVolume": {
+                "raw": 7129608, 
+                "fmt": "7.13M", 
+                "longFmt": "7,129,608"
+            }, 
+            "isLoading": false, 
+            "triggerable": true, 
+            "gmtOffSetMilliseconds": -14400000, 
+            "firstTradeDateMilliseconds": 1555594200000, 
+            "region": "US", 
+            "marketState": "POSTPOST", 
+            "marketCap": {
+                "raw": 16600838144, 
+                "fmt": "16.601B", 
+                "longFmt": "16,600,838,144"
+            }, 
+            "quoteType": "EQUITY", 
+            "invalid": false, 
+            "symbol": "PINS", 
+            "language": "en-US", 
+            "fiftyTwoWeekLowChangePercent": {
+                "raw": 0.5272615, 
+                "fmt": "52.73%"
+            }, 
+            "regularMarketDayRange": {
+                "raw": "24.275 - 25.38", 
+                "fmt": "24.27 - 25.38"
+            }, 
+            "messageBoardId": "finmb_139264388", 
+            "fiftyTwoWeekHigh": {
+                "raw": 66, 
+                "fmt": "66.00"
+            }, 
+            "fiftyTwoWeekHighChangePercent": {
+                "raw": -0.62651515, 
+                "fmt": "-62.65%"
+            }, 
+            "uuid": "f38c7696-166d-3759-b449-5136a3cc332a", 
+            "market": "us_market", 
+            "fiftyTwoWeekLow": {
+                "raw": 16.14, 
+                "fmt": "16.14"
+            }, 
+            "typeDisp": "Equity", 
+            "cryptoTradeable": false, 
+            "regularMarketChangePercent": {
+                "raw": -1.8710239, 
+                "fmt": "-1.87%"
+            }, 
+            "fullExchangeName": "NYSE", 
+            "tradeable": false
+        }
+    }, 
+    "mktmData": {}, 
+    "timeSeries": {
+        "trailingEnterprisesValueEBITDARatio": [
+            {
+                "dataId": 102, 
+                "asOfDate": "2022-10-06", 
+                "periodType": "TTM", 
+                "reportedValue": {
+                    "raw": 7.267784, 
+                    "fmt": "7.27"
+                }
+            }
+        ], 
+        "quarterlyForwardPeRatio": [
+            {
+                "dataId": 14020, 
+                "asOfDate": "2021-09-30", 
+                "periodType": "3M", 
+                "reportedValue": {
+                    "raw": 22.0751, 
+                    "fmt": "22.08"
+                }
+            }, 
+            {
+                "dataId": 14020, 
+                "asOfDate": "2021-12-31", 
+                "periodType": "3M", 
+                "reportedValue": {
+                    "raw": 23.31, 
+                    "fmt": "23.31"
+                }
+            }, 
+            {
+                "dataId": 14020, 
+                "asOfDate": "2022-03-31", 
+                "periodType": "3M", 
+                "reportedValue": {
+                    "raw": 17.301, 
+                    "fmt": "17.30"
+                }
+            }, 
+            {
+                "dataId": 14020, 
+                "asOfDate": "2022-06-30", 
+                "periodType": "3M", 
+                "reportedValue": {
+                    "raw": 13.4771, 
+                    "fmt": "13.48"
+                }
+            }
+        ], 
+        "trailingMarketCap": [
+            {
+                "dataId": 40001, 
+                "asOfDate": "2022-10-05", 
+                "periodType": "TTM", 
+                "reportedValue": {
+                    "raw": 373515486637, 
+                    "fmt": "373.52B"
+                }
+            }
+        ], 
+        "quarterlyEnterprisesValueEBITDARatio": [
+            {
+                "dataId": 102, 
+                "asOfDate": "2021-09-30", 
+                "periodType": "3M", 
+                "reportedValue": {
+                    "raw": 72.140705, 
+                    "fmt": "72.14"
+                }
+            }, 
+            {
+                "dataId": 102, 
+                "asOfDate": "2021-12-31", 
+                "periodType": "3M", 
+                "reportedValue": {
+                    "raw": 60.038383, 
+                    "fmt": "60.04"
+                }
+            }, 
+            {
+                "dataId": 102, 
+                "asOfDate": "2022-03-31", 
+                "periodType": "3M", 
+                "reportedValue": {
+                    "raw": 53.310865, 
+                    "fmt": "53.31"
+                }
+            }, 
+            {
+                "dataId": 102, 
+                "asOfDate": "2022-06-30", 
+                "periodType": "3M", 
+                "reportedValue": {
+                    "raw": 39.184894, 
+                    "fmt": "39.18"
+                }
+            }
+        ], 
+        "quarterlyEnterpriseValue": [
+            {
+                "dataId": 40002, 
+                "asOfDate": "2021-09-30", 
+                "periodType": "3M", 
+                "reportedValue": {
+                    "raw": 895843270000, 
+                    "fmt": "895.84B"
+                }
+            }, 
+            {
+                "dataId": 40002, 
+                "asOfDate": "2021-12-31", 
+                "periodType": "3M", 
+                "reportedValue": {
+                    "raw": 876500350000, 
+                    "fmt": "876.50B"
+                }
+            }, 
+            {
+                "dataId": 40002, 
+                "asOfDate": "2022-03-31", 
+                "periodType": "3M", 
+                "reportedValue": {
+                    "raw": 569360040000, 
+                    "fmt": "569.36B"
+                }
+            }, 
+            {
+                "dataId": 40002, 
+                "asOfDate": "2022-06-30", 
+                "periodType": "3M", 
+                "reportedValue": {
+                    "raw": 405054250000, 
+                    "fmt": "405.05B"
+                }
+            }
+        ], 
+        "quarterlyPegRatio": [
+            {
+                "dataId": 14021, 
+                "asOfDate": "2021-09-30", 
+                "periodType": "3M", 
+                "reportedValue": {
+                    "raw": 0.8779, 
+                    "fmt": "0.88"
+                }
+            }, 
+            {
+                "dataId": 14021, 
+                "asOfDate": "2021-12-31", 
+                "periodType": "3M", 
+                "reportedValue": {
+                    "raw": 0.943, 
+                    "fmt": "0.94"
+                }
+            }, 
+            {
+                "dataId": 14021, 
+                "asOfDate": "2022-03-31", 
+                "periodType": "3M", 
+                "reportedValue": {
+                    "raw": 1.2238, 
+                    "fmt": "1.22"
+                }
+            }, 
+            {
+                "dataId": 14021, 
+                "asOfDate": "2022-06-30", 
+                "periodType": "3M", 
+                "reportedValue": {
+                    "raw": 0.9844, 
+                    "fmt": "0.98"
+                }
+            }
+        ], 
+        "trailingPegRatio": [
+            {
+                "dataId": 14021, 
+                "asOfDate": "2022-10-05", 
+                "periodType": "TTM", 
+                "reportedValue": {
+                    "raw": 1.6418, 
+                    "fmt": "1.64"
+                }
+            }
+        ], 
+        "trailingEnterprisesValueRevenueRatio": [
+            {
+                "dataId": 101, 
+                "asOfDate": "2022-10-06", 
+                "periodType": "TTM", 
+                "reportedValue": {
+                    "raw": 2.923486, 
+                    "fmt": "2.92"
+                }
+            }
+        ], 
+        "trailingPsRatio": [
+            {
+                "dataId": 14010, 
+                "asOfDate": "2022-10-05", 
+                "periodType": "TTM", 
+                "reportedValue": {
+                    "raw": 3.239103, 
+                    "fmt": "3.24"
+                }
+            }
+        ], 
+        "quarterlyPbRatio": [
+            {
+                "dataId": 14012, 
+                "asOfDate": "2021-09-30", 
+                "periodType": "3M", 
+                "reportedValue": {
+                    "raw": 6.857678, 
+                    "fmt": "6.86"
+                }
+            }, 
+            {
+                "dataId": 14012, 
+                "asOfDate": "2021-12-31", 
+                "periodType": "3M", 
+                "reportedValue": {
+                    "raw": 6.913133, 
+                    "fmt": "6.91"
+                }
+            }, 
+            {
+                "dataId": 14012, 
+                "asOfDate": "2022-03-31", 
+                "periodType": "3M", 
+                "reportedValue": {
+                    "raw": 4.832558, 
+                    "fmt": "4.83"
+                }
+            }, 
+            {
+                "dataId": 14012, 
+                "asOfDate": "2022-06-30", 
+                "periodType": "3M", 
+                "reportedValue": {
+                    "raw": 3.529159, 
+                    "fmt": "3.53"
+                }
+            }
+        ], 
+        "trailingPbRatio": [
+            {
+                "dataId": 14012, 
+                "asOfDate": "2022-10-05", 
+                "periodType": "TTM", 
+                "reportedValue": {
+                    "raw": 2.969901, 
+                    "fmt": "2.97"
+                }
+            }
+        ], 
+        "quarterlyEnterprisesValueRevenueRatio": [
+            {
+                "dataId": 101, 
+                "asOfDate": "2021-09-30", 
+                "periodType": "3M", 
+                "reportedValue": {
+                    "raw": 30.880499, 
+                    "fmt": "30.88"
+                }
+            }, 
+            {
+                "dataId": 101, 
+                "asOfDate": "2021-12-31", 
+                "periodType": "3M", 
+                "reportedValue": {
+                    "raw": 26.031313, 
+                    "fmt": "26.03"
+                }
+            }, 
+            {
+                "dataId": 101, 
+                "asOfDate": "2022-03-31", 
+                "periodType": "3M", 
+                "reportedValue": {
+                    "raw": 20.40132, 
+                    "fmt": "20.40"
+                }
+            }, 
+            {
+                "dataId": 101, 
+                "asOfDate": "2022-06-30", 
+                "periodType": "3M", 
+                "reportedValue": {
+                    "raw": 14.053648, 
+                    "fmt": "14.05"
+                }
+            }
+        ], 
+        "trailingEnterpriseValue": [
+            {
+                "dataId": 40002, 
+                "asOfDate": "2022-10-05", 
+                "periodType": "TTM", 
+                "reportedValue": {
+                    "raw": 349093486637, 
+                    "fmt": "349.09B"
+                }
+            }
+        ], 
+        "quarterlyPsRatio": [
+            {
+                "dataId": 14010, 
+                "asOfDate": "2021-09-30", 
+                "periodType": "3M", 
+                "reportedValue": {
+                    "raw": 9.361645, 
+                    "fmt": "9.36"
+                }
+            }, 
+            {
+                "dataId": 14010, 
+                "asOfDate": "2021-12-31", 
+                "periodType": "3M", 
+                "reportedValue": {
+                    "raw": 8.631826, 
+                    "fmt": "8.63"
+                }
+            }, 
+            {
+                "dataId": 14010, 
+                "asOfDate": "2022-03-31", 
+                "periodType": "3M", 
+                "reportedValue": {
+                    "raw": 5.390763, 
+                    "fmt": "5.39"
+                }
+            }, 
+            {
+                "dataId": 14010, 
+                "asOfDate": "2022-06-30", 
+                "periodType": "3M", 
+                "reportedValue": {
+                    "raw": 3.805342, 
+                    "fmt": "3.81"
+                }
+            }
+        ], 
+        "trailingPeRatio": [
+            {
+                "dataId": 14008, 
+                "asOfDate": "2022-10-05", 
+                "periodType": "TTM", 
+                "reportedValue": {
+                    "raw": 11.524046, 
+                    "fmt": "11.52"
+                }
+            }
+        ], 
+        "trailingForwardPeRatio": [
+            {
+                "dataId": 14020, 
+                "asOfDate": "2022-10-05", 
+                "periodType": "TTM", 
+                "reportedValue": {
+                    "raw": 11.5875, 
+                    "fmt": "11.59"
+                }
+            }
+        ], 
+        "quarterlyMarketCap": [
+            {
+                "dataId": 40001, 
+                "asOfDate": "2021-09-30", 
+                "periodType": "3M", 
+                "reportedValue": {
+                    "raw": 947916270000, 
+                    "fmt": "947.92B"
+                }
+            }, 
+            {
+                "dataId": 40001, 
+                "asOfDate": "2021-12-31", 
+                "periodType": "3M", 
+                "reportedValue": {
+                    "raw": 921935350000, 
+                    "fmt": "921.94B"
+                }
+            }, 
+            {
+                "dataId": 40001, 
+                "asOfDate": "2022-03-31", 
+                "periodType": "3M", 
+                "reportedValue": {
+                    "raw": 603485040000, 
+                    "fmt": "603.49B"
+                }
+            }, 
+            {
+                "dataId": 40001, 
+                "asOfDate": "2022-06-30", 
+                "periodType": "3M", 
+                "reportedValue": {
+                    "raw": 434891250000, 
+                    "fmt": "434.89B"
+                }
+            }
+        ], 
+        "quarterlyPeRatio": [
+            {
+                "dataId": 14008, 
+                "asOfDate": "2021-09-30", 
+                "periodType": "3M", 
+                "reportedValue": {
+                    "raw": 25.1773, 
+                    "fmt": "25.18"
+                }
+            }, 
+            {
+                "dataId": 14008, 
+                "asOfDate": "2021-12-31", 
+                "periodType": "3M", 
+                "reportedValue": {
+                    "raw": 24.059371, 
+                    "fmt": "24.06"
+                }
+            }, 
+            {
+                "dataId": 14008, 
+                "asOfDate": "2022-03-31", 
+                "periodType": "3M", 
+                "reportedValue": {
+                    "raw": 16.148148, 
+                    "fmt": "16.15"
+                }
+            }, 
+            {
+                "dataId": 14008, 
+                "asOfDate": "2022-06-30", 
+                "periodType": "3M", 
+                "reportedValue": {
+                    "raw": 12.225171, 
+                    "fmt": "12.23"
+                }
+            }
+        ], 
+        "timestamp": [
+            1632960000, 
+            1640908800, 
+            1648684800, 
+            1656547200
+        ]
+    }, 
+    "meta": {
+        "symbol": "META", 
+        "start": 493590046, 
+        "end": 1665452525, 
+        "timeUnit": "quarterly"
+    }, 
+    "loading": false, 
+    "errorList": []
+}

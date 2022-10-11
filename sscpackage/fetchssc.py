@@ -15,6 +15,7 @@ import os
 import requests
 import sscpackage.fetchshelfssc_mod
 import sscpackage.fetchurlssc
+import sscpackage.fetchurlssc_sub
 
 dotenv.load_dotenv(dotenv_path=os.getenv("LO_ROOT"))
 ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
@@ -123,7 +124,7 @@ class FetchSSC:
             try:
                 self.ticker = ticker
                 sscrandomkey = myownrandom(15)
-                FetchRF = sscpackage.fetchurlssc.FetchUrlSSC(self.ticker)
+                FetchRF = sscpackage.fetchurlssc_sub.FetchUrlSSCSUB(self.ticker)
                 FetchRF.fetchshelfinitialize()
                 self.url_bank = FetchRF.pullfetchshelf()
 
@@ -138,8 +139,7 @@ class FetchSSC:
                 self.response = response
                 self.fetchstorename = self.ticker + "__" + tag + "__" + str(id(self)) + "__" + sscrandomkey
                 if response.status_code == 200:  # If received 'all good' response from API for first request, continue
-                    textcast_ssc = response.text
-                    self.fetch_data = dict(json.loads(textcast_ssc))
+                    self.fetch_data = dict(response.json())
                     FSSC = sscpackage.fetchshelfssc_mod.FetchShelfSSC()
                     FSSC.fetchstore(ticker=ticker, tag=tag, sscrandomkey=sscrandomkey,
                                     fetchstorename=self.fetchstorename, fetch_data=self.fetch_data)

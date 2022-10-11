@@ -2,6 +2,7 @@ import shelve
 import fetchlogssc
 import dotenv
 import os
+
 dotenv.load_dotenv(dotenv_path=os.getenv("LO_ROOT"))
 ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
 
@@ -24,7 +25,6 @@ class FetchShelfSSC:
         self.fetchstoreshelf = fetchstoreshelf
         self.fetchstorename = ""
 
-
     def fetchstore(self, ticker, fetchstorename, fetch_data, sscrandomkey, tag, *args, **kwargs):
         self.ticker = ticker
         try:
@@ -39,7 +39,6 @@ class FetchShelfSSC:
         except Exception as er:
             print("Exception Fetchstore Method:")
             print(er)
-
 
     def fetchdbpull(self, *args, **kwargs):
         with shelve.open(self.fetchstoreshelf) as fetchshelf_pull:
