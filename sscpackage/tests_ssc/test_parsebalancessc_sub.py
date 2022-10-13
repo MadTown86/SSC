@@ -8,14 +8,17 @@ import sscpackage.parsebalancessc_sub
 
 
 class TestParseMock_Sub(unittest.TestCase):
-    test_passin = {"balanceSheetStatement": ["test_failticker"]}
 
-    @patch("sscpackage.dictpullssc.DictPullSSC.dictpullssc", unittest.mock.MagicMock(return_value=test_passin))
-    @patch('sscpackage.fetchssc.FetchSSC')
-    @patch('sscpackage.fetchshelfssc_mod.FetchShelfSSC')
-    def test_parsebalance_tickefailflag(self, mock_fetchshelf, mock_fetchssc):
-        def sideeffect2(arg):
-            return arg
+
+    @patch("dictpullssc.DictPullSSC")
+    @patch('fetchssc.FetchSSC')
+    @patch('fetchshelfssc_mod.FetchShelfSSC')
+    def test_parsebalance_tickefailflag(self, Mock_FetchShelfSSC, Mock_FetchSSC, Mock_DictPullSSC):
+        test_passin = {"balanceSheetStatement": ["test_failticker"]}
+
+        type(Mock_FetchShelfSSC()).fetchstore = unittest.mock.MagicMock()
+        type(Mock_FetchSSC()).ticker_fail = unittest.mock.MagicMock()
+        type(Mock_DictPullSSC()).dictpullssc(return_value=test_passin)
 
         test_fetchnamepassin = "TEST__TEST__TEST__TEST"
         passin_empty = {}
@@ -24,7 +27,10 @@ class TestParseMock_Sub(unittest.TestCase):
 
         PSB.parsebalance(test_fetchnamepassin, passin_empty)
 
-        assert mock_fetchssc.called_with()
+
+        Mock_FetchSSC.calls()
+
+        Mock_FetchSSC.assert_called_with(test_fetchnamepassin)
 
 
 if __name__ == '__main__':
