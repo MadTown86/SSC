@@ -30,9 +30,12 @@ class FetchStarterSSC:
         FetchStarterSSC.fetch_header = str(arg_header)
 
     @staticmethod
-    def update_runlist(args):
+    def update_runlist(onetic: str, *args) -> None:
         del FetchStarterSSC.runlist_tickers
-        FetchStarterSSC.runlist_tickers = [x for x in args]
+        if onetic:
+            FetchStarterSSC.runlist_tickers = onetic
+        else:
+            FetchStarterSSC.runlist_tickers = [x for x in args]
 
     @staticmethod
     def pull_runlist():
@@ -80,7 +83,7 @@ class FetchStarterSSC:
                     print("Broke Chain - FetchStarter")
                     break
                 ticker_runlist = tickerlistvar_fetchssc[0]
-                FetchStarterSSC.update_runlist(ticker_runlist)
+                FetchStarterSSC.update_runlist(onetic=ticker_runlist)
                 await asyncio.gather(FetchSSC().rapid_fetch(tickerlistvar_fetchssc.pop(0)))
             await asyncio.sleep(1)
 

@@ -1,7 +1,6 @@
 import parsebalancessc
 import dictpullssc
-import sscerrors
-
+import fetchssc
 import dotenv
 import os
 
@@ -101,6 +100,7 @@ class ParseBalance_Sub(parsebalancessc.ParseBalance):
                     else:
                         temp_list.append(0)
             else:
+                fetchssc.FetchSSC().ticker_fail(fetchname=uniquename)
                 # TODO: add ticker to "ticker fail" list and remove from remaining processes
                 pass
 
