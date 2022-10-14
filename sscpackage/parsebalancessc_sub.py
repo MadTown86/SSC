@@ -134,31 +134,30 @@ class ParseBalance_Sub(parsebalancessc.ParseBalance):
 
 
 if __name__ == "__main__":
-    def test_incbal(tag: str, cls: )
-        import fetchshelfssc_mod
+    import fetchshelfssc_mod
 
-        FS = fetchshelfssc_mod.FetchShelfSSC()
-        localdb = FS.fetchdbpull()
-        bal_keylist = [key for key in FS.fetchdbpull().keys() if "url_balance" in key]
-        PS = ParseBalance_Sub()
+    FS = fetchshelfssc_mod.FetchShelfSSC()
+    localdb = FS.fetchdbpull()
+    bal_keylist = [key for key in FS.fetchdbpull().keys() if "url_balance" in key]
+    PS = ParseBalance_Sub()
 
-        for key in bal_keylist:
-            print(key)
+    for key in bal_keylist:
+        print(key)
 
-        for key in bal_keylist:
-            PS.parsebalance(key, localdb[key])
+    for key in bal_keylist:
+        PS.parsebalance(key, localdb[key])
 
-        uniquetimestampbin = []
-        for key in bal_keylist:
-            ticker, var1, var2, uniqueid = key.split("__")
-            print(ticker)
-            print(uniqueid)
-            uniquetimestampbin.append(uniqueid)
+    uniquetimestampbin = []
+    for key in bal_keylist:
+        ticker, var1, var2, uniqueid = key.split("__")
+        print(ticker)
+        print(uniqueid)
+        uniquetimestampbin.append(uniqueid)
 
-        fetchbin = []
-        for uniqueid in uniquetimestampbin:
-            PS.fetch_parsebalance(uniqueid)
+    fetchbin = []
+    for uniqueid in uniquetimestampbin:
+        PS.fetch_parsebalance(uniqueid)
 
-        if fetchbin:
-            for key, value in fetchbin[0].items():
-                print(f'KEY:::{key} >>>>> VALUE:::: {value}')
+    if fetchbin:
+        for key, value in fetchbin[0].items():
+            print(f'KEY:::{key} >>>>> VALUE:::: {value}')

@@ -35,6 +35,16 @@ def get_keysshelve(shelver: shelve) -> list:
         # shelver was empty
         raise EmptyShelveException
 
+def gotmilk(dat):
+    if dat:
+        return True
+    else:
+        raise GotNoMilk(Exception)
+
+class GotNoMilk(Exception):
+    print("It's Got No Milk, Buddy!")
+    pass
+
 class NoShelveException(Exception):
     pass
 
