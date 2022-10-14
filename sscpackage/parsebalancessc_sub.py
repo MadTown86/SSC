@@ -1,4 +1,5 @@
 import parsebalancessc
+import fetchshelfssc_mod
 import dictpullssc
 import fetchssc
 import dotenv
@@ -6,6 +7,72 @@ import os
 
 dotenv.load_dotenv(dotenv_path=os.getenv("LO_ROOT"))
 ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
+
+
+def incbal_reformat(uniquename: str, jsonmix: [{}], transferbin: {}) -> dict:
+    # TODO: add error handling
+    output_dict = {}
+    if len(jsonmix) >= 4:
+        if jsonmix.keys():
+            for key in transferbin.keys():
+                temp_list = []
+                if key in jsonmix[0].keys():
+                    temp_list.append(jsonmix[0][key]['raw'])
+                else:
+                    temp_list.append(0)
+                if key in jsonmix[1].keys():
+                    temp_list.append(jsonmix[1][key]['raw'])
+                else:
+                    temp_list.append(0)
+                if key in jsonmix[2].keys():
+                    temp_list.append(jsonmix[2][key]['raw'])
+                else:
+                    temp_list.append(0)
+                if key in jsonmix[3].keys():
+                    temp_list.append(jsonmix[3][key]['raw'])
+                else:
+                    temp_list.append(0)
+
+                output_dict[transferbin[key]] = temp_list
+    elif len(jsonmix) == 3:
+        if jsonmix.keys():
+            for key in transferbin.keys():
+                temp_list = []
+                if key in jsonmix[0].keys():
+                    temp_list.append(jsonmix[0][key]['raw'])
+                else:
+                    temp_list.append(0)
+                if key in jsonmix[1].keys():
+                    temp_list.append(jsonmix[1][key]['raw'])
+                else:
+                    temp_list.append(0)
+                if key in jsonmix[2].keys():
+                    temp_list.append(jsonmix[2][key]['raw'])
+                else:
+                    temp_list.append(0)
+
+                output_dict[transferbin[key]] = temp_list
+    elif len(jsonmix) == 2:
+        if jsonmix.keys():
+            for key in transferbin.keys():
+                temp_list = []
+                if key in jsonmix[0].keys():
+                    temp_list.append(jsonmix[0][key]['raw'])
+                else:
+                    temp_list.append(0)
+                if key in jsonmix[1].keys():
+                    temp_list.append(jsonmix[1][key]['raw'])
+                else:
+                    temp_list.append(0)
+
+                output_dict[transferbin[key]] = temp_list
+    else:
+        print("IN THE ELSE YOU WANT")
+        fetchssc.FetchSSC().ticker_fail(fetchname=uniquename)
+        # TODO: add ticker to "ticker fail" list and remove from remaining processes
+        pass
+
+    return output_dict
 
 
 class ParseBalance_Sub(parsebalancessc.ParseBalance):
@@ -20,7 +87,7 @@ class ParseBalance_Sub(parsebalancessc.ParseBalance):
                                                 uniquesplitlist[3]
 
             # Converting YH-Finance dataset to pre-existing keys
-            key_transferdict = {
+            transferbin = {
                 "totalLiab": "Total Liabilities",
                 "totalStockholderEquity": "Total Stockholder Equity",
                 "otherCurrentLiab": "Other Current Liabilities",
@@ -47,67 +114,16 @@ class ParseBalance_Sub(parsebalancessc.ParseBalance):
             }
 
             DS = dictpullssc.DictPullSSC()
-            pulled_balance = DS.dictpullssc(pb_rawdata, "balanceSheetHistory")
+            dpssc_balance = DS.dictpullssc(pb_rawdata, "balanceSheetHistory")
 
-            pulled_balance = pulled_balance['balanceSheetStatements']
+            inner_balance = dpssc_balance['balanceSheetStatement']
 
-            output_dict = {}
-            if len(pulled_balance) >= 4:
-                for key in key_transferdict.keys():
-                    temp_list = []
-                    if key in pulled_balance[0].keys():
-                        temp_list.append(pulled_balance[0][key]['raw'])
-                    else:
-                        temp_list.append(0)
-                    if key in pulled_balance[1].keys():
-                        temp_list.append(pulled_balance[1][key]['raw'])
-                    else:
-                        temp_list.append(0)
-                    if key in pulled_balance[2].keys():
-                        temp_list.append(pulled_balance[2][key]['raw'])
-                    else:
-                        temp_list.append(0)
-                    if key in pulled_balance[3].keys():
-                        temp_list.append(pulled_balance[3][key]['raw'])
-                    else:
-                        temp_list.append(0)
-
-                    output_dict[key_transferdict[key]] = temp_list
-            elif len(pulled_balance) == 3:
-                for key in key_transferdict.keys():
-                    temp_list = []
-                    if key in pulled_balance[0].keys():
-                        temp_list.append(pulled_balance[0][key]['raw'])
-                    else:
-                        temp_list.append(0)
-                    if key in pulled_balance[1].keys():
-                        temp_list.append(pulled_balance[1][key]['raw'])
-                    else:
-                        temp_list.append(0)
-                    if key in pulled_balance[2].keys():
-                        temp_list.append(pulled_balance[2][key]['raw'])
-                    else:
-                        temp_list.append(0)
-            elif len(pulled_balance) == 2:
-                for key in key_transferdict.keys():
-                    temp_list = []
-                    if key in pulled_balance[0].keys():
-                        temp_list.append(pulled_balance[0][key]['raw'])
-                    else:
-                        temp_list.append(0)
-                    if key in pulled_balance[1].keys():
-                        temp_list.append(pulled_balance[1][key]['raw'])
-                    else:
-                        temp_list.append(0)
-            else:
-                fetchssc.FetchSSC().ticker_fail(fetchname=uniquename)
-                # TODO: add ticker to "ticker fail" list and remove from remaining processes
-                pass
+            data_output = incbal_reformat(uniquename, inner_balance, transferbin)
 
 
             fetchstorename = uniquename
             FST_SSC_PB = fetchshelfssc_mod.FetchShelfSSC(fetchstoreshelf=self.setpathssc_parsesscpb)
-            FST_SSC_PB.fetchstore(ticker=ticker, fetch_data=output_dict, fetchstorename=fetchstorename)
+            FST_SSC_PB.fetchstore(ticker=ticker, fetch_data=data_output, fetchstorename=fetchstorename)
             del FST_SSC_PB
 
             print(f'Finished Ticker: {ticker}')
@@ -118,30 +134,31 @@ class ParseBalance_Sub(parsebalancessc.ParseBalance):
 
 
 if __name__ == "__main__":
-    import fetchshelfssc_mod
+    def test_incbal(tag: str, cls: )
+        import fetchshelfssc_mod
 
-    FS = fetchshelfssc_mod.FetchShelfSSC()
-    localdb = FS.fetchdbpull()
-    bal_keylist = [key for key in FS.fetchdbpull().keys() if "url_balance" in key]
-    PS = ParseBalance_Sub()
+        FS = fetchshelfssc_mod.FetchShelfSSC()
+        localdb = FS.fetchdbpull()
+        bal_keylist = [key for key in FS.fetchdbpull().keys() if "url_balance" in key]
+        PS = ParseBalance_Sub()
 
-    for key in bal_keylist:
-        print(key)
+        for key in bal_keylist:
+            print(key)
 
-    for key in bal_keylist:
-        PS.parsebalance(key, localdb[key])
+        for key in bal_keylist:
+            PS.parsebalance(key, localdb[key])
 
-    uniquetimestampbin = []
-    for key in bal_keylist:
-        ticker, var1, var2, uniqueid = key.split("__")
-        print(ticker)
-        print(uniqueid)
-        uniquetimestampbin.append(uniqueid)
+        uniquetimestampbin = []
+        for key in bal_keylist:
+            ticker, var1, var2, uniqueid = key.split("__")
+            print(ticker)
+            print(uniqueid)
+            uniquetimestampbin.append(uniqueid)
 
-    fetchbin = []
-    for uniqueid in uniquetimestampbin:
-        PS.fetch_parsebalance(uniqueid)
+        fetchbin = []
+        for uniqueid in uniquetimestampbin:
+            PS.fetch_parsebalance(uniqueid)
 
-    if fetchbin:
-        for key, value in fetchbin[0].items():
-            print(f'KEY:::{key} >>>>> VALUE:::: {value}')
+        if fetchbin:
+            for key, value in fetchbin[0].items():
+                print(f'KEY:::{key} >>>>> VALUE:::: {value}')
