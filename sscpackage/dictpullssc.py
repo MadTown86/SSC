@@ -1,59 +1,65 @@
 from typing import Any
 
+import json
+import dotenv
+import os
+
+dotenv.load_dotenv(dotenv_path=os.getenv("LO_ROOT"))
+ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
+
 dictpullsscflag = False
+g_answer = None
 count = 0
 
-
 def dictpull(seq: dict[str, Any], header: str) -> {}:
+    global count
+    global g_answer
+    count += 1
     # TODO future - add an option to 'count' header until you get say the 3rd one in if repeat keys are an issue
     """
     Dictpull takes a container as an argument and the name of the key you want to pull.  This only works for a 'key': 'value
     pair from a complex, nested sequence.
 
-    :param seq: (This is a nested array that can contain any combination of dict, list, set or tuple.
-    :param header: (key of the 'key':'value' pair you want to pull information for from a nested array
-    :return: seq[header] = value is what is returned.
     """
     global dictpullanswer
     global dictpullsscflag
 
-    print(f'HEADER::: {header}')
-    print(f'SEQUENCE::: {seq}')
-    print(f'TYPE:: {type(seq)}')
-
-    # Front Door Gate
-    if DictPullSSC.answer:
-        return DictPullSSC.answer
-
     if not seq:
-        return [seq]
+        return []
     else:
         if not isinstance(seq, str):
             if isinstance(seq, dict):
-                print(f'KEY SEQUENCE:  {[x for x in seq.keys()]}')
                 if header in seq.keys():
-                    print("IN KEYLIST - HEADER")
-                    print(f'SEQ[HEADER]:: {seq[header]}')
-                    DictPullSSC.setanswerattr(seq[header])
-                    return []
+                    g_answer = seq[header]
+                    return g_answer
+
                 for key_index in range(len(seq.keys())):
-                    if [x for x in seq.keys()][key_index] == header:
-                        DictPullSSC.setanswerattr(seq[header])
-                        break
-                    if isinstance(seq[[x for x in seq.keys()][key_index]], int):
+                    key_to_list = [x for x in seq.keys()]
+
+                    """
+                    if key_to_list[key_index] == header:
+                        g_answer = seq[header]
+                        print('\n POINT 3 \n')
+                        return seq[header]
+                    if isinstance(key_to_list[key_index], int):
                         continue
-                    elif isinstance(seq[[x for x in seq.keys()][key_index]], str):
+                    elif isinstance(key_to_list[key_index], str):
                         continue
-                    elif isinstance(seq[[x for x in seq.keys()][key_index]], tuple):
+                    elif isinstance(key_to_list[key_index], tuple):
                         continue
                     if seq[[x for x in seq.keys()][key_index]]:
-                        for recursivearg in dictpull(seq[[x for x in seq.keys()][key_index]], header):
+                        print("RIGHT BEFORE recursive for loop")
+                        count += 1
+                    """
+                    for recursivearg in dictpull(seq[key_to_list[key_index]], header):
+                        if g_answer:
+                            break
+                        else:
                             continue
                     else:
                         pass
 
             elif isinstance(seq, set):
-                print("IN SET")
                 for element in seq:
                     if not isinstance(element, str):
                         if hasattr(element, '__iter__'):
@@ -92,19 +98,20 @@ def dictpull(seq: dict[str, Any], header: str) -> {}:
                     else:
                         continue
         else:
-            pass
+            return []
 
     # Backdoor gate
-    if not DictPullSSC.answer:
+    if not g_answer:
         return []
     else:
-        return DictPullSSC.pullanswerattr()
+        return g_answer
 
 
 class DictPullSSC:
     answer = None
 
     def __init__(self) -> None:
+        self.instancecount = 1
         DictPullSSC.purge_dictanswer()
         pass
 
@@ -113,13 +120,15 @@ class DictPullSSC:
         DictPullSSC.answer = None
 
     def dictpullssc(self, seq: dict, header: str) -> {}:
-        print("BACK TO ORIGIN LOCATION")
-        print(f'SEQ: {seq}')
-        print(f'DICTPULL.ANSWER:::{DictPullSSC.answer}')
-        if not DictPullSSC.answer:
-            dictpull(seq, header)
-        else:
-            return DictPullSSC.answer
+        return dictpull(seq, header)
+
+    """
+    if not DictPullSSC.answer:
+        dictpull(seq, header)
+    else:
+        return DictPullSSC.answer
+
+    """
 
     @staticmethod
     def setanswerattr(answer) -> None:
@@ -160,9 +169,24 @@ if __name__ == "__main__":
         }]
     }
 
+    fd = open(ROOT_VAR_SSC + 'test_META_sector.json', 'r')
+    from_json = json.load(fd)
+
+
     DD = DictPullSSC()
     DD1 = DictPullSSC()
-    print(DD.dictpullssc(testnest, "LAYER5"))
-    print(DD1.dictpullssc(simpletest, "LL8"))
-    print(DD.dictpullssc(testdict, "NEXT LAYER"))
-    print(DD.dictpullssc(complexdict, "ANSWER"))
+
+    testsec = DD.dictpullssc(from_json, 'sector')
+
+    print(testsec)
+
+    testind = DD1.dictpullssc(from_json, 'longBusinessSummary')
+
+    print(testind)
+
+    #print(DD.dictpullssc(testnest, "LAYER5"))
+    #print(DD1.dictpullssc(simpletest, "LL8"))
+    #print(DD.dictpullssc(testdict, "NEXT LAYER"))
+    #print(DD.dictpullssc(complexdict, "ANSWER"))
+
+
