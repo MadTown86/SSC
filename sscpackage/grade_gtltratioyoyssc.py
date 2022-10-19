@@ -4,13 +4,26 @@ import gradesheetprintssc
 class GTLTYoYRatioSSC(gradesheetprintssc.GradeSheetPrintSSC):
     def __init__(self):
         super().__init__()
-        self.asratioincreasingsections = ["Net Income", "Gross Margin", "Operating Margin", "Net Margin",
-                                          "Gross Profit", "EBIT", "Operating Income", "Net Income From Continuing Ops",
-                                          "Income Before Tax", "Research & Development"]
-        self.asratiodecreasingsections = ["Selling, General & Administrative", "Other Operating Expenses",
-                                          "Interest Expense",
-                                          "Total Operating Expenses", "Cost Of Revenue",
-                                          "Total Other Income Expense Net"]
+        self.asratioincreasingsections = [
+            "Net Income",
+            "Gross Margin",
+            "Operating Margin",
+            "Net Margin",
+            "Gross Profit",
+            "EBIT",
+            "Operating Income",
+            "Net Income From Continuing Ops",
+            "Income Before Tax",
+            "Research & Development",
+        ]
+        self.asratiodecreasingsections = [
+            "Selling, General & Administrative",
+            "Other Operating Expenses",
+            "Interest Expense",
+            "Total Operating Expenses",
+            "Cost Of Revenue",
+            "Total Other Income Expense Net",
+        ]
 
         self.printerdictssc = {}
 
@@ -26,8 +39,8 @@ class GTLTYoYRatioSSC(gradesheetprintssc.GradeSheetPrintSSC):
         """
         try:
             runningtotalgtlt = {}
-            localawardsectiongtlt = awardsystem['INCASRATIO']
-            localratiodict = parsecombo['incasratiodict']
+            localawardsectiongtlt = awardsystem["INCASRATIO"]
+            localratiodict = parsecombo["incasratiodict"]
 
             def increaseordecrease(identifier):
                 if identifier == "increasing":
@@ -44,8 +57,14 @@ class GTLTYoYRatioSSC(gradesheetprintssc.GradeSheetPrintSSC):
                         oldyear = localratiodict[rationame][old_index]
                         recenty = localratiodict[rationame][old_index - 1]
 
-                        keyforprint = [str(rationame), "Year", str(localratiodict[rationame].index(recenty)), "|", "Year",
-                                       str(localratiodict[rationame].index(oldyear))]
+                        keyforprint = [
+                            str(rationame),
+                            "Year",
+                            str(localratiodict[rationame].index(recenty)),
+                            "|",
+                            "Year",
+                            str(localratiodict[rationame].index(oldyear)),
+                        ]
 
                         if identifier == "increasing":
                             if recenty > oldyear:
@@ -60,16 +79,25 @@ class GTLTYoYRatioSSC(gradesheetprintssc.GradeSheetPrintSSC):
                             else:
                                 inlinesymbol = "<"
 
-                        valueforprint = [str(recenty), inlinesymbol, str(oldyear), "POINTS", str(respointrunner),
-                                         "POINTVAL",
-                                         str(pointsper)]
+                        valueforprint = [
+                            str(recenty),
+                            inlinesymbol,
+                            str(oldyear),
+                            "POINTS",
+                            str(respointrunner),
+                            "POINTVAL",
+                            str(pointsper),
+                        ]
 
                         self.printerdictssc[str(keyforprint)] = valueforprint
 
                     respointrunner *= ratioweight
                     restotpoints = 1 * (len(localratiodict[rationame]) - 1)
                     restotpoints *= ratioweight
-                    runningtotalgtlt[rationame] = {"Base Points": restotpoints, "Current Points": respointrunner}
+                    runningtotalgtlt[rationame] = {
+                        "Base Points": restotpoints,
+                        "Current Points": respointrunner,
+                    }
 
             increaseordecrease("increasing")
             increaseordecrease("decreasing")
@@ -88,13 +116,15 @@ if __name__ == "__main__":
     import gradeparsecombinessc
     import awardsystemssc
 
-    testlogvaridssc = 'NVDA__Y8bdxbfeWiliz3B'
+    testlogvaridssc = "NVDA__Y8bdxbfeWiliz3B"
     ticker, uniqueid = testlogvaridssc.split("__")
     AWS = awardsystemssc.AwardSystemSSC()
     awardsystempassin = AWS.fetchawardsystem("Industry", "Sector")
 
     GPSSC = gradeparsecombinessc.GradeParseCombineSSC()
-    gradeparsecombo = GPSSC.gradeparsecombinessc(ticker, uniqueid)['NVDA__Y8bdxbfeWiliz3B']
+    gradeparsecombo = GPSSC.gradeparsecombinessc(ticker, uniqueid)[
+        "NVDA__Y8bdxbfeWiliz3B"
+    ]
 
     GTLT = GTLTYoYRatioSSC()
     GTLT.printprimer("INCASRATIO", ticker, uniqueid, "SECTOR", "INDUSTRY")

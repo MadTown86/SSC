@@ -5,8 +5,8 @@ import parseindssc
 import parsearssc
 import parsesectorssc
 
-class ParsePurgeSSC:
 
+class ParsePurgeSSC:
     @staticmethod
     def purgeall():
         PSVAL = parsevalssc.ParseVal()

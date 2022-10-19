@@ -5,16 +5,15 @@ import sscpackage
 
 
 def miniprinter(header, obj):
-    res = ''
-    end = '\n'
+    res = ""
+    end = "\n"
     for val in obj:
         res += header + " :::: " + str(val) + end
     return res + end
 
 
 class Test_StoreSSC(unittest.TestCase):
-
-    @patch('sscpackage.storessc.mysql.connector')
+    @patch("sscpackage.storessc.mysql.connector")
     def test_chksetup(self, mock_connector):
         """
         This tests to make sure a table exists before commits are mde
@@ -46,8 +45,8 @@ class Test_StoreSSC(unittest.TestCase):
 
         self.assertTrue(S1.db_chksetup())
 
-    @patch('sscpackage.storessc.mysql.connector')
-    @patch('sscpackage.storessc.json')
+    @patch("sscpackage.storessc.mysql.connector")
+    @patch("sscpackage.storessc.json")
     def test_logentry(self, mock_json, mock_methodvar):
         """
         :param mock_parse:
@@ -66,8 +65,14 @@ class Test_StoreSSC(unittest.TestCase):
 
         mock_json.dumps.assert_called()
         mock_methodvar.connect.assert_called()
-        connect_calls = [unittest.mock.call.connect(host='localhost', user=str(os.getenv("DB_USER")),
-                                                    password=str(os.getenv("DB_PASS")), database='sscdb')]
+        connect_calls = [
+            unittest.mock.call.connect(
+                host="localhost",
+                user=str(os.getenv("DB_USER")),
+                password=str(os.getenv("DB_PASS")),
+                database="sscdb",
+            )
+        ]
 
         for item in mock_methodvar.method_calls:
             print(item)
@@ -77,8 +82,8 @@ class Test_StoreSSC(unittest.TestCase):
         assert mock_json is sscpackage.storessc.json
         assert mock_methodvar is sscpackage.storessc.mysql.connector
 
-    @patch('sscpackage.storessc.mysql.connector')
-    @patch('sscpackage.storessc.mysql.connector.cursor')
+    @patch("sscpackage.storessc.mysql.connector")
+    @patch("sscpackage.storessc.mysql.connector.cursor")
     def test_showdb(self, mock_cursor, mock_connector):
         """
 
@@ -90,26 +95,35 @@ class Test_StoreSSC(unittest.TestCase):
         SC1 = sscpackage.storessc.StoreSSC()
         SC1.show_db()
 
-        mock_connector.connect.return_value.__enter__.return_value.cursor.return_value. \
-            __enter__.return_value.execute.assert_called_with('SELECT * FROM logentry')
+        mock_connector.connect.return_value.__enter__.return_value.cursor.return_value.__enter__.return_value.execute.assert_called_with(
+            "SELECT * FROM logentry"
+        )
 
-    @patch('sscpackage.storessc.mysql.connector')
-    @patch('sscpackage.storessc.pd')
+    @patch("sscpackage.storessc.mysql.connector")
+    @patch("sscpackage.storessc.pd")
     def test_export_excel(self, mock_pd, mock_connector_xls):
         """
 
         :param mock_connector_xls:
         :return:
         """
-        connect_calls_xls = [unittest.mock.call.connect(host='localhost', user=str(os.getenv("DB_USER")),
-                                                        password=str(os.getenv("DB_PASS")), database='sscdb')]
+        connect_calls_xls = [
+            unittest.mock.call.connect(
+                host="localhost",
+                user=str(os.getenv("DB_USER")),
+                password=str(os.getenv("DB_PASS")),
+                database="sscdb",
+            )
+        ]
 
         SC2 = sscpackage.storessc.StoreSSC()
         SC2.export_excel()
 
-        mock_pd.read_sql.return_value.to_excel.assert_called_with('SSC.xlsx', sheet_name='DATA', index=False)
+        mock_pd.read_sql.return_value.to_excel.assert_called_with(
+            "SSC.xlsx", sheet_name="DATA", index=False
+        )
         self.assertEqual(connect_calls_xls, mock_connector_xls.method_calls)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

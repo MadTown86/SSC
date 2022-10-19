@@ -35,18 +35,22 @@ def get_keysshelve(shelver: shelve) -> list:
         # shelver was empty
         raise EmptyShelveException
 
+
 def gotmilk(dat):
     if dat:
         return True
     else:
         raise GotNoMilk(Exception)
 
+
 class GotNoMilk(Exception):
     print("It's Got No Milk, Buddy!")
     pass
 
+
 class NoShelveException(Exception):
     pass
+
 
 class EmptyDataFetch(Exception):
     pass
@@ -54,9 +58,11 @@ class EmptyDataFetch(Exception):
 
 class EmptyShelveException(Exception):
     """Raised when a dict is empty"""
+
     pass
 
 
 class SqlParseException(Exception):
     """Raised when there is a problem parsing SQL using mysql.connector"""
+
     pass

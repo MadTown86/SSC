@@ -4,14 +4,13 @@ import dotenv
 import shelve
 
 dotenv.load_dotenv(dotenv_path=os.getenv("LO_ROOT"))
-ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
+ROOT_VAR_SSC = os.getenv("CORE_DIR_STOR")
 
 import fetchlogssc
 import fetchssc
 
 
 class TestFetchLog(unittest.TestCase):
-
     def test_fetchlogwrite(self):
         FLOG = fetchlogssc.FetchLogSSC()
         FLOG.ssc_fetchlogclear()
@@ -58,21 +57,21 @@ class TestFetchLog(unittest.TestCase):
         FLOG.ssc_logcompletepurge()
         log_forprint = FLOG.ssc_logfetch()
         logcomplete_forprint = FLOG.ssc_logcompletefetch()
-        print(f'This is logfetch Initial::: {log_forprint}')
-        print(f'This is logfetchcomplete Initial::: {logcomplete_forprint}')
+        print(f"This is logfetch Initial::: {log_forprint}")
+        print(f"This is logfetchcomplete Initial::: {logcomplete_forprint}")
         list_ftest = ["MSFT-Balance1", "MSFT-INCOME2", "MSFT-Crud3"]
         for item in list_ftest:
             FLOG.ssc_fetchlogwrite(item)
         output_test = FLOG.ssc_logfetch()
-        print(f'Output_test 1 Values: {output_test}')
+        print(f"Output_test 1 Values: {output_test}")
         # self.assertEqual(output_test, ["MSFT-Balance1", "MSFT-INCOME2", "MSFT-Crud3"])
 
         FLOG.ssc_logcompletewrite("MSFT", str(1))
 
         output_test2 = FLOG.ssc_logfetch()
-        print(f'Output_test 2 Values: {output_test2}')
+        print(f"Output_test 2 Values: {output_test2}")
         output_test3 = FLOG.ssc_logcompletefetch()
-        print(f'Output_test 3 Values: {output_test3}')
+        print(f"Output_test 3 Values: {output_test3}")
         self.assertEqual(output_test2, ["MSFT-INCOME2", "MSFT-Crud3"])
         self.assertEqual(output_test3, ["MSFT-Balance1"])
 
@@ -88,7 +87,12 @@ class TestFetchLog(unittest.TestCase):
             print(er)
             pass
 
-        ticker_list = ["MSFT__a1__b1__c1", "MSFT__a2__b2__c1", "MSFT__a3__b3__c1", "NVDA__g4__g5__g6"]
+        ticker_list = [
+            "MSFT__a1__b1__c1",
+            "MSFT__a2__b2__c1",
+            "MSFT__a3__b3__c1",
+            "NVDA__g4__g5__g6",
+        ]
         ticker_fail = ["MSFT__a1__b1__c1"]
 
         try:
@@ -102,12 +106,12 @@ class TestFetchLog(unittest.TestCase):
 
         self.assertEqual(log_test, ticker_list)
 
-        print(f'This is initial log: {FLOG.ssc_logfetch()}')
+        print(f"This is initial log: {FLOG.ssc_logfetch()}")
 
         for item2 in ticker_fail:
             FS.ticker_fail(item2)
 
-        print(f'This is initial faillist: {FS.pull_tickerfail()}')
+        print(f"This is initial faillist: {FS.pull_tickerfail()}")
         temp_faillist = FS.pull_tickerfail()
         for item in temp_faillist:
             print(type(item))
@@ -117,5 +121,5 @@ class TestFetchLog(unittest.TestCase):
         self.assertEqual(FLOG.ssc_logfetch(), ["NVDA__g4__g5__g6"])
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

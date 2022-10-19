@@ -20,19 +20,19 @@ class GradeFinalSSC(gradesheetprintssc.GradeSheetPrintSSC):
         self.totalpoints = totalpoints
         self.awardedpoints = awardedpoints
 
-        if ratiores >= .94:
+        if ratiores >= 0.94:
             self.final_grade_ssc = "A"
-        elif ratiores >= .90:
+        elif ratiores >= 0.90:
             self.final_grade_ssc = "AB"
-        elif ratiores >= .84:
+        elif ratiores >= 0.84:
             self.final_grade_ssc = "B"
-        elif ratiores >= .80:
+        elif ratiores >= 0.80:
             self.final_grade_ssc = "BC"
-        elif ratiores >= .74:
+        elif ratiores >= 0.74:
             self.final_grade_ssc = "C"
-        elif ratiores >= .70:
+        elif ratiores >= 0.70:
             self.final_grade_ssc = "CD"
-        elif ratiores >= .64:
+        elif ratiores >= 0.64:
             self.final_grade_ssc = "D"
         else:
             self.final_grade_ssc = "F"

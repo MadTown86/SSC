@@ -13,16 +13,33 @@ class GTLTYoYSSC(gradesheetprintssc.GradeSheetPrintSSC):
     The point increment awarded is determined by the passed in 'awardsystemssc' that can be altered based on user choice
     and/or altered to reflect the ideal company outlook based on Sector/Industry.
     """
+
     def __init__(self):
         super().__init__()
-        self.sectionname = 'GTLT'
-        self.increasingsections = ["Total Revenue", "Net Income", "Gross Margin", "Operating Margin", "Net Margin",
-                                   "Gross Profit", "EBIT", "Operating Income", "Net Income From Continuing Ops",
-                                   "Income Before Tax", "Research & Development", "Total Assets", "Retained Earnings"]
+        self.sectionname = "GTLT"
+        self.increasingsections = [
+            "Total Revenue",
+            "Net Income",
+            "Gross Margin",
+            "Operating Margin",
+            "Net Margin",
+            "Gross Profit",
+            "EBIT",
+            "Operating Income",
+            "Net Income From Continuing Ops",
+            "Income Before Tax",
+            "Research & Development",
+            "Total Assets",
+            "Retained Earnings",
+        ]
         self.printerdictssc = {}
         self.gradestore = {}
+
     try:
-        def gtltmetricsgradessc(self, ticker, parsecombossc, uniqueidssc, awardsystemssc):
+
+        def gtltmetricsgradessc(
+            self, ticker, parsecombossc, uniqueidssc, awardsystemssc
+        ):
             """
 
             :param ticker: Ticker symbol passed in from 'gradecollectionssc'
@@ -32,17 +49,20 @@ class GTLTYoYSSC(gradesheetprintssc.GradeSheetPrintSSC):
             :return:
             """
             runningtotalgtlt = {}
-            localawardsectiongtlt = awardsystemssc['GTLT']
-            localincdatssc = parsecombossc['incdat']
-            localbaldatssc = parsecombossc['baldat']
+            localawardsectiongtlt = awardsystemssc["GTLT"]
+            localincdatssc = parsecombossc["incdat"]
+            localbaldatssc = parsecombossc["baldat"]
             localavoidmetricgtltinc = parsecombossc["incdatqual"]
             localavoidmetricgtltbal = parsecombossc["baldatqual"]
             runsectorssc = parsecombossc["Sector"]
             runindustryssc = parsecombossc["Industry"]
-            self.printprimer(self.sectionname, ticker, uniqueidssc, runsectorssc, runindustryssc)
+            self.printprimer(
+                self.sectionname, ticker, uniqueidssc, runsectorssc, runindustryssc
+            )
 
             # This is 'pre-screening' the data sets to ensure that variables/data for a certain year are available first
             try:
+
                 def isenoughdatassc(nameval):
                     if nameval in localavoidmetricgtltinc.keys():
                         inlinecount = len(localavoidmetricgtltinc[nameval])
@@ -64,12 +84,14 @@ class GTLTYoYSSC(gradesheetprintssc.GradeSheetPrintSSC):
                         return nameval, inlinecount, "baldat"
                     else:
                         return False
+
             except Exception as er:
                 print("Exception in 'isenoughdatassc' function: ")
                 print(er)
 
             # Initiates the main grading loop
             try:
+
                 def increasinggtltssc(nameval, count, statement):
                     """
                     The total points awarded for this section should be 39 with default awardsystem in place
@@ -88,8 +110,14 @@ class GTLTYoYSSC(gradesheetprintssc.GradeSheetPrintSSC):
                         for old_index in range(len(localincdatssc[nameval]) - 1, 0, -1):
                             oldyear = localincdatssc[nameval][old_index]
                             newyear = localincdatssc[nameval][old_index - 1]
-                            keyforprint = [nameval, "Year", str(sourcevalsinc.index(newyear)), "|", "Year",
-                                           str(sourcevalsinc.index(oldyear))]
+                            keyforprint = [
+                                nameval,
+                                "Year",
+                                str(sourcevalsinc.index(newyear)),
+                                "|",
+                                "Year",
+                                str(sourcevalsinc.index(oldyear)),
+                            ]
 
                             # With default 'awardsystem' all points awarded are 1
                             if newyear > oldyear:
@@ -98,8 +126,15 @@ class GTLTYoYSSC(gradesheetprintssc.GradeSheetPrintSSC):
                             else:
                                 inlinesymbol = "<"
 
-                            valueforprint = [newyear, inlinesymbol, oldyear, "POINTS", respointrunner, "POINTVAL",
-                                             pointsper]
+                            valueforprint = [
+                                newyear,
+                                inlinesymbol,
+                                oldyear,
+                                "POINTS",
+                                respointrunner,
+                                "POINTVAL",
+                                pointsper,
+                            ]
 
                             self.printerdictssc[str(keyforprint)] = valueforprint
 
@@ -107,15 +142,24 @@ class GTLTYoYSSC(gradesheetprintssc.GradeSheetPrintSSC):
                         respointrunner *= weightind
                         restotpoints = 1 * (count - 1)
                         restotpoints *= weightind
-                        runningtotalgtlt[nameval] = {"Base Points": restotpoints, "Current Points": respointrunner}
+                        runningtotalgtlt[nameval] = {
+                            "Base Points": restotpoints,
+                            "Current Points": respointrunner,
+                        }
 
                     elif statement == "baldat":
                         sourcevalsbal = localbaldatssc[nameval]
                         for old_index in range(len(localbaldatssc[nameval]) - 1, 0, -1):
                             oldyear = localbaldatssc[nameval][old_index]
                             newyear = localbaldatssc[nameval][old_index - 1]
-                            keyforprint = [nameval, "Year", str(sourcevalsbal.index(newyear)), "|", "Year",
-                                           str(sourcevalsbal.index(oldyear))]
+                            keyforprint = [
+                                nameval,
+                                "Year",
+                                str(sourcevalsbal.index(newyear)),
+                                "|",
+                                "Year",
+                                str(sourcevalsbal.index(oldyear)),
+                            ]
 
                             if newyear > oldyear:
                                 respointrunner += pointsper
@@ -123,17 +167,28 @@ class GTLTYoYSSC(gradesheetprintssc.GradeSheetPrintSSC):
                             else:
                                 inlinesymbol = "<"
 
-                            valueforprint = [newyear, inlinesymbol, oldyear, "POINTS", respointrunner, "POINTVAL",
-                                             pointsper]
+                            valueforprint = [
+                                newyear,
+                                inlinesymbol,
+                                oldyear,
+                                "POINTS",
+                                respointrunner,
+                                "POINTVAL",
+                                pointsper,
+                            ]
 
                             self.printerdictssc[str(keyforprint)] = valueforprint
 
                         respointrunner *= weightind
                         restotpoints = 1 * (count - 1)
                         restotpoints *= weightind
-                        runningtotalgtlt[nameval] = {"Base Points": restotpoints, "Current Points": respointrunner}
+                        runningtotalgtlt[nameval] = {
+                            "Base Points": restotpoints,
+                            "Current Points": respointrunner,
+                        }
 
                     return runningtotalgtlt
+
             except Exception as er:
                 print("Exception in 'increasinggtltssc' : ")
                 print(er)
@@ -154,21 +209,25 @@ class GTLTYoYSSC(gradesheetprintssc.GradeSheetPrintSSC):
             self.sectionprinttoexcel()
 
             return self.sectionendprinttoexcel(**self.gradestore)
+
     except Exception as er:
         print("Exception in GTLTYOYSSC: Outermost Scope ")
         print(er)
+
 
 if __name__ == "__main__":
     import gradeparsecombinessc
     import awardsystemssc
 
-    testlogvaridssc = 'NVDA__Y8bdxbfeWiliz3B'
+    testlogvaridssc = "NVDA__Y8bdxbfeWiliz3B"
     ticker, uniqueid = testlogvaridssc.split("__")
     AWS = awardsystemssc.AwardSystemSSC()
     awardsystempassin = AWS.fetchawardsystem("Industry", "Sector")
 
     GPSSC = gradeparsecombinessc.GradeParseCombineSSC()
-    gradeparsecombo = GPSSC.gradeparsecombinessc(ticker, uniqueid)['NVDA__Y8bdxbfeWiliz3B']
+    gradeparsecombo = GPSSC.gradeparsecombinessc(ticker, uniqueid)[
+        "NVDA__Y8bdxbfeWiliz3B"
+    ]
 
     GTLT = grade_gtltyoyssc.GTLTYoYSSC()
     GTLT.gtltmetricsgradessc(ticker, gradeparsecombo, uniqueid, awardsystempassin)

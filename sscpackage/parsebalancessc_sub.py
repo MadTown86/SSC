@@ -6,7 +6,7 @@ import dotenv
 import os
 
 dotenv.load_dotenv(dotenv_path=os.getenv("LO_ROOT"))
-ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
+ROOT_VAR_SSC = os.getenv("CORE_DIR_STOR")
 
 
 def incbal_reformat(uniquename: str, jsonmix: [{}], transferbin: {}) -> dict:
@@ -17,19 +17,19 @@ def incbal_reformat(uniquename: str, jsonmix: [{}], transferbin: {}) -> dict:
             for key in transferbin.keys():
                 temp_list = []
                 if key in jsonmix[0].keys():
-                    temp_list.append(jsonmix[0][key]['raw'])
+                    temp_list.append(jsonmix[0][key]["raw"])
                 else:
                     temp_list.append(0)
                 if key in jsonmix[1].keys():
-                    temp_list.append(jsonmix[1][key]['raw'])
+                    temp_list.append(jsonmix[1][key]["raw"])
                 else:
                     temp_list.append(0)
                 if key in jsonmix[2].keys():
-                    temp_list.append(jsonmix[2][key]['raw'])
+                    temp_list.append(jsonmix[2][key]["raw"])
                 else:
                     temp_list.append(0)
                 if key in jsonmix[3].keys():
-                    temp_list.append(jsonmix[3][key]['raw'])
+                    temp_list.append(jsonmix[3][key]["raw"])
                 else:
                     temp_list.append(0)
 
@@ -39,15 +39,15 @@ def incbal_reformat(uniquename: str, jsonmix: [{}], transferbin: {}) -> dict:
             for key in transferbin.keys():
                 temp_list = []
                 if key in jsonmix[0].keys():
-                    temp_list.append(jsonmix[0][key]['raw'])
+                    temp_list.append(jsonmix[0][key]["raw"])
                 else:
                     temp_list.append(0)
                 if key in jsonmix[1].keys():
-                    temp_list.append(jsonmix[1][key]['raw'])
+                    temp_list.append(jsonmix[1][key]["raw"])
                 else:
                     temp_list.append(0)
                 if key in jsonmix[2].keys():
-                    temp_list.append(jsonmix[2][key]['raw'])
+                    temp_list.append(jsonmix[2][key]["raw"])
                 else:
                     temp_list.append(0)
 
@@ -57,11 +57,11 @@ def incbal_reformat(uniquename: str, jsonmix: [{}], transferbin: {}) -> dict:
             for key in transferbin.keys():
                 temp_list = []
                 if key in jsonmix[0].keys():
-                    temp_list.append(jsonmix[0][key]['raw'])
+                    temp_list.append(jsonmix[0][key]["raw"])
                 else:
                     temp_list.append(0)
                 if key in jsonmix[1].keys():
-                    temp_list.append(jsonmix[1][key]['raw'])
+                    temp_list.append(jsonmix[1][key]["raw"])
                 else:
                     temp_list.append(0)
 
@@ -79,12 +79,16 @@ class ParseBalance_Sub(parsebalancessc.ParseBalance):
     def __init__(self):
         super().__init__()
 
-    def parsebalance(self, uniquename: 'str', pb_rawdata: dict) -> None:
+    def parsebalance(self, uniquename: "str", pb_rawdata: dict) -> None:
 
         try:
             uniquesplitlist = uniquename.split("__")
-            ticker, tag, idselfssc, uniquekey = uniquesplitlist[0], uniquesplitlist[1], uniquesplitlist[2], \
-                                                uniquesplitlist[3]
+            ticker, tag, idselfssc, uniquekey = (
+                uniquesplitlist[0],
+                uniquesplitlist[1],
+                uniquesplitlist[2],
+                uniquesplitlist[3],
+            )
 
             # Converting YH-Finance dataset to pre-existing keys
             transferbin = {
@@ -110,23 +114,26 @@ class ParseBalance_Sub(parsebalancessc.ParseBalance):
                 "netReceivables": "Net Receivables",
                 "longtermdebt": "Long Term Debt",
                 "inventory": "Inventory",
-                "accountsPayable": "Accounts Payable"
+                "accountsPayable": "Accounts Payable",
             }
 
             DS = dictpullssc.DictPullSSC()
             dpssc_balance = DS.dictpullssc(pb_rawdata, "balanceSheetHistory")
 
-            inner_balance = dpssc_balance['balanceSheetStatement']
+            inner_balance = dpssc_balance["balanceSheetStatement"]
 
             data_output = incbal_reformat(uniquename, inner_balance, transferbin)
 
-
             fetchstorename = uniquename
-            FST_SSC_PB = fetchshelfssc_mod.FetchShelfSSC(fetchstoreshelf=self.setpathssc_parsesscpb)
-            FST_SSC_PB.fetchstore(ticker=ticker, fetch_data=data_output, fetchstorename=fetchstorename)
+            FST_SSC_PB = fetchshelfssc_mod.FetchShelfSSC(
+                fetchstoreshelf=self.setpathssc_parsesscpb
+            )
+            FST_SSC_PB.fetchstore(
+                ticker=ticker, fetch_data=data_output, fetchstorename=fetchstorename
+            )
             del FST_SSC_PB
 
-            print(f'Finished Ticker: {ticker}')
+            print(f"Finished Ticker: {ticker}")
 
         except Exception as Er:
             print("Exception in ParseBalance.parsebalance  ::  ")
@@ -160,4 +167,4 @@ if __name__ == "__main__":
 
     if fetchbin:
         for key, value in fetchbin[0].items():
-            print(f'KEY:::{key} >>>>> VALUE:::: {value}')
+            print(f"KEY:::{key} >>>>> VALUE:::: {value}")
