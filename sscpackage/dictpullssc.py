@@ -33,53 +33,26 @@ def dictpull(seq: dict[str, Any], header: str) -> {}:
                     g_answer = seq[header]
                     return g_answer
 
-                for key_index in range(len(seq.keys())):
-                    key_to_list = [x for x in seq.keys()]
+                for key in seq.keys():
+                    if not isinstance(seq[key], str):
+                        if hasattr(seq[key], '__iter__'):
+                            dictpull(seq[key], header)
 
-                    """
-                    if key_to_list[key_index] == header:
-                        g_answer = seq[header]
-                        print('\n POINT 3 \n')
-                        return seq[header]
-                    if isinstance(key_to_list[key_index], int):
-                        continue
-                    elif isinstance(key_to_list[key_index], str):
-                        continue
-                    elif isinstance(key_to_list[key_index], tuple):
-                        continue
-                    if seq[[x for x in seq.keys()][key_index]]:
-                        print("RIGHT BEFORE recursive for loop")
-                        count += 1
-                    """
-                    for recursivearg in dictpull(seq[key_to_list[key_index]], header):
-                        if g_answer:
-                            break
-                        else:
-                            continue
-                    else:
-                        pass
 
             elif isinstance(seq, set):
                 for element in seq:
                     if not isinstance(element, str):
                         if hasattr(element, '__iter__'):
-                            for recursesetarg in dictpull(element, header):
-                                continue
-                        else:
-                            continue
-                    else:
-                        continue
+                            dictpull(element, header)
+
 
             elif isinstance(seq, tuple):
                 for element in seq:
                     if not isinstance(element, str):
                         if hasattr(element, "__iter__"):
-                            for tuplevar in dictpull(element, header):
-                                continue
-                        else:
-                            continue
-                    else:
-                        continue
+                            dictpull(element, header)
+
+
 
             elif isinstance(seq, int):
                 pass
@@ -91,21 +64,12 @@ def dictpull(seq: dict[str, Any], header: str) -> {}:
                 for element in range(len(seq)):
                     if not isinstance(seq[element], str):
                         if hasattr(seq[element], '__iter__'):
-                            for recursiveargnotstring in dictpull(seq[element], header):
-                                continue
-                        else:
-                            continue
-                    else:
-                        continue
-        else:
-            return []
+                            dictpull(seq[element], header)
 
-    # Backdoor gate
-    if not g_answer:
-        return []
-    else:
+    if g_answer:
         return g_answer
-
+    else:
+        return []
 
 class DictPullSSC:
     answer = None
@@ -169,6 +133,20 @@ if __name__ == "__main__":
         }]
     }
 
+    test_actual_valjson = {
+        "trailingEnterprisesValueEBITDARatio": [
+            {
+                "dataId": 102,
+                "asOfDate": "2022-10-06",
+                "periodType": "TTM",
+                "reportedValue": {
+                    "raw": 7.267784,
+                    "fmt": "7.27"
+                }
+            }
+        ]
+    }
+
     fd = open(ROOT_VAR_SSC + 'test_META_sector.json', 'r')
     from_json = json.load(fd)
 
@@ -176,13 +154,15 @@ if __name__ == "__main__":
     DD = DictPullSSC()
     DD1 = DictPullSSC()
 
-    testsec = DD.dictpullssc(from_json, 'sector')
+    print(DD.dictpullssc(test_actual_valjson, 'raw'))
 
-    print(testsec)
+    # testsec = DD.dictpullssc(from_json, 'sector')
 
-    testind = DD1.dictpullssc(from_json, 'longBusinessSummary')
+    # print(testsec)
 
-    print(testind)
+    # testind = DD1.dictpullssc(from_json, 'longBusinessSummary')
+
+    # print(testind)
 
     #print(DD.dictpullssc(testnest, "LAYER5"))
     #print(DD1.dictpullssc(simpletest, "LL8"))
