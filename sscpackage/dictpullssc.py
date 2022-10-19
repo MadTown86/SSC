@@ -155,18 +155,16 @@ if __name__ == "__main__":
     DD1 = DictPullSSC()
 
     print(DD.dictpullssc(test_actual_valjson, 'raw'))
+    testsec = DD.dictpullssc(from_json, 'sector')
+    print(testsec)
 
-    # testsec = DD.dictpullssc(from_json, 'sector')
+    testind = DD1.dictpullssc(from_json, 'longBusinessSummary')
 
-    # print(testsec)
+    print(testind)
 
-    # testind = DD1.dictpullssc(from_json, 'longBusinessSummary')
-
-    # print(testind)
-
-    #print(DD.dictpullssc(testnest, "LAYER5"))
-    #print(DD1.dictpullssc(simpletest, "LL8"))
-    #print(DD.dictpullssc(testdict, "NEXT LAYER"))
-    #print(DD.dictpullssc(complexdict, "ANSWER"))
+    print(DD.dictpullssc(testnest, "LAYER5"))
+    print(DD1.dictpullssc(simpletest, "LL8"))
+    print(DD.dictpullssc(testdict, "NEXT LAYER"))
+    print(DD.dictpullssc(complexdict, "ANSWER"))
 
 
