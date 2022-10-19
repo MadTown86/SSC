@@ -77,3 +77,6 @@ class ParseIncomeSSC_Sub(parseincomessc.ParseIncome):
         except Exception as Er:
             print("Exception in 'ParseIncome.parseincome'  ::  ")
             print(str(Er))
+
+if __name__ == '__name__':
+    pass
