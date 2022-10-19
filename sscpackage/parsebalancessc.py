@@ -3,8 +3,9 @@ import fetchshelfssc_mod
 
 import dotenv
 import os
+
 dotenv.load_dotenv(dotenv_path=os.getenv("LO_ROOT"))
-ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
+ROOT_VAR_SSC = os.getenv("CORE_DIR_STOR")
 
 
 class ParseBalance:
@@ -23,7 +24,6 @@ class ParseBalance:
             else:
                 raise
 
-
     def parse_balancepurge(self):
         with shelve.open(self.setpathssc_parsesscpb) as purge_bal:
             if purge_bal.keys():
@@ -34,34 +34,57 @@ class ParseBalance:
                 else:
                     return 0
             return 0
-    def parsebalance(self, uniquename: 'str', pb_rawdata: dict) -> None:
+
+    def parsebalance(self, uniquename: "str", pb_rawdata: dict) -> None:
         try:
             uniquesplitlist = uniquename.split("__")
-            ticker, key, idssc, timestampidpb = uniquesplitlist[0], uniquesplitlist[1], uniquesplitlist[2], \
-                                                uniquesplitlist[3]
+            ticker, key, idssc, timestampidpb = (
+                uniquesplitlist[0],
+                uniquesplitlist[1],
+                uniquesplitlist[2],
+                uniquesplitlist[3],
+            )
 
             bsheets_data = pb_rawdata
 
             bsheets_zip = list(
                 zip(
-                    [bsheets_data["annual_historical_balance_sheets"][0][keys] for keys in
-                     bsheets_data["annual_historical_balance_sheets"][0]],
-                    [bsheets_data["annual_historical_balance_sheets"][1][keys] for keys in
-                     bsheets_data["annual_historical_balance_sheets"][1]],
-                    [bsheets_data["annual_historical_balance_sheets"][2][keys] for keys in
-                     bsheets_data["annual_historical_balance_sheets"][2]],
-                    [bsheets_data["annual_historical_balance_sheets"][3][keys] for keys in
-                     bsheets_data["annual_historical_balance_sheets"][3]],
+                    [
+                        bsheets_data["annual_historical_balance_sheets"][0][keys]
+                        for keys in bsheets_data["annual_historical_balance_sheets"][0]
+                    ],
+                    [
+                        bsheets_data["annual_historical_balance_sheets"][1][keys]
+                        for keys in bsheets_data["annual_historical_balance_sheets"][1]
+                    ],
+                    [
+                        bsheets_data["annual_historical_balance_sheets"][2][keys]
+                        for keys in bsheets_data["annual_historical_balance_sheets"][2]
+                    ],
+                    [
+                        bsheets_data["annual_historical_balance_sheets"][3][keys]
+                        for keys in bsheets_data["annual_historical_balance_sheets"][3]
+                    ],
                 )
             )
 
-            bsheets_keys = [key for key in bsheets_data["annual_historical_balance_sheets"][0]]
+            bsheets_keys = [
+                key for key in bsheets_data["annual_historical_balance_sheets"][0]
+            ]
             bsheets_dict = {}
             for x in range(len(bsheets_keys)):
                 bsheets_dict[bsheets_keys[x]] = bsheets_zip[x]
 
-            FST_SSC_PB = fetchshelfssc_mod.FetchShelfSSC(fetchstoreshelf=self.setpathssc_parsesscpb)
-            FST_SSC_PB.fetchstore(ticker=ticker, key=key, idssc=idssc, fetch_data=bsheets_dict, timestampidfs=timestampidpb)
+            FST_SSC_PB = fetchshelfssc_mod.FetchShelfSSC(
+                fetchstoreshelf=self.setpathssc_parsesscpb
+            )
+            FST_SSC_PB.fetchstore(
+                ticker=ticker,
+                key=key,
+                idssc=idssc,
+                fetch_data=bsheets_dict,
+                timestampidfs=timestampidpb,
+            )
             del FST_SSC_PB
 
         except Exception as Er:

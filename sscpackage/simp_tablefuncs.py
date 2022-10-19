@@ -6,14 +6,19 @@ import sscerrors
 
 class Simp_TableFuncs:
     @staticmethod
-    def create_commit(commitstr: str, host: str = 'localhost', database: str = 'sscdb', multi: bool = False) -> [()]:
+    def create_commit(
+        commitstr: str,
+        host: str = "localhost",
+        database: str = "sscdb",
+        multi: bool = False,
+    ) -> [()]:
         if not multi:
             try:
                 with mysql.connector.connect(
-                        host=host,
-                        user=str(os.getenv("DB_USER")),
-                        password=str(os.getenv("DB_PASS")),
-                        database=database,
+                    host=host,
+                    user=str(os.getenv("DB_USER")),
+                    password=str(os.getenv("DB_PASS")),
+                    database=database,
                 ) as connection:
                     with connection.cursor(buffered=True, prepared=True) as cursor:
                         cursor.execute(str(commitstr))
@@ -32,12 +37,14 @@ class Simp_TableFuncs:
         else:
             try:
                 with mysql.connector.connect(
-                        host=host,
-                        user=str(os.getenv("DB_USER")),
-                        password=str(os.getenv("DB_PASS")),
-                        database=database,
+                    host=host,
+                    user=str(os.getenv("DB_USER")),
+                    password=str(os.getenv("DB_PASS")),
+                    database=database,
                 ) as connection:
-                    with connection.cursor(buffered=True, multi=True, prepared=True) as cursor:
+                    with connection.cursor(
+                        buffered=True, multi=True, prepared=True
+                    ) as cursor:
                         cursor.execute(str(commitstr))
                         result_commit = cursor.fetchall()
                         connection.commit()
@@ -54,10 +61,14 @@ class Simp_TableFuncs:
     def check_dbval(self, objname: str) -> [()]:
         sql_checkcommit = """USE sscdb
         SELECT COUNT(*) FROM information_schema.routines WHERE routine_schema = \
-        DATABASE() and routine_name = {objname}""".format(objname=objname)
+        DATABASE() and routine_name = {objname}""".format(
+            objname=objname
+        )
         return self.create_commit(sql_checkcommit)
 
-    def create_table(self, tablename: str = 'test', uniquekey: bool = True, *args, **kwargs) -> str:
+    def create_table(
+        self, tablename: str = "test", uniquekey: bool = True, *args, **kwargs
+    ) -> str:
         """
         This method assembles the MySQL string to establish a table using mysql.connector.
 
@@ -68,20 +79,23 @@ class Simp_TableFuncs:
         :return: returns the string to pass into mysql.connector cursor.execute
         """
 
-        tablevarbody = ''
+        tablevarbody = ""
         if uniquekey == True:
-            tablevarbody += 'id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,'
+            tablevarbody += "id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,"
         else:
             pass
 
         columnvals = {**kwargs}
         for columnname in columnvals.keys():
-            tablevarbody += ' ' + str(columnname) + ' ' + str(columnvals[columnname]).upper() + ','
+            tablevarbody += (
+                " " + str(columnname) + " " + str(columnvals[columnname]).upper() + ","
+            )
 
         tablevarbody = tablevarbody[0:-1]
 
-        ctable_assemblyvar = """CREATE TABLE {tname} ({tablevarbody});""".format(tname=tablename,
-                                                                                 tablevarbody=tablevarbody)
+        ctable_assemblyvar = """CREATE TABLE {tname} ({tablevarbody});""".format(
+            tname=tablename, tablevarbody=tablevarbody
+        )
 
         return ctable_assemblyvar
 
@@ -118,7 +132,7 @@ class Simp_TableFuncs:
             print("Error in 'simp_tablefuncs' -> create_sqlfunc")
             print(er)
 
-    def runfunc(self, funcname: str = 'tableExistsOrNot', *args, **kwargs) -> [()]:
+    def runfunc(self, funcname: str = "tableExistsOrNot", *args, **kwargs) -> [()]:
         try:
             if len(args) > 1:
                 table_beg = "SELECT {funcname}('".format(funcname=funcname)
@@ -132,7 +146,9 @@ class Simp_TableFuncs:
                 table_checkmultiarg = table_beg + table_rest
                 return self.create_commit(table_checkmultiarg)
             else:
-                table_check = "SELECT {funcname}('{argname}');".format(funcname=funcname, argname=args[0])
+                table_check = "SELECT {funcname}('{argname}');".format(
+                    funcname=funcname, argname=args[0]
+                )
                 return self.create_commit(table_check)
         except sscerrors.SqlParseException as er:
             print("Exception in 'simp_tablefuncs' -> runfunc")
@@ -143,10 +159,12 @@ class Simp_TableFuncs:
             executestatement = """DROP FUNCTION IF EXISTS tableExistsOrNot;"""
             self.create_commit(executestatement)
         else:
-            self.create_commit('DROP FUNCTION IF EXISTS {funcname};'.format(funcname=funcname))
+            self.create_commit(
+                "DROP FUNCTION IF EXISTS {funcname};".format(funcname=funcname)
+            )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     TS1 = Simp_TableFuncs()
     TS1.funcdrop(None)
     TS1.create_sqlfunc(None)

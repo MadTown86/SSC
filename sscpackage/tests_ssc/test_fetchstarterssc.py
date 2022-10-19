@@ -6,11 +6,12 @@ import sscpackage.fetchstarterssc
 
 
 class Test_FetchStarterFinal(unittest.IsolatedAsyncioTestCase):
-
-    @patch('sscpackage.fetchssc.FetchSSC')
+    @patch("sscpackage.fetchssc.FetchSSC")
     async def test_fetchstarter(self, MockFetchCycler):
         mock_fetchcyclerclassvar = MockFetchCycler()
-        mock_returntest = unittest.mock.AsyncMock(auto_spec=sscpackage.fetchssc.FetchSSC())
+        mock_returntest = unittest.mock.AsyncMock(
+            auto_spec=sscpackage.fetchssc.FetchSSC()
+        )
         mock_fetchcyclervar = unittest.mock.AsyncMock(return_value=mock_returntest)
 
         type(mock_fetchcyclerclassvar).rapid_fetch = mock_fetchcyclervar
@@ -20,5 +21,5 @@ class Test_FetchStarterFinal(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(2, len(MockFetchCycler.mock_calls), "Missmatch")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

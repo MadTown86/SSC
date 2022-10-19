@@ -4,8 +4,9 @@ import fetchshelfssc_mod
 
 import dotenv
 import os
+
 dotenv.load_dotenv(dotenv_path=os.getenv("LO_ROOT"))
-ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
+ROOT_VAR_SSC = os.getenv("CORE_DIR_STOR")
 
 
 class ParseSector:
@@ -33,14 +34,26 @@ class ParseSector:
     def parsesector(self, uniquename, ps_rawdata):
         try:
             uniquesplitlist = uniquename.split("__")
-            ticker, key, idssc, timestampidpsec = uniquesplitlist[0], uniquesplitlist[1], uniquesplitlist[2], \
-                                                  uniquesplitlist[3]
+            ticker, key, idssc, timestampidpsec = (
+                uniquesplitlist[0],
+                uniquesplitlist[1],
+                uniquesplitlist[2],
+                uniquesplitlist[3],
+            )
 
             DP_SSCPSEC = dictpullssc.DictPullSSC()
             secdata = DP_SSCPSEC.dictpullssc(ps_rawdata, "Sector")
 
-            FST_SSC = fetchshelfssc_mod.FetchShelfSSC(fetchstoreshelf=self.setpathssc_parsesscsec)
-            FST_SSC.fetchstore(ticker=ticker, key=key, idssc=idssc, fetch_data=secdata, timestampidfs=timestampidpsec)
+            FST_SSC = fetchshelfssc_mod.FetchShelfSSC(
+                fetchstoreshelf=self.setpathssc_parsesscsec
+            )
+            FST_SSC.fetchstore(
+                ticker=ticker,
+                key=key,
+                idssc=idssc,
+                fetch_data=secdata,
+                timestampidfs=timestampidpsec,
+            )
             del FST_SSC
             del DP_SSCPSEC
         except Exception as er:

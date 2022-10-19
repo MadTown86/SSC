@@ -5,29 +5,32 @@ import unittest
 import parsevalssc
 import dotenv
 import os
+
 dotenv.load_dotenv(dotenv_path=os.getenv("LO_ROOT"))
-ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
+ROOT_VAR_SSC = os.getenv("CORE_DIR_STOR")
 
 
 class MyTestCase(unittest.TestCase):
     def test_parseval(self):
         PSVAL = parsevalssc.ParseVal()
-        test_datapathparsevalssc = ROOT_VAR_SSC + 'test_parse_val.json'
-        test_dataparsevalresult1 = ROOT_VAR_SSC + 'test_parsevaltestresult.json'
-        test_parsevaluniquename = "Testticker1__Testkey1__Testidssc1__Testtimestampidval1"
+        test_datapathparsevalssc = ROOT_VAR_SSC + "test_parse_val.json"
+        test_dataparsevalresult1 = ROOT_VAR_SSC + "test_parsevaltestresult.json"
+        test_parsevaluniquename = (
+            "Testticker1__Testkey1__Testidssc1__Testtimestampidval1"
+        )
 
         with shelve.open(PSVAL.setpathssc_parsesscval) as shelfclear:
             for key in shelfclear.keys():
                 del shelfclear[key]
             shelfclear.close()
 
-        with open(test_datapathparsevalssc, 'r') as pvssctest:
+        with open(test_datapathparsevalssc, "r") as pvssctest:
             parsevaldata = pvssctest.read()
             pvssctest.close()
 
         PSVAL.parseval(uniquename=test_parsevaluniquename, pval_rawdata=parsevaldata)
 
-        with open(test_dataparsevalresult1, 'r') as pvsscrestst:
+        with open(test_dataparsevalresult1, "r") as pvsscrestst:
             parseresultdata = json.loads(pvsscrestst.read())
             pvsscrestst.close()
 
@@ -37,7 +40,9 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(parsevalresultshelf, parseresultdata)  # add assertion here
 
     def test_fetchparseval(self):
-        test_parsevaluniquename = "Testticker1__Testkey1__Testidssc1__Testtimestampidval1"
+        test_parsevaluniquename = (
+            "Testticker1__Testkey1__Testidssc1__Testtimestampidval1"
+        )
         PPS = parsevalssc.ParseVal()
         if PPS.fetchparseval(test_parsevaluniquename) != 0:
             testres = True
@@ -55,5 +60,5 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(0, PPS.fetchparseval(test_parsevaluniquename))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

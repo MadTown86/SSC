@@ -5,8 +5,9 @@ import parseindssc
 
 import dotenv
 import os
+
 dotenv.load_dotenv(dotenv_path=os.getenv("LO_ROOT"))
-ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
+ROOT_VAR_SSC = os.getenv("CORE_DIR_STOR")
 
 
 def quickdeleteop(path):
@@ -26,8 +27,8 @@ def shelveexist(path):
 
 class MyTestCase(unittest.TestCase):
     def test_parseindustry(self):
-        test_parseindustrydatapath = ROOT_VAR_SSC + 'test_parse_sector.json'
-        test_parseinduniquename = 'Test1__Test2__Test3__Test4'
+        test_parseindustrydatapath = ROOT_VAR_SSC + "test_parse_sector.json"
+        test_parseinduniquename = "Test1__Test2__Test3__Test4"
         PIND = parseindssc.ParseIndustry()
 
         quickdeleteop(PIND.setpathssc_parsesscind)
@@ -55,9 +56,11 @@ class MyTestCase(unittest.TestCase):
         del PIND
 
     def test_fetch_parseindustry(self):
-        test_parseindtimestampid = 'Test4'
-        test_parseindustrydatapath = r'C:\SSC\SimpleStockChecker_REV1\sscpackage\storage\test_parse_sector.json'
-        test_parseinduniquename = 'Test1__Test2__Test3__Test4'
+        test_parseindtimestampid = "Test4"
+        test_parseindustrydatapath = (
+            r"C:\SSC\SimpleStockChecker_REV1\sscpackage\storage\test_parse_sector.json"
+        )
+        test_parseinduniquename = "Test1__Test2__Test3__Test4"
 
         PIND = parseindssc.ParseIndustry()
         with shelve.open(PIND.setpathssc_parsesscind) as fd:
@@ -79,7 +82,7 @@ class MyTestCase(unittest.TestCase):
             fileopen.close()
 
         testvalparseindtwo = PIND.fetch_parseindustry(test_parseindtimestampid)
-        testvalparseindtwoanswer = 'Software—Infrastructure'
+        testvalparseindtwoanswer = "Software—Infrastructure"
         self.assertEqual(testvalparseindtwo, testvalparseindtwoanswer)
 
         with shelve.open(PIND.setpathssc_parsesscind) as fd:
@@ -88,5 +91,5 @@ class MyTestCase(unittest.TestCase):
             fd.close()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

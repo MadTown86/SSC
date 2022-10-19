@@ -4,8 +4,9 @@ import fetchshelfssc_mod
 
 import dotenv
 import os
+
 dotenv.load_dotenv(dotenv_path=os.getenv("LO_ROOT"))
-ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
+ROOT_VAR_SSC = os.getenv("CORE_DIR_STOR")
 
 
 class ParseAr:
@@ -15,7 +16,6 @@ class ParseAr:
 
     def __init__(self):
         self.setpathssc_parsesscar = ROOT_VAR_SSC + "parsearshelf"
-
 
     def purge_parsear(self):
         try:
@@ -34,13 +34,25 @@ class ParseAr:
     def parsear(self, uniquename, par_rawdata):
         try:
             uniquesplitlist = uniquename.split("__")
-            ticker, key, idssc, timestampidar = uniquesplitlist[0], uniquesplitlist[1], uniquesplitlist[2], \
-                                                uniquesplitlist[3]
+            ticker, key, idssc, timestampidar = (
+                uniquesplitlist[0],
+                uniquesplitlist[1],
+                uniquesplitlist[2],
+                uniquesplitlist[3],
+            )
             DPssc = dictpullssc.DictPullSSC()
             ardict = DPssc.dictpullssc(par_rawdata, "history")
 
-            FST_SSC = fetchshelfssc_mod.FetchShelfSSC(fetchstoreshelf=self.setpathssc_parsesscar)
-            FST_SSC.fetchstore(ticker=ticker, key=key, idssc=idssc, fetch_data=ardict, timestampidfs=timestampidar)
+            FST_SSC = fetchshelfssc_mod.FetchShelfSSC(
+                fetchstoreshelf=self.setpathssc_parsesscar
+            )
+            FST_SSC.fetchstore(
+                ticker=ticker,
+                key=key,
+                idssc=idssc,
+                fetch_data=ardict,
+                timestampidfs=timestampidar,
+            )
             del FST_SSC
         except Exception as Er:
             print("Exception in parsearssc.ParseAr.parsear")
