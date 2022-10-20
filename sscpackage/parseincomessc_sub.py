@@ -73,10 +73,53 @@ class ParseIncomeSSC_Sub(parseincomessc.ParseIncome):
                 ticker=ticker, fetch_data=output_dict_inc, fetchstorename=fetchstorename
             )
             del FST_SSC
+            print(f'Finished Ticker: {ticker}')
 
         except Exception as Er:
             print("Exception in 'ParseIncome.parseincome'  ::  ")
             print(str(Er))
 
-if __name__ == '__name__':
-    pass
+
+if __name__ == '__main__':
+    import fetchshelfssc_mod
+    import parsebalancessc_sub
+
+    keywordtransferbin = {
+        "researchDevelopment": "Research & Development",
+        "effectOfAccountingCharges": "Effect of Accounting Charges",
+        "incomeBeforeTax": "Income Before Tax",
+        "minorityInterest": "Minority Interest",
+        "netIncome": "Net Interest",
+        "sellingGeneralAdministrative": "Selling, General & Administrative",
+        "grossProfit": "Gross Profit",
+        "ebit": "EBIT",
+        "operatingIncome": "Operating Income",
+        "otherOperatingExpenses": "Other Operating Expenses",
+        "interestExpense": "Interest Expense",
+        "extraordinaryItems": "Extraordinary Items",
+        "nonRecurring": "Non Recurring",
+        "otherItems": "Other Items",
+        "incomeTaxExpense": "Income Tax Expense",
+        "totalRevenue": "Total Revenue",
+        "totalOperatingExpenses": "Total Operating Expenses",
+        "costOfRevenue": "Cost Of Revenue",
+        "totalOtherIncomeExpenseNet": "Total Other Income Expense Net",
+        "discontinuedOperations": "Discontinued Operations",
+        "netIncomeFromContinuingOps": "Net Income From Continuing Ops",
+        "netIncomeApplicableToCommonShares": "Net Income Applicable To Common Shares",
+    }
+
+    FS = fetchshelfssc_mod.FetchShelfSSC()
+    localdb = FS.fetchdbpull()
+    keylist_inc = [x for x in localdb.keys() if "url_income" in x]
+    inc_key = keylist_inc[0]
+    ticker, tag, uniqid, selfid = inc_key.split("__")
+    DS = dictpullssc.DictPullSSC()
+    jsonmix = DS.dictpullssc(localdb[inc_key], "incomeStatementHistory")
+    jsonmix = jsonmix['incomeStatementHistory']
+
+    test_output = parsebalancessc_sub.incbal_reformat(inc_key, jsonmix, keywordtransferbin)
+
+
+    PB = ParseIncomeSSC_Sub()
+    PB.parseincome(inc_key, localdb[inc_key])

@@ -32,6 +32,23 @@ class ParseSec_Sub(sscpackage.parsesectorssc.ParseSector):
             )
             del FST_SSC
             del DP_SSCPSEC
+            print(secdata)
+            print(f'Finished ticker:: {ticker}')
         except Exception as er:
             print("Exception in ParseSector: method 'parsesector' ")
             print(er)
+
+if __name__ == "__main__":
+    import fetchshelfssc_mod
+    import dictpullssc
+
+    FS = fetchshelfssc_mod.FetchShelfSSC()
+    DS = dictpullssc.DictPullSSC()
+    PSEC = ParseSec_Sub()
+
+    local_db = FS.fetchdbpull()
+    keylist = [x for x in local_db.keys() if "sector" in x]
+    test_key = keylist[0]
+    test_output = DS.dictpullssc(local_db[test_key], 'sector')
+
+    PSEC.parsesector(test_key, local_db[test_key])

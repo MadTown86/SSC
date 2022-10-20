@@ -21,19 +21,31 @@ def incbal_reformat(uniquename: str, jsonmix: [{}], transferbin: {}) -> dict:
             for key in transferbin.keys():
                 temp_list = []
                 if key in jsonmix[0].keys():
-                    temp_list.append(jsonmix[0][key]["raw"])
+                    if jsonmix[0][key]:
+                        temp_list.append(jsonmix[0][key]["raw"])
+                    else:
+                        temp_list.append(0)
                 else:
                     temp_list.append(0)
                 if key in jsonmix[1].keys():
-                    temp_list.append(jsonmix[1][key]["raw"])
+                    if jsonmix[1][key]:
+                        temp_list.append(jsonmix[1][key]["raw"])
+                    else:
+                        temp_list.append(0)
                 else:
                     temp_list.append(0)
                 if key in jsonmix[2].keys():
-                    temp_list.append(jsonmix[2][key]["raw"])
+                    if jsonmix[2][key]:
+                        temp_list.append(jsonmix[2][key]["raw"])
+                    else:
+                        temp_list.append(0)
                 else:
                     temp_list.append(0)
                 if key in jsonmix[3].keys():
-                    temp_list.append(jsonmix[3][key]["raw"])
+                    if jsonmix[3][key]:
+                        temp_list.append(jsonmix[3][key]["raw"])
+                    else:
+                        temp_list.append(0)
                 else:
                     temp_list.append(0)
 
@@ -43,15 +55,24 @@ def incbal_reformat(uniquename: str, jsonmix: [{}], transferbin: {}) -> dict:
             for key in transferbin.keys():
                 temp_list = []
                 if key in jsonmix[0].keys():
-                    temp_list.append(jsonmix[0][key]["raw"])
+                    if jsonmix[0][key]:
+                        temp_list.append(jsonmix[0][key]["raw"])
+                    else:
+                        temp_list.append(0)
                 else:
                     temp_list.append(0)
                 if key in jsonmix[1].keys():
-                    temp_list.append(jsonmix[1][key]["raw"])
+                    if jsonmix[1][key]:
+                        temp_list.append(jsonmix[1][key]["raw"])
+                    else:
+                        temp_list.append(0)
                 else:
                     temp_list.append(0)
                 if key in jsonmix[2].keys():
-                    temp_list.append(jsonmix[2][key]["raw"])
+                    if jsonmix[2][key]:
+                        temp_list.append(jsonmix[2][key]["raw"])
+                    else:
+                        temp_list.append(0)
                 else:
                     temp_list.append(0)
 
@@ -61,11 +82,17 @@ def incbal_reformat(uniquename: str, jsonmix: [{}], transferbin: {}) -> dict:
             for key in transferbin.keys():
                 temp_list = []
                 if key in jsonmix[0].keys():
-                    temp_list.append(jsonmix[0][key]["raw"])
+                    if jsonmix[0][key]:
+                        temp_list.append(jsonmix[0][key]["raw"])
+                    else:
+                        temp_list.append(0)
                 else:
                     temp_list.append(0)
                 if key in jsonmix[1].keys():
-                    temp_list.append(jsonmix[1][key]["raw"])
+                    if jsonmix[1][key]:
+                        temp_list.append(jsonmix[1][key]["raw"])
+                    else:
+                        temp_list.append(0)
                 else:
                     temp_list.append(0)
 
@@ -184,16 +211,12 @@ if __name__ == "__main__":
     ticker, tag, uniqid, selfid = bal_key.split("__")
     DS = dictpullssc.DictPullSSC()
     jsonmix = DS.dictpullssc(localdb[bal_key], "balanceSheetHistory")
-    print(jsonmix)
     jsonmix = jsonmix['balanceSheetStatements']
 
-    print(localdb[bal_key])
     if localdb:
         if localdb[bal_key]:
             if localdb[bal_key].keys():
                 samp = incbal_reformat("TEST", jsonmix=jsonmix, transferbin=transferbin)
-                for key, value in samp.items():
-                    print(f'KEY:: {key} ---- VALUE: {value}')
 
     PB = ParseBalance_Sub()
     PB.parsebalance(bal_key, localdb[bal_key])

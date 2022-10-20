@@ -5,7 +5,6 @@ to YH Finance
 import dictpullssc
 import fetchshelfssc_mod
 import parseindssc
-import sscerrors
 
 
 class ParseIndustry_Sub(parseindssc.ParseIndustry):
@@ -27,11 +26,6 @@ class ParseIndustry_Sub(parseindssc.ParseIndustry):
             if not secdata:
                 secdata = DP_SSC.dictpullssc(ind_rawdata, "industry")
 
-            try:
-                sscerrors.gotmilk(secdata)
-            except sscerrors.GotNoMilk as er:
-                print(er)
-
             fetchstorename = uniquename
             FST_SSC = fetchshelfssc_mod.FetchShelfSSC(
                 fetchstoreshelf=self.setpathssc_parsesscind
@@ -44,3 +38,20 @@ class ParseIndustry_Sub(parseindssc.ParseIndustry):
         except Exception as er:
             print("Exception in ParseIndSSC: method 'parseindustry' ")
             print(er)
+
+if __name__ == "__main__":
+    import fetchshelfssc_mod
+    import dictpullssc
+
+    FS = fetchshelfssc_mod.FetchShelfSSC()
+    DS = dictpullssc.DictPullSSC()
+
+    local_db = FS.fetchdbpull()
+    keylist = [x for x in local_db.keys() if "sector" in x]
+
+    key_test = keylist[0]
+    print(DS.dictpullssc(local_db[key_test], 'industry'))
+
+    PASS = ParseIndustry_Sub()
+
+    test_industry = PASS.parseindustry(key_test, local_db[key_test])
