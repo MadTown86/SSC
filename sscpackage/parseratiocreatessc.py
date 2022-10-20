@@ -138,18 +138,25 @@ class ParseRatioCreateSSC:
 
 
 if __name__ == "__main__":
-    import gradeparsecombinessc
+    import fetchshelfssc_mod
+    import dictpullssc
+    import parseincomessc_sub
+    import parsebalancessc_sub
 
-    ticker = "NVDA"
-    logidssc = "Y8bdxbfeWiliz3B"
-    GS = gradeparsecombinessc.GradeParseCombineSSC()
-    parsecombo = GS.gradeparsecombinessc(ticker, logidssc)["NVDA__Y8bdxbfeWiliz3B"]
-    PS = ParseRatioCreateSSC()
-    incomedictssc = parsecombo["incdat"]
-    balancedictssc = parsecombo["baldat"]
-    incqualdat = parsecombo["incdatqual"]
-    baldatqual = parsecombo["baldatqual"]
-    restestssc = PS.parseratiocreatesssc(
-        incomedictssc=incomedictssc,
-        balancedictssc=balancedictssc,
-    )
+    FS = fetchshelfssc_mod.FetchShelfSSC()
+    DS = dictpullssc.DictPullSSC()
+    PS = parseincomessc_sub.ParseIncomeSSC_Sub()
+    PBAL = parsebalancessc_sub.ParseBalance_Sub()
+
+    local_db = FS.fetchdbpull()
+
+    keylist = [x for x in local_db.keys()]
+    test_key = keylist[0]
+
+    ticker, tag, instid, uniqueid = test_key.split("__")
+
+    inc_key = [x for x in local_db.keys() if 'url_income' in x and ticker in x]
+
+    bal_key =
+
+

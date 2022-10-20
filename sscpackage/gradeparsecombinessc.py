@@ -13,6 +13,12 @@ import parseratiocreatessc
 import parsesectorssc
 import parsevalssc
 
+import dotenv
+import os
+
+dotenv.load_dotenv(dotenv_path=os.getenv("LO_ROOT"))
+ROOT_VAR_SSC = os.getenv("CORE_DIR_STOR")
+
 
 class GradeParseCombineSSC:
     inst_count_gpcssc = 0
@@ -120,12 +126,11 @@ if __name__ == "__main__":
     import dotenv
     import os
 
-    dotenv.load_dotenv(dotenv_path=r"C:\SSC\SimpleStockChecker_REV1\venv\.env")
+    dotenv.load_dotenv(dotenv_path=os.getenv("LO_ROOT"))
     ROOT_VAR_SSC = os.getenv("CORE_DIR_STOR")
     import json
     import fetchlogssc
 
-    # TODO: Look into .ENV file and replacing hord-coded paths
     tempfilelocation = ROOT_VAR_SSC
     FLOG = fetchlogssc.FetchLogSSC()
     local_fetchlog = FLOG.ssc_logfetch()
