@@ -21,6 +21,7 @@ class ParseRatioCreateSSC:
                     / totalcurrentliabilitiesy
                     if totalcurrentassetsx != 0 and totalcurrentliabilitiesy != 0
                     else 0,
+
                     "Acid Test Ratio": lambda totalcurrentassetsx, inventoryy, totalcurrentliabilitiesz: (
                         totalcurrentassetsx - inventoryy
                     )
@@ -29,30 +30,37 @@ class ParseRatioCreateSSC:
                     and inventoryy != 0
                     and totalcurrentliabilitiesz != 0
                     else 0,
+
                     "Cash Ratio": lambda cashx, totalcurrentliabilitiesy: cashx
                     / totalcurrentliabilitiesy
                     if cashx != 0 and totalcurrentliabilitiesy != 0
                     else 0,
+
                     "Debt Ratio": lambda totalliabilitiesx, totalassetsy: totalliabilitiesx
                     / totalassetsy
                     if totalliabilitiesx != 0 and totalassetsy != 0
                     else 0,
+
                     "Debt To Equity Ratio": lambda totalstockholderequity, totalliabilities: totalliabilities
                     / totalstockholderequity
                     if totalliabilities != 0 and totalstockholderequity != 0
                     else 0,
+
                     "Operating Cash Flow": lambda operatingincome, interestexpense: operatingincome
                     / interestexpense
                     if operatingincome != 0 and interestexpense != 0
                     else 0,
+
                     "Interest Coverage Ratio": lambda netincome, totalassets: netincome
                     / totalassets
                     if netincome != 0 and totalassets != 0
                     else 0,
+
                     "Return On Assets Ratio": lambda totalstockholderequity, netincome: netincome
                     / totalstockholderequity
                     if netincome != 0 and totalstockholderequity != 0
                     else 0,
+
                     "Book Value Per Share": lambda treasurystock, otherstockholderquity, totalstockholderquity, commonstock: (
                         totalstockholderquity - treasurystock - otherstockholderquity
                     )
@@ -144,6 +152,4 @@ if __name__ == "__main__":
     restestssc = PS.parseratiocreatesssc(
         incomedictssc=incomedictssc,
         balancedictssc=balancedictssc,
-        incdatqual=incqualdat,
-        baldatqual=baldatqual,
     )

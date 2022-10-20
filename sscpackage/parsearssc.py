@@ -34,26 +34,26 @@ class ParseAr:
     def parsear(self, uniquename, par_rawdata):
         try:
             uniquesplitlist = uniquename.split("__")
-            ticker, key, idssc, timestampidar = (
-                uniquesplitlist[0],
-                uniquesplitlist[1],
-                uniquesplitlist[2],
-                uniquesplitlist[3],
-            )
+            ticker, key, idssc, timestampidar = uniquename.split("__")
+
             DPssc = dictpullssc.DictPullSSC()
             ardict = DPssc.dictpullssc(par_rawdata, "history")
 
             FST_SSC = fetchshelfssc_mod.FetchShelfSSC(
                 fetchstoreshelf=self.setpathssc_parsesscar
             )
+
+            fetchstorename = uniquename
+
             FST_SSC.fetchstore(
                 ticker=ticker,
-                key=key,
-                idssc=idssc,
+                fetchstorename=fetchstorename,
                 fetch_data=ardict,
-                timestampidfs=timestampidar,
             )
             del FST_SSC
+
+            print(f"Finished Ticker: {ticker}")
+
         except Exception as Er:
             print("Exception in parsearssc.ParseAr.parsear")
             print(Er)
@@ -72,3 +72,18 @@ class ParseAr:
         except Exception as Er:
             print("Exception: 'fetch_parsebalance'\n")
             print(Er)
+
+
+if __name__ == "__main__":
+    import fetchshelfssc_mod
+    import dictpullssc
+
+    FS = fetchshelfssc_mod.FetchShelfSSC()
+    DS = dictpullssc.DictPullSSC()
+
+    local_db = FS.fetchdbpull()
+    keylist = [x for x in local_db.keys() if "ar" in x]
+    ar_key = keylist[0]
+
+    PS = ParseAr()
+    PS.parsear(ar_key, local_db[ar_key])
