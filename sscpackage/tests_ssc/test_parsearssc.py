@@ -5,12 +5,12 @@ import os
 import parsearssc
 
 dotenv.load_dotenv(dotenv_path=os.getenv("LO_ROOT"))
-ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
+ROOT_VAR_SSC = os.getenv("CORE_DIR_STOR")
 
 
 class MyTestCase(unittest.TestCase):
     def test_parsear(self):
-        test_parseardatapath = ROOT_VAR_SSC + 'test_parse_ar.json'
+        test_parseardatapath = ROOT_VAR_SSC + "test_parse_ar.json"
         test_parsearuniquename = "TESTticker__TESTkey__TESTidssc__TESTtimestampidar"
         PARSSC = parsearssc.ParseAr()
         with open(test_parseardatapath) as testdoc:
@@ -37,7 +37,7 @@ class MyTestCase(unittest.TestCase):
                 del parshelv[key]
             parshelv.close()
 
-        test_parseardatapath = ROOT_VAR_SSC + 'test_parse_ar.json'
+        test_parseardatapath = ROOT_VAR_SSC + "test_parse_ar.json"
         test_parsearuniquename = "TESTticker__TESTkey__TESTidssc__TESTtimestampidar"
         test_parsetimestampid = "TESTtimestampidar"
 
@@ -49,10 +49,10 @@ class MyTestCase(unittest.TestCase):
             PARSSC.parsear(test_parsearuniquename, fd.read())
             fd.close()
 
-        testvaluetwoar = PARSSC.fetch_parsear(test_parsetimestampid)[0]['action']
+        testvaluetwoar = PARSSC.fetch_parsear(test_parsetimestampid)[0]["action"]
         correctvaluetwoar = "main"
         self.assertEqual(testvaluetwoar, correctvaluetwoar)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

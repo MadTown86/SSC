@@ -15,13 +15,17 @@ class ParseIndustry_Sub(parseindssc.ParseIndustry):
     def parseindustry(self, uniquename, ind_rawdata):
         try:
             uniquesplitlist = uniquename.split("__")
-            ticker, key, idssc, timestampidpind = uniquesplitlist[0], uniquesplitlist[1], uniquesplitlist[2], \
-                                                  uniquesplitlist[3]
+            ticker, key, idssc, timestampidpind = (
+                uniquesplitlist[0],
+                uniquesplitlist[1],
+                uniquesplitlist[2],
+                uniquesplitlist[3],
+            )
 
             DP_SSC = dictpullssc.DictPullSSC()
             secdata = DP_SSC.dictpullssc(ind_rawdata, "Industry")
             if not secdata:
-                secdata = DP_SSC.dictpullssc(ind_rawdata, 'industry')
+                secdata = DP_SSC.dictpullssc(ind_rawdata, "industry")
 
             try:
                 sscerrors.gotmilk(secdata)
@@ -29,8 +33,12 @@ class ParseIndustry_Sub(parseindssc.ParseIndustry):
                 print(er)
 
             fetchstorename = uniquename
-            FST_SSC = fetchshelfssc_mod.FetchShelfSSC(fetchstoreshelf=self.setpathssc_parsesscind)
-            FST_SSC.fetchstore(ticker=ticker, fetchstorename=fetchstorename, fetch_data=secdata)
+            FST_SSC = fetchshelfssc_mod.FetchShelfSSC(
+                fetchstoreshelf=self.setpathssc_parsesscind
+            )
+            FST_SSC.fetchstore(
+                ticker=ticker, fetchstorename=fetchstorename, fetch_data=secdata
+            )
             del FST_SSC
             del DP_SSC
         except Exception as er:

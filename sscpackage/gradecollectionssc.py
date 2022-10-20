@@ -17,6 +17,7 @@ class GradeCollectionSSC:
         *Note: Work In Progress
         Different Grading Algorithms
     """
+
     inst_count_collections: int = 0
 
     @staticmethod
@@ -47,8 +48,9 @@ class GradeCollectionSSC:
         self.finalgrade = grade_finalssc.GradeFinalSSC()
         print("GCC7")
         self.fetchlogcomplete = fetchlogssc.FetchLogSSC()
-        self.awardsystem = awardsystemssc.AwardSystemSSC().fetchawardsystem(industry=self.parsecombossc["Industry"],
-                                                                            sector=self.parsecombossc["Sector"])
+        self.awardsystem = awardsystemssc.AwardSystemSSC().fetchawardsystem(
+            industry=self.parsecombossc["Industry"], sector=self.parsecombossc["Sector"]
+        )
 
     def grade_cancel_flag(self):
         self.grade_cancel = True
@@ -58,8 +60,11 @@ class GradeCollectionSSC:
         try:
             print("GC1")
             # GTLTYoYSSC()
-            pointbin.append(self.gradesectionone.gtltmetricsgradessc(self.ticker, self.parsecombossc, self.uniqueidssc,
-                                                                     self.awardsystem))
+            pointbin.append(
+                self.gradesectionone.gtltmetricsgradessc(
+                    self.ticker, self.parsecombossc, self.uniqueidssc, self.awardsystem
+                )
+            )
         except Exception as er:
             print("Exception Point: gradecollectionsssc - gtltmetricsgradessc")
             print(er)
@@ -67,8 +72,11 @@ class GradeCollectionSSC:
         try:
             print("GC2")
             # GradeFinRatio()
-            pointbin.append(self.gradesectionfive.grade_finratiossc(self.ticker, self.parsecombossc, self.uniqueidssc,
-                                                                    self.awardsystem))
+            pointbin.append(
+                self.gradesectionfive.grade_finratiossc(
+                    self.ticker, self.parsecombossc, self.uniqueidssc, self.awardsystem
+                )
+            )
         except Exception as er:
             print("Exception Point: gradecollectionssc - grade_finratiossc")
             print(er)
@@ -76,8 +84,11 @@ class GradeCollectionSSC:
         try:
             print("GC3")
             # GTLTYoYRatioSSC()
-            pointbin.append(self.gradesectiontwo.grade_gtltyoyratiossc(self.ticker, self.parsecombossc, self.uniqueidssc,
-                                                                       self.awardsystem))
+            pointbin.append(
+                self.gradesectiontwo.grade_gtltyoyratiossc(
+                    self.ticker, self.parsecombossc, self.uniqueidssc, self.awardsystem
+                )
+            )
         except Exception as er:
             print("Exception Point: gradecollectionssc - grade_gtltyoyratiossc")
             print(er)
@@ -85,8 +96,11 @@ class GradeCollectionSSC:
         try:
             print("GC4")
             # GradeValSSC
-            pointbin.append(self.gradesectionthree.grade_valratiossc(self.ticker, self.parsecombossc, self.uniqueidssc,
-                                                                     self.awardsystem))
+            pointbin.append(
+                self.gradesectionthree.grade_valratiossc(
+                    self.ticker, self.parsecombossc, self.uniqueidssc, self.awardsystem
+                )
+            )
         except Exception as er:
             print("Exception Point: gradecollectionssc - grade_valratiossc")
             print(er)
@@ -94,8 +108,11 @@ class GradeCollectionSSC:
         try:
             print("GC5")
             # GradeArSSC
-            pointbin.append(self.gradesectionfour.grade_arssc(self.ticker, self.parsecombossc, self.uniqueidssc,
-                                                              self.awardsystem))
+            pointbin.append(
+                self.gradesectionfour.grade_arssc(
+                    self.ticker, self.parsecombossc, self.uniqueidssc, self.awardsystem
+                )
+            )
         except Exception as er:
             print("Exception Point: gradecollectionssc - grade_arssc")
             print(er)
@@ -105,7 +122,9 @@ class GradeCollectionSSC:
         try:
             self.finalgrade.grade_final_ssc(pointbin)
         except Exception as er:
-            print("Exception in GradeCollectionSSC: attribute 'self.finalgrade.grade_final_ssc'")
+            print(
+                "Exception in GradeCollectionSSC: attribute 'self.finalgrade.grade_final_ssc'"
+            )
             print(er)
         print("GC7")
 
@@ -116,16 +135,22 @@ class GradeCollectionSSC:
         print("GC8")
 
         try:
-            self.storeclass.log_entry(parsecombo=self.parsecombossc,
-                                      grade_ssc=str(self.finalgrade.final_grade_ssc), ticker_entry=str(self.ticker),
-                                      points=self.finalgrade.awardedpoints, basepoints=self.finalgrade.totalpoints)
+            self.storeclass.log_entry(
+                parsecombo=self.parsecombossc,
+                grade_ssc=str(self.finalgrade.final_grade_ssc),
+                ticker_entry=str(self.ticker),
+                points=self.finalgrade.awardedpoints,
+                basepoints=self.finalgrade.totalpoints,
+            )
         except Exception as er:
             print("Exception in GradeCollectionSSC: attribute 'storeclass.log_entry' ")
             print(er)
         print("GC10")
 
         try:
-            self.fetchlogcomplete.ssc_logcompletewrite(ticker=self.ticker, uniqueid=self.uniqueidssc)
+            self.fetchlogcomplete.ssc_logcompletewrite(
+                ticker=self.ticker, uniqueid=self.uniqueidssc
+            )
         except Exception as er:
             print("Exception in GradeCollectionSSC: 'fetchlogcompletessc'")
             print(er)
@@ -141,9 +166,8 @@ if __name__ == "__main__":
         "NVDA__HH12TPwnMth9Tet",
         "GME__AlabRmFaJP9IXEH",
         "GE__DRLihsPscNaTz0Q",
-        "FORD__VyjP8walEhZzDRh"
+        "FORD__VyjP8walEhZzDRh",
     ]
-
 
     def mini_collectiontest(testlogvaridssc):
         pointvarbinssc = []
@@ -157,7 +181,6 @@ if __name__ == "__main__":
         pointvarbinssc = Gcollect.gradecollectionssc()
         print(pointvarbinssc)
         del pointvarbinssc
-
 
     for uniquekey in testbin_tickers:
         mini_collectiontest(uniquekey)

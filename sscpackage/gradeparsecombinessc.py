@@ -46,6 +46,7 @@ class GradeParseCombineSSC:
             corekeycombo = ticker + "__" + logfileidssc
 
             try:
+
                 def incbalqualssc(datadictssc):
                     returndictqualssc = {}
                     for key in datadictssc.keys():
@@ -62,6 +63,7 @@ class GradeParseCombineSSC:
                             continue
 
                     return returndictqualssc
+
             except Exception as er:
                 print("Exception in ParseCombineSSC: incbalqualssc")
                 print(er)
@@ -70,13 +72,17 @@ class GradeParseCombineSSC:
             incdatqual = incbalqualssc(incdat)
 
             try:
+
                 def ratiolisterssc(datadictssc):
                     returndictratiossc = {}
                     for key in datadictssc.keys():
-                        returndictratiossc[key] = [datadictssc[key][x] / datadictssc["Total Revenue"][x] for x in
-                                                   list(range(len(datadictssc["Total Revenue"]))) if not
-                                                   isinstance(datadictssc[key][x], str)]
+                        returndictratiossc[key] = [
+                            datadictssc[key][x] / datadictssc["Total Revenue"][x]
+                            for x in list(range(len(datadictssc["Total Revenue"])))
+                            if not isinstance(datadictssc[key][x], str)
+                        ]
                     return returndictratiossc
+
             except Exception as er:
                 print("Exception in GradeParseCombineSSC: function ratiolisterssc")
                 print(er)
@@ -84,17 +90,28 @@ class GradeParseCombineSSC:
             incasratiodict = ratiolisterssc(incdat)
 
             PRC = parseratiocreatessc.ParseRatioCreateSSC()
-            finratiodict = PRC.parseratiocreatesssc(incomedictssc=incdat, balancedictssc=baldat)
+            finratiodict = PRC.parseratiocreatesssc(
+                incomedictssc=incdat, balancedictssc=baldat
+            )
 
-            self.parsecombo[corekeycombo] = {"AR": ardat, "baldat": baldat, "incdat": incdat,
-                                             "Industry": inddat, "Sector": secdat, "valdat": valdat,
-                                             "baldatqual": baldatqual, "incdatqual": incdatqual,
-                                             "incasratiodict": incasratiodict, "finratiodict": finratiodict}
+            self.parsecombo[corekeycombo] = {
+                "AR": ardat,
+                "baldat": baldat,
+                "incdat": incdat,
+                "Industry": inddat,
+                "Sector": secdat,
+                "valdat": valdat,
+                "baldatqual": baldatqual,
+                "incdatqual": incdatqual,
+                "incasratiodict": incasratiodict,
+                "finratiodict": finratiodict,
+            }
 
             return self.parsecombo
         except Exception as er:
             print("Exception in GradeParseCombineSSC: outer scope")
             print(er)
+
     def parsec_json(self):
         return json.dumps(self.parsecombo, sort_keys=False)
 
@@ -103,10 +120,11 @@ if __name__ == "__main__":
     import dotenv
     import os
 
-    dotenv.load_dotenv(dotenv_path=r'C:\SSC\SimpleStockChecker_REV1\venv\.env')
-    ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
+    dotenv.load_dotenv(dotenv_path=r"C:\SSC\SimpleStockChecker_REV1\venv\.env")
+    ROOT_VAR_SSC = os.getenv("CORE_DIR_STOR")
     import json
     import fetchlogssc
+
     # TODO: Look into .ENV file and replacing hord-coded paths
     tempfilelocation = ROOT_VAR_SSC
     FLOG = fetchlogssc.FetchLogSSC()
@@ -126,8 +144,5 @@ if __name__ == "__main__":
         GS = GradeParseCombineSSC()
         testdict = GS.gradeparsecombinessc(ticker, testlogvaridssc)
         test_parsedictcont[entry] = testdict
-        with open(tempfilelocation + ticker, 'w') as tp:
+        with open(tempfilelocation + ticker, "w") as tp:
             json.dump(testdict, tp, indent=5, separators=(", ", ": "), sort_keys=False)
-
-
-

@@ -4,7 +4,8 @@ import dotenv
 import os
 
 dotenv.load_dotenv(dotenv_path=os.getenv("LO_ROOT"))
-ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
+ROOT_VAR_SSC = os.getenv("CORE_DIR_STOR")
+
 
 class FetchStarterSSC:
     """
@@ -16,6 +17,7 @@ class FetchStarterSSC:
     To: fetchssc
     On Cancel: returns to guistarterssc
     """
+
     runlist_tickers = []
     fetch_cancel = False
     fetch_header = "FETCH TICKERS: "
@@ -84,12 +86,14 @@ class FetchStarterSSC:
                     break
                 ticker_runlist = tickerlistvar_fetchssc[0]
                 FetchStarterSSC.update_runlist(onetic=ticker_runlist)
-                await asyncio.gather(FetchSSC().rapid_fetch(tickerlistvar_fetchssc.pop(0)))
+                await asyncio.gather(
+                    FetchSSC().rapid_fetch(tickerlistvar_fetchssc.pop(0))
+                )
             await asyncio.sleep(1)
 
 
 if __name__ == "__main__":
     test_pathfile = ROOT_VAR_SSC + "storageticker_sixlist.txt"
-    with open(test_pathfile, 'r') as tpf:
+    with open(test_pathfile, "r") as tpf:
         FS = FetchStarterSSC(tpf.read().split(", "))
         asyncio.run(FS._fetch_cycle())

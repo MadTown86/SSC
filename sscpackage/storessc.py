@@ -9,7 +9,9 @@ class StoreSSC:
     Class for checking, storing and fetching data from a local, predefined DB
     """
 
-    def __init__(self, host="localhost", user="DB_USER", password="DB_PASS", *args, **kwargs):
+    def __init__(
+        self, host="localhost", user="DB_USER", password="DB_PASS", *args, **kwargs
+    ):
         try:
             self.host = host
             self.user = user
@@ -18,7 +20,6 @@ class StoreSSC:
             print("Exception in StoreSSC: constructor ")
             print(er)
 
-
     def create_table(self, tablename="test", *args, **kwargs):
 
         ctable_assemblyvar = """
@@ -26,7 +27,9 @@ class StoreSSC:
                         CREATE TABLE {tname} (
                         {tablevarbody}
                         );
-                        """.format(tname=tablename, tablevarbody=args)
+                        """.format(
+            tname=tablename, tablevarbody=args
+        )
         dbtbl_create = """
                         USE sscdb;
                         CREATE TABLE {0} (
@@ -53,9 +56,9 @@ class StoreSSC:
         print("In db_chksetup")
         try:
             with mysql.connector.connect(
-                    host=self.host,
-                    user=str(os.getenv(self.user)),
-                    password=str(os.getenv(self.password))
+                host=self.host,
+                user=str(os.getenv(self.user)),
+                password=str(os.getenv(self.password)),
             ) as connection:
 
                 db_check = """
@@ -69,7 +72,7 @@ class StoreSSC:
                 FROM INFORMATION_SCHEMA.COLUMNS
                 WHERE TABLE_NAME = {tablename}"""
 
-            # TODO: Figure out why dbtbl_create doesn't work here but works in workbench
+                # TODO: Figure out why dbtbl_create doesn't work here but works in workbench
                 dbtbl_create = """
                 CREATE DATABASE IF NOT EXISTS sscdb;
                 USE sscdb;
@@ -93,7 +96,6 @@ class StoreSSC:
                     cursor.close()
                     connection.close()
 
-
         except mysql.connector.Error as e:
             print("Error in ssc_st - TRY1: " + str(e))
 
@@ -109,18 +111,29 @@ class StoreSSC:
 
         try:
             with mysql.connector.connect(
-                    host="localhost",
-                    user=str(os.getenv("DB_USER")),
-                    password=str(os.getenv("DB_PASS")),
-                    database="sscdb",
+                host="localhost",
+                user=str(os.getenv("DB_USER")),
+                password=str(os.getenv("DB_PASS")),
+                database="sscdb",
             ) as connection:
 
                 show_db_ticker = "SELECT * FROM logentry"
-                insert_db_table = "INSERT INTO logentry (ticker, grade, parsecombo, points, basepoints) " \
-                                  "VALUES (%s, %s, %s, %s, %s)"
+                insert_db_table = (
+                    "INSERT INTO logentry (ticker, grade, parsecombo, points, basepoints) "
+                    "VALUES (%s, %s, %s, %s, %s)"
+                )
 
                 with connection.cursor(prepared=True) as cursor:
-                    cursor.execute(insert_db_table, (ticker_entry, grade_ssc, combo_json, points, basepoints,))
+                    cursor.execute(
+                        insert_db_table,
+                        (
+                            ticker_entry,
+                            grade_ssc,
+                            combo_json,
+                            points,
+                            basepoints,
+                        ),
+                    )
                     connection.commit()
 
         except mysql.connector.Error as e:
@@ -140,10 +153,10 @@ class StoreSSC:
 
         try:
             with mysql.connector.connect(
-                    host="localhost",
-                    user=str(os.getenv("DB_USER")),
-                    password=str(os.getenv("DB_PASS")),
-                    database="sscdb",
+                host="localhost",
+                user=str(os.getenv("DB_USER")),
+                password=str(os.getenv("DB_PASS")),
+                database="sscdb",
             ) as connection:
                 show_db_ticker = "SELECT * FROM logentry"
                 with connection.cursor() as cursor:
@@ -160,14 +173,14 @@ class StoreSSC:
         return results
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import gradeparsecombinessc
 
     S_SSC = StoreSSC()
     S_SSC.db_chksetup()
-    #testlogvaridssc = 'Y8bdxbfeWiliz3B'
-    #GS = gradeparsecombinessc.GradeParseCombineSSC()
-    #testdict = GS.gradeparsecombinessc('NVDA', testlogvaridssc)
-    #testdict_json = json.dumps(testdict, skipkeys=False)
-    #ticker_testssc = "NVDA"
-    #S_SSC.log_entry(parsecombo=testdict_json, grade_ssc="BC", ticker_entry="NVDA")
+    # testlogvaridssc = 'Y8bdxbfeWiliz3B'
+    # GS = gradeparsecombinessc.GradeParseCombineSSC()
+    # testdict = GS.gradeparsecombinessc('NVDA', testlogvaridssc)
+    # testdict_json = json.dumps(testdict, skipkeys=False)
+    # ticker_testssc = "NVDA"
+    # S_SSC.log_entry(parsecombo=testdict_json, grade_ssc="BC", ticker_entry="NVDA")

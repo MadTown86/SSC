@@ -10,6 +10,7 @@ import threading as th
 import time
 import tkinter as tk
 import tkinter.font as tk_font
+
 # The Rest
 from tkinter import filedialog as fd
 from tkinter import ttk
@@ -23,6 +24,7 @@ import fetchstarterssc
 import fetchstarterssc as sscf
 import gradestarterssc
 import parsessc
+
 # sscpackage imports
 from sscpackage import storessc as sst
 
@@ -99,20 +101,39 @@ class GuiStarterSSC(object):
         global ticker_entry  # Setting the local scope ticker_entry as the global scope variable
         window = tk.Tk()  # Setting window as the main tk.Tk() variable
         window.title("Simple Stock Checker - Rev. 1.1-a.1")  # Sets title of window
-        window.configure(height="600", width="1800", background="LINEN", padx="10", pady="10")  # configures window size
+        window.configure(
+            height="600", width="1800", background="LINEN", padx="10", pady="10"
+        )  # configures window size
         window.resizable(True, False)  # makes window not changeable
-        window.columnconfigure(0, weight=1)  # sets the column length of window I believe for grid
+        window.columnconfigure(
+            0, weight=1
+        )  # sets the column length of window I believe for grid
         window.rowconfigure(0, weight=1)  # sets the row size of window for grid
-        fontstyle = tk_font.Font(family="Times New Roman", size=18)  # sets a custom font styling as fontStyle
-        fontstyle2 = tk_font.Font(family="Times New Roman", size=14, weight="bold")  # sets a custom font styling
-        mainframe = tk.Frame(master=window, padx="5", pady="5", bg="LINEN")  # create tk.Frame object
-        mainframe.grid(column=0, row=0, columnspan=1, rowspan=1)  # placing mainframe with grid
+        fontstyle = tk_font.Font(
+            family="Times New Roman", size=18
+        )  # sets a custom font styling as fontStyle
+        fontstyle2 = tk_font.Font(
+            family="Times New Roman", size=14, weight="bold"
+        )  # sets a custom font styling
+        mainframe = tk.Frame(
+            master=window, padx="5", pady="5", bg="LINEN"
+        )  # create tk.Frame object
+        mainframe.grid(
+            column=0, row=0, columnspan=1, rowspan=1
+        )  # placing mainframe with grid
         # creates frame object at 0, 0
-        label_1 = tk.Label(master=mainframe, text="Please select a text file: ", font=fontstyle2, bg="LINEN")
+        label_1 = tk.Label(
+            master=mainframe,
+            text="Please select a text file: ",
+            font=fontstyle2,
+            bg="LINEN",
+        )
         label_1.grid(column=0, row=0, columnspan=1, sticky="w", pady="5", padx="5")
 
         # set remaining GUI Tk.Tkinter widgets
-        file_btn = tk.Button(master=mainframe, text="Browse", name="file", font=fontstyle2)
+        file_btn = tk.Button(
+            master=mainframe, text="Browse", name="file", font=fontstyle2
+        )
         file_btn.grid(column=1, row=0, columnspan=1, padx="5", pady="5", sticky="ne")
         label_spc = tk.Label(master=mainframe, text=str("-" * 130) + "\n", bg="LINEN")
         label_spc.grid(column=0, columnspan=2, row=1)
@@ -120,7 +141,9 @@ class GuiStarterSSC(object):
         sfile_btn.grid(column=0, row=2, columnspan=1, sticky="w")
         show_db_btn = tk.Button(master=mainframe, text="Show DB")
         show_db_btn.grid(column=1, row=2, columnspan=1, sticky="e")
-        text_c = tk.Text(master=mainframe, height="12", width=75, state="disabled", wrap="none")
+        text_c = tk.Text(
+            master=mainframe, height="12", width=75, state="disabled", wrap="none"
+        )
         text_c.grid(column=0, row=3, columnspan=2, pady="5", padx="5")
         text_cscrollh = tk.Scrollbar(master=mainframe, orient="horizontal")
         text_cscrollh.grid(column=0, row=4, columnspan=2, sticky="nsew")
@@ -128,7 +151,9 @@ class GuiStarterSSC(object):
         text_cscrollv.grid(column=2, row=3, rowspan=1, sticky="nes")
         text_cscrollv.config(command=text_c.yview)
         text_cscrollh.config(command=text_c.xview)
-        text_c.configure(xscrollcommand=text_cscrollh.set, yscrollcommand=text_cscrollv.set)
+        text_c.configure(
+            xscrollcommand=text_cscrollh.set, yscrollcommand=text_cscrollv.set
+        )
         exit_btn = tk.Button(master=mainframe, text="CLOSE", font=fontstyle)
         exit_btn.grid(column=0, row=5, columnspan=1, sticky="w")
         cancel_btn = tk.Button(master=mainframe, text="CANCEL", font=fontstyle)
@@ -136,7 +161,7 @@ class GuiStarterSSC(object):
 
         # setting a tkk style for the submit_click button
         s = ttk.Style()
-        s.configure('my.TButton', font=('Times New Roman', 18))
+        s.configure("my.TButton", font=("Times New Roman", 18))
 
         def rkey():
             """
@@ -145,7 +170,7 @@ class GuiStarterSSC(object):
             :return: 8 digit random key - rkeyval
             """
             global r_keyl
-            rkeyval = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
+            rkeyval = "".join(random.choices(string.ascii_letters + string.digits, k=8))
             r_keyl.append(rkeyval)
             return rkeyval
 
@@ -162,20 +187,20 @@ class GuiStarterSSC(object):
             global error_file
             global stop_thread
 
-            filetypes = (
-                ('text files', '*.txt'),
-                ('All files', '*.*')
-            )
+            filetypes = (("text files", "*.txt"), ("All files", "*.*"))
 
             fd_raw = fd.askopenfile(
-                filetypes=filetypes)  # this is the open file function saving the chosen file as fd_raw
+                filetypes=filetypes
+            )  # this is the open file function saving the chosen file as fd_raw
 
             # Validate Chosen List
             flag = True
             if fd_raw:
                 fd_l = [x for x in fd_raw.readlines()][0]
                 for char in fd_l:
-                    chars_notwant = itertools.chain(string.digits, string.punctuation, string.whitespace)
+                    chars_notwant = itertools.chain(
+                        string.digits, string.punctuation, string.whitespace
+                    )
                     if char in chars_notwant:
                         fd_l.replace(char, "")
                 fd_check = fd_l.replace(" ", "").split(",")
@@ -198,14 +223,16 @@ class GuiStarterSSC(object):
                     # ticker_list to set and remove quotations
                     setticker_list = set()
                     for ticker in ticker_entry:
-                        temp_ticker = ticker.replace('"', '')
+                        temp_ticker = ticker.replace('"', "")
                         setticker_list.add(temp_ticker)
 
                     # Update ssc_gui function attribute - ticker_entry
                     self.ticker_list = sorted(setticker_list)
                     print(bool(self.ticker_list))
-                    text_update(msg="You have chosen a valid list - click submit to continue processing",
-                                header="")
+                    text_update(
+                        msg="You have chosen a valid list - click submit to continue processing",
+                        header="",
+                    )
 
                     # Enable submit click when a minimum list of tickers is given
                     if len(self.ticker_list) >= 1:
@@ -214,19 +241,23 @@ class GuiStarterSSC(object):
                         okbutton.state(["disabled"])
 
                 else:
-                    text_update(msg="There are invalid ticker symbols present, please retry", header="")
+                    text_update(
+                        msg="There are invalid ticker symbols present, please retry",
+                        header="",
+                    )
 
-                showinfo(
-                    title="Selected File",
-                    message=fd_raw.name
-                )
+                showinfo(title="Selected File", message=fd_raw.name)
 
             else:
-                text_update(msg="You need to choose a valid file to continue.", header="")
+                text_update(
+                    msg="You need to choose a valid file to continue.", header=""
+                )
 
             return
 
-        file_btn.bind("<Button-1>", fileopn)  # binding the button file_btn to the fileopn function with press event
+        file_btn.bind(
+            "<Button-1>", fileopn
+        )  # binding the button file_btn to the fileopn function with press event
 
         def show_contents(event):
             """
@@ -240,9 +271,13 @@ class GuiStarterSSC(object):
             elif error_file:
                 text_update(error_file)
             else:
-                text_update("You must first choose a file before displaying its contents.")
+                text_update(
+                    "You must first choose a file before displaying its contents."
+                )
 
-        sfile_btn.bind("<Button-1>", show_contents)  # This binds button sfile_btn to function show_contents
+        sfile_btn.bind(
+            "<Button-1>", show_contents
+        )  # This binds button sfile_btn to function show_contents
 
         def cancel_click(event):
             """
@@ -251,21 +286,28 @@ class GuiStarterSSC(object):
             :return:
             """
 
-            text_update("Cancel pressed...please wait for current process to finish before closing application")
+            text_update(
+                "Cancel pressed...please wait for current process to finish before closing application"
+            )
 
             GuiStarterSSC.cancel_start = True
             GuiStarterSSC.cancel_init()
 
             if GuiStarterSSC.thread_list:
-                exit_btn['state'] = 'disabled'
+                exit_btn["state"] = "disabled"
             else:
-                exit_btn['state'] = 'normal'
+                exit_btn["state"] = "normal"
                 GuiStarterSSC.reset_init()
-                text_update(msg="Cancel Successful:  Please select new list or close.", header="")
+                text_update(
+                    msg="Cancel Successful:  Please select new list or close.",
+                    header="",
+                )
                 GuiStarterSSC.cancel_start = False
                 pass
 
-        cancel_btn.bind("<Button-1>", cancel_click)  # this binds cancel_btn with cancel_click function upon event
+        cancel_btn.bind(
+            "<Button-1>", cancel_click
+        )  # this binds cancel_btn with cancel_click function upon event
 
         def text_update(msg, header: str = "- DEFAULT -"):
             """
@@ -275,7 +317,7 @@ class GuiStarterSSC(object):
             """
             text_c.config(state="normal")
             text_c.delete("1.0", "end")
-            text_c.insert("1.0", str(f'STATUS MESSAGE: {header} -> {msg}'))
+            text_c.insert("1.0", str(f"STATUS MESSAGE: {header} -> {msg}"))
             text_c.config(state="disabled")
 
         def submit_click():
@@ -285,7 +327,7 @@ class GuiStarterSSC(object):
             attribute, parsetool attribute and storetool attribute.
             :return:
             """
-            exit_btn['state'] = 'disabled'
+            exit_btn["state"] = "disabled"
 
             if okbutton.instate(["!disabled"]):
                 try:
@@ -302,7 +344,11 @@ class GuiStarterSSC(object):
                         if not GuiStarterSSC.cancel_start:
                             print("Ticker List")
                             FS = sscf.FetchStarterSSC(self.ticker_list)
-                            schedule.every(1).seconds.do(lambda: text_update(header=FS.pull_header(), msg=FS.pull_runlist()))
+                            schedule.every(1).seconds.do(
+                                lambda: text_update(
+                                    header=FS.pull_header(), msg=FS.pull_runlist()
+                                )
+                            )
                             schedule.run_pending()
                             asyncio.run(FS._fetch_cycle())
                             schedule.clear()
@@ -317,18 +363,21 @@ class GuiStarterSSC(object):
                             print("Exception in guistarter -> fetchlogdelete")
                             print(er)
 
-
                         print("After Fetch")
                         GuiStarterSSC.end_fetchstart = True
                         if GuiStarterSSC.cancel_start:
                             GuiStarterSSC.schedule_boolfalse()
                             schedule.clear()
-                            exit_btn['state'] = 'normal'
+                            exit_btn["state"] = "normal"
 
                         if not GuiStarterSSC.cancel_start:
                             PS = parsessc.ParseStart()
                             schedule.every(1).seconds.do(
-                                lambda: text_update(header=PS.pull_parseheader(), msg=PS.parse_runfetch()))
+                                lambda: text_update(
+                                    header=PS.pull_parseheader(),
+                                    msg=PS.parse_runfetch(),
+                                )
+                            )
                             schedule.run_pending()
                             PS.ssc_parselogstart(fetchssc.FetchSSC.pull_fetchfaillist())
                             schedule.clear()
@@ -337,30 +386,34 @@ class GuiStarterSSC(object):
                         if GuiStarterSSC.cancel_start:
                             GuiStarterSSC.schedule_boolfalse()
                             schedule.clear()
-                            exit_btn['state'] = 'normal'
+                            exit_btn["state"] = "normal"
 
                         if not GuiStarterSSC.cancel_start:
                             print("Just Before Grade Start")
                             # TODO: unsuported operand type(s) for /: 'float' and 'tuple' - check into
                             GS = gradestarterssc.GradeStartSSC()
                             print("After Instantiation of GS")
-                            schedule.every(1).seconds.do(lambda: text_update(header=GS.pull_gradeheader(), msg=GS.get_runitem()))
+                            schedule.every(1).seconds.do(
+                                lambda: text_update(
+                                    header=GS.pull_gradeheader(), msg=GS.get_runitem()
+                                )
+                            )
                             print("After Grade schedule lambda")
                             schedule.run_pending()
                             print("After schedule.run_pending")
                             GS.gradestartssc()
                             schedule.clear()
 
-                        text_update("Ticker List Processed - Click 'Show DB' Button for Grade", "")
-
+                        text_update(
+                            "Ticker List Processed - Click 'Show DB' Button for Grade",
+                            "",
+                        )
 
                         GuiStarterSSC.end_gradestart = True
                         if GuiStarterSSC.cancel_start:
                             GuiStarterSSC.schedule_boolfalse()
                             schedule.clear()
-                            exit_btn['state'] = 'normal'
-
-                        
+                            exit_btn["state"] = "normal"
 
                         # TODO: Create a stop process to terminate fetch/parse actions
 
@@ -380,10 +433,13 @@ class GuiStarterSSC(object):
         # TODO: Need to check to see if I still need to create multiple threads to handle the freezing issue on the GUI
 
         def sub_threader():
-            GuiStarterSSC.thread_list.append(th.Thread(target=submit_click, name=rkey(), daemon=True).start())
+            GuiStarterSSC.thread_list.append(
+                th.Thread(target=submit_click, name=rkey(), daemon=True).start()
+            )
 
-        okbutton = ttk.Button(master=mainframe, text="SUBMIT", style='my.TButton',
-                              command=sub_threader)
+        okbutton = ttk.Button(
+            master=mainframe, text="SUBMIT", style="my.TButton", command=sub_threader
+        )
 
         okbutton.grid(column=1, row=5, columnspan=1, sticky="e")
 
@@ -399,27 +455,29 @@ class GuiStarterSSC(object):
             """
             schedule.clear()
             GuiStarterSSC.schedule_boolfalse()
-            print(str(exit_btn['state']))
-            if exit_btn['state'] == 'normal':
+            print(str(exit_btn["state"]))
+            if exit_btn["state"] == "normal":
                 print(len(th.enumerate()))
                 if len(th.enumerate()) > 1:
                     for x in th.enumerate():
                         print(x.name)
                         if x is not th.main_thread():
                             x.join()
-                            print(f'THREAD JOINED: {x.name}')
+                            print(f"THREAD JOINED: {x.name}")
                         else:
                             continue
                 else:
                     pass
 
-            if exit_btn['state'] == 'normal':
+            if exit_btn["state"] == "normal":
                 window.destroy()
                 sys.exit()
             else:
                 pass
 
-        exit_btn.bind("<Button-1>", exit_click)  # this line of code binds the exit_btn to the exit_click function
+        exit_btn.bind(
+            "<Button-1>", exit_click
+        )  # this line of code binds the exit_btn to the exit_click function
 
         def show_db(event):
             ST = sst.StoreSSC()
@@ -443,7 +501,9 @@ class GuiStarterSSC(object):
                 text_update("Database Not Yet Linked: Contact Grover")
                 pass
 
-        show_db_btn.bind("<Button-1>", show_db)  # this binds show_db_btn to show_db function
+        show_db_btn.bind(
+            "<Button-1>", show_db
+        )  # this binds show_db_btn to show_db function
 
         for x in th.enumerate():
             print(str(x))
