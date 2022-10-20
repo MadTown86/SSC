@@ -6,7 +6,7 @@ import gradecollectionssc
 import gradeparsecombinessc
 
 
-class GradeStartSSC:
+class GradeStartSSC():
     grade_cancel = False
     grade_runitem = ""
     grade_header = "GRADE TICKERS - "
@@ -53,27 +53,23 @@ class GradeStartSSC:
             for val in clean_copyssc:
                 print(val)
             for item in clean_copyssc:
-                if not GradeStartSSC.grade_cancel:
-                    ticker, entrysscgs = item.split("__")
-                    print(ticker)
-                    print(entrysscgs)
-                    GradeStartSSC.set_runitem(ticker)
-                    print("After GradeStartSSC runitem set")
-                    PCOMBO = gradeparsecombinessc.GradeParseCombineSSC()
-                    print("After gradeparsecombinessc")
-                    parsecomb_passin = PCOMBO.gradeparsecombinessc(
-                        ticker=ticker, logfileidssc=entrysscgs
-                    )
-                    GCOL_SSC = gradecollectionssc.GradeCollectionSSC(
-                        ticker=ticker,
-                        uniqueidssc=entrysscgs,
-                        parsecombossc=parsecomb_passin,
-                    )
-                    print("After creation of grade collection object")
-                    print(gradecollectionssc.GradeCollectionSSC.return_inst_count())
-                    GCOL_SSC.gradecollectionssc()
-                    print("After GCOL_SSC.gradecollectionssc()")
-                    FS_SSC.ssc_logcompletewrite(ticker, entrysscgs)
+                    if not GradeStartSSC.grade_cancel:
+                        ticker, entrysscgs = item.split("__")
+                        print(ticker)
+                        print(entrysscgs)
+                        GradeStartSSC.set_runitem(ticker)
+                        print("After GradeStartSSC runitem set")
+                        PCOMBO = gradeparsecombinessc.GradeParseCombineSSC()
+                        print("After gradeparsecombinessc")
+                        parsecomb_passin = PCOMBO.gradeparsecombinessc(ticker=ticker, logfileidssc=entrysscgs)
+                        GCOL_SSC = gradecollectionssc.GradeCollectionSSC(ticker=ticker,
+                                                                         uniqueidssc=entrysscgs,
+                                                                         parsecombossc=parsecomb_passin)
+                        print("After creation of grade collection object")
+                        print(gradecollectionssc.GradeCollectionSSC.return_inst_count())
+                        GCOL_SSC.gradecollectionssc()
+                        print("After GCOL_SSC.gradecollectionssc()")
+                        FS_SSC.ssc_logcompletewrite(ticker, entrysscgs)
         except Exception as er:
             print("Exception in GradeStarterSSC: function 'gradestartssc' ")
             print(er)

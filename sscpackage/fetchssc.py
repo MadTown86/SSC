@@ -18,7 +18,7 @@ import sscpackage.fetchurlssc
 import sscpackage.fetchurlssc_sub
 
 dotenv.load_dotenv(dotenv_path=os.getenv("LO_ROOT"))
-ROOT_VAR_SSC = os.getenv("CORE_DIR_STOR")
+ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
 
 
 def theshuffler(basket: [], countage: int) -> None:
@@ -60,6 +60,7 @@ def myownrandom(keylength: int = 10) -> str:
 
 
 class FetchSSC:
+
     @staticmethod
     def pull_fetchfaillist():
         return FetchSSC.ticker_fail
@@ -118,7 +119,6 @@ class FetchSSC:
             print("Exception in fetchssc -> purge_tickerfail")
 
     try:
-
         async def rapid_fetch(self, ticker, *args, **kwargs):
             print("In rapid_fetch ::: " + str(ticker))
             try:
@@ -135,33 +135,16 @@ class FetchSSC:
                 url = self.url_bank[tag]["url"]
                 qs = self.url_bank[tag]["qs"]
                 head = self.url_bank[tag]["headers"]
-                response = requests.request(
-                    "GET", url=url, headers=head, params=qs
-                )  # Request data
+                response = requests.request("GET", url=url, headers=head, params=qs)  # Request data
                 self.response = response
-                self.fetchstorename = (
-                    self.ticker
-                    + "__"
-                    + tag
-                    + "__"
-                    + str(id(self))
-                    + "__"
-                    + sscrandomkey
-                )
-                if (
-                    response.status_code == 200
-                ):  # If received 'all good' response from API for first request, continue
+                self.fetchstorename = self.ticker + "__" + tag + "__" + str(id(self)) + "__" + sscrandomkey
+                if response.status_code == 200:  # If received 'all good' response from API for first request, continue
                     self.fetch_data = dict(response.json())
                     FSSC = sscpackage.fetchshelfssc_mod.FetchShelfSSC()
-                    FSSC.fetchstore(
-                        ticker=ticker,
-                        tag=tag,
-                        sscrandomkey=sscrandomkey,
-                        fetchstorename=self.fetchstorename,
-                        fetch_data=self.fetch_data,
-                    )
+                    FSSC.fetchstore(ticker=ticker, tag=tag, sscrandomkey=sscrandomkey,
+                                    fetchstorename=self.fetchstorename, fetch_data=self.fetch_data)
                     self.statusfetch = True
-                    print(f"Success for ticker : {ticker}")
+                    print(f'Success for ticker : {ticker}')
                 elif response.status_code == 401:
                     self.ticker_fail(self.fetchstorename)
                     print("Invalid API Key - Check User Information")
@@ -171,10 +154,10 @@ class FetchSSC:
                     print("API Server Gateway Error - API not currently working")
                     self.statusfetch = False
                 else:
-                    print(f"OTHER RESPONSE ERROR CODE: {response.status_code}")
+                    print(f'OTHER RESPONSE ERROR CODE: {response.status_code}')
                     # TODO: Utilize FetchSSC.ticker_fail list to avoid parsing/grading tickers with failed fetches
                     self.ticker_fail(self.fetchstorename)
-                    print(f"{self.ticker} - failed fetch")
+                    print(f'{self.ticker} - failed fetch')
                     self.statusfetch = False
                 await asyncio.sleep(1)
 

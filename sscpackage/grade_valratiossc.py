@@ -5,7 +5,7 @@ class GradeValRatioSSC(gradesheetprintssc.GradeSheetPrintSSC):
     def __init__(self):
         super().__init__()
         self.gradeprinterdict = {}
-        self.limitchecklist = ["Market Cap (intraday)", "Enterprise Value"]
+        self.limitchecklist = ['Market Cap (intraday)',  'Enterprise Value']
 
     def grade_valratiossc(self, ticker, parsecombo, uniqueid, awardsystem):
         # TODO: The ValRatioSSC needs a more in-depth grading mechanism than simple '>' '<' YoY system
@@ -25,24 +25,19 @@ class GradeValRatioSSC(gradesheetprintssc.GradeSheetPrintSSC):
         :return:
         """
         try:
-            localvalratiodict = parsecombo["valdat"]
+            localvalratiodict = parsecombo['valdat']
             valratiopointbook = {}
 
             for rationame in self.limitchecklist:
-                pointsper = awardsystem["VALMETRICS"][rationame]["points"]
-                weightval = awardsystem["VALMETRICS"][rationame]["weight"]
+                pointsper = awardsystem['VALMETRICS'][rationame]['points']
+                weightval = awardsystem['VALMETRICS'][rationame]['weight']
                 respointrunner = 0
 
                 for old_index in range(len(localvalratiodict[rationame]) - 1, 0, -1):
                     oldery = localvalratiodict[rationame][old_index]
                     recenty = localvalratiodict[rationame][old_index - 1]
-                    listforkey = [
-                        rationame,
-                        "YEAR",
-                        localvalratiodict[rationame].index(recenty),
-                        "|",
-                        localvalratiodict[rationame].index(oldery),
-                    ]
+                    listforkey = [rationame, "YEAR", localvalratiodict[rationame].index(recenty),
+                                  "|", localvalratiodict[rationame].index(oldery)]
 
                     if recenty > oldery:
                         respointrunner += pointsper
@@ -53,11 +48,8 @@ class GradeValRatioSSC(gradesheetprintssc.GradeSheetPrintSSC):
                     valforgrade = [recenty, inlineGVALvar, oldery, "POINTS", pointsper]
                     self.gradeprinterdict[str(listforkey)] = valforgrade
 
-                valratiopointbook[rationame] = {
-                    "Base Points": (pointsper * (len(localvalratiodict) - 1))
-                    * weightval,
-                    "Current Points": respointrunner * weightval,
-                }
+                valratiopointbook[rationame] = {'Base Points': (pointsper * (len(localvalratiodict) - 1)) * weightval,
+                                                'Current Points': respointrunner * weightval}
 
             self.setinstancepath(ticker, uniqueid)
             self.setsheetnamesscgr(ticker)
@@ -68,20 +60,17 @@ class GradeValRatioSSC(gradesheetprintssc.GradeSheetPrintSSC):
             print("Exception in GradeValRatioSSC: ")
             print(er)
 
-
 if __name__ == "__main__":
     import gradeparsecombinessc
     import awardsystemssc
 
-    testlogvaridssc = "TSLA__yyXr8pbeOrad9fH"
+    testlogvaridssc = 'TSLA__yyXr8pbeOrad9fH'
     ticker, uniqueid = testlogvaridssc.split("__")
     AWS = awardsystemssc.AwardSystemSSC()
     awardsystempassin = AWS.fetchawardsystem("Industry", "Sector")
 
     GPSSC = gradeparsecombinessc.GradeParseCombineSSC()
-    gradeparsecombo = GPSSC.gradeparsecombinessc(ticker, uniqueid)[
-        "TSLA__yyXr8pbeOrad9fH"
-    ]
+    gradeparsecombo = GPSSC.gradeparsecombinessc(ticker, uniqueid)['TSLA__yyXr8pbeOrad9fH']
 
     for item in gradeparsecombo["valdat"].items():
         print(item)

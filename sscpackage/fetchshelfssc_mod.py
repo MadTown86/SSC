@@ -4,7 +4,7 @@ import dotenv
 import os
 
 dotenv.load_dotenv(dotenv_path=os.getenv("LO_ROOT"))
-ROOT_VAR_SSC = os.getenv("CORE_DIR_STOR")
+ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
 
 
 class FetchShelfSSC:
@@ -18,10 +18,10 @@ class FetchShelfSSC:
         -fetchstore() - stores the fetch data in "fetchfiledb" shelve
         -fetchdbpull() - pulls and returns the shelve "fetchfiledb"
     """
-
     setpath_fetchshelfssc = ROOT_VAR_SSC
 
-    def __init__(self, fetchstoreshelf=setpath_fetchshelfssc + r"\fetchfiledb"):
+    def __init__(self,
+                 fetchstoreshelf=setpath_fetchshelfssc + r"\fetchfiledb"):
         self.fetchstoreshelf = fetchstoreshelf
         self.fetchstorename = ""
 

@@ -2,30 +2,22 @@ import os
 import shelve
 import dotenv
 import os
-
 dotenv.load_dotenv(dotenv_path=os.getenv("LO_ROOT"))
-ROOT_VAR_SSC = os.getenv("CORE_DIR_STOR")
-
+ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
 
 class FetchUrlSSC:
     """
     This class is going to combine variables and pass to FetchCyclerSSC as arguments for 'requests' module
     It will also allow you to add another fetch
     """
-
     setpath_fetchurlssc = ROOT_VAR_SSC
 
-    def __init__(
-        self,
-        ticker,
-        pathnamefetchurls=setpath_fetchurlssc + r"\fetchurlshelfdb",
-        pathbakssc=setpath_fetchurlssc + r"\fetchurlshelfdb.bak",
-        pathdatssc=setpath_fetchurlssc + r"\fetchurlshelfdb.dat",
-        pathdirssc=setpath_fetchurlssc + r"\fetchurlshelfdb.dir",
-        shelfkey="fetchbank",
-        *args,
-        **kwargs
-    ):
+    def __init__(self, ticker, pathnamefetchurls=
+    setpath_fetchurlssc + r"\fetchurlshelfdb",
+                 pathbakssc=setpath_fetchurlssc + r"\fetchurlshelfdb.bak",
+                 pathdatssc=setpath_fetchurlssc + r"\fetchurlshelfdb.dat",
+                 pathdirssc=setpath_fetchurlssc + r"\fetchurlshelfdb.dir",
+                 shelfkey="fetchbank", *args, **kwargs):
         self.ticker = ticker
         self.pathbakssc = pathbakssc
         self.pathdatssc = pathdatssc
@@ -35,13 +27,9 @@ class FetchUrlSSC:
 
         self.url_income = "https://stock-market-data.p.rapidapi.com/stock/financials/income-statement/annual-historical"
         self.url_balance = "https://stock-market-data.p.rapidapi.com/stock/financials/balance-sheet/annual-historical"
-        self.url_ar = (
-            "https://yh-finance.p.rapidapi.com/stock/v2/get-upgrades-downgrades"
-        )
+        self.url_ar = "https://yh-finance.p.rapidapi.com/stock/v2/get-upgrades-downgrades"
         self.url_val = "https://stock-market-data.p.rapidapi.com/stock/valuation/historical-valuation-measures"
-        self.url_sectordata = (
-            "https://stock-market-data.p.rapidapi.com/stock/company-info"
-        )
+        self.url_sectordata = "https://stock-market-data.p.rapidapi.com/stock/company-info"
 
         self.qs_inc_bal = {"ticker_symbol": self.ticker, "format": "json"}
         self.qs_ar = {"symbol": self.ticker, "region": "US"}
@@ -51,6 +39,7 @@ class FetchUrlSSC:
     def firstcreate_fetchurlssc(self):
         with shelve.open(self.pathnamefetchurls) as shelvefetch:
             shelvefetch.close()
+
 
     def checkpaths(self):
         try:
@@ -88,47 +77,26 @@ class FetchUrlSSC:
                 self.purge_fetchurlshelf()
                 # These are the two variables necessary to ping the API's, first two take qs, url_ar takes 2
 
+
                 # header information including RAPI_key environment variable, necessary for API data fetch
                 headers = {
-                    "x-rapidapi-host": "stock-market-data.p.rapidapi.com",
-                    "x-rapidapi-key": os.getenv("RAPI_key"),
+                    'x-rapidapi-host': "stock-market-data.p.rapidapi.com",
+                    'x-rapidapi-key': os.getenv("RAPI_key")
                 }
 
                 # Header for the _ar request
                 headers_ar = {
-                    "x-rapidapi-host": "yh-finance.p.rapidapi.com",
-                    "x-rapidapi-key": os.getenv("RAPI_key"),
+                    'x-rapidapi-host': "yh-finance.p.rapidapi.com",
+                    'x-rapidapi-key': os.getenv("RAPI_key")
                 }
 
                 # Create and prime shelf with core necessary fetches
                 fetchshelf = shelve.open(self.pathnamefetchurls)
-                self.fetch_apidict = {
-                    "url_income": {
-                        "url": self.url_income,
-                        "qs": self.qs_inc_bal,
-                        "headers": headers,
-                    },
-                    "url_balance": {
-                        "url": self.url_balance,
-                        "qs": self.qs_inc_bal,
-                        "headers": headers,
-                    },
-                    "url_ar": {
-                        "url": self.url_ar,
-                        "qs": self.qs_ar,
-                        "headers": headers_ar,
-                    },
-                    "url_val": {
-                        "url": self.url_val,
-                        "qs": self.qs_val,
-                        "headers": headers,
-                    },
-                    "url_sectordata": {
-                        "url": self.url_sectordata,
-                        "qs": self.qs_sector,
-                        "headers": headers,
-                    },
-                }
+                self.fetch_apidict = {"url_income": {"url": self.url_income, "qs": self.qs_inc_bal, "headers": headers},
+                                      "url_balance": {"url": self.url_balance, "qs": self.qs_inc_bal, "headers": headers},
+                                      "url_ar": {"url": self.url_ar, "qs": self.qs_ar, "headers": headers_ar},
+                                      "url_val": {"url": self.url_val, "qs": self.qs_val, "headers": headers},
+                                      "url_sectordata": {"url": self.url_sectordata, "qs": self.qs_sector, "headers": headers}}
                 fetchshelf[self.shelfkey] = self.fetch_apidict
                 self.fetchbank = fetchshelf[self.shelfkey]
                 fetchshelf.close()
@@ -138,28 +106,13 @@ class FetchUrlSSC:
             print("Exception in FetchUrlSSC:")
             print(er)
 
-    def addfetchssc(
-        self,
-        addfetchnamessc="DEFAULTNAME",
-        fetchurlssc="DEFAULTURL",
-        fetchqsssc="DEFAULTSSC",
-        fetchheadersssc="DEFAULTHEADER",
-        *args,
-        **kwargs
-    ):
+    def addfetchssc(self, addfetchnamessc="DEFAULTNAME", fetchurlssc="DEFAULTURL", fetchqsssc="DEFAULTSSC",
+                    fetchheadersssc="DEFAULTHEADER", *args, **kwargs):
         try:
             self.addfetchnamessc = addfetchnamessc
             with shelve.open(self.pathnamefetchurls) as fetchshelf:
                 temp_bankadd = dict(fetchshelf[self.shelfkey])
-                temp_bankadd.update(
-                    {
-                        addfetchnamessc: {
-                            "url": fetchurlssc,
-                            "qs": fetchqsssc,
-                            "headers": fetchheadersssc,
-                        }
-                    }
-                )
+                temp_bankadd.update({addfetchnamessc: {"url": fetchurlssc, "qs": fetchqsssc, "headers": fetchheadersssc}})
                 fetchshelf[self.shelfkey] = temp_bankadd
                 fetchshelf.close()
         except Exception as er:
@@ -215,6 +168,6 @@ class FetchUrlSSC:
             print(er)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     FS1 = FetchUrlSSC("MSFT")
     FS1.clearfetchshelfssc()

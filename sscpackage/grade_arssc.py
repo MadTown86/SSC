@@ -27,6 +27,7 @@ class GradeArSSC(gradesheetprintssc.GradeSheetPrintSSC):
     def __init__(self):
         super().__init__()
 
+
     def grade_arssc(self, ticker, parsecombo, uniqueid, awardsystemssc):
         try:
             localardict = parsecombo["AR"]
@@ -41,17 +42,12 @@ class GradeArSSC(gradesheetprintssc.GradeSheetPrintSSC):
                     total_count_analysts += 1
                     if dictnest["toGrade"] in localawardsys.keys():
                         runningtally += localawardsys[dictnest["toGrade"]]["points"]
-                        printer_sourcebin[str(dictnest["firm"])] = [
-                            dictnest["toGrade"],
-                            localawardsys[dictnest["toGrade"]]["points"],
-                        ]
+                        printer_sourcebin[str(dictnest["firm"])] = [dictnest["toGrade"],
+                                                                    localawardsys[dictnest["toGrade"]]["points"]]
 
             total_count_analysts *= localawardsys["Buy"]["points"]
 
-            total_count_dict["ARGRADE"] = {
-                "Base Points": total_count_analysts,
-                "Current Points": runningtally,
-            }
+            total_count_dict["ARGRADE"] = {"Base Points": total_count_analysts, "Current Points": runningtally}
 
             self.setinstancepath(ticker, uniqueid)
             self.setsheetnamesscgr(ticker)
@@ -63,20 +59,17 @@ class GradeArSSC(gradesheetprintssc.GradeSheetPrintSSC):
             print("Exception In Grade_ARSSC: grade_arssc: ")
             print(er)
 
-
 if __name__ == "__main__":
     import gradeparsecombinessc
     import awardsystemssc
 
-    testlogvaridssc = "NVDA__Y8bdxbfeWiliz3B"
+    testlogvaridssc = 'NVDA__Y8bdxbfeWiliz3B'
     ticker, uniqueid = testlogvaridssc.split("__")
     AWS = awardsystemssc.AwardSystemSSC()
     awardsystempassin = AWS.fetchawardsystem("Industry", "Sector")
 
     GPSSC = gradeparsecombinessc.GradeParseCombineSSC()
-    gradeparsecombo = GPSSC.gradeparsecombinessc(ticker, uniqueid)[
-        "NVDA__Y8bdxbfeWiliz3B"
-    ]
+    gradeparsecombo = GPSSC.gradeparsecombinessc(ticker, uniqueid)['NVDA__Y8bdxbfeWiliz3B']
 
     GAR = GradeArSSC()
     GAR.grade_arssc(ticker, gradeparsecombo, uniqueid, awardsystempassin)

@@ -23,14 +23,13 @@ def cancel_schedule():
         pass
 
 
-class ControlBoardSSC:
+class ControlBoardSSC():
     """
     Main Control Flow:
     1. guistarter
     FROM GUI - INPUT CHOSEN
     2.
     """
-
     main_cancelf = False
 
     @staticmethod

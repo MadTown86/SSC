@@ -18,18 +18,12 @@ def dictprinter(d):
 
 
 class Test_FetchRulSSC(unittest.TestCase):
-    @patch("os.path.exists")
+    @patch('os.path.exists')
     def test_checkpaths(self, mock_os_path_exists):
-        test_callarglist = [
-            call("fetchurlshelfdb.bak"),
-            call("fetchurlshelfdb.dat"),
-            call("fetchurlshelfdb.dir"),
-        ]
+        test_callarglist = [call("fetchurlshelfdb.bak"), call("fetchurlshelfdb.dat"), call("fetchurlshelfdb.dir")]
         LocalFetchClassInstance = FSSC()
         LocalFetchClassInstance.checkpaths()
-        mock_os_path_exists.assert_has_calls(
-            test_callarglist, mock_os_path_exists.call_args_list
-        )
+        mock_os_path_exists.assert_has_calls(test_callarglist, mock_os_path_exists.call_args_list)
         self.assertEqual(True, LocalFetchClassInstance.checkpaths())
 
         del LocalFetchClassInstance, test_callarglist
@@ -109,5 +103,5 @@ class Test_FetchRulSSC(unittest.TestCase):
         self.assertTrue(FSSC)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()

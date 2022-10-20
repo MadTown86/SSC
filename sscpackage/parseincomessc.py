@@ -4,9 +4,8 @@ import fetchshelfssc_mod
 
 import dotenv
 import os
-
 dotenv.load_dotenv(dotenv_path=os.getenv("LO_ROOT"))
-ROOT_VAR_SSC = os.getenv("CORE_DIR_STOR")
+ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
 
 
 class ParseIncome:
@@ -22,7 +21,6 @@ class ParseIncome:
         with shelve.open(self.setpathssc_parsessc) as svinc:
             if svinc.keys():
                 return [x for x in svinc.keys()]
-
     def parse_incomepurge(self):
         try:
             with shelve.open(self.setpathssc_parsessc) as purge_inc:
@@ -37,7 +35,7 @@ class ParseIncome:
             print("Exception in ParseIncome: method 'parse_incomepurge' ")
             print(er)
 
-    def parseincome(self, uniquename: "str", pi_rawdata: "json") -> None:
+    def parseincome(self, uniquename: 'str', pi_rawdata: 'json') -> None:
         """
         Converts raw json string to usable format for grading purposes
 
@@ -47,62 +45,32 @@ class ParseIncome:
         """
         try:
             uniquesplitlist = uniquename.split("__")
-            ticker, key, idssc, timestampidpi = (
-                uniquesplitlist[0],
-                uniquesplitlist[1],
-                uniquesplitlist[2],
-                uniquesplitlist[3],
-            )
+            ticker, key, idssc, timestampidpi = uniquesplitlist[0], uniquesplitlist[1], uniquesplitlist[2], \
+                                                uniquesplitlist[3]
 
             isheets_data = pi_rawdata
 
             isheets_zip = list(
                 zip(
-                    [
-                        isheets_data["annual_historical_income_statements"][0][keys]
-                        for keys in isheets_data["annual_historical_income_statements"][
-                            0
-                        ]
-                    ],
-                    [
-                        isheets_data["annual_historical_income_statements"][1][keys]
-                        for keys in isheets_data["annual_historical_income_statements"][
-                            1
-                        ]
-                    ],
-                    [
-                        isheets_data["annual_historical_income_statements"][2][keys]
-                        for keys in isheets_data["annual_historical_income_statements"][
-                            2
-                        ]
-                    ],
-                    [
-                        isheets_data["annual_historical_income_statements"][3][keys]
-                        for keys in isheets_data["annual_historical_income_statements"][
-                            3
-                        ]
-                    ],
+                    [isheets_data["annual_historical_income_statements"][0][keys] for keys in
+                     isheets_data["annual_historical_income_statements"][0]],
+                    [isheets_data["annual_historical_income_statements"][1][keys] for keys in
+                     isheets_data["annual_historical_income_statements"][1]],
+                    [isheets_data["annual_historical_income_statements"][2][keys] for keys in
+                     isheets_data["annual_historical_income_statements"][2]],
+                    [isheets_data["annual_historical_income_statements"][3][keys] for keys in
+                     isheets_data["annual_historical_income_statements"][3]],
                 )
             )
 
-            isheets_keys = [
-                key for key in isheets_data["annual_historical_income_statements"][0]
-            ]
+            isheets_keys = [key for key in isheets_data["annual_historical_income_statements"][0]]
 
             isheets_dict = {}
             for x in range(len(isheets_keys)):
                 isheets_dict[isheets_keys[x]] = isheets_zip[x]
 
-            FST_SSC = fetchshelfssc_mod.FetchShelfSSC(
-                fetchstoreshelf=self.setpathssc_parsessc
-            )
-            FST_SSC.fetchstore(
-                ticker=ticker,
-                key=key,
-                idssc=idssc,
-                fetch_data=isheets_dict,
-                timestampidfs=timestampidpi,
-            )
+            FST_SSC = fetchshelfssc_mod.FetchShelfSSC(fetchstoreshelf=self.setpathssc_parsessc)
+            FST_SSC.fetchstore(ticker=ticker, key=key, idssc=idssc, fetch_data=isheets_dict, timestampidfs=timestampidpi)
             del FST_SSC
 
         except Exception as Er:

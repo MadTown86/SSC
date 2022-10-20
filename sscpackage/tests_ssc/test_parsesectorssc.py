@@ -5,10 +5,8 @@ import parsesectorssc
 
 import dotenv
 import os
-
 dotenv.load_dotenv(dotenv_path=os.getenv("LO_ROOT"))
-ROOT_VAR_SSC = os.getenv("CORE_DIR_STOR")
-
+ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
 
 def quickdeleteop(path):
     with shelve.open(path) as funcdelshelf:
@@ -28,8 +26,8 @@ def shelveexist(path):
 class MyTestCase(unittest.TestCase):
     def test_parsesectorssc(self):
 
-        test_parsesectorsscdatapath = ROOT_VAR_SSC + "test_parse_sector.json"
-        test_parsesectoruniquename = "Test1__Test2__Test3__Test4"
+        test_parsesectorsscdatapath = ROOT_VAR_SSC + 'test_parse_sector.json'
+        test_parsesectoruniquename = 'Test1__Test2__Test3__Test4'
         PSEC = parsesectorssc.ParseSector()
 
         quickdeleteop(PSEC.setpathssc_parsesscsec)
@@ -58,9 +56,9 @@ class MyTestCase(unittest.TestCase):
 
 
 def test_fetch_parsesectorssc(self):
-    test_parsesectimestampid = "Test4"
-    test_parsesectorsscdatapath = ROOT_VAR_SSC + "test_parse_sector.json"
-    test_parsesectoruniquename = "Test1__Test2__Test3__Test4"
+    test_parsesectimestampid = 'Test4'
+    test_parsesectorsscdatapath = ROOT_VAR_SSC + 'test_parse_sector.json'
+    test_parsesectoruniquename = 'Test1__Test2__Test3__Test4'
 
     PSEC = parsesectorssc.ParseSector()
     with shelve.open(PSEC.setpathssc_parsesscsec) as fd:
@@ -82,7 +80,7 @@ def test_fetch_parsesectorssc(self):
         fileopen.close()
 
     testvalparsesectwo = PSEC.fetch_parsesector(test_parsesectimestampid)
-    testvalparsesectortwoanswer = "Technology"
+    testvalparsesectortwoanswer = 'Technology'
     self.assertEqual(testvalparsesectwo, testvalparsesectortwoanswer)
 
     with shelve.open(PSEC.setpathssc_parsesscsec) as fd:
@@ -91,5 +89,5 @@ def test_fetch_parsesectorssc(self):
         fd.close()
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()

@@ -4,9 +4,8 @@ import fetchshelfssc_mod
 
 import dotenv
 import os
-
 dotenv.load_dotenv(dotenv_path=os.getenv("LO_ROOT"))
-ROOT_VAR_SSC = os.getenv("CORE_DIR_STOR")
+ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
 
 
 class ParseIndustry:
@@ -30,26 +29,14 @@ class ParseIndustry:
     def parseindustry(self, uniquename, ind_rawdata):
         try:
             uniquesplitlist = uniquename.split("__")
-            ticker, key, idssc, timestampidpind = (
-                uniquesplitlist[0],
-                uniquesplitlist[1],
-                uniquesplitlist[2],
-                uniquesplitlist[3],
-            )
+            ticker, key, idssc, timestampidpind = uniquesplitlist[0], uniquesplitlist[1], uniquesplitlist[2], \
+                                                  uniquesplitlist[3]
 
             DP_SSC = dictpullssc.DictPullSSC()
             secdata = DP_SSC.dictpullssc(ind_rawdata, "Industry")
 
-            FST_SSC = fetchshelfssc_mod.FetchShelfSSC(
-                fetchstoreshelf=self.setpathssc_parsesscind
-            )
-            FST_SSC.fetchstore(
-                ticker=ticker,
-                key=key,
-                idssc=idssc,
-                fetch_data=secdata,
-                timestampidfs=timestampidpind,
-            )
+            FST_SSC = fetchshelfssc_mod.FetchShelfSSC(fetchstoreshelf=self.setpathssc_parsesscind)
+            FST_SSC.fetchstore(ticker=ticker, key=key, idssc=idssc, fetch_data=secdata, timestampidfs=timestampidpind)
             del FST_SSC
             del DP_SSC
         except Exception as er:

@@ -4,7 +4,9 @@ import os
 import time
 
 dotenv.load_dotenv(dotenv_path=os.getenv("LO_ROOT"))
-ROOT_VAR_SSC = os.getenv("CORE_DIR_STOR")
+ROOT_VAR_SSC = os.getenv('CORE_DIR_STOR')
+
+
 
 
 class FetchLogSSC:
@@ -101,16 +103,12 @@ class FetchLogSSC:
                     if fl4[self.logname]:
                         log_listlocal = [x for x in fl4[self.logname]]
                         log_listdel = log_listlocal[:]
-                        print(f"LOG LIST LOCAL - ssc_fetchlog: {log_listlocal}")
+                        print(f'LOG LIST LOCAL - ssc_fetchlog: {log_listlocal}')
                         for indexno in range(len(log_listlocal) - 1):
                             print(indexno)
                             if ticker and uniqueid in log_listlocal[indexno]:
                                 print(log_listlocal[indexno])
-                                transfer_todelete.append(
-                                    log_listdel.pop(
-                                        log_listdel.index(log_listlocal[indexno])
-                                    )
-                                )
+                                transfer_todelete.append(log_listdel.pop(log_listdel.index(log_listlocal[indexno])))
                             else:
                                 continue
                         fl4[self.logname] = log_listdel

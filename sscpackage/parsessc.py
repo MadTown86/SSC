@@ -57,12 +57,16 @@ class ParseStart:
         local_logcopy = FLOG.ssc_logfetch()
         del FLOG
 
+
+
+
         PI_SSC = parseincomessc.ParseIncome()
         PB_SSC = parsebalancessc.ParseBalance()
         PVAL_SSC = parsevalssc.ParseVal()
         PAR_SSC = parsearssc.ParseAr()
         PSEC_SSC = parsesectorssc.ParseSector()
         PIND_SSC = parseindssc.ParseIndustry()
+
 
         tag_container = {}
         tag_container["url_income"] = "inctag"
@@ -75,32 +79,31 @@ class ParseStart:
             PSEC_SSC.parsesector(tag, shelvecopy_fromapi[tag]),
             PIND_SSC.parseindustry(tag, shelvecopy_fromapi[tag])
 
-        dict_tagswitchboard = {
-            "inctag": lambda logentrylamb: PI_SSC.parseincome(
-                logentrylamb, shelvecopy_fromapi[logentrylamb]
-            ),
-            "baltag": lambda logentrylamb: PB_SSC.parsebalance(
-                logentrylamb, shelvecopy_fromapi[logentrylamb]
-            ),
-            "valtag": lambda logentrylamb: PVAL_SSC.parseval(
-                logentrylamb, shelvecopy_fromapi[logentrylamb]
-            ),
-            "artag": lambda logentrylamb: PAR_SSC.parsear(
-                logentrylamb, shelvecopy_fromapi[logentrylamb]
-            ),
-            "sectag": lambda logentrylamb: indsec(logentrylamb),
-        }
+        dict_tagswitchboard = {"inctag": lambda logentrylamb:
+        PI_SSC.parseincome(logentrylamb, shelvecopy_fromapi[logentrylamb]),
+
+                               "baltag": lambda logentrylamb:
+                               PB_SSC.parsebalance(logentrylamb, shelvecopy_fromapi[logentrylamb]),
+
+                               "valtag": lambda logentrylamb:
+                               PVAL_SSC.parseval(logentrylamb, shelvecopy_fromapi[logentrylamb]),
+
+                               "artag": lambda logentrylamb:
+                               PAR_SSC.parsear(logentrylamb, shelvecopy_fromapi[logentrylamb]),
+
+                               "sectag": lambda logentrylamb: indsec(logentrylamb)
+                               }
         try:
-            print(f"TICKER FAIL LIST: {ticker_fail}")
+            print(f'TICKER FAIL LIST: {ticker_fail}')
 
             for line in local_logcopy:
                 print(f'Local Log Copy Line: "{line}"')
             for logentry in local_logcopy:
-                print(f"logentry: {logentry}")
+                print(f'logentry: {logentry}')
                 if len(logentry.split("__")) > 1:
                     tempsplit = logentry.split("__")
                     ticker = tempsplit[0]
-                    print(f"PARSESTART: {ticker}")
+                    print(f'PARSESTART: {ticker}')
                     urlbinding = tempsplit[1]
                     temp_logentry = ticker + "__" + urlbinding
                     if temp_logentry not in ticker_fail:
@@ -110,12 +113,12 @@ class ParseStart:
                         for tag in tag_container.keys():
                             tag_check = ticker + "__" + urlbinding
                             if tag_check not in ticker_fail:
-                                print(f"TAG CHECK: {tag_check}")
-                                print(f"Made it into tag ticker OK")
+                                print(f'TAG CHECK: {tag_check}')
+                                print(f'Made it into tag ticker OK')
                                 (dict_tagswitchboard[tag_container[tag]])(logentry)
                                 break
                             else:
-                                print(f"Enterred tag-else for tag_check: {tag_check}")
+                                print(f'Enterred tag-else for tag_check: {tag_check}')
                                 continue
                     else:
                         print(f'Temp Log Entry In Fail: "{temp_logentry}"')
@@ -125,7 +128,7 @@ class ParseStart:
         except Exception as er:
             print("Exception in parsessc during loop:")
             if logentry and ticker and tag:
-                print(f"Logentry: {logentry} \n Ticker: {ticker} \n Tag: {tag}")
+                print(f'Logentry: {logentry} \n Ticker: {ticker} \n Tag: {tag}')
 
         del PI_SSC
         del PB_SSC
@@ -133,7 +136,6 @@ class ParseStart:
         del PAR_SSC
         del PVAL_SSC
         del PIND_SSC
-
 
 if __name__ == "__main__":
     FS_SSC = fetchlogssc.FetchLogSSC()

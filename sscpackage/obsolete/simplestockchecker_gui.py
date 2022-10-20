@@ -55,33 +55,16 @@ def ssc_gui():
     ssc_gui.ticker_list = None  # Setting ssc_gui.ticker_list as none function attribute
     window = tk.Tk()  # Setting window as the main tk.Tk() variable
     window.title("Simple Stock Checker - Rev. Jack Concannon")  # Sets title of window
-    window.configure(
-        height="600", width="1800", background="LINEN", padx="10", pady="10"
-    )  # configures window size
+    window.configure(height="600", width="1800", background="LINEN", padx="10", pady="10")  # configures window size
     window.resizable(True, False)  # makes window not changeable
-    window.columnconfigure(
-        0, weight=1
-    )  # sets the column length of window I believe for grid
+    window.columnconfigure(0, weight=1)  # sets the column length of window I believe for grid
     window.rowconfigure(0, weight=1)  # sets the row size of window for grid
-    fontstyle = tk_font.Font(
-        family="Times New Roman", size=18
-    )  # sets a custom font styling as fontStyle
-    fontstyle2 = tk_font.Font(
-        family="Times New Roman", size=14, weight="bold"
-    )  # sets a custom font styling
-    mainframe = tk.Frame(
-        master=window, padx="5", pady="5", bg="LINEN"
-    )  # create tk.Frame object
-    mainframe.grid(
-        column=0, row=0, columnspan=1, rowspan=1
-    )  # placing mainframe with grid
+    fontstyle = tk_font.Font(family="Times New Roman", size=18)  # sets a custom font styling as fontStyle
+    fontstyle2 = tk_font.Font(family="Times New Roman", size=14, weight="bold")  # sets a custom font styling
+    mainframe = tk.Frame(master=window, padx="5", pady="5", bg="LINEN")  # create tk.Frame object
+    mainframe.grid(column=0, row=0, columnspan=1, rowspan=1)  # placing mainframe with grid
     # creates frame object at 0, 0
-    label_1 = tk.Label(
-        master=mainframe,
-        text="Please select a text file: ",
-        font=fontstyle2,
-        bg="LINEN",
-    )
+    label_1 = tk.Label(master=mainframe, text="Please select a text file: ", font=fontstyle2, bg="LINEN")
     label_1.grid(column=0, row=0, columnspan=1, sticky="w", pady="5", padx="5")
 
     # not used
@@ -96,9 +79,7 @@ def ssc_gui():
     sfile_btn.grid(column=0, row=2, columnspan=1, sticky="w")
     show_db_btn = tk.Button(master=mainframe, text="Show DB")
     show_db_btn.grid(column=1, row=2, columnspan=1, sticky="e")
-    text_c = tk.Text(
-        master=mainframe, height="12", width=75, state="disabled", wrap="none"
-    )
+    text_c = tk.Text(master=mainframe, height="12", width=75, state="disabled", wrap="none")
     text_c.grid(column=0, row=3, columnspan=2, pady="5", padx="5")
     text_cscrollh = tk.Scrollbar(master=mainframe, orient="horizontal")
     text_cscrollh.grid(column=0, row=4, columnspan=2, sticky="nsew")
@@ -114,7 +95,7 @@ def ssc_gui():
 
     # setting a tkk style for the submit_click button
     s = ttk.Style()
-    s.configure("my.TButton", font=("Times New Roman", 18))
+    s.configure('my.TButton', font=('Times New Roman', 18))
 
     def text_update(msg):
         """
@@ -134,7 +115,7 @@ def ssc_gui():
         :return: 8 digit random key - rkeyval
         """
         global r_keyl
-        rkeyval = "".join(random.choices(string.ascii_letters + string.digits, k=8))
+        rkeyval = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
         r_keyl.append(rkeyval)
         return rkeyval
 
@@ -152,19 +133,18 @@ def ssc_gui():
         global error_file
         global stop_thread
 
-        filetypes = (("text files", "*.txt"), ("All files", "*.*"))
+        filetypes = (
+            ('text files', '*.txt'),
+            ('All files', '*.*')
+        )
 
-        fd_raw = fd.askopenfile(
-            filetypes=filetypes
-        )  # this is the open file function saving the chosen file as fd_raw
+        fd_raw = fd.askopenfile(filetypes=filetypes)  # this is the open file function saving the chosen file as fd_raw
 
         # The following code is going to parse the file to ensure it is just a list of comma separated tickers
         flag = True
         if fd_raw is not None:  # I believe I can just use if fd_raw
             fd_l = [x for x in fd_raw.readlines()][0]
-            fd_check = fd_l.replace(" ", "").split(
-                ","
-            )  # Remove spaces and split into lists by comma separators
+            fd_check = fd_l.replace(" ", "").split(",")  # Remove spaces and split into lists by comma separators
             for y in fd_check:
                 # Check to make sure that there are no ticker symbols with more than 5 characters
                 if len(y) > 5:
@@ -183,9 +163,7 @@ def ssc_gui():
 
                 # Update ssc_gui function attribute - ticker_entry
                 ssc_gui.ticker_list = ticker_entry
-                text_update(
-                    "You have chosen a valid list - click submit to continue processing"
-                )
+                text_update("You have chosen a valid list - click submit to continue processing")
 
                 # Enable submit click when a minimum list of tickers is given
                 if len(ticker_entry) >= 1:
@@ -196,16 +174,17 @@ def ssc_gui():
             else:
                 text_update("There are invalid ticker symbols present, please retry")
 
-            showinfo(title="Selected File", message=fd_raw.name)
+            showinfo(
+                title="Selected File",
+                message=fd_raw.name
+            )
 
         else:
             text_update("You need to choose a valid file to continue.")
 
         return ticker_entry
 
-    file_btn.bind(
-        "<Button-1>", fileopn
-    )  # binding the button file_btn to the fileopn function with press event
+    file_btn.bind("<Button-1>", fileopn)  # binding the button file_btn to the fileopn function with press event
 
     def show_contents(event):
         """
@@ -223,9 +202,7 @@ def ssc_gui():
         else:
             text_update("You must first choose a file before displaying its contents.")
 
-    sfile_btn.bind(
-        "<Button-1>", show_contents
-    )  # This binds button sfile_btn to function show_contents
+    sfile_btn.bind("<Button-1>", show_contents)  # This binds button sfile_btn to function show_contents
 
     def cancel_click(event):
         """
@@ -239,14 +216,12 @@ def ssc_gui():
         text_update("Operation cancelling")
 
         if thread_list:
-            exit_btn["state"] = "disabled"
+            exit_btn['state'] = 'disabled'
         else:
-            exit_btn["state"] = "normal"
+            exit_btn['state'] = 'normal'
             pass
 
-    cancel_btn.bind(
-        "<Button-1>", cancel_click
-    )  # this binds cancel_btn with cancel_click function upon event
+    cancel_btn.bind("<Button-1>", cancel_click)  # this binds cancel_btn with cancel_click function upon event
 
     def submit_click():
         """
@@ -256,7 +231,7 @@ def ssc_gui():
         :return:
         """
         global ticker_entry
-        exit_btn["state"] = "disabled"
+        exit_btn['state'] = 'disabled'
 
         if okbutton.instate(["!disabled"]):
             try:
@@ -285,53 +260,35 @@ def ssc_gui():
                             print("made it into stop_thread")
                             for y in th.enumerate():
                                 if y.daemon:
-                                    okbutton["state"] = "disabled"
-                                    text_update(
-                                        "Process Cancelled - Close Button Now Active"
-                                    )
+                                    okbutton['state'] = 'disabled'
+                                    text_update("Process Cancelled - Close Button Now Active")
                                     stop_thread = False
-                                    exit_btn["state"] = "normal"
+                                    exit_btn['state'] = 'normal'
                                     break
                                 else:
                                     continue
                             break
 
                         try:
-                            x = lchanger.pop(
-                                0
-                            )  # pops first value in lchanger into variable x
+                            x = lchanger.pop(0)  # pops first value in lchanger into variable x
 
-                            text_update(
-                                "Starting API Fetch with Ticker Symbol: " + str(x)
-                            )  # updates text with current
+                            text_update("Starting API Fetch with Ticker Symbol: " + str(x))  # updates text with current
                             window.update()
 
-                            sscf.get_financials(
-                                x
-                            )  # passes in x to get_financials, starting main program
+                            sscf.get_financials(x)  # passes in x to get_financials, starting main program
 
                             # this if/else checks to see if the get_financials function updated the files
                             # the function will fail if these two files have no information
-                            if (
-                                os.path.getsize("balancesheets.json")
-                                and os.path.getsize("incomestatements.json") > 100
-                            ):
+                            if os.path.getsize("balancesheets.json") and os.path.getsize("incomestatements.json") > 100:
 
                                 sscp.parsetool()  # Calls .parsetool() takes the two JSON files, formats to Python Dict
 
-                                sscp.grade_tool(
-                                    sscp.parsetool.bsheets,
-                                    sscp.parsetool.isheets,
-                                    sscp.parsetool.idict,
-                                    sscp.parsetool.bdict,
-                                )  # passes parsetool attributes to grade_tool
+                                sscp.grade_tool(sscp.parsetool.bsheets, sscp.parsetool.isheets, sscp.parsetool.idict,
+                                                sscp.parsetool.bdict)  # passes parsetool attributes to grade_tool
 
                                 print(str(sscf.get_financials.ticker_entryf))
                             else:
-                                text_update(
-                                    "Error with balancesheets.json and/or incomestatements.json for: "
-                                    + str(x)
-                                )
+                                text_update("Error with balancesheets.json and/or incomestatements.json for: " + str(x))
 
                             sst.log_entry(x, sscf.res_direct)
 
@@ -348,7 +305,7 @@ def ssc_gui():
                         continue
 
                     window.update()
-                    exit_btn["state"] = "normal"
+                    exit_btn['state'] = 'normal'
 
                 else:
                     text_update("File Error - No Stock Ticker List Defined")
@@ -370,13 +327,10 @@ def ssc_gui():
     thread_list = []
 
     def sub_threader():
-        thread_list.append(
-            th.Thread(target=submit_click, name=rkey(), daemon=True).start()
-        )
+        thread_list.append(th.Thread(target=submit_click, name=rkey(), daemon=True).start())
 
-    okbutton = ttk.Button(
-        master=mainframe, text="SUBMIT", style="my.TButton", command=sub_threader
-    )
+    okbutton = ttk.Button(master=mainframe, text="SUBMIT", style='my.TButton',
+                          command=sub_threader)
 
     okbutton.grid(column=1, row=5, columnspan=1, sticky="e")
 
@@ -390,8 +344,8 @@ def ssc_gui():
         :param event:
         :return:
         """
-        print(str(exit_btn["state"]))
-        if exit_btn["state"] == "normal":
+        print(str(exit_btn['state']))
+        if exit_btn['state'] == 'normal':
             print(len(th.enumerate()))
             if len(th.enumerate()) > 1:
                 for x in th.enumerate():
@@ -404,15 +358,13 @@ def ssc_gui():
             else:
                 pass
 
-        if exit_btn["state"] == "normal":
+        if exit_btn['state'] == 'normal':
             window.destroy()
             sys.exit()
         else:
             pass
 
-    exit_btn.bind(
-        "<Button-1>", exit_click
-    )  # this line of code binds the exit_btn to the exit_click function
+    exit_btn.bind("<Button-1>", exit_click)  # this line of code binds the exit_btn to the exit_click function
 
     def show_db(event):
         """
@@ -434,9 +386,7 @@ def ssc_gui():
             text_update("Database Not Yet Linked: Contact Grover")
             pass
 
-    show_db_btn.bind(
-        "<Button-1>", show_db
-    )  # this binds show_db_btn to show_db function
+    show_db_btn.bind("<Button-1>", show_db)  # this binds show_db_btn to show_db function
 
     for x in th.enumerate():
         print(str(x))

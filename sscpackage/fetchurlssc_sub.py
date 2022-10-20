@@ -24,39 +24,25 @@ class FetchUrlSSCSUB(fetchurlssc.FetchUrlSSC):
                 self.purge_fetchurlshelf()
 
                 headers = {
-                    "x-rapidapi-host": "yh-finance.p.rapidapi.com",
-                    "x-rapidapi-key": os.getenv("RAPI_key"),
+                    'x-rapidapi-host': "yh-finance.p.rapidapi.com",
+                    'x-rapidapi-key': os.getenv("RAPI_key")
                 }
 
                 # Create and prime shelf with core necessary fetches
                 fetchshelf = shelve.open(self.pathnamefetchurls)
-                self.fetch_apidict = {
-                    "url_income": {
-                        "url": self.url_income,
-                        "qs": self.qs_inc_bal,
-                        "headers": headers,
-                    },
-                    "url_balance": {
-                        "url": self.url_balance,
-                        "qs": self.qs_inc_bal,
-                        "headers": headers,
-                    },
-                    "url_ar": {
-                        "url": self.url_ar,
-                        "qs": self.qs_ar,
-                        "headers": headers,
-                    },
-                    "url_val": {
-                        "url": self.url_val,
-                        "qs": self.qs_val,
-                        "headers": headers,
-                    },
-                    "url_sectordata": {
-                        "url": self.url_sectordata,
-                        "qs": self.qs_sector,
-                        "headers": headers,
-                    },
-                }
+                self.fetch_apidict = {"url_income": {"url": self.url_income, "qs": self.qs_inc_bal,
+                                                     "headers": headers},
+
+                                      "url_balance": {"url": self.url_balance, "qs": self.qs_inc_bal,
+                                                      "headers": headers},
+
+                                      "url_ar": {"url": self.url_ar, "qs": self.qs_ar, "headers": headers},
+
+                                      "url_val": {"url": self.url_val, "qs": self.qs_val, "headers": headers},
+
+                                      "url_sectordata": {"url": self.url_sectordata, "qs": self.qs_sector,
+                                                         "headers": headers}
+                                      }
 
                 fetchshelf[self.shelfkey] = self.fetch_apidict
                 self.fetchbank = fetchshelf[self.shelfkey]
@@ -67,6 +53,7 @@ class FetchUrlSSCSUB(fetchurlssc.FetchUrlSSC):
         except Exception as er:
             print(er)
 
-
 if __name__ == "__main__":
     pass
+
+

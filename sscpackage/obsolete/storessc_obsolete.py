@@ -2,13 +2,7 @@ class GradeSSC:
     def __init__(self):
         pass
 
-    def grade_tool(
-        self,
-        bsheets_zip: "list",
-        isheets_zip: "list",
-        isheets_dict: "dict",
-        bsheets_dict: "dict",
-    ) -> "str":
+    def grade_tool(self, bsheets_zip: "list", isheets_zip: "list", isheets_dict: "dict", bsheets_dict: "dict") -> "str":
         """
         8/14/2021
         Author: GD
@@ -24,45 +18,31 @@ class GradeSSC:
         """
 
         path_gs = "C:/SSC/SSC_GRADESHEETS/"
-        pre_fix = (
-            "_"
-            + str(sscf.get_financials.ticker_entryf)
-            + "_"
-            + str(int(str(time.time()).replace(".", "")))
-            + "_"
-            + "GradeS.json"
-        )
+        pre_fix = "_" + str(sscf.get_financials.ticker_entryf) + "_" + \
+                  str(int(str(time.time()).replace('.', ''))) + "_" + "GradeS.json"
 
         # Copy from above def statements in parse_tool.  Didn't want to alter and make top level
 
-        self.grade_tool.erlist = (
-            []
-        )  # This will store the errors/missing data from the analysis for review
+        self.grade_tool.erlist = []  # This will store the errors/missing data from the analysis for review
         erlist = []
 
         self.grade_tool.arlist = []  # This will store the initial analyst grades
 
         self.grade_tool.tp = 0  # this is going to store the total points and increment as the various factors pass logical pathways
 
-        self.grade_tool.ar_dict_strip = (
-            []
-        )  # this stores the ar - analyst ratings dictionaries wrapped in a list to store or pull to analyze
+        self.grade_tool.ar_dict_strip = []  # this stores the ar - analyst ratings dictionaries wrapped in a list to store or pull to analyze
 
         bdict = bsheets_dict
-        idict = (
-            isheets_dictratiores
-        ) = 0  # This may be redundant as well, using a function attribute to store the following gv variable
+        idict = isheets_dictratiores = 0  # This may be redundant as well, using a function attribute to store the following gv variable
 
         gv = 0  # GV is going to be the variable that increments the awarded points
 
-        in_sheets = (
-            self.parsetool.isheets
-        )  # This stores the function variables isheets and bsheets in local variables, which may be a redundancy to look at
+        in_sheets = self.parsetool.isheets  # This stores the function variables isheets and bsheets in local variables, which may be a redundancy to look at
         bal_sheets = self.parsetool.bsheets
 
         # This is to simplify the typing of new line escape - should have done this sooner
         brn = "\n"
-        brl = "-" * 80
+        brl = ("-" * 80)
         """
         This is the beginning of the actual grading requirements script starting first with income statement metrics
 
@@ -87,43 +67,18 @@ class GradeSSC:
         # This write to file code is meant to be temporary to error check and prove out the grading system
         with safe_open_w(path_gs + pre_fix) as f:
             # Header line - Ticker / Date
-            header = (
-                "Grade Sheet - "
-                + str(sscf.get_financials.ticker_entryf)
-                + "  :  "
-                + str(dt.datetime.now())
-            )
+            header = "Grade Sheet - " + str(sscf.get_financials.ticker_entryf) + "  :  " + str(dt.datetime.now())
 
             # Write header to file
             f.write(brn * 2)
             f.write(brl)
             f.writelines(brn + header + brn + brl + brn + brn)
-            f.write(
-                "SECTOR DESIGNATOR:  " + str(self.parsetool.sector).upper() + (brn * 2)
-            )
-            f.write(
-                "INDUSTRY DESIGNATOR:  "
-                + str(self.parsetool.industry).upper()
-                + (brn * 2)
-            )
-            f.write(
-                brl
-                + brn
-                + "BEGINNING OF SECTION 1: KEY METRICS"
-                + brn
-                + brl
-                + brn
-                + brn
-            )
+            f.write("SECTOR DESIGNATOR:  " + str(self.parsetool.sector).upper() + (brn * 2))
+            f.write("INDUSTRY DESIGNATOR:  " + str(self.parsetool.industry).upper() + (brn * 2))
+            f.write(brl + brn + "BEGINNING OF SECTION 1: KEY METRICS" + brn + brl + brn + brn)
 
             # Process list of key metrics, accumulate grade points and write to gradesheet section 1
-            l_rev = [
-                "Total Revenue",
-                "Net Income",
-                "Gross Margin",
-                "Operating Margin",
-                "Net Margin",
-            ]
+            l_rev = ["Total Revenue", "Net Income", "Gross Margin", "Operating Margin", "Net Margin"]
             for x in l_rev:
                 f.write("\n\n")
                 f.write(x + "  :  ")
@@ -143,248 +98,96 @@ class GradeSSC:
                     if flag == 0:
                         if l_ishell[0] > l_ishell[1] and l_ishell[2]:
                             gv += 6
-                            f.write(
-                                "GRADE::: "
-                                + str(gv)
-                                + " / "
-                                + str(self.grade_tool.tp)
-                                + "\n"
-                            )
+                            f.write("GRADE::: " + str(gv) + ' / ' + str(self.grade_tool.tp) + "\n")
                             f.write("Most Recent Year > Prior Two :::: +6 POINTS\n")
                             f.write(
-                                "***  "
-                                + str(l_ishell[0])
-                                + ",  "
-                                + str(l_ishell[1])
-                                + ",  "
-                                + str(l_ishell[2])
-                                + ",  "
-                                + str(l_ishell[3])
-                                + "  ***\n"
-                            )
+                                "***  " + str(l_ishell[0]) + ',  ' + str(l_ishell[1]) + ',  ' + str(l_ishell[2]) + ',  '
+                                + str(l_ishell[3]) + "  ***\n")
                             continue
                         # If latest year is greater than prior 1 year and less than 2nd get 5 points
-                        elif (l_ishell[0] > l_ishell[1]) and (
-                            l_ishell[0] < l_ishell[2]
-                        ):
+                        elif (l_ishell[0] > l_ishell[1]) and (l_ishell[0] < l_ishell[2]):
                             gv += 5
-                            f.write(str(gv) + " / " + str(self.grade_tool.tp) + "\n")
+                            f.write(str(gv) + ' / ' + str(self.grade_tool.tp) + "\n")
+                            f.write("Most Recent Year > Prior Year, but < Two Years Prior :::: +5 POINTS\n")
                             f.write(
-                                "Most Recent Year > Prior Year, but < Two Years Prior :::: +5 POINTS\n"
-                            )
-                            f.write(
-                                "***  "
-                                + str(l_ishell[0])
-                                + ",  "
-                                + str(l_ishell[1])
-                                + ",  "
-                                + str(l_ishell[2])
-                                + ",  "
-                                + str(l_ishell[3])
-                                + "  ***\n"
-                            )
+                                "***  " + str(l_ishell[0]) + ',  ' + str(l_ishell[1]) + ',  ' + str(l_ishell[2]) + ',  '
+                                + str(l_ishell[3]) + "  ***\n")
                             continue
                         # Cutting company slack if performance is volatile, still a chance they may come out on top
-                        elif (l_ishell[0] < l_ishell[1]) and (
-                            l_ishell[0] > l_ishell[2]
-                        ):
+                        elif (l_ishell[0] < l_ishell[1]) and (l_ishell[0] > l_ishell[2]):
                             gv += 3
+                            f.write("GRADE::: " + str(gv) + ' / ' + str(self.grade_tool.tp) + "\n")
+                            f.write("Most Recent Year < Prior Year, but > Two Years Prior ::::: + 3 POINTS\n")
                             f.write(
-                                "GRADE::: "
-                                + str(gv)
-                                + " / "
-                                + str(self.grade_tool.tp)
-                                + "\n"
-                            )
-                            f.write(
-                                "Most Recent Year < Prior Year, but > Two Years Prior ::::: + 3 POINTS\n"
-                            )
-                            f.write(
-                                "***  "
-                                + str(l_ishell[0])
-                                + ",  "
-                                + str(l_ishell[1])
-                                + ",  "
-                                + str(l_ishell[2])
-                                + ",  "
-                                + str(l_ishell[3])
-                                + "  ***\n"
-                            )
+                                "***  " + str(l_ishell[0]) + ',  ' + str(l_ishell[1]) + ',  ' + str(l_ishell[2]) + ',  '
+                                + str(l_ishell[3]) + "  ***\n")
                             continue
                         # Company is declining year over year
                         else:
                             gv += 0
+                            f.write("GRADE::: " + str(gv) + ' / ' + str(self.grade_tool.tp) + "\n")
+                            f.write("Most Recent Year < Prior Two Years ::::: + 0 POINTS")
                             f.write(
-                                "GRADE::: "
-                                + str(gv)
-                                + " / "
-                                + str(self.grade_tool.tp)
-                                + "\n"
-                            )
-                            f.write(
-                                "Most Recent Year < Prior Two Years ::::: + 0 POINTS"
-                            )
-                            f.write(
-                                "***  "
-                                + str(l_ishell[0])
-                                + ",  "
-                                + str(l_ishell[1])
-                                + ",  "
-                                + str(l_ishell[2])
-                                + ",  "
-                                + str(l_ishell[3])
-                                + "  ***\n"
-                            )
+                                "***  " + str(l_ishell[0]) + ',  ' + str(l_ishell[1]) + ',  ' + str(l_ishell[2]) + ',  '
+                                + str(l_ishell[3]) + "  ***\n")
                             continue
                     elif flag == 1:
                         if l_ishell[0] > l_ishell[1] and l_ishell[2]:
                             gv += 6
+                            f.write("GRADE::: " + str(gv) + ' / ' + str(self.grade_tool.tp) + "\n")
+                            f.write("Most Recent Year > Prior Two Years  :::: +6 POINTS\n")
                             f.write(
-                                "GRADE::: "
-                                + str(gv)
-                                + " / "
-                                + str(self.grade_tool.tp)
-                                + "\n"
-                            )
-                            f.write(
-                                "Most Recent Year > Prior Two Years  :::: +6 POINTS\n"
-                            )
-                            f.write(
-                                "***  "
-                                + str(l_ishell[0])
-                                + ",  "
-                                + str(l_ishell[1])
-                                + ",  "
-                                + str(l_ishell[2])
-                                + ",  "
-                                + "  ***\n"
-                            )
+                                "***  " + str(l_ishell[0]) + ',  ' + str(l_ishell[1]) + ',  ' + str(l_ishell[2]) + ',  '
+                                + "  ***\n")
                             continue
                         # If latest year is greater than prior 1 year and less than 2nd get 5 points
-                        elif (l_ishell[0] > l_ishell[1]) and (
-                            l_ishell[0] < l_ishell[2]
-                        ):
+                        elif (l_ishell[0] > l_ishell[1]) and (l_ishell[0] < l_ishell[2]):
                             gv += 5
+                            f.write("GRADE::: " + str(gv) + ' / ' + str(self.grade_tool.tp) + "\n")
+                            f.write("Most Recent Year > Prior Year, but < Two Years Prior  :::: +5 POINTS\n")
                             f.write(
-                                "GRADE::: "
-                                + str(gv)
-                                + " / "
-                                + str(self.grade_tool.tp)
-                                + "\n"
-                            )
-                            f.write(
-                                "Most Recent Year > Prior Year, but < Two Years Prior  :::: +5 POINTS\n"
-                            )
-                            f.write(
-                                "***  "
-                                + str(l_ishell[0])
-                                + ",  "
-                                + str(l_ishell[1])
-                                + ",  "
-                                + str(l_ishell[2])
-                                + ",  "
-                                + "  ***\n"
-                            )
+                                "***  " + str(l_ishell[0]) + ',  ' + str(l_ishell[1]) + ',  ' + str(l_ishell[2]) + ',  '
+                                + "  ***\n")
                             continue
                         # Cutting company slack if performance is volatile, still a chance they may come out on top
-                        elif (l_ishell[0] < l_ishell[1]) and (
-                            l_ishell[0] > l_ishell[2]
-                        ):
+                        elif (l_ishell[0] < l_ishell[1]) and (l_ishell[0] > l_ishell[2]):
                             gv += 3
+                            f.write("GRADE::: " + str(gv) + ' / ' + str(self.grade_tool.tp) + "\n")
+                            f.write("Most Recent Year < Prior Year, but > Two Years Prior\n")
                             f.write(
-                                "GRADE::: "
-                                + str(gv)
-                                + " / "
-                                + str(self.grade_tool.tp)
-                                + "\n"
-                            )
-                            f.write(
-                                "Most Recent Year < Prior Year, but > Two Years Prior\n"
-                            )
-                            f.write(
-                                "***  "
-                                + str(l_ishell[0])
-                                + ",  "
-                                + str(l_ishell[1])
-                                + ",  "
-                                + str(l_ishell[2])
-                                + ",  "
-                                + "  ***\n"
-                            )
+                                "***  " + str(l_ishell[0]) + ',  ' + str(l_ishell[1]) + ',  ' + str(l_ishell[2]) + ',  '
+                                + "  ***\n")
                             continue
                         # Company is declining year over year
                         else:
                             gv += 0
-                            f.write(
-                                "GRADE::: "
-                                + str(gv)
-                                + " / "
-                                + str(self.grade_tool.tp)
-                                + "\n"
-                            )
+                            f.write("GRADE::: " + str(gv) + ' / ' + str(self.grade_tool.tp) + "\n")
                             f.write("Most Recent Year < Prior Two Years\n")
                             f.write(
-                                "***  "
-                                + str(l_ishell[0])
-                                + ",  "
-                                + str(l_ishell[1])
-                                + ",  "
-                                + str(l_ishell[2])
-                                + ",  "
-                                + "  ***\n"
-                            )
+                                "***  " + str(l_ishell[0]) + ',  ' + str(l_ishell[1]) + ',  ' + str(l_ishell[2]) + ',  '
+                                + "  ***\n")
                             continue
                     # Only 2 years of financial documents
                     elif flag == 2:
                         if l_ishell[0] > l_ishell[1]:
 
                             gv += 6
-                            f.write(
-                                "GRADE::: "
-                                + str(gv)
-                                + " / "
-                                + str(self.grade_tool.tp)
-                                + "\n"
-                            )
+                            f.write("GRADE::: " + str(gv) + ' / ' + str(self.grade_tool.tp) + "\n")
                             f.write("Most Recent Year > Prior Year  :::: +6 POINTS\n")
-                            f.write(
-                                "***  "
-                                + str(l_ishell[0])
-                                + ",  "
-                                + str(l_ishell[1])
-                                + ",  "
-                                + "  ***\n"
-                            )
+                            f.write("***  " + str(l_ishell[0]) + ',  ' + str(l_ishell[1]) + ',  '
+                                    + "  ***\n")
                             continue
                         else:
                             gv += 0
-                            f.write(
-                                "GRADE::: "
-                                + str(gv)
-                                + " / "
-                                + str(self.grade_tool.tp)
-                                + "\n"
-                            )
+                            f.write("GRADE::: " + str(gv) + ' / ' + str(self.grade_tool.tp) + "\n")
                             f.write("Most Recent Year < Prior Year\n")
-                            f.write(
-                                "***  "
-                                + str(l_ishell[0])
-                                + ",  "
-                                + str(l_ishell[1])
-                                + ",  "
-                                + "  ***\n"
-                            )
+                            f.write("***  " + str(l_ishell[0]) + ',  ' + str(l_ishell[1]) + ',  '
+                                    + "  ***\n")
                             continue
                     # Only 1 or less years of financial documents/information - section removed
                     elif flag > 2:
                         self.grade_tool.tp -= 6
-                        f.write(
-                            "GRADE::: "
-                            + str(gv)
-                            + " / "
-                            + str(self.grade_tool.tp)
-                            + "\n"
-                        )
+                        f.write("GRADE::: " + str(gv) + ' / ' + str(self.grade_tool.tp) + "\n")
                         f.write("Not Enough Information - No Grade\n")
                         continue
 
@@ -392,20 +195,12 @@ class GradeSSC:
             f.write("\nEND OF FIRST SECTION - NEAR LINE 534\n")
             f.write(brl + "\n\n")
 
-            f.write(
-                brl + "\nBEGINNING SECTION 2: PROFITS & RESEARCH\n" + brl + (brn * 2)
-            )
+            f.write(brl + "\nBEGINNING SECTION 2: PROFITS & RESEARCH\n" + brl + (brn * 2))
 
             # L1 is a hard-coded list of index positions for certain variables
             # 1/22 This needs to be changed to a dynamic list that searches the data and populates
-            l_1 = [
-                "Gross Profit",
-                "EBIT",
-                "Operating Income",
-                "Net Income From Continuing Ops",
-                "Income Before Tax",
-                "Research & Development",
-            ]
+            l_1 = ["Gross Profit", "EBIT", "Operating Income", "Net Income From Continuing Ops", "Income Before Tax",
+                   "Research & Development"]
             # All Variables You Want Increasing YoY
             # Total of 20 points possible
 
@@ -423,84 +218,32 @@ class GradeSSC:
                     """
                     if l_ishell[0] > l_ishell[1] and l_ishell[2]:
                         gv += 2
-                        f.write(
-                            "GRADE::: "
-                            + str(gv)
-                            + " / "
-                            + str(self.grade_tool.tp)
-                            + "\n"
-                        )
+                        f.write("GRADE::: " + str(gv) + ' / ' + str(self.grade_tool.tp) + "\n")
                         f.write("Most Recent Year > Prior Two Years ::::: + 2 POINTS\n")
-                        f.write(
-                            "***  "
-                            + str(l_ishell[0])
-                            + ",  "
-                            + str(l_ishell[1])
-                            + ",  "
-                            + str(l_ishell[2])
-                            + ",  "
-                            + "  ***\n"
-                        )
+                        f.write("***  " + str(l_ishell[0]) + ',  ' + str(l_ishell[1]) + ',  ' + str(l_ishell[2]) + ',  '
+                                + "  ***\n")
                         continue
                     elif (l_ishell[0] > l_ishell[1]) and (l_ishell[0] < l_ishell[2]):
                         gv += 1.5
-                        f.write(
-                            "GRADE::: "
-                            + str(gv)
-                            + " / "
-                            + str(self.grade_tool.tp)
-                            + "\n"
-                        )
+                        f.write("GRADE::: " + str(gv) + ' / ' + str(self.grade_tool.tp) + "\n")
                         f.write("Most Recent Year > Prior Year Only ::::: + 1 POINT\n")
-                        f.write(
-                            "***  "
-                            + str(l_ishell[0])
-                            + ",  "
-                            + str(l_ishell[1])
-                            + ",  "
-                            + str(l_ishell[2])
-                            + ",  "
-                            + "  ***\n"
-                        )
+                        f.write("***  " + str(l_ishell[0]) + ',  ' + str(l_ishell[1]) + ',  ' + str(l_ishell[2]) + ',  '
+                                + "  ***\n")
                         continue
                     elif (l_ishell[0] < l_ishell[1]) and (l_ishell[0] > l_ishell[2]):
-                        gv += 0.5
-                        f.write(
-                            "GRADE::: "
-                            + str(gv)
-                            + " / "
-                            + str(self.grade_tool.tp)
-                            + "\n"
-                        )
-                        f.write(
-                            "Most Recent Year < Prior Year > 2 Years ::::: + .5 POINTS\n"
-                        )
-                        f.write(
-                            "***  "
-                            + str(l_ishell[0])
-                            + ",  "
-                            + str(l_ishell[1])
-                            + ",  "
-                            + str(l_ishell[2])
-                            + ",  "
-                            + "  ***\n"
-                        )
+                        gv += .5
+                        f.write("GRADE::: " + str(gv) + ' / ' + str(self.grade_tool.tp) + "\n")
+                        f.write("Most Recent Year < Prior Year > 2 Years ::::: + .5 POINTS\n")
+                        f.write("***  " + str(l_ishell[0]) + ',  ' + str(l_ishell[1]) + ',  ' + str(l_ishell[2]) + ',  '
+                                + "  ***\n")
                         continue
                     else:
-                        f.write(
-                            "GRADE::: "
-                            + str(gv)
-                            + " / "
-                            + str(self.grade_tool.tp)
-                            + "\n"
-                        )
+                        f.write("GRADE::: " + str(gv) + ' / ' + str(self.grade_tool.tp) + "\n")
                         f.write("Most Recent Year > Prior Two Years\n")
                         gv += 0
                         continue
             print("Line 493")
-            f.write(
-                "\n\n" + brl + "\nEND OF SECTION 2 - NEAR LINE 585\n" + brl + "\n\n"
-            )
+            f.write("\n\n" + brl + "\nEND OF SECTION 2 - NEAR LINE 585\n" + brl + "\n\n")
 
             """
             1/23/22 - GD
@@ -510,25 +253,15 @@ class GradeSSC:
             """
             idict_ratio = {}
             for key in [y for y in idict.keys()]:
-                idict_ratio[key] = [
-                    idict[key][x] / idict["Total Revenue"][x]
-                    for x in range(len(idict["Total Revenue"]))
-                ]
+                idict_ratio[key] = [idict[key][x] / idict["Total Revenue"][x] for x in
+                                    range(len(idict["Total Revenue"]))]
 
-            l_3 = [
-                "Selling, General & Administrative",
-                "Other Operating Expenses",
-                "Interest Expense",
-                "Total Operating Expenses",
-                "Cost Of Revenue",
-                "Total Other Income Expense Net",
-            ]
+            l_3 = ["Selling, General & Administrative", "Other Operating Expenses", "Interest Expense",
+                   "Total Operating Expenses", "Cost Of Revenue", "Total Other Income Expense Net"]
 
             f.write("\n\n" + brl)
 
-            f.write(
-                "\nBEGINNING OF SECTION 3: METRICS AS PERCENTAGE OF TOTAL REVENUE & GENERAL\n"
-            )
+            f.write("\nBEGINNING OF SECTION 3: METRICS AS PERCENTAGE OF TOTAL REVENUE & GENERAL\n")
             f.write(brl + "\n\n")
             #  All expenses that you want reducing as a percentage of total revenue YoY
             for x in l_3:
@@ -542,23 +275,11 @@ class GradeSSC:
                     self.grade_tool.tp += 2
                     if l_ishell[0] < l_ishell[1] and l_ishell[2]:
                         gv += 2
-                        f.write(
-                            "GRADE::: "
-                            + str(gv)
-                            + " / "
-                            + str(self.grade_tool.tp)
-                            + "\n"
-                        )
+                        f.write("GRADE::: " + str(gv) + ' / ' + str(self.grade_tool.tp) + "\n")
                         f.write("Current Year < Prior 2 Years ::::: + 2 POINTS\n")
                     elif l_ishell[0] < l_ishell[1] or l_ishell[2]:
                         gv += 1
-                        f.write(
-                            "GRADE::: "
-                            + str(gv)
-                            + " / "
-                            + str(self.grade_tool.tp)
-                            + "\n"
-                        )
+                        f.write("GRADE::: " + str(gv) + ' / ' + str(self.grade_tool.tp) + "\n")
                         f.write("Current Year < 1 Year Prior or 2 ::::: + 1 POINT\n")
                     else:
                         f.write("Metric increasing, not decreasing ::::: + 0 POINTS\n")
@@ -578,22 +299,14 @@ class GradeSSC:
                     #  Not adding grade to total points - considering this section a 'bonus'
                     if i_ishell[0] > i_ishell[1] and i_ishell[2]:
                         gv += 1
-                        f.write(
-                            "GRADE::: "
-                            + str(gv)
-                            + " / "
-                            + str(self.grade_tool.tp)
-                            + "\n"
-                        )
+                        f.write("GRADE::: " + str(gv) + ' / ' + str(self.grade_tool.tp) + "\n")
                         f.write("Metric Current Year > Prior 2 Years ::::: + 1 POINT\n")
                     else:
                         f.write("No Bonus Points Awarded\n\n")
                         continue
 
             f.write(brn + brn + brl + brn)
-            f.write(
-                "END OF SECTION 3: METRICS AS PERCENTAGE OF TOTAL REVENUE & GENERAL - NEAR LINE 636\n"
-            )
+            f.write("END OF SECTION 3: METRICS AS PERCENTAGE OF TOTAL REVENUE & GENERAL - NEAR LINE 636\n")
             f.write(brl + brn + brn)
 
             f.write(brl + "\nBEGIN SECTION 4: FINANCIAL RATIOS\n")
@@ -633,18 +346,14 @@ class GradeSSC:
                 yrsi[key] = temp_list
 
             # The following two file writes are temporary for checking if lists output correctly
-            with open("tempyrsb.txt", "w") as tempyrsb:
+            with open("tempyrsb.txt", 'w') as tempyrsb:
                 tempyrsb.truncate()
-                json.dump(
-                    yrsb, tempyrsb, indent=5, separators=(", ", ": "), sort_keys=False
-                )
+                json.dump(yrsb, tempyrsb, indent=5, separators=(", ", ": "), sort_keys=False)
                 tempyrsb.close()
 
-            with open("tempyrsi.txt", "w") as tempyrsi:
+            with open("tempyrsi.txt", 'w') as tempyrsi:
                 tempyrsi.truncate()
-                json.dump(
-                    yrsi, tempyrsi, indent=5, separators=(", ", ": "), sort_keys=False
-                )
+                json.dump(yrsi, tempyrsi, indent=5, separators=(", ", ": "), sort_keys=False)
                 tempyrsi.close()
 
             # This dictionary flags years missing in balance sheets
@@ -671,11 +380,7 @@ class GradeSSC:
                 if fl_yrsb[key] == 0:
                     count_temp += 1
 
-            f.write(
-                "The Balance Sheet has:   ::  "
-                + str(count_temp)
-                + " full value fields\n"
-            )
+            f.write("The Balance Sheet has:   ::  " + str(count_temp) + " full value fields\n")
 
             # This is a counter to display number of fields with full values and write to grade sheet
             count_temp = 0
@@ -683,16 +388,10 @@ class GradeSSC:
                 if fl_yrsi[key] == 0:
                     count_temp += 1
 
-            f.write(
-                "The Income Statement has:  ::  "
-                + str(count_temp)
-                + " full value fields\n"
-            )
+            f.write("The Income Statement has:  ::  " + str(count_temp) + " full value fields\n")
             f.write(brl + brn + brn)
 
-            finrat_dict = (
-                {}
-            )  # Dictionary storing financial ratio information for available years "Title": []
+            finrat_dict = {}  # Dictionary storing financial ratio information for available years "Title": []
 
             # List of financial ratios as a chronological list from ttw to yp-2
             """
@@ -708,18 +407,12 @@ class GradeSSC:
 
             # Current  Ratio - Higher Better
             temp_list = list(
-                map(
-                    lambda x, y: bool(x == y),
-                    yrsb["Total Current Assets"],
-                    yrsb["Total Current Liabilities"],
-                )
-            )
+                map(lambda x, y: bool(x == y), yrsb["Total Current Assets"], yrsb["Total Current Liabilities"]))
             cr_list = []
             for x, y in zip(temp_list, range(len(temp_list))):
                 if x:
-                    cr_list.append(
-                        b["Total Current Assets"][y] / b["Total Current Liabilities"][y]
-                    )
+                    cr_list.append(b["Total Current Assets"][y] /
+                                   b["Total Current Liabilities"][y])
                 else:
                     cr_list.append(None)
 
@@ -730,35 +423,20 @@ class GradeSSC:
             # quick - ratio higher better
 
             ac_list = []
-            temp_list = list(
-                map(
-                    lambda x, y, z: bool(x == y and y == z),
-                    yrsb["Total Current Assets"],
-                    yrsb["Inventory"],
-                    yrsb["Total Current Liabilities"],
-                )
-            )
+            temp_list = list(map(lambda x, y, z: bool(x == y and y == z), yrsb["Total Current Assets"],
+                                 yrsb["Inventory"],
+                                 yrsb["Total Current Liabilities"]))
             for x, y in zip(temp_list, range(len(temp_list))):
                 if x:
-                    ac_list.append(
-                        (
-                            (b["Total Current Assets"][y] - b["Inventory"][y])
-                            / b["Total Current Liabilities"][y]
-                        )
-                    )
+                    ac_list.append(((b["Total Current Assets"][y] - b["Inventory"][y]) /
+                                    b["Total Current Liabilities"][y]))
                 else:
                     ac_list.append(None)
 
             finrat_dict["Acid Test Ratio"] = ac_list
             f.write("Acid Test Ratio:  :: " + str(ac_list) + "\n")
 
-            temp_list = list(
-                map(
-                    lambda x, y: bool(x == y),
-                    yrsb["Cash"],
-                    yrsb["Total Current Liabilities"],
-                )
-            )
+            temp_list = list(map(lambda x, y: bool(x == y), yrsb["Cash"], yrsb["Total Current Liabilities"]))
             c_list = []
             # Cash Ratio - potentially more important for small companies or new companies
             for x, y in zip(temp_list, range(len(temp_list))):
@@ -770,13 +448,7 @@ class GradeSSC:
             finrat_dict["Cash Ratio"] = c_list
             f.write("Cash Ratio:  :: " + str(c_list) + "\n")
 
-            temp_list = list(
-                map(
-                    lambda x, y: bool(x == y),
-                    yrsb["Total Liabilities"],
-                    yrsb["Total Assets"],
-                )
-            )
+            temp_list = list(map(lambda x, y: bool(x == y), yrsb["Total Liabilities"], yrsb["Total Assets"]))
             dr_list = []
             # Debt Ratio - "Investopedia general .4 or lower is better, .6 or higher may make it difficult to borrow"
             for x, y in zip(temp_list, range(len(temp_list))):
@@ -790,18 +462,11 @@ class GradeSSC:
 
             # Debt to Equity Ratio - Ivestopedia not be above 2.0, overleveraging and not taking advantage of equity
             temp_list = list(
-                map(
-                    lambda x, y: bool(x == y),
-                    yrsb["Total Stockholder Equity"],
-                    yrsb["Total Liabilities"],
-                )
-            )
+                map(lambda x, y: bool(x == y), yrsb["Total Stockholder Equity"], yrsb["Total Liabilities"]))
             dte_list = []
             for x, y in zip(temp_list, range(len(temp_list))):
                 if x:
-                    dte_list.append(
-                        b["Total Liabilities"][y] / b["Total Stockholder Equity"][y]
-                    )
+                    dte_list.append(b["Total Liabilities"][y] / b["Total Stockholder Equity"][y])
                 else:
                     dte_list.append(None)
 
@@ -810,18 +475,11 @@ class GradeSSC:
 
             # Operating Cash Flow - A clearer picture of just net sales minus operating expenses, excluding non-cash items
             temp_list = list(
-                map(
-                    lambda x, y: bool(x == y),
-                    yrsb["Total Current Liabilities"],
-                    yrsi["Operating Income"],
-                )
-            )
+                map(lambda x, y: bool(x == y), yrsb["Total Current Liabilities"], yrsi["Operating Income"]))
             ocflo_list = []
             for x, y in zip(temp_list, range(len(temp_list))):
                 if x:
-                    ocflo_list.append(
-                        inc1["Operating Income"][y] / b["Total Current Liabilities"][y]
-                    )
+                    ocflo_list.append(inc1["Operating Income"][y] / b["Total Current Liabilities"][y])
                 else:
                     ocflo_list.append(None)
 
@@ -829,19 +487,11 @@ class GradeSSC:
             f.write("Operating Cash Flow Ratios:  :: " + str(ocflo_list) + "\n")
 
             # Interest coverage ratio, ability to pay off interest from fash flows
-            temp_list = list(
-                map(
-                    lambda x, y: bool(x == y),
-                    yrsi["Operating Income"],
-                    yrsi["Interest Expense"],
-                )
-            )
+            temp_list = list(map(lambda x, y: bool(x == y), yrsi["Operating Income"], yrsi["Interest Expense"]))
             icr_list = []
             for x, y in zip(temp_list, range(len(temp_list))):
                 if x:
-                    icr_list.append(
-                        inc1["Operating Income"][y] / inc1["Interest Expense"][y]
-                    )
+                    icr_list.append(inc1["Operating Income"][y] / inc1["Interest Expense"][y])
                 else:
                     icr_list.append(None)
 
@@ -849,9 +499,7 @@ class GradeSSC:
             f.write("Interest Coverage Ratio:  :: " + str(icr_list) + "\n")
 
             # Return on assets - sector specific 5% generally good on companys whose operating is machinery/labor intensive
-            temp_list = list(
-                map(lambda x, y: bool(x == y), yrsi["Net Income"], yrsb["Total Assets"])
-            )
+            temp_list = list(map(lambda x, y: bool(x == y), yrsi["Net Income"], yrsb["Total Assets"]))
             roa_list = []
             for x, y in zip(temp_list, range(len(temp_list))):
                 if x:
@@ -863,19 +511,11 @@ class GradeSSC:
             f.write("Return On Assets Ratios: :: " + str(roa_list) + "\n")
 
             # Return on equity - or return on net assets,
-            temp_list = list(
-                map(
-                    lambda x, y: bool(x == y),
-                    yrsb["Total Stockholder Equity"],
-                    yrsi["Net Income"],
-                )
-            )
+            temp_list = list(map(lambda x, y: bool(x == y), yrsb["Total Stockholder Equity"], yrsi["Net Income"]))
             roe_list = []
             for x, y in zip(temp_list, range(len(temp_list))):
                 if x:
-                    roe_list.append(
-                        inc1["Net Income"][y] / b["Total Stockholder Equity"][y]
-                    )
+                    roe_list.append(inc1["Net Income"][y] / b["Total Stockholder Equity"][y])
                 else:
                     roe_list.append(None)
 
@@ -888,35 +528,22 @@ class GradeSSC:
             different year missing different values.  Example: AMD - book value per share calculation
             """
             # Book Value Per Share or shareholders equity divided by shares outstanding
-            temp_list = list(
-                map(
-                    lambda x, y, z, i: bool(x == y and y == z and z == i),
-                    yrsb["Treasury Stock"],
-                    yrsb["Other Stockholder Equity"],
-                    yrsb["Total Stockholder Equity"],
-                    yrsb["Common Stock"],
-                )
-            )
+            temp_list = list(map(lambda x, y, z, i: bool(x == y and y == z and z == i), yrsb["Treasury Stock"],
+                                 yrsb["Other Stockholder Equity"], yrsb["Total Stockholder Equity"],
+                                 yrsb["Common Stock"]))
             bvps_list = []
             for x, y in zip(temp_list, range(len(temp_list))):
                 if x:
-                    bvps_list.append(
-                        (
-                            b["Total Stockholder Equity"][y]
-                            - b["Treasury Stock"][y]
-                            - b["Other Stockholder Equity"][y]
-                        )
-                        / b["Common Stock"][y]
-                    )
+                    bvps_list.append((b["Total Stockholder Equity"][y] -
+                                      b["Treasury Stock"][y] - b["Other Stockholder Equity"][y]) /
+                                     b["Common Stock"][y])
                 else:
                     bvps_list.append(None)
 
             finrat_dict["Book Value Per Share"] = bvps_list
             f.write("Book Value Per Share Ratios:  :: " + str(bvps_list) + brn + "\n\n")
 
-            temp_list = (
-                []
-            )  # Cast the ratio lists from dictionary for grading, I know not necessary to declare in Python
+            temp_list = []  # Cast the ratio lists from dictionary for grading, I know not necessary to declare in Python
 
             # Current Ratio Grade
             f.write("::  ::CURRENT RATIO::  ::\n" + brn)
@@ -930,32 +557,17 @@ class GradeSSC:
                     pass
                 elif float(temp_list[0]) > float(1.20):
                     gv += 1.5
-                    f.write(
-                        "CURRENT RATIO: ("
-                        + str(temp_list[0])
-                        + ") > 1.2 ::::: + 1.5 POINTS\n"
-                    )
+                    f.write("CURRENT RATIO: (" + str(temp_list[0]) + ") > 1.2 ::::: + 1.5 POINTS\n")
                     f.write(brn)
                 for x in range(len(temp_list) - 1):
                     if temp_list[x] == None or temp_list[x + 1] == None:
                         f.write("Missing Data - CURRENT RATIO" + brn)
-                        f.write(
-                            "Year: "
-                            + str(temp_list[x])
-                            + " - or - "
-                            + str(temp_list[x + 1])
-                        )
+                        f.write("Year: " + str(temp_list[x]) + " - or - " + str(temp_list[x + 1]))
                         pass
                     elif float(temp_list[x + 1]) < float(temp_list[x]):
-                        gv += 0.5
+                        gv += .5
                         f.write("For Range: " + str(x) + brn)
-                        f.write(
-                            str(temp_list[x + 1])
-                            + " < "
-                            + str(temp_list[x])
-                            + "== TRUE"
-                            + brn
-                        )
+                        f.write(str(temp_list[x + 1]) + " < " + str(temp_list[x]) + "== TRUE" + brn)
                         f.write(".5 POINTS ADDED TO GV")
                         f.write("CURRENT GV:  " + str(gv))
                     else:
@@ -975,25 +587,15 @@ class GradeSSC:
                     pass
                 elif float(temp_list[0]) > float(1.0):
                     gv += 1.5
-                    f.write(
-                        "ACID TEST RATIO ("
-                        + str(temp_list[0])
-                        + ") > 1.0 ::::: + 1.5 POINTS\n"
-                    )
+                    f.write("ACID TEST RATIO (" + str(temp_list[0]) + ") > 1.0 ::::: + 1.5 POINTS\n")
                     f.write(brn)
                 for x in range(len(temp_list) - 1):
                     if temp_list[x] == None or temp_list[x + 1] == None:
                         f.write("Missing Data om ACOD TEST" + brn)
                     elif float(temp_list[x + 1]) < float(temp_list[x]):
-                        gv += 0.5
+                        gv += .5
                         f.write("For Range: " + str(x) + brn)
-                        f.write(
-                            str(temp_list[x + 1])
-                            + " < "
-                            + str(temp_list[x])
-                            + "== TRUE"
-                            + brn
-                        )
+                        f.write(str(temp_list[x + 1]) + " < " + str(temp_list[x]) + "== TRUE" + brn)
                         f.write(".5 POINTS ADDED TO GV" + brn)
                     else:
                         f.write("POINTS NOT ADDED TO GV - ACID TEST" + brn)
@@ -1020,7 +622,7 @@ class GradeSSC:
                     if temp_list[x] == None or temp_list[x + 1] == None:
                         f.write("Missing Data Values in Cash Ratio")
                     elif float(temp_list[x + 1]) < float(temp_list[x]):
-                        gv += 0.5
+                        gv += .5
                         f.write(".5 awarded for count: :: " + str(count) + "\n")
                         count += 1
 
@@ -1037,7 +639,7 @@ class GradeSSC:
                 if temp_list[0] == None:
                     f.write("Missing Data in DEBT RATIO" + brn)
                     pass
-                elif float(temp_list[0]) < float(0.40):
+                elif float(temp_list[0]) < float(.40):
                     gv += 1.5
                     f.write("Debt Ratio < .40 ::::: + 1.5 POINTS\n")
                 else:
@@ -1062,7 +664,7 @@ class GradeSSC:
                     if temp_list[x] == None or temp_list[x + 1]:
                         f.write("Missing Data in DEBT TO EQUITY RATIO" + brn)
                     elif float(temp_list[x + 1]) < float(temp_list[x]):
-                        gv += 0.5
+                        gv += .5
                         f.write(".5 awarded for count: :: " + str(count) + "\n")
                         count += 1
                     else:
@@ -1089,7 +691,7 @@ class GradeSSC:
                         f.write("Missing Data in OPERATING CASH FLOW")
                         pass
                     elif float(temp_list[x + 1]) > float(temp_list[x]):
-                        gv += 0.5
+                        gv += .5
                         f.write(".5 awarded for count: :: " + str(count) + "\n")
                         count += 1
                     else:
@@ -1117,13 +719,11 @@ class GradeSSC:
                         f.write("Missing Documentation in Coverage ratio" + brn)
                         pass
                     elif float(temp_list[x + 1]) > float(temp_list[x]):
-                        gv += 0.5
+                        gv += .5
                         f.write(".5 awarded for count: :: " + str(count) + "\n")
                         count += 1
                     else:
-                        f.write(
-                            "Not Awarded .5 Points for count: :: " + str(count) + brn
-                        )
+                        f.write("Not Awarded .5 Points for count: :: " + str(count) + brn)
                         count += 1
 
             f.write("\nEnding GV: " + str(gv))
@@ -1138,7 +738,7 @@ class GradeSSC:
             if temp_list:
                 if temp_list[0] == None:
                     f.write("Missing Data in RETURN ON ASSETS" + brn)
-                elif float(temp_list[0]) > float(0.15):
+                elif float(temp_list[0]) > float(.15):
                     gv += 1.5
                     f.write("Return On Assets Ratio > .15 ::::: + 1.5 POINTS\n")
                 for x in range(len(temp_list) - 1):
@@ -1146,13 +746,11 @@ class GradeSSC:
                         f.write("Missing Data in RETURN ON ASSETS" + brn)
                         pass
                     elif float(temp_list[x + 1]) > float(temp_list[x]):
-                        gv += 0.5
+                        gv += .5
                         f.write(".5 awarded for count: :: " + str(count) + "\n")
                         count += 1
                     else:
-                        f.write(
-                            "Not Awarded .5 Points for count: :: " + str(count) + brn
-                        )
+                        f.write("Not Awarded .5 Points for count: :: " + str(count) + brn)
                         count += 1
 
             f.write("Ending GV: " + str(gv))
@@ -1168,7 +766,7 @@ class GradeSSC:
                 if temp_list[0] == None:
                     f.write("Missing Data in RETURN ON EQUITY" + brn)
                     pass
-                elif float(temp_list[0]) > float(0.15):
+                elif float(temp_list[0]) > float(.15):
                     gv += 1.5
                     f.write("Return On Equity Ratio > .07 ::::: + 1.5 POINTS\n")
                 for x in range(len(temp_list) - 1):
@@ -1176,13 +774,11 @@ class GradeSSC:
                         f.write("Missing Data in Return ON EQUITY" + brn)
                         pass
                     elif float(temp_list[x + 1]) > float(temp_list[x]):
-                        gv += 0.5
+                        gv += .5
                         f.write(".5 awarded for count: :: " + str(count) + "\n")
                         count += 1
                     else:
-                        f.write(
-                            "Not Awarded .5 Points for count: :: " + str(count) + brn
-                        )
+                        f.write("Not Awarded .5 Points for count: :: " + str(count) + brn)
                         count += 1
 
             f.write("Ending GV: " + str(gv))
@@ -1206,41 +802,20 @@ class GradeSSC:
                         f.write("Missing Data in BOOK VALUE PER SHARE" + brn)
                         pass
                     elif float(temp_list[x + 1]) > float(temp_list[x]):
-                        gv += 0.5
+                        gv += .5
                         f.write(".5 awarded for count: :: " + str(count) + "\n")
                         count += 1
                     else:
-                        f.write(
-                            "Not Awarded .5 Points for count: :: " + str(count) + brn
-                        )
+                        f.write("Not Awarded .5 Points for count: :: " + str(count) + brn)
 
             f.write("\n\nEND OF SECTION 4: FINANCIAL RATIOSG\n" + brl + (brn * 2))
             f.write("AROUND LINE 1015\n\n")
-            f.write(
-                brn
-                + brl
-                + brn
-                + brl
-                + brn
-                + "POINTS AWARDED / TOTAL POINTS UP TO SECTION 4\n"
-            )
-            f.write(
-                "POINTS AWARDED: "
-                + str(gv)
-                + " / "
-                + str(self.grade_tool.tp)
-                + " = TOTAL POINTS\n"
-            )
+            f.write(brn + brl + brn + brl + brn + "POINTS AWARDED / TOTAL POINTS UP TO SECTION 4\n")
+            f.write("POINTS AWARDED: " + str(gv) + " / " + str(self.grade_tool.tp) + " = TOTAL POINTS\n")
             f.write("DECIMAL VALUE == " + str((gv / self.grade_tool.tp)))
             f.write(brn + brl + (brn * 2))
 
-            f.write(
-                brl
-                + "\nBEGINNING SECTION 5: ANALYST UPGRADE/DOWNGRADE"
-                + brn
-                + brl
-                + (brn * 2)
-            )
+            f.write(brl + "\nBEGINNING SECTION 5: ANALYST UPGRADE/DOWNGRADE" + brn + brl + (brn * 2))
 
             # Storing gv in a function attribute grade_tool.gvratioresv = gv
 
@@ -1253,19 +828,12 @@ class GradeSSC:
             ar_gr_denom = 0
             ar_gr_final = 0
 
-            with open("obsolete/ardata.json", "r") as arsheets:
+            with open("obsolete/ardata.json", 'r') as arsheets:
                 ardata = json.load(arsheets)
                 ardata_dict = ardata
-                ar_lists.append(
-                    [
-                        ardata_dict["pageViews"][keys]
-                        for keys in ardata_dict["pageViews"]
-                        if not str(ardata_dict["pageViews"][keys]).isnumeric()
-                    ]
-                )
-                ar_dict.append(
-                    [x for x in [ardata_dict["upgradeDowngradeHistory"]["history"]]]
-                )
+                ar_lists.append([ardata_dict["pageViews"][keys] for keys in ardata_dict["pageViews"] if
+                                 not str(ardata_dict["pageViews"][keys]).isnumeric()])
+                ar_dict.append([x for x in [ardata_dict["upgradeDowngradeHistory"]["history"]]])
                 ar_dict_strip = ar_dict[0][0]
 
                 arsheets.close()
@@ -1279,27 +847,15 @@ class GradeSSC:
             # For every good-great rating +2 to ar_graderaw, +1 for neutral
             for x in ar_dict_strip:
                 if x["epochGradeDate"] > (time.time() - 31536000):
-                    if (
-                        str(x["toGrade"]) == "Buy"
-                        or str(x["toGrade"]) == "Strong Buy"
-                        or str(x["toGrade"]) == "Overweight"
-                        or str(x["toGrade"]) == "Market Perform"
-                        or str(x["toGrade"]) == "Outperform"
-                    ):
-                        f.write(
-                            str(x["firm"]) + "  :::::  " + str(x["toGrade"]) + "  ::"
-                        )
+                    if str(x["toGrade"]) == "Buy" or str(x["toGrade"]) == "Strong Buy" or \
+                            str(x["toGrade"]) == "Overweight" or str(x["toGrade"]) == "Market Perform" or \
+                            str(x["toGrade"]) == "Outperform":
+                        f.write(str(x["firm"]) + "  :::::  " + str(x["toGrade"]) + "  ::")
                         ar_graderaw += 2
                         f.write(str("Analyst Grade Points ::::: + 2 POINTS  ::\n"))
-                    elif (
-                        str(x["toGrade"]) == "Neutral"
-                        or str(x["toGrade"]) == "Hold"
-                        or str(x["toGrade"]) == "Perform"
-                        or str(x["toGrade"]) == "Equal-Weight"
-                    ):
-                        f.write(
-                            str(x["firm"]) + "  :::::  " + str(x["toGrade"]) + "  ::"
-                        )
+                    elif str(x["toGrade"]) == "Neutral" or str(x["toGrade"]) == "Hold" or \
+                            str(x["toGrade"]) == "Perform" or str(x["toGrade"]) == "Equal-Weight":
+                        f.write(str(x["firm"]) + "  :::::  " + str(x["toGrade"]) + "  ::")
                         ar_graderaw += 1
                         f.write(str("Analyst Grade Points ::::: + 1 POINT  ::\n"))
 
@@ -1311,13 +867,9 @@ class GradeSSC:
             f.write(str(gv) + " / " + str(self.grade_tool.tp) + "\n\n")
             f.write(brl + brn + "Line 1033" + brn + brl)
             f.write((brn * 2) + brl + brn)
-            f.write(
-                "END OF SECTION 5: ANALYST UPGRADE/DOWNGRADE" + brn + brl + (brn * 3)
-            )
+            f.write("END OF SECTION 5: ANALYST UPGRADE/DOWNGRADE" + brn + brl + (brn * 3))
 
-            f.write(
-                brl + brn + "BEGIN SECTION 6: GRADES AND WEIGHTS\n" + brl + (brn * 3)
-            )
+            f.write(brl + brn + "BEGIN SECTION 6: GRADES AND WEIGHTS\n" + brl + (brn * 3))
 
             # A 'bonus' to the analyst rating points if the market short/mid/longterm trend is upwards
             for x in ar_lists:
@@ -1337,15 +889,7 @@ class GradeSSC:
             """
 
             # Calculating the total number of analyst ratings within a date range and making denominator
-            ar_gr_denom = int(
-                len(
-                    [
-                        x
-                        for x in ar_dict_strip
-                        if x["epochGradeDate"] >= time.time() - 31536000
-                    ]
-                )
-            )
+            ar_gr_denom = int(len([x for x in ar_dict_strip if x["epochGradeDate"] >= time.time() - 31536000]))
 
             # The final grade for analysts - percentage of positive ratings to overall ratings
             ar_gr_final = ar_graderaw / ar_gr_denom
@@ -1360,33 +904,24 @@ class GradeSSC:
 
             # Need to change this 2/1/22 - This only makes sense if the grades are weighted by section and given a boost
             # When the analyst section is more positive than not.
-            if ar_gr_final >= 0.55 and ar_gr_final <= 0.75:
-                f.write(
-                    "\nGRADE AWARDED 5% DUE TO ANALYST RATINGS" + brn + brl + (brn * 2)
-                )
-                if dec_gr <= 0.95:
-                    dec_gr += 0.05
-                elif dec_gr > 0.95:
+            if ar_gr_final >= .55 and ar_gr_final <= .75:
+                f.write("\nGRADE AWARDED 5% DUE TO ANALYST RATINGS" + brn + brl + (brn * 2))
+                if dec_gr <= .95:
+                    dec_gr += .05
+                elif dec_gr > .95:
                     dec_gr = 1.00
 
-            if ar_gr_final > 0.75:
-                f.write(
-                    "\nGRADE AWARDED 7% DUE TO ANALYST RATINGS" + brn + brl + (brn * 2)
-                )
-                if dec_gr <= 0.93:
-                    dec_gr += 0.07
-                elif dec_gr > 0.93:
+            if ar_gr_final > .75:
+                f.write("\nGRADE AWARDED 7% DUE TO ANALYST RATINGS" + brn + brl + (brn * 2))
+                if dec_gr <= .93:
+                    dec_gr += .07
+                elif dec_gr > .93:
                     dec_gr = 1.00
 
-            if ar_gr_final < 0.50:
-                f.write(
-                    "\nGRADE REDUCED BY 5% DUE TO ANALYST RATINGS"
-                    + brn
-                    + brl
-                    + (brn * 2)
-                )
-                if dec_gr >= 0.64:
-                    dec_gr -= 0.05
+            if ar_gr_final < .50:
+                f.write("\nGRADE REDUCED BY 5% DUE TO ANALYST RATINGS" + brn + brl + (brn * 2))
+                if dec_gr >= .64:
+                    dec_gr -= .05
 
             # grade here will store the decimal value of the fraction gv/tpratiores = dec_gr
             self.grade_tool.erlist = erlist

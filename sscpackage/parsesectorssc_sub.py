@@ -13,23 +13,16 @@ class ParseSec_Sub(sscpackage.parsesectorssc.ParseSector):
     def parsesector(self, uniquename, ps_rawdata):
         try:
             uniquesplitlist = uniquename.split("__")
-            ticker, key, idssc, timestampidpsec = (
-                uniquesplitlist[0],
-                uniquesplitlist[1],
-                uniquesplitlist[2],
-                uniquesplitlist[3],
-            )
+            ticker, key, idssc, timestampidpsec = uniquesplitlist[0], uniquesplitlist[1], uniquesplitlist[2], \
+                                                  uniquesplitlist[3]
 
             DP_SSCPSEC = dictpullssc.DictPullSSC()
             secdata = DP_SSCPSEC.dictpullssc(ps_rawdata, "sector")
 
+
             fetchstorename = uniquename
-            FST_SSC = fetchshelfssc_mod.FetchShelfSSC(
-                fetchstoreshelf=self.setpathssc_parsesscsec
-            )
-            FST_SSC.fetchstore(
-                ticker=ticker, fetchstorename=fetchstorename, fetch_data=secdata
-            )
+            FST_SSC = fetchshelfssc_mod.FetchShelfSSC(fetchstoreshelf=self.setpathssc_parsesscsec)
+            FST_SSC.fetchstore(ticker=ticker, fetchstorename=fetchstorename, fetch_data=secdata)
             del FST_SSC
             del DP_SSCPSEC
         except Exception as er:
