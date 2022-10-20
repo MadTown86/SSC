@@ -104,6 +104,7 @@ class ParseRatioCreateSSC:
             # Loop through ratios
             for key in dictratiossclamb.keys():
                 calctemplistforzipper = []
+                print(key)
 
                 # Loop through each required variable name for ratio
                 for varname in dictratiosscverbal[key]:
@@ -126,6 +127,7 @@ class ParseRatioCreateSSC:
                 interimratiodictssc[key] = calctemplistforzipper
 
             for ratio in dictratiossclamb.keys():
+                print(ratio)
                 resssc = []
                 for iteration in list(zip(*interimratiodictssc[ratio])):
                     resssc.append(dictratiossclamb[ratio](*iteration))
@@ -155,8 +157,24 @@ if __name__ == "__main__":
 
     ticker, tag, instid, uniqueid = test_key.split("__")
 
-    inc_key = [x for x in local_db.keys() if 'url_income' in x and ticker in x]
+    inc_key = [x for x in local_db.keys() if 'url_income' in x and ticker in x and uniqueid in x]
+    print(inc_key[0])
 
-    bal_key =
+    bal_key = [x for x in local_db.keys() if 'bal' in x and ticker in x and uniqueid in x]
+    print(bal_key[0])
+
+    incdata = PS.parseincome(inc_key[0], local_db[inc_key[0]])
+    for key, value in incdata.items():
+        print(f'KEY::: {key} ---> VALUE::: {value}')
+
+    baldata = PBAL.parsebalance(bal_key[0], local_db[bal_key[0]])
+    for key, value in baldata.items():
+        print(f'KEY::: {key} ---> VALUE::: {value}')
+
+    PSS = ParseRatioCreateSSC()
+    test_ratioparsedict = PSS.parseratiocreatesssc(incdata, baldata)
+
+    for key, value in test_ratioparsedict.items():
+        print(f'KEY::: {key} ---> VALUE::: {value}')
 
 

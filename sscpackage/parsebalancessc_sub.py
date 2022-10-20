@@ -110,7 +110,7 @@ class ParseBalance_Sub(parsebalancessc.ParseBalance):
     def __init__(self):
         super().__init__()
 
-    def parsebalance(self, uniquename: "str", pb_rawdata: dict) -> None:
+    def parsebalance(self, uniquename: "str", pb_rawdata: dict) -> dict:
 
         try:
             ticker, tag, idselfssc, uniquekey = uniquename.split("__")
@@ -160,7 +160,10 @@ class ParseBalance_Sub(parsebalancessc.ParseBalance):
             )
             del FST_SSC_PB
 
+
+
             print(f"Finished Ticker: {ticker}")
+            return data_output
 
         except Exception as Er:
             print("Exception in ParseBalance.parsebalance  ::  ")

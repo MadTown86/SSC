@@ -12,7 +12,7 @@ class ParseIncomeSSC_Sub(parseincomessc.ParseIncome):
     def __init__(self):
         super().__init__()
 
-    def parseincome(self, uniquename: "str", pi_rawdata: json) -> None:
+    def parseincome(self, uniquename: "str", pi_rawdata: json) -> dict:
         """
         Converts raw json string to usable format for grading purposes
 
@@ -41,7 +41,7 @@ class ParseIncomeSSC_Sub(parseincomessc.ParseIncome):
                 "effectOfAccountingCharges": "Effect of Accounting Charges",
                 "incomeBeforeTax": "Income Before Tax",
                 "minorityInterest": "Minority Interest",
-                "netIncome": "Net Interest",
+                "netIncome": "Net Income",
                 "sellingGeneralAdministrative": "Selling, General & Administrative",
                 "grossProfit": "Gross Profit",
                 "ebit": "EBIT",
@@ -74,6 +74,8 @@ class ParseIncomeSSC_Sub(parseincomessc.ParseIncome):
             )
             del FST_SSC
             print(f'Finished Ticker: {ticker}')
+
+            return output_dict_inc
 
         except Exception as Er:
             print("Exception in 'ParseIncome.parseincome'  ::  ")

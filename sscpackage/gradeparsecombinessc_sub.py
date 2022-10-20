@@ -3,6 +3,7 @@ import parsearssc
 import parsebalancessc_sub
 import parseindssc_sub
 import parseincomessc_sub
+import parseratiocreatessc
 import parsevalssc_sub
 import parsesectorssc_sub
 
@@ -97,3 +98,5 @@ class GradeParseCombineSSCSub(gradeparsecombinessc.GradeParseCombineSSC):
         except Exception as er:
             print("Exception in GradeParseCombineSSC: outer scope")
             print(er)
+
+if __name__ == "__main__":
