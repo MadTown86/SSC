@@ -2,6 +2,7 @@ import shelve
 import dotenv
 import os
 import time
+import sscerrors
 
 dotenv.load_dotenv(dotenv_path=os.getenv("LO_ROOT"))
 ROOT_VAR_SSC = os.getenv("CORE_DIR_STOR")
@@ -32,7 +33,6 @@ class FetchLogSSC:
 
     def ssc_fetchlogwrite(self, fetchstorename):
         # Put in Store
-        try:
             with shelve.open(FetchLogSSC._fetchlogpath) as shelvelog:
                 if shelvelog.keys():
                     if self.logname in shelvelog.keys():
@@ -41,14 +41,12 @@ class FetchLogSSC:
                             temp_log.append(fetchstorename)
                             shelvelog[self.logname] = temp_log
                         else:
-                            pass
+                            raise sscerrors.AlreadyExistsException
                     else:
                         shelvelog[self.logname] = [fetchstorename]
                 else:
                     shelvelog[self.logname] = [fetchstorename]
-        except Exception as er:
-            print("Exception in fetchlogssc -> ssc_fetchlogwrite")
-            print(er)
+
 
     def ssc_logfetch(self):
         try:
@@ -235,7 +233,5 @@ class FetchLogSSC:
 
 
 if __name__ == "__main__":
-    FLOG2 = FetchLogSSC()
-    printoutput = FLOG2.ssc_logfetch()
-    for line in printoutput:
-        print(line)
+
+    test_key = 'MSFT__url_balance__1556069093072__bX6sOpMaQ1UaYNX'

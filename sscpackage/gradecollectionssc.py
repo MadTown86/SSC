@@ -161,14 +161,27 @@ class GradeCollectionSSC:
 
 if __name__ == "__main__":
     import gradeparsecombinessc_sub
+    import fetchlogssc
+
+    FSS = fetchlogssc.FetchLogSSC()
+
 
     testbin_tickers = [
         'MSFT__url_balance__1556069093072__bX6sOpMaQ1UaYNX'
     ]
 
+
     def mini_collectiontest(testlogvaridssc):
         pointvarbinssc = []
         ticker, tag, instid, uniqueid = testlogvaridssc.split("__")
+
+        FSS.ssc_fetchlogclear()
+
+        FSS.ssc_fetchlogwrite(fetchstorename=ticker + "__" + uniqueid)
+
+        temp_fetchprint = FSS.ssc_logfetch()
+        print(temp_fetchprint)
+
         print(ticker, uniqueid)
         GS = gradeparsecombinessc_sub.GradeParseCombineSSCSub()
         passindict = GS.gradeparsecombinessc(ticker, uniqueid)

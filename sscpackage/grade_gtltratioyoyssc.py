@@ -6,8 +6,8 @@ class GTLTYoYRatioSSC(gradesheetprintssc.GradeSheetPrintSSC):
         super().__init__()
         self.asratioincreasingsections = [
             "Net Income",
-            "Operating Margin",
-            "Net Margin",
+            "Operating Income",
+            "Total Revenue",
             "Gross Profit",
             "EBIT",
             "Operating Income",

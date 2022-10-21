@@ -43,6 +43,9 @@ def gotmilk(dat):
         raise GotNoMilk
 
 
+class AlreadyExistsException(Exception):
+    pass
+
 class GotNoMilk(Exception):
     print("It's Got No Milk, Buddy!")
     pass
