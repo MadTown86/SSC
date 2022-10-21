@@ -91,7 +91,7 @@ class ParseBalance:
             print("Exception in ParseBalance.parsebalance  ::  ")
             print(str(Er))
 
-    def fetch_parsebalance(self, timestampidpb):
+    def fetch_parsebalance(self, timestampidpb: str) -> dict:
         pushdata = {}
         try:
             with shelve.open(self.setpathssc_parsesscpb) as pibank:
@@ -109,3 +109,27 @@ class ParseBalance:
         except Exception as Er:
             print("Exception: 'fetch_parsebalance'")
             print(Er)
+
+if __name__ == "__main__":
+    import fetchshelfssc_mod
+
+    FS = fetchshelfssc_mod.FetchShelfSSC()
+    localdb = FS.fetchdbpull()
+
+    keylistall = [x for x in localdb.keys() if "balance" in x]
+
+    first_key = keylistall[0]
+    ticker, tag, instid, uniqueid = first_key.split("__")
+    print(first_key)
+
+    PS = ParseBalance()
+    test_output = PS.fetch_parsebalance(uniqueid)
+    print(test_output)
+
+
+
+
+
+
+
+

@@ -112,7 +112,6 @@ class ParseBalance_Sub(parsebalancessc.ParseBalance):
 
     def parsebalance(self, uniquename: "str", pb_rawdata: dict) -> dict:
 
-        try:
             ticker, tag, idselfssc, uniquekey = uniquename.split("__")
 
             # Converting YH-Finance dataset to pre-existing keys
@@ -160,14 +159,9 @@ class ParseBalance_Sub(parsebalancessc.ParseBalance):
             )
             del FST_SSC_PB
 
-
-
             print(f"Finished Ticker: {ticker}")
             return data_output
 
-        except Exception as Er:
-            print("Exception in ParseBalance.parsebalance  ::  ")
-            print(str(Er))
 
 
 if __name__ == "__main__":
@@ -216,6 +210,8 @@ if __name__ == "__main__":
     jsonmix = DS.dictpullssc(localdb[bal_key], "balanceSheetHistory")
     jsonmix = jsonmix['balanceSheetStatements']
 
+    print(ticker, selfid)
+
     if localdb:
         if localdb[bal_key]:
             if localdb[bal_key].keys():
@@ -223,3 +219,6 @@ if __name__ == "__main__":
 
     PB = ParseBalance_Sub()
     PB.parsebalance(bal_key, localdb[bal_key])
+
+    test_print = PB.fetch_parsebalance(bal_key)
+    print(test_print)

@@ -28,7 +28,6 @@ class GradeParseCombineSSC:
         return GradeParseCombineSSC.inst_count_gpcssc
 
     def __init__(self):
-        GradeParseCombineSSC.inst_count_gpcssc += 1
         self.parsecombo = {}
 
     def gradeparsecombinessc(self, ticker, logfileidssc):

@@ -91,7 +91,7 @@ if __name__ == '__main__':
         "effectOfAccountingCharges": "Effect of Accounting Charges",
         "incomeBeforeTax": "Income Before Tax",
         "minorityInterest": "Minority Interest",
-        "netIncome": "Net Interest",
+        "netIncome": "Net Income",
         "sellingGeneralAdministrative": "Selling, General & Administrative",
         "grossProfit": "Gross Profit",
         "ebit": "EBIT",

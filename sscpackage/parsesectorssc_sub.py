@@ -32,7 +32,7 @@ class ParseSec_Sub(sscpackage.parsesectorssc.ParseSector):
             )
             del FST_SSC
             del DP_SSCPSEC
-            print(secdata)
+
             print(f'Finished ticker:: {ticker}')
         except Exception as er:
             print("Exception in ParseSector: method 'parsesector' ")

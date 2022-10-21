@@ -12,7 +12,7 @@ class GradeParseCombineSSCSub(gradeparsecombinessc.GradeParseCombineSSC):
     def __init__(self):
         super().__init__()
 
-    def gradeparsecombinessc(self, ticker, logfileidssc):
+    def gradeparsecombinessc(self, ticker: str, logfileidssc: str) -> dict:
         try:
             PAR = parsearssc.ParseAr()
             PBAL = parsebalancessc_sub.ParseBalance_Sub()
@@ -100,3 +100,15 @@ class GradeParseCombineSSCSub(gradeparsecombinessc.GradeParseCombineSSC):
             print(er)
 
 if __name__ == "__main__":
+    import fetchshelfssc_mod
+
+    FS = fetchshelfssc_mod.FetchShelfSSC()
+    local_db = FS.fetchdbpull()
+    keylist = [x for x in local_db.keys()]
+    ticker, tag, instid, uniqueid = keylist[0].split("__")
+
+    PS = GradeParseCombineSSCSub()
+    testdict = PS.gradeparsecombinessc(ticker, uniqueid)
+
+    print(testdict)
+

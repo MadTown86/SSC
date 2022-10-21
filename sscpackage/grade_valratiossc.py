@@ -5,7 +5,7 @@ class GradeValRatioSSC(gradesheetprintssc.GradeSheetPrintSSC):
     def __init__(self):
         super().__init__()
         self.gradeprinterdict = {}
-        self.limitchecklist = ["Market Cap (intraday)", "Enterprise Value"]
+        self.limitchecklist = ["Market Cap (intraday)", "Price/Sales (ttm)"]
 
     def grade_valratiossc(self, ticker, parsecombo, uniqueid, awardsystem):
         # TODO: The ValRatioSSC needs a more in-depth grading mechanism than simple '>' '<' YoY system

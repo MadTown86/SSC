@@ -50,7 +50,6 @@ if __name__ == "__main__":
     keylist = [x for x in local_db.keys() if "sector" in x]
 
     key_test = keylist[0]
-    print(DS.dictpullssc(local_db[key_test], 'industry'))
 
     PASS = ParseIndustry_Sub()
 

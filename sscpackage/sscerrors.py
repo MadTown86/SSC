@@ -40,7 +40,7 @@ def gotmilk(dat):
     if dat:
         return True
     else:
-        raise GotNoMilk(Exception)
+        raise GotNoMilk
 
 
 class GotNoMilk(Exception):

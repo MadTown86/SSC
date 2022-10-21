@@ -8,6 +8,7 @@ import grade_finratiossc
 import grade_gtltratioyoyssc
 import grade_gtltyoyssc
 import grade_valratiossc
+import gradeparsecombinessc_sub
 import storessc
 
 
@@ -159,24 +160,20 @@ class GradeCollectionSSC:
 
 
 if __name__ == "__main__":
-    import gradeparsecombinessc
+    import gradeparsecombinessc_sub
 
     testbin_tickers = [
-        "AAPL__iUQNePAoVeFQIPV",
-        "NVDA__HH12TPwnMth9Tet",
-        "GME__AlabRmFaJP9IXEH",
-        "GE__DRLihsPscNaTz0Q",
-        "FORD__VyjP8walEhZzDRh",
+        'MSFT__url_balance__1556069093072__bX6sOpMaQ1UaYNX'
     ]
 
     def mini_collectiontest(testlogvaridssc):
         pointvarbinssc = []
-        ticker, uniqueid = testlogvaridssc.split("__")
+        ticker, tag, instid, uniqueid = testlogvaridssc.split("__")
         print(ticker, uniqueid)
-        print(GradeCollectionSSC.return_inst_count())
-        GS = gradeparsecombinessc.GradeParseCombineSSC()
-        print(GradeCollectionSSC.return_inst_count())
+        GS = gradeparsecombinessc_sub.GradeParseCombineSSCSub()
         passindict = GS.gradeparsecombinessc(ticker, uniqueid)
+        print(passindict)
+
         Gcollect = GradeCollectionSSC(ticker, passindict, uniqueid)
         pointvarbinssc = Gcollect.gradecollectionssc()
         print(pointvarbinssc)
@@ -184,4 +181,3 @@ if __name__ == "__main__":
 
     for uniquekey in testbin_tickers:
         mini_collectiontest(uniquekey)
-        import gradeparsecombinessc
