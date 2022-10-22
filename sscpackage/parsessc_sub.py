@@ -2,43 +2,17 @@ import fetchlogssc
 import fetchshelfssc_mod
 import fetchssc
 import parsearssc
-import parsebalancessc
-import parseincomessc
-import parseindssc
-import parsesectorssc
-import parsevalssc
+import parsebalancessc_sub
+import parseincomessc_sub
+import parseindssc_sub
+import parsesectorssc_sub
+import parsessc
+import parsevalssc_sub
 
 
-class ParseStart:
-    parse_cancel: bool = False
-    parse_runitem: str = ""
-    parse_header = "PARSE TICKERS-"
-
-    @staticmethod
-    def set_parse_header(arg_head):
-        ParseStart.parse_header = str(arg_head)
-
-    @staticmethod
-    def pull_parseheader():
-        return ParseStart.parse_header
-
-    @staticmethod
-    def set_parserun(arg):
-        ParseStart.parse_runitem = arg
-
-    @staticmethod
-    def parse_canceler():
-        print("Parse_Cancel")
-        ParseStart.parse_cancel = True
-        print(ParseStart.parse_cancel)
-
-    @staticmethod
-    def reset_parse():
-        ParseStart.parse_cancel = False
-
-    @staticmethod
-    def parse_runfetch():
-        return ParseStart.parse_runitem
+class ParseStartSub(parsessc.ParseStart):
+    def __init__(self):
+        super().__init__()
 
     def ssc_parselogstart(self, ticker_fail):
         """
@@ -57,12 +31,12 @@ class ParseStart:
         local_logcopy = FLOG.ssc_logfetch()
         del FLOG
 
-        PI_SSC = parseincomessc.ParseIncome()
-        PB_SSC = parsebalancessc.ParseBalance()
-        PVAL_SSC = parsevalssc.ParseVal()
+        PI_SSC = parseincomessc_sub.ParseIncomeSSC_Sub()
+        PB_SSC = parsebalancessc_sub.ParseBalance_Sub()
+        PVAL_SSC = parsevalssc_sub.ParseValSSC_Sub()
         PAR_SSC = parsearssc.ParseAr()
-        PSEC_SSC = parsesectorssc.ParseSector()
-        PIND_SSC = parseindssc.ParseIndustry()
+        PSEC_SSC = parsesectorssc_sub.ParseSec_Sub()
+        PIND_SSC = parseindssc_sub.ParseIndustry_Sub()
 
         tag_container = {}
         tag_container["url_income"] = "inctag"
@@ -103,8 +77,8 @@ class ParseStart:
                 urlbinding = tempsplit[1]
                 temp_logentry = ticker + "__" + urlbinding
                 if temp_logentry not in ticker_fail:
-                    ParseStart.set_parserun(ticker)
-                    if ParseStart.parse_cancel:
+                    ParseStartSub.set_parserun(ticker)
+                    if ParseStartSub.parse_cancel:
                         break
                     for tag in tag_container.keys():
                         tag_check = ticker + "__" + urlbinding
@@ -127,8 +101,3 @@ class ParseStart:
         del PAR_SSC
         del PVAL_SSC
         del PIND_SSC
-
-
-if __name__ == "__main__":
-    FS_SSC = fetchlogssc.FetchLogSSC()
-    test_fetchlog = FS_SSC.ssc_logfetch()

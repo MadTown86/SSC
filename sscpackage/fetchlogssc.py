@@ -100,10 +100,8 @@ class FetchLogSSC:
                         log_listlocal = [x for x in fl4[self.logname]]
                         log_listdel = log_listlocal[:]
                         print(f"LOG LIST LOCAL - ssc_fetchlog: {log_listlocal}")
-                        for indexno in range(len(log_listlocal) - 1):
-                            print(indexno)
+                        for indexno in range(len(log_listlocal)):
                             if ticker and uniqueid in log_listlocal[indexno]:
-                                print(log_listlocal[indexno])
                                 transfer_todelete.append(
                                     log_listdel.pop(
                                         log_listdel.index(log_listlocal[indexno])
@@ -113,15 +111,17 @@ class FetchLogSSC:
                                 continue
                         fl4[self.logname] = log_listdel
 
-                if transfer_todelete:
-                    if self.logdelete not in fl4.keys():
-                        fl4[self.logdelete] = transfer_todelete
-                    else:
-                        tempcopy = fl4[self.logdelete]
-                        for item in transfer_todelete:
-                            if item not in tempcopy:
-                                tempcopy.append(item)
-                        fl4[self.logfinish] = tempcopy
+                    if transfer_todelete:
+                        if self.logdelete not in fl4.keys():
+                            fl4[self.logdelete] = transfer_todelete
+                        else:
+                            tempcopy = fl4[self.logdelete]
+                            for item in transfer_todelete:
+                                if item not in tempcopy:
+                                    tempcopy.append(item)
+                            fl4[self.logdelete] = tempcopy
+
+
         except Exception as er:
             print("Exception in fetchlogssc -> ssc_fetchlogdeleted")
             print(er)

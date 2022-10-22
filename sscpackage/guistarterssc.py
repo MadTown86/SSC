@@ -24,6 +24,7 @@ import fetchstarterssc
 import fetchstarterssc as sscf
 import gradestarterssc
 import parsessc
+import parsessc_sub
 
 # sscpackage imports
 from sscpackage import storessc as sst
@@ -162,6 +163,7 @@ class GuiStarterSSC(object):
         # setting a tkk style for the submit_click button
         s = ttk.Style()
         s.configure("my.TButton", font=("Times New Roman", 18))
+
 
         def rkey():
             """
@@ -336,6 +338,9 @@ class GuiStarterSSC(object):
                         text_update("LIST SUBMIT", "Ticker List Successfully Enterred")
                         window.update()
 
+                        # Purge Fail List
+                        fetchssc.FetchSSC().purge_tickerfail()
+
                         """
                         Place for main program to run on submit click
                         """
@@ -355,9 +360,11 @@ class GuiStarterSSC(object):
 
                         # Delete 'failed fetches' from FetchLog
                             fail_list = fetchssc.FetchSSC().pull_tickerfail()
+                            print("f'FAIL LIST DIRECT")
                             FLOG = fetchlogssc.FetchLogSSC()
-                            for ticker, uniqueid in fail_list:
-                                FLOG.ssc_fetchlogdeleted(ticker, uniqueid)
+                            if fail_list:
+                                for ticker, uniqueid in fail_list:
+                                    FLOG.ssc_fetchlogdeleted(ticker, uniqueid)
 
 
                         print("After Fetch")
@@ -368,7 +375,8 @@ class GuiStarterSSC(object):
                             exit_btn["state"] = "normal"
 
                         if not GuiStarterSSC.cancel_start:
-                            PS = parsessc.ParseStart()
+                            PS = parsessc_sub.ParseStartSub()
+
                             schedule.every(1).seconds.do(
                                 lambda: text_update(
                                     header=PS.pull_parseheader(),
@@ -376,9 +384,10 @@ class GuiStarterSSC(object):
                                 )
                             )
                             schedule.run_pending()
-                            PS.ssc_parselogstart(fetchssc.FetchSSC.pull_fetchfaillist())
+                            PS.ssc_parselogstart(fetchssc.FetchSSC.pull_tickerfail())
                             schedule.clear()
                         print("After Parse")
+
                         GuiStarterSSC.end_parsestart = True
                         if GuiStarterSSC.cancel_start:
                             GuiStarterSSC.schedule_boolfalse()

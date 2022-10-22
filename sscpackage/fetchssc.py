@@ -13,6 +13,8 @@ import shelve
 import dotenv
 import os
 import requests
+
+import sscerrors
 import sscpackage.fetchshelfssc_mod
 import sscpackage.fetchurlssc
 import sscpackage.fetchurlssc_sub
@@ -60,9 +62,6 @@ def myownrandom(keylength: int = 10) -> str:
 
 
 class FetchSSC:
-    @staticmethod
-    def pull_fetchfaillist():
-        return FetchSSC.ticker_fail
 
     def __init__(self, *args, **kwargs) -> None:
         pass
@@ -90,16 +89,19 @@ class FetchSSC:
         try:
             res_list = []
             with shelve.open(ROOT_VAR_SSC + "ticker_fail") as ticker_fshelve2:
-                if ticker_fshelve2["ticker_fail"]:
-                    templist = [x for x in ticker_fshelve2["ticker_fail"]]
-                    for item in templist:
-                        ticker, delvar1, delvar2, uniqueid = item.split("__")
-                        res_list.append((ticker, uniqueid))
-                    return res_list
+                if ticker_fshelve2.keys():
+                    if ticker_fshelve2["ticker_fail"]:
+                        templist = [x for x in ticker_fshelve2["ticker_fail"]]
+                        for item in templist:
+                            ticker, delvar1, delvar2, uniqueid = item.split("__")
+                            res_list.append((ticker, uniqueid))
+                        return res_list
+                    else:
+                        return []
                 else:
-                    return 0
+                    return []
         except Exception as er:
-            print("Exception in fetchssc-> pull_tickefail")
+            print("Exception in fetchssc-> pull_tickerfail")
             print(er)
 
     @staticmethod
