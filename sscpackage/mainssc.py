@@ -25,10 +25,6 @@ def cancel_schedule():
 
 class ControlBoardSSC:
     """
-    Main Control Flow:
-    1. guistarter
-    FROM GUI - INPUT CHOSEN
-    2.
     """
 
     main_cancelf = False
