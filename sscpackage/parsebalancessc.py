@@ -38,7 +38,7 @@ class ParseBalance:
     def parsebalance(self, uniquename: "str", pb_rawdata: dict) -> None:
         try:
             uniquesplitlist = uniquename.split("__")
-            ticker, key, idssc, timestampidpb = (
+            ticker, key, idssc, uniqueidssc = (
                 uniquesplitlist[0],
                 uniquesplitlist[1],
                 uniquesplitlist[2],
@@ -78,12 +78,12 @@ class ParseBalance:
             FST_SSC_PB = fetchshelfssc_mod.FetchShelfSSC(
                 fetchstoreshelf=self.setpathssc_parsesscpb
             )
+
+            fetchstorename = ticker + "__" + uniqueidssc
             FST_SSC_PB.fetchstore(
                 ticker=ticker,
-                key=key,
-                idssc=idssc,
                 fetch_data=bsheets_dict,
-                timestampidfs=timestampidpb,
+                fetchstorename=fetchstorename
             )
             del FST_SSC_PB
 

@@ -43,12 +43,11 @@ class ParseIndustry:
             FST_SSC = fetchshelfssc_mod.FetchShelfSSC(
                 fetchstoreshelf=self.setpathssc_parsesscind
             )
+
             FST_SSC.fetchstore(
                 ticker=ticker,
-                key=key,
-                idssc=idssc,
                 fetch_data=secdata,
-                timestampidfs=timestampidpind,
+                fetchstorename=uniquename,
             )
             del FST_SSC
             del DP_SSC

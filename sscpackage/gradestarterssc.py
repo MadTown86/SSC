@@ -43,16 +43,7 @@ class GradeStartSSC:
             FS_SSC = fetchlogssc.FetchLogSSC()
             print("2")
             local_logforticker = FS_SSC.ssc_logfetch()
-            print("3")
-            print(local_logforticker)
-            clean_copyssc = set()
-            for val in local_logforticker:
-                splitcopy = val.split("__")
-                clean_copyssc.add(splitcopy[0] + "__" + splitcopy[3])
-            print("4")
-            for val in clean_copyssc:
-                print(val)
-            for item in clean_copyssc:
+            for item in local_logforticker:
                 if not GradeStartSSC.grade_cancel:
                     ticker, entrysscgs = item.split("__")
                     print(ticker)

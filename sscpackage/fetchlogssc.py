@@ -41,6 +41,7 @@ class FetchLogSSC:
                             temp_log.append(fetchstorename)
                             shelvelog[self.logname] = temp_log
                         else:
+                            print(fetchstorename)
                             raise sscerrors.AlreadyExistsException
                     else:
                         shelvelog[self.logname] = [fetchstorename]
@@ -233,5 +234,4 @@ class FetchLogSSC:
 
 
 if __name__ == "__main__":
-
-    test_key = 'MSFT__url_balance__1556069093072__bX6sOpMaQ1UaYNX'
+    pass

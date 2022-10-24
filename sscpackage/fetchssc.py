@@ -13,6 +13,7 @@ import shelve
 import dotenv
 import os
 import requests
+import fetchlogssc
 
 import sscerrors
 import sscpackage.fetchshelfssc_mod
@@ -140,16 +141,11 @@ class FetchSSC:
                 response = requests.request(
                     "GET", url=url, headers=head, params=qs
                 )  # Request data
+
                 self.response = response
-                self.fetchstorename = (
-                    self.ticker
-                    + "__"
-                    + tag
-                    + "__"
-                    + str(id(self))
-                    + "__"
-                    + sscrandomkey
-                )
+
+                self.fetchstorename = f'{self.ticker}__{tag}__{id(self)}__{sscrandomkey}'
+
                 if (
                     response.status_code == 200
                 ):  # If received 'all good' response from API for first request, continue
@@ -157,11 +153,12 @@ class FetchSSC:
                     FSSC = sscpackage.fetchshelfssc_mod.FetchShelfSSC()
                     FSSC.fetchstore(
                         ticker=ticker,
-                        tag=tag,
-                        sscrandomkey=sscrandomkey,
                         fetchstorename=self.fetchstorename,
                         fetch_data=self.fetch_data,
                     )
+                    FS_SSC = fetchlogssc.FetchLogSSC()
+                    FS_SSC.ssc_fetchlogwrite(fetchstorename=self.fetchstorename)
+                    del FS_SSC
                     self.statusfetch = True
                     print(f"Success for ticker : {ticker}")
                 elif response.status_code == 401:

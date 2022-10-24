@@ -47,7 +47,7 @@ class ParseIncome:
         """
         try:
             uniquesplitlist = uniquename.split("__")
-            ticker, key, idssc, timestampidpi = (
+            ticker, key, idssc, uniqueidssc = (
                 uniquesplitlist[0],
                 uniquesplitlist[1],
                 uniquesplitlist[2],
@@ -96,12 +96,11 @@ class ParseIncome:
             FST_SSC = fetchshelfssc_mod.FetchShelfSSC(
                 fetchstoreshelf=self.setpathssc_parsessc
             )
+            fetchstorename = ticker + "__" + uniqueidssc
             FST_SSC.fetchstore(
                 ticker=ticker,
-                key=key,
-                idssc=idssc,
+                fetchstorename=fetchstorename,
                 fetch_data=isheets_dict,
-                timestampidfs=timestampidpi,
             )
             del FST_SSC
 

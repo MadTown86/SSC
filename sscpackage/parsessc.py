@@ -8,6 +8,15 @@ import parseindssc
 import parsesectorssc
 import parsevalssc
 
+"""
+DATE: 10/23/2022
+AUTHOR: GD
+NOTE: In favor of completing this project in a timely manner, I intend on re-writing the original parsessc module
+to adjust for the sub-classing of the parse modules/classes instead of completing a subclass of it.
+
+Core Reason: necessity to alter the way the rich text box is given updated information
+"""
+
 
 class ParseStart:
     parse_cancel: bool = False
@@ -90,6 +99,7 @@ class ParseStart:
             ),
             "sectag": lambda logentrylamb: indsec(logentrylamb),
         }
+
         print(f"TICKER FAIL LIST: {ticker_fail}")
 
         for line in local_logcopy:
@@ -111,7 +121,7 @@ class ParseStart:
                         if tag_check not in ticker_fail:
                             print(f"TAG CHECK: {tag_check}")
                             print(f"Made it into tag ticker OK")
-                            (dict_tagswitchboard[tag_container[tag]])(logentry)
+                            dict_tagswitchboard[tag_container[tag]](logentry)
                             break
                         else:
                             print(f"Enterred tag-else for tag_check: {tag_check}")

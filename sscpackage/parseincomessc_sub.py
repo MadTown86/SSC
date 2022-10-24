@@ -6,11 +6,17 @@ import parseincomessc
 import json
 import dictpullssc
 import parsebalancessc_sub
+import dotenv
+import os
+
+dotenv.load_dotenv(dotenv_path=os.getenv("LO_ROOT"))
+ROOT_VAR_SSC = os.getenv("CORE_DIR_STOR")
 
 
 class ParseIncomeSSC_Sub(parseincomessc.ParseIncome):
     def __init__(self):
         super().__init__()
+        self.setpathssc_parsessc = ROOT_VAR_SSC + "parseincomeshelf"
 
     def parseincome(self, uniquename: "str", pi_rawdata: json) -> dict:
         """
@@ -20,66 +26,65 @@ class ParseIncomeSSC_Sub(parseincomessc.ParseIncome):
         :param pi_rawdata: url_income fetch data from shelve
         :return: None
         """
-        try:
-            uniquesplitlist = uniquename.split("__")
-            ticker, key, idssc, timestampidpi = (
-                uniquesplitlist[0],
-                uniquesplitlist[1],
-                uniquesplitlist[2],
-                uniquesplitlist[3],
-            )
 
-            DS = dictpullssc.DictPullSSC()
-            inc_key = "incomeStatementHistory"
+        uniquesplitlist = uniquename.split("__")
+        ticker, key, idssc, timestampidpi = (
+            uniquesplitlist[0],
+            uniquesplitlist[1],
+            uniquesplitlist[2],
+            uniquesplitlist[3],
+        )
 
-            parseinc_wdict = DS.dictpullssc(pi_rawdata, inc_key)
-            inner_wdict = parseinc_wdict["incomeStatementHistory"]
+        DS = dictpullssc.DictPullSSC()
+        inc_key = "incomeStatementHistory"
 
-            # List for transfering string format to pre-existing format
-            keywordtransferbin = {
-                "researchDevelopment": "Research & Development",
-                "effectOfAccountingCharges": "Effect of Accounting Charges",
-                "incomeBeforeTax": "Income Before Tax",
-                "minorityInterest": "Minority Interest",
-                "netIncome": "Net Income",
-                "sellingGeneralAdministrative": "Selling, General & Administrative",
-                "grossProfit": "Gross Profit",
-                "ebit": "EBIT",
-                "operatingIncome": "Operating Income",
-                "otherOperatingExpenses": "Other Operating Expenses",
-                "interestExpense": "Interest Expense",
-                "extraordinaryItems": "Extraordinary Items",
-                "nonRecurring": "Non Recurring",
-                "otherItems": "Other Items",
-                "incomeTaxExpense": "Income Tax Expense",
-                "totalRevenue": "Total Revenue",
-                "totalOperatingExpenses": "Total Operating Expenses",
-                "costOfRevenue": "Cost Of Revenue",
-                "totalOtherIncomeExpenseNet": "Total Other Income Expense Net",
-                "discontinuedOperations": "Discontinued Operations",
-                "netIncomeFromContinuingOps": "Net Income From Continuing Ops",
-                "netIncomeApplicableToCommonShares": "Net Income Applicable To Common Shares",
-            }
+        parseinc_wdict = DS.dictpullssc(pi_rawdata, inc_key)
+        inner_wdict = parseinc_wdict["incomeStatementHistory"]
 
-            output_dict_inc = parsebalancessc_sub.incbal_reformat(
-                uniquename, inner_wdict, keywordtransferbin
-            )
+        # List for transfering string format to pre-existing format
+        keywordtransferbin = {
+            "researchDevelopment": "Research & Development",
+            "effectOfAccountingCharges": "Effect of Accounting Charges",
+            "incomeBeforeTax": "Income Before Tax",
+            "minorityInterest": "Minority Interest",
+            "netIncome": "Net Income",
+            "sellingGeneralAdministrative": "Selling, General & Administrative",
+            "grossProfit": "Gross Profit",
+            "ebit": "EBIT",
+            "operatingIncome": "Operating Income",
+            "otherOperatingExpenses": "Other Operating Expenses",
+            "interestExpense": "Interest Expense",
+            "extraordinaryItems": "Extraordinary Items",
+            "nonRecurring": "Non Recurring",
+            "otherItems": "Other Items",
+            "incomeTaxExpense": "Income Tax Expense",
+            "totalRevenue": "Total Revenue",
+            "totalOperatingExpenses": "Total Operating Expenses",
+            "costOfRevenue": "Cost Of Revenue",
+            "totalOtherIncomeExpenseNet": "Total Other Income Expense Net",
+            "discontinuedOperations": "Discontinued Operations",
+            "netIncomeFromContinuingOps": "Net Income From Continuing Ops",
+            "netIncomeApplicableToCommonShares": "Net Income Applicable To Common Shares",
+        }
 
-            fetchstorename = uniquename
-            FST_SSC = fetchshelfssc_mod.FetchShelfSSC(
-                fetchstoreshelf=self.setpathssc_parsessc
-            )
-            FST_SSC.fetchstore(
-                ticker=ticker, fetch_data=output_dict_inc, fetchstorename=fetchstorename
-            )
-            del FST_SSC
-            print(f'Finished Ticker: {ticker}')
+        output_dict_inc = parsebalancessc_sub.incbal_reformat(
+            uniquename, inner_wdict, keywordtransferbin
+        )
 
-            return output_dict_inc
+        print("HERE1")
+        fetchstorename = uniquename
+        FST_SSC = fetchshelfssc_mod.FetchShelfSSC(
+            fetchstoreshelf=self.setpathssc_parsessc
+        )
+        print("HERE2")
+        FST_SSC.fetchstore(
+            ticker=ticker, fetch_data=output_dict_inc, fetchstorename=fetchstorename
+        )
+        del FST_SSC
+        print(f'Finished Ticker: {ticker}')
 
-        except Exception as Er:
-            print("Exception in 'ParseIncome.parseincome'  ::  ")
-            print(str(Er))
+        return output_dict_inc
+
 
 
 if __name__ == '__main__':

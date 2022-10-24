@@ -332,7 +332,6 @@ class GuiStarterSSC(object):
             exit_btn["state"] = "disabled"
 
             if okbutton.instate(["!disabled"]):
-                try:
                     if self.ticker_list:
                         okbutton.state(["disabled"])
                         text_update("LIST SUBMIT", "Ticker List Successfully Enterred")
@@ -375,6 +374,7 @@ class GuiStarterSSC(object):
                             exit_btn["state"] = "normal"
 
                         if not GuiStarterSSC.cancel_start:
+                            print("Starting ParseSSC_Sub")
                             PS = parsessc_sub.ParseStartSub()
 
                             schedule.every(1).seconds.do(
@@ -426,12 +426,6 @@ class GuiStarterSSC(object):
                     else:
                         text_update("File Error - No Stock Ticker List Defined")
                         print("Error in submit click if/else")
-
-                except Exception as Er:
-                    print(Er)
-                    print("Exception in GUI Try/Submit")
-                    text_update("File Error - No Stock Ticker List Defined")
-                    pass
 
             else:
                 print("we made it to else")

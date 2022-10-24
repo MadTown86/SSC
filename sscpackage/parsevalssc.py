@@ -82,10 +82,8 @@ class ParseVal:
             )
             FST_SSC.fetchstore(
                 ticker=ticker,
-                key=name_key,
-                idssc=idssc,
                 fetch_data=keyedlistcollect,
-                timestampidfs=timestampidpval,
+                fetchstorename=uniquename,
             )
             del FST_SSC
         except Exception as er:

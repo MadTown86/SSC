@@ -49,10 +49,8 @@ class ParseSector:
             )
             FST_SSC.fetchstore(
                 ticker=ticker,
-                key=key,
-                idssc=idssc,
                 fetch_data=secdata,
-                timestampidfs=timestampidpsec,
+                fetchstorename=uniquename,
             )
             del FST_SSC
             del DP_SSCPSEC

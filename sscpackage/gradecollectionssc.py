@@ -148,14 +148,6 @@ class GradeCollectionSSC:
             print(er)
         print("GC10")
 
-        try:
-            self.fetchlogcomplete.ssc_logcompletewrite(
-                ticker=self.ticker, uniqueid=self.uniqueidssc
-            )
-        except Exception as er:
-            print("Exception in GradeCollectionSSC: 'fetchlogcompletessc'")
-            print(er)
-
         return pointbin
 
 
