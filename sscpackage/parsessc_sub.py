@@ -67,7 +67,6 @@ class ParseStartSub(parsessc.ParseStart):
         print(f"TICKER FAIL LIST: {ticker_fail}")
 
         for logentry in local_logcopy:
-            print(f'logentry: {logentry}')
             if len(logentry.split("__")) == 4:
                 ticker, tag, selfid, uniqueid = logentry.split("__")
                 print(f"PARSESTART: {ticker}")

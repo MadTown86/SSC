@@ -53,7 +53,6 @@ class StoreSSC:
         *Note: Fails if no server 'localhost' exists.
         :return:
         """
-        print("In db_chksetup")
         try:
             with mysql.connector.connect(
                 host=self.host,
@@ -87,14 +86,12 @@ class StoreSSC:
                 );"""
 
                 with connection.cursor(buffered=True) as cursor:
-                    print("In With Block")
                     try:
                         cursor.execute(dbtbl_create, multi=True)
                     except Exception as er:
                         print(er)
-                    connection.commit()
-                    cursor.close()
-                    connection.close()
+                        cursor.close()
+
 
         except mysql.connector.Error as e:
             print("Error in ssc_st - TRY1: " + str(e))

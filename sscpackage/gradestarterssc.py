@@ -38,36 +38,29 @@ class GradeStartSSC:
         GradeStartSSC.grade_cancel = False
 
     def gradestartssc(self):
-        try:
-            print("1")
-            FS_SSC = fetchlogssc.FetchLogSSC()
-            print("2")
-            local_logforticker = FS_SSC.ssc_logfetch()
-            for item in local_logforticker:
-                if not GradeStartSSC.grade_cancel:
-                    ticker, entrysscgs = item.split("__")
-                    print(ticker)
-                    print(entrysscgs)
-                    GradeStartSSC.set_runitem(ticker)
-                    print("After GradeStartSSC runitem set")
-                    PCOMBO = gradeparsecombinessc.GradeParseCombineSSC()
-                    print("After gradeparsecombinessc")
-                    parsecomb_passin = PCOMBO.gradeparsecombinessc(
-                        ticker=ticker, logfileidssc=entrysscgs
-                    )
-                    GCOL_SSC = gradecollectionssc.GradeCollectionSSC(
-                        ticker=ticker,
-                        uniqueidssc=entrysscgs,
-                        parsecombossc=parsecomb_passin,
-                    )
-                    print("After creation of grade collection object")
-                    print(gradecollectionssc.GradeCollectionSSC.return_inst_count())
-                    GCOL_SSC.gradecollectionssc()
-                    print("After GCOL_SSC.gradecollectionssc()")
-                    FS_SSC.ssc_logcompletewrite(ticker, entrysscgs)
-        except Exception as er:
-            print("Exception in GradeStarterSSC: function 'gradestartssc' ")
-            print(er)
+        FS_SSC = fetchlogssc.FetchLogSSC()
+        local_logforticker = FS_SSC.ssc_logfetch()
+        screened_list = set()
+        for item in local_logforticker:
+            ticker, tag, instid, uniqueid = item.split("__")
+            if uniqueid not in screened_list:
+                screened_list.add(f'{ticker}__{uniqueid}')
+        for item in screened_list:
+            if not GradeStartSSC.grade_cancel:
+                ticker, uniqueid = item.split("__")
+                GradeStartSSC.set_runitem(ticker)
+                PCOMBO = gradeparsecombinessc.GradeParseCombineSSC()
+                parsecomb_passin = PCOMBO.gradeparsecombinessc(
+                    ticker=ticker, logfileidssc=uniqueid
+                )
+                GCOL_SSC = gradecollectionssc.GradeCollectionSSC(
+                    ticker=ticker,
+                    uniqueidssc=uniqueid,
+                    parsecombossc=parsecomb_passin,
+                )
+                GCOL_SSC.gradecollectionssc()
+                FS_SSC.ssc_logcompletewrite(ticker, uniqueid)
+
 
 
 if __name__ == "__main__":

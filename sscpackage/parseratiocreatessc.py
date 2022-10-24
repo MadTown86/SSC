@@ -104,7 +104,6 @@ class ParseRatioCreateSSC:
             # Loop through ratios
             for key in dictratiossclamb.keys():
                 calctemplistforzipper = []
-                print(key)
 
                 # Loop through each required variable name for ratio
                 for varname in dictratiosscverbal[key]:

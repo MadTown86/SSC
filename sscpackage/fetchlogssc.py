@@ -41,7 +41,6 @@ class FetchLogSSC:
                             temp_log.append(fetchstorename)
                             shelvelog[self.logname] = temp_log
                         else:
-                            print(fetchstorename)
                             raise sscerrors.AlreadyExistsException
                     else:
                         shelvelog[self.logname] = [fetchstorename]
@@ -49,8 +48,7 @@ class FetchLogSSC:
                     shelvelog[self.logname] = [fetchstorename]
 
 
-    def ssc_logfetch(self):
-        try:
+    def ssc_logfetch(self) -> shelve:
             with shelve.open(FetchLogSSC._fetchlogpath) as fl3:
                 if fl3.keys():
                     if self.logname in fl3.keys():
@@ -60,24 +58,21 @@ class FetchLogSSC:
                         return fl3[self.logname]
                 fl3[self.logname] = []
                 return fl3[self.logname]
-        except Exception as er:
-            print("Exception in fetchlogssc -> ssc_logfetch")
-            print(er)
 
-    def ssc_logcompletewrite(self, ticker, uniqueid):
-        try:
+
+    def ssc_logcompletewrite(self, ticker: str, uniqueid: str) -> None:
             transfer_tocomplete = []
             with shelve.open(FetchLogSSC._fetchlogpath) as fl4:
                 if fl4.keys():
                     if fl4[self.logname]:
-                        log_listlocal = [x for x in fl4[self.logname]]
-                        for indexno in range(len(log_listlocal) - 1):
-                            if ticker and uniqueid in log_listlocal[indexno]:
-                                print(log_listlocal[indexno])
-                                transfer_tocomplete.append(log_listlocal.pop(indexno))
+                        log_listlocal = fl4[self.logname]
+                        log_listcopy = log_listlocal[:]
+                        for indexno in range(len(log_listcopy)):
+                            if ticker and uniqueid in log_listcopy[indexno]:
+                                transfer_tocomplete.append(log_listlocal.pop(log_listlocal.index(log_listcopy[indexno])))
                             else:
                                 continue
-                        fl4[self.logname] = log_listlocal
+                            fl4[self.logname] = log_listlocal
 
                 if transfer_tocomplete:
                     if self.logfinish not in fl4.keys():
@@ -88,19 +83,14 @@ class FetchLogSSC:
                             if item not in tempcopy:
                                 tempcopy.append(item)
                         fl4[self.logfinish] = tempcopy
-        except Exception as er:
-            print("Exception in fetchlogssc -> ssc_logcompletewrite")
-            print(er)
 
     def ssc_fetchlogdeleted(self, ticker, uniqueid):
-        try:
             transfer_todelete = []
             with shelve.open(FetchLogSSC._fetchlogpath) as fl4:
                 if fl4.keys():
                     if fl4[self.logname]:
                         log_listlocal = [x for x in fl4[self.logname]]
                         log_listdel = log_listlocal[:]
-                        print(f"LOG LIST LOCAL - ssc_fetchlog: {log_listlocal}")
                         for indexno in range(len(log_listlocal)):
                             if ticker and uniqueid in log_listlocal[indexno]:
                                 transfer_todelete.append(
@@ -123,12 +113,7 @@ class FetchLogSSC:
                             fl4[self.logdelete] = tempcopy
 
 
-        except Exception as er:
-            print("Exception in fetchlogssc -> ssc_fetchlogdeleted")
-            print(er)
-
     def ssc_logdelete_testadd(self, value):
-        try:
             with shelve.open(FetchLogSSC._fetchlogpath) as fl8:
                 if fl8.keys():
                     if self.logdelete in fl8.keys():
@@ -143,12 +128,8 @@ class FetchLogSSC:
                 else:
                     fl8[self.logdelete] = value
 
-        except Exception as er:
-            print("Exception in fetchlogssc -> ssc_logdelete_testadd")
-            print(er)
 
     def ssc_logdelete_fetch(self):
-        try:
             with shelve.open(FetchLogSSC._fetchlogpath) as fl6:
                 if fl6.keys():
                     if self.logdelete in fl6.keys():
@@ -160,12 +141,8 @@ class FetchLogSSC:
                     fl6[self.logdelete] = []
                     return fl6[self.logdelete]
 
-        except Exception as er:
-            print("Exception in fetchlogssc -> ssc_logdeletefetch")
-            print(er)
 
     def ssc_logdelete_purge(self):
-        try:
             with shelve.open(FetchLogSSC._fetchlogpath) as fl7:
                 if fl7.keys():
                     if fl7[self.logdelete]:
@@ -177,42 +154,31 @@ class FetchLogSSC:
                         return 1
                 else:
                     fl7[self.logdelete] = []
-        except Exception as er:
-            print("Exception in fetchlogssc-> ssc_logdeletepurge")
-            print(er)
 
     def ssc_logcomplete_testwrite(self, testentry: str):
-        try:
-            temp_copy = []
-            with shelve.open(FetchLogSSC._fetchlogpath) as fl6:
-                if fl6.keys():
-                    if self.logfinish in fl6.keys():
-                        temp_copy = fl6[self.logfinish]
-                        temp_copy.append(testentry)
-                        fl6[self.logfinish] = temp_copy
-                    else:
-                        fl6[self.logfinish] = [testentry]
+        temp_copy = []
+        with shelve.open(FetchLogSSC._fetchlogpath) as fl6:
+            if fl6.keys():
+                if self.logfinish in fl6.keys():
+                    temp_copy = fl6[self.logfinish]
+                    temp_copy.append(testentry)
+                    fl6[self.logfinish] = temp_copy
                 else:
                     fl6[self.logfinish] = [testentry]
-        except Exception as er:
-            print("Exception in fetchlogssc -> ssc_logcomplete_testwrite")
-            print(er)
+            else:
+                fl6[self.logfinish] = [testentry]
 
-    def ssc_logcompletefetch(self):
+    def ssc_logcompletefetch(self) -> shelve:
         """
 
         :return:
         """
-        try:
-            with shelve.open(FetchLogSSC._fetchlogpath) as fl5:
-                if fl5.keys():
-                    if fl5[self.logfinish]:
-                        return fl5[self.logfinish]
-                    else:
-                        return 0
-        except Exception as er:
-            print("Exception in fetchlogssc -> ssc_logcompletefetch")
-            print(er)
+        with shelve.open(FetchLogSSC._fetchlogpath) as fl5:
+            if fl5.keys():
+                if fl5[self.logfinish]:
+                    return fl5[self.logfinish]
+                else:
+                    raise sscerrors.NoShelveException
 
     def ssc_logcompletepurge(self) -> None:
         """
@@ -234,4 +200,11 @@ class FetchLogSSC:
 
 
 if __name__ == "__main__":
-    pass
+    # logfetchcompletetest
+
+    FLOG = FetchLogSSC()
+    localdb = FLOG.ssc_logfetch()
+    for item in localdb:
+        print(item)
+
+    FLOG.ssc_logcompletewrite('NVDA', 'v6NkvvjeG5M8c1l')

@@ -71,12 +71,10 @@ class ParseIncomeSSC_Sub(parseincomessc.ParseIncome):
             uniquename, inner_wdict, keywordtransferbin
         )
 
-        print("HERE1")
         fetchstorename = uniquename
         FST_SSC = fetchshelfssc_mod.FetchShelfSSC(
             fetchstoreshelf=self.setpathssc_parsessc
         )
-        print("HERE2")
         FST_SSC.fetchstore(
             ticker=ticker, fetch_data=output_dict_inc, fetchstorename=fetchstorename
         )
