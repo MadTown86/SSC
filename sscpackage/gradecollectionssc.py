@@ -49,44 +49,47 @@ class GradeCollectionSSC:
         self.grade_cancel = True
 
     def gradecollectionssc(self):
-        pointbin = []
+        pointbin = {}
 
         # GTLTYoYSSC()
-        pointbin.append(
+        pointbin["GTLT"] = (
             self.gradesectionone.gtltmetricsgradessc(
                 self.ticker, self.parsecombossc, self.uniqueidssc, self.awardsystem
             )
         )
 
         # GradeFinRatio()
-        pointbin.append(
+        pointbin["FINRATIOS"] = (
             self.gradesectionfive.grade_finratiossc(
                 self.ticker, self.parsecombossc, self.uniqueidssc, self.awardsystem
             )
         )
 
         # GTLTYoYRatioSSC()
-        pointbin.append(
+        pointbin["INCASRATIO"] = (
             self.gradesectiontwo.grade_gtltyoyratiossc(
                 self.ticker, self.parsecombossc, self.uniqueidssc, self.awardsystem
             )
         )
 
         # GradeValSSC
-        pointbin.append(
+        pointbin["VALMETRICS"] = (
             self.gradesectionthree.grade_valratiossc(
                 self.ticker, self.parsecombossc, self.uniqueidssc, self.awardsystem
             )
         )
 
         # GradeArSSC
-        pointbin.append(
+        pointbin["ARMETRICS"] = (
             self.gradesectionfour.grade_arssc(
                 self.ticker, self.parsecombossc, self.uniqueidssc, self.awardsystem
             )
         )
 
-        self.finalgrade.grade_final_ssc(pointbin)
+        for key, value in pointbin.items():
+            print(f'KEY: {key} ---> VALUE: {value}')
+
+        self.finalgrade.grade_final_ssc(pointbin, self.awardsystem)
 
         self.storeclass.db_chksetup()
 

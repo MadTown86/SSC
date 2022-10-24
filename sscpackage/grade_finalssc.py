@@ -8,10 +8,15 @@ class GradeFinalSSC(gradesheetprintssc.GradeSheetPrintSSC):
         self.totalpoints = 0
         self.awardedpoints = 0
 
-    def grade_final_ssc(self, pointbin):
+    def grade_final_ssc(self, pointbin: dict, awardsystem: dict):
         totalpoints = 0
         awardedpoints = 0
-        for currentpoints, basepoints in pointbin:
+
+        for section in pointbin.keys():
+            localweight = awardsystem["SECTIONWEIGHTS"][section]['weight']
+            currentpoints, basepoints = pointbin[section]
+            currentpoints *= localweight
+            basepoints *= localweight
             totalpoints += basepoints
             awardedpoints += currentpoints
 

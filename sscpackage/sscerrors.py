@@ -44,10 +44,10 @@ def gotmilk(dat):
 
 
 class AlreadyExistsException(Exception):
-    pass
+    def printexc(self):
+        return print(f'Already Exists Exception')
 
 class GotNoMilk(Exception):
-    print("It's Got No Milk, Buddy!")
     pass
 
 

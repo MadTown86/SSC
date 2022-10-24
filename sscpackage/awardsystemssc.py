@@ -13,7 +13,7 @@ ROOT_VAR_SSC = os.getenv("CORE_DIR_STOR")
 
 
 class AwardSystemSSC(shelverssc.ShelverSSC):
-    def __init__(self, shelvename: "str" = "awardsystemssc"):
+    def __init__(self, shelvename: str = "awardsystemssc"):
         super().__init__(shelvename)
         self.permstorpathssc = ROOT_VAR_SSC
         self.awardsystemcontainerssc = {}
@@ -57,7 +57,7 @@ class AwardSystemSSC(shelverssc.ShelverSSC):
             ]
 
             for metric in defaultgtltmetrics_ssc:
-                temp_sscaward[metric] = {"points": 1, "weight": 1}
+                temp_sscaward[metric] = {"points": 1.0, "weight": 1.0}
 
             awardsystemdict["GTLT"] = temp_sscaward
 
@@ -77,7 +77,7 @@ class AwardSystemSSC(shelverssc.ShelverSSC):
 
             for metric in defaultfinratiosscmetrics:
                 temp_sscaward[metric] = {
-                    "pointsgood": 1,
+                    "pointsgood": .75,
                     "pointsneutral": 0.5,
                     "pointsbad": 0,
                     "weight": 1,
@@ -108,7 +108,7 @@ class AwardSystemSSC(shelverssc.ShelverSSC):
             ]
 
             for metric in defincasratiometrics:
-                temp_sscaward[metric] = {"points": 1, "weight": 1}
+                temp_sscaward[metric] = {"points": .5, "weight": 1}
 
             awardsystemdict["INCASRATIO"] = temp_sscaward
 
@@ -127,7 +127,7 @@ class AwardSystemSSC(shelverssc.ShelverSSC):
             ]
 
             for metric in defaultvaldatametrics:
-                temp_sscaward[metric] = {"points": 1, "weight": 1}
+                temp_sscaward[metric] = {"points": .5, "weight": 1}
 
             awardsystemdict["VALMETRICS"] = temp_sscaward
 
@@ -145,16 +145,25 @@ class AwardSystemSSC(shelverssc.ShelverSSC):
             }
 
             for metric in analyst_metric_ssc["rating_bin_pos"]:
-                temp_sscaward[metric] = {"points": 2, "weight": 1}
+                temp_sscaward[metric] = {"points": 1, "weight": 1}
 
             for metric in analyst_metric_ssc["rating_bin_neutral"]:
                 temp_sscaward[metric] = {"points": 1, "weight": 1}
 
             awardsystemdict["ARMETRICS"] = temp_sscaward
 
+            awardsystemdict["SECTIONWEIGHTS"] = {
+                "GTLT": {'weight': 2.0},
+                "FINRATIOS": {'weight': .25},
+                "INCASRATIO": {'weight': .25},
+                "VALMETRICS": {'weight': .25},
+                "ARMETRICS": {'weight': 1.25}
+            }
+
             self.add_shelvecoreelementssc(
                 self.shelvename, defaultawardnamessc, awardsystemdict
             )
+
 
     def fetchawardsystem(self, industry, sector):
         combokeyindsec = str(industry) + "__" + str(sector)
@@ -177,8 +186,11 @@ class AwardSystemSSC(shelverssc.ShelverSSC):
 # TODO: create separate unittest for awardsystemssc
 
 if __name__ == "__main__":
-    ROOT_VAR_SSC = os.getenv("CORE_DIR_STOR")
-    print(ROOT_VAR_SSC)
     AWssc = AwardSystemSSC()
+    AWssc.deleteawardsystem('DEFAULT')
     print(AWssc.awardsystemsprimer())
-    print(AWssc.fetchawardsystem("Aeurnautics", "Infrastructure"))
+    printtest = AWssc.fetchawardsystem("Aeurnautics", "Infrastructure")
+
+    for key, value in printtest.items():
+        print(f'KEY:: {key} ---> VALUE:: {value}')
+
