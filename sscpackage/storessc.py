@@ -1,6 +1,5 @@
 import json
 import os
-
 import mysql.connector
 
 
@@ -90,7 +89,7 @@ class StoreSSC:
                         cursor.execute(dbtbl_create, multi=True)
                     except Exception as er:
                         print(er)
-                        cursor.close()
+                        connection.commit()
 
 
         except mysql.connector.Error as e:
@@ -132,12 +131,11 @@ class StoreSSC:
                         ),
                     )
                     connection.commit()
+                    cursor.close()
 
         except mysql.connector.Error as e:
             print("Error in ssc_st - TRY2: " + str(e))
 
-        finally:
-            connection.close()
 
         return None
 
