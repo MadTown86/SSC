@@ -77,6 +77,7 @@ class StoreSSC:
                 CREATE TABLE IF NOT EXISTS logentry (
                     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
                     ticker VARCHAR(5),
+                    runid VARCHAR(15),
                     logTime DATETIME DEFAULT CURRENT_TIMESTAMP,
                     grade VARCHAR(2),
                     parsecombo JSON,
@@ -99,7 +100,7 @@ class StoreSSC:
             connection.close()
 
     # TODO: fix store process, GradeSSC is no longer the default location for stored info.  Use gradecollectionssc.
-    def log_entry(self, parsecombo, grade_ssc, ticker_entry, points, basepoints):
+    def log_entry(self, parsecombo, grade_ssc, ticker_entry, runid, points, basepoints):
         # insert_db_table = "INSERT INTO logentry (ticker, grade, parsecombo) VALUES (%s, %s, %s)"
         # print(insert_db_table)
 
@@ -115,8 +116,8 @@ class StoreSSC:
 
                 show_db_ticker = "SELECT * FROM logentry"
                 insert_db_table = (
-                    "INSERT INTO logentry (ticker, grade, parsecombo, points, basepoints) "
-                    "VALUES (%s, %s, %s, %s, %s)"
+                    "INSERT INTO logentry (ticker, runid, grade, parsecombo, points, basepoints) "
+                    "VALUES (%s, %s, %s, %s, %s, %s)"
                 )
 
                 with connection.cursor(prepared=True) as cursor:
@@ -124,6 +125,7 @@ class StoreSSC:
                         insert_db_table,
                         (
                             ticker_entry,
+                            runid,
                             grade_ssc,
                             combo_json,
                             points,

@@ -97,6 +97,7 @@ class GradeCollectionSSC:
             parsecombo=self.parsecombossc,
             grade_ssc=str(self.finalgrade.final_grade_ssc),
             ticker_entry=str(self.ticker),
+            runid=self.uniqueidssc,
             points=self.finalgrade.awardedpoints,
             basepoints=self.finalgrade.totalpoints,
         )
