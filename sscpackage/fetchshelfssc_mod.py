@@ -55,6 +55,7 @@ class FetchShelfSSC:
 if __name__ == "__main__":
 
     import fetchlogssc
+
     FL = fetchlogssc.FetchLogSSC()
 
     DB = FetchShelfSSC()
@@ -76,4 +77,3 @@ if __name__ == "__main__":
     #     print(True)
     # else:
     #     print(False)
-

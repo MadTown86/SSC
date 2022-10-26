@@ -13,7 +13,7 @@ class GradeFinalSSC(gradesheetprintssc.GradeSheetPrintSSC):
         awardedpoints = 0
 
         for section in pointbin.keys():
-            localweight = awardsystem["SECTIONWEIGHTS"][section]['weight']
+            localweight = awardsystem["SECTIONWEIGHTS"][section]["weight"]
             currentpoints, basepoints = pointbin[section]
             currentpoints *= localweight
             basepoints *= localweight

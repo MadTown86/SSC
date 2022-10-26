@@ -39,6 +39,7 @@ class ParseIndustry_Sub(parseindssc.ParseIndustry):
             print("Exception in ParseIndSSC: method 'parseindustry' ")
             print(er)
 
+
 if __name__ == "__main__":
     import fetchshelfssc_mod
     import dictpullssc

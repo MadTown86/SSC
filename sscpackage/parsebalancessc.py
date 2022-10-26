@@ -81,9 +81,7 @@ class ParseBalance:
 
             fetchstorename = ticker + "__" + uniqueidssc
             FST_SSC_PB.fetchstore(
-                ticker=ticker,
-                fetch_data=bsheets_dict,
-                fetchstorename=fetchstorename
+                ticker=ticker, fetch_data=bsheets_dict, fetchstorename=fetchstorename
             )
             del FST_SSC_PB
 
@@ -110,6 +108,7 @@ class ParseBalance:
             print("Exception: 'fetch_parsebalance'")
             print(Er)
 
+
 if __name__ == "__main__":
     import fetchshelfssc_mod
 
@@ -125,11 +124,3 @@ if __name__ == "__main__":
     PS = ParseBalance()
     test_output = PS.fetch_parsebalance(uniqueid)
     print(test_output)
-
-
-
-
-
-
-
-

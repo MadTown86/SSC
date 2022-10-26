@@ -44,7 +44,7 @@ class GradeStartSSC:
         for item in local_logforticker:
             ticker, tag, instid, uniqueid = item.split("__")
             if uniqueid not in screened_list:
-                screened_list.add(f'{ticker}__{uniqueid}')
+                screened_list.add(f"{ticker}__{uniqueid}")
         for item in screened_list:
             if not GradeStartSSC.grade_cancel:
                 ticker, uniqueid = item.split("__")
@@ -60,7 +60,6 @@ class GradeStartSSC:
                 )
                 GCOL_SSC.gradecollectionssc()
                 FS_SSC.ssc_logcompletewrite(ticker, uniqueid)
-
 
 
 if __name__ == "__main__":

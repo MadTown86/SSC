@@ -39,7 +39,7 @@ class ParseValSSC_Sub(sscpackage.parsevalssc.ParseVal):
                 temp_pulledlist = DS.dictpullssc(local_json, key)
                 if temp_pulledlist:
                     for dictionary in temp_pulledlist:
-                        tval = DS.dictpullssc(dictionary, 'raw')
+                        tval = DS.dictpullssc(dictionary, "raw")
                         if tval:
                             output_list.append(tval)
                         else:
@@ -57,11 +57,12 @@ class ParseValSSC_Sub(sscpackage.parsevalssc.ParseVal):
             )
             del FST_SSC
 
-            print(f'Finished: {ticker}')
+            print(f"Finished: {ticker}")
 
         except Exception as er:
             print("Exception in ParseVal: method 'parseval' ")
             print(er)
+
 
 if __name__ == "__main__":
     import fetchshelfssc_mod
@@ -70,12 +71,11 @@ if __name__ == "__main__":
     FS = fetchshelfssc_mod.FetchShelfSSC()
     DS = dictpullssc.DictPullSSC()
 
-
     local_db = FS.fetchdbpull()
-    keylist = [x for x in local_db.keys() if 'val' in x]
+    keylist = [x for x in local_db.keys() if "val" in x]
     test_key = keylist[0]
 
-    temp_dictpart = DS.dictpullssc(local_db[test_key], 'quarterlyForwardPeRatio')
+    temp_dictpart = DS.dictpullssc(local_db[test_key], "quarterlyForwardPeRatio")
 
     PVAL = ParseValSSC_Sub()
     PVAL.parseval(test_key, local_db[test_key])

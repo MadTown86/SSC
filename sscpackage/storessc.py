@@ -92,7 +92,6 @@ class StoreSSC:
                         print(er)
                         connection.commit()
 
-
         except mysql.connector.Error as e:
             print("Error in ssc_st - TRY1: " + str(e))
 
@@ -137,7 +136,6 @@ class StoreSSC:
 
         except mysql.connector.Error as e:
             print("Error in ssc_st - TRY2: " + str(e))
-
 
         return None
 

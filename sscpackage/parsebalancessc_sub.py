@@ -112,66 +112,67 @@ class ParseBalance_Sub(parsebalancessc.ParseBalance):
 
     def parsebalance(self, uniquename: "str", pb_rawdata: dict) -> dict:
 
-            ticker, tag, idselfssc, uniquekey = uniquename.split("__")
+        ticker, tag, idselfssc, uniquekey = uniquename.split("__")
 
-            # Converting YH-Finance dataset to pre-existing keys
-            transferbin = {
-                "totalLiab": "Total Liabilities",
-                "totalStockholderEquity": "Total Stockholder Equity",
-                "otherCurrentLiab": "Other Current Liabilities",
-                "totalAssets": "Total Assets",
-                "commonStock": "Common Stock",
-                "otherCurrentAssets": "Other Current Assets",
-                "retainedEarnings": "Retained Earnings",
-                "otherLiab": "Other Liabilities",
-                "treasuryStock": "Treasury Stock",
-                "otherAssets": "Other Assets",
-                "cash": "Cash",
-                "totalCurrentLiabilities": "Total Current Liabilities",
-                "shortLongTermDebt": "Short Long Term Debt",
-                "otherStockholderEquity": "Other Stockholder Equity",
-                "propertyPlantEquipment": "Property Plant Equipment",
-                "totalCurrentAssets": "Total Current Assets",
-                "longTermInvestments": "Long Term Investments",
-                "netTangibleAssets": "Net Tangible Assets",
-                "shortTermInvestments": "Short Term Investments",
-                "netReceivables": "Net Receivables",
-                "longtermdebt": "Long Term Debt",
-                "inventory": "Inventory",
-                "accountsPayable": "Accounts Payable",
-            }
+        # Converting YH-Finance dataset to pre-existing keys
+        transferbin = {
+            "totalLiab": "Total Liabilities",
+            "totalStockholderEquity": "Total Stockholder Equity",
+            "otherCurrentLiab": "Other Current Liabilities",
+            "totalAssets": "Total Assets",
+            "commonStock": "Common Stock",
+            "otherCurrentAssets": "Other Current Assets",
+            "retainedEarnings": "Retained Earnings",
+            "otherLiab": "Other Liabilities",
+            "treasuryStock": "Treasury Stock",
+            "otherAssets": "Other Assets",
+            "cash": "Cash",
+            "totalCurrentLiabilities": "Total Current Liabilities",
+            "shortLongTermDebt": "Short Long Term Debt",
+            "otherStockholderEquity": "Other Stockholder Equity",
+            "propertyPlantEquipment": "Property Plant Equipment",
+            "totalCurrentAssets": "Total Current Assets",
+            "longTermInvestments": "Long Term Investments",
+            "netTangibleAssets": "Net Tangible Assets",
+            "shortTermInvestments": "Short Term Investments",
+            "netReceivables": "Net Receivables",
+            "longtermdebt": "Long Term Debt",
+            "inventory": "Inventory",
+            "accountsPayable": "Accounts Payable",
+        }
 
-            DS = dictpullssc.DictPullSSC()
+        DS = dictpullssc.DictPullSSC()
 
-            dpssc_balance = DS.dictpullssc(pb_rawdata, "balanceSheetHistory")
+        dpssc_balance = DS.dictpullssc(pb_rawdata, "balanceSheetHistory")
 
-            inner_balance = dpssc_balance["balanceSheetStatements"]
+        inner_balance = dpssc_balance["balanceSheetStatements"]
 
-            data_output = incbal_reformat(uniquename, inner_balance, transferbin)
+        data_output = incbal_reformat(uniquename, inner_balance, transferbin)
 
-            fetchstorename = uniquename
+        fetchstorename = uniquename
 
-            FST_SSC_PB = fetchshelfssc_mod.FetchShelfSSC(
-                fetchstoreshelf=self.setpathssc_parsesscpb
-            )
-            FST_SSC_PB.fetchstore(
-                ticker=ticker, fetch_data=data_output, fetchstorename=fetchstorename
-            )
-            del FST_SSC_PB
+        FST_SSC_PB = fetchshelfssc_mod.FetchShelfSSC(
+            fetchstoreshelf=self.setpathssc_parsesscpb
+        )
+        FST_SSC_PB.fetchstore(
+            ticker=ticker, fetch_data=data_output, fetchstorename=fetchstorename
+        )
+        del FST_SSC_PB
 
-            print(f"Finished Ticker: {ticker}")
-            return data_output
-
+        print(f"Finished Ticker: {ticker}")
+        return data_output
 
 
 if __name__ == "__main__":
 
-    tempkeylist = ['MSFT__url_balance__1556069093072__bX6sOpMaQ1UaYNX',
-                   'AMD__url_balance__1556069093008__4m0z80meXcuzk7l',
-                   'NVDA__url_balance__1556069093200__HZLqG4SgOsjWivO',
-                   'HOOD__url_balance__1556069093328__1apU5YmeN8CwQkW',
-                   'AAPL__url_balance__1556069093520__a9q6bZrBpdTCaTc',
-                   'META__url_balance__1556065592464__u0sCyHUlnfHOcVG']
+    tempkeylist = [
+        "MSFT__url_balance__1556069093072__bX6sOpMaQ1UaYNX",
+        "AMD__url_balance__1556069093008__4m0z80meXcuzk7l",
+        "NVDA__url_balance__1556069093200__HZLqG4SgOsjWivO",
+        "HOOD__url_balance__1556069093328__1apU5YmeN8CwQkW",
+        "AAPL__url_balance__1556069093520__a9q6bZrBpdTCaTc",
+        "META__url_balance__1556065592464__u0sCyHUlnfHOcVG",
+    ]
 
     transferbin = {
         "totalLiab": "Total Liabilities",
@@ -199,7 +200,6 @@ if __name__ == "__main__":
         "accountsPayable": "Accounts Payable",
     }
 
-
     import fetchshelfssc_mod
 
     FS = fetchshelfssc_mod.FetchShelfSSC()
@@ -208,7 +208,7 @@ if __name__ == "__main__":
     ticker, tag, uniqid, selfid = bal_key.split("__")
     DS = dictpullssc.DictPullSSC()
     jsonmix = DS.dictpullssc(localdb[bal_key], "balanceSheetHistory")
-    jsonmix = jsonmix['balanceSheetStatements']
+    jsonmix = jsonmix["balanceSheetStatements"]
 
     print(ticker, selfid)
 

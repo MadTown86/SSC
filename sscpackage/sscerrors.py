@@ -45,7 +45,8 @@ def gotmilk(dat):
 
 class AlreadyExistsException(Exception):
     def printexc(self):
-        return print(f'Already Exists Exception')
+        return print(f"Already Exists Exception")
+
 
 class GotNoMilk(Exception):
     pass

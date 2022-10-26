@@ -164,7 +164,6 @@ class GuiStarterSSC(object):
         s = ttk.Style()
         s.configure("my.TButton", font=("Times New Roman", 18))
 
-
         def rkey():
             """
             This is a random key generator to label threads for the purpose of tracing and destroying threads mid-program
@@ -332,100 +331,99 @@ class GuiStarterSSC(object):
             exit_btn["state"] = "disabled"
 
             if okbutton.instate(["!disabled"]):
-                    if self.ticker_list:
-                        okbutton.state(["disabled"])
-                        text_update("LIST SUBMIT", "Ticker List Successfully Enterred")
-                        window.update()
+                if self.ticker_list:
+                    okbutton.state(["disabled"])
+                    text_update("LIST SUBMIT", "Ticker List Successfully Enterred")
+                    window.update()
 
-                        # Purge Fail List
-                        fetchssc.FetchSSC().purge_tickerfail()
+                    # Purge Fail List
+                    fetchssc.FetchSSC().purge_tickerfail()
 
-                        """
+                    """
                         Place for main program to run on submit click
                         """
 
-                        # Begin main algorithm
-                        if not GuiStarterSSC.cancel_start:
-                            print("Ticker List")
-                            FS = sscf.FetchStarterSSC(self.ticker_list)
-                            schedule.every(1).seconds.do(
-                                lambda: text_update(
-                                    header=FS.pull_header(), msg=FS.pull_runlist()
-                                )
+                    # Begin main algorithm
+                    if not GuiStarterSSC.cancel_start:
+                        print("Ticker List")
+                        FS = sscf.FetchStarterSSC(self.ticker_list)
+                        schedule.every(1).seconds.do(
+                            lambda: text_update(
+                                header=FS.pull_header(), msg=FS.pull_runlist()
                             )
-                            schedule.run_pending()
-                            asyncio.run(FS._fetch_cycle())
-                            schedule.clear()
+                        )
+                        schedule.run_pending()
+                        asyncio.run(FS._fetch_cycle())
+                        schedule.clear()
 
                         # Delete 'failed fetches' from FetchLog
-                            fail_list = fetchssc.FetchSSC().pull_tickerfail()
-                            print("f'FAIL LIST DIRECT")
-                            FLOG = fetchlogssc.FetchLogSSC()
-                            if fail_list:
-                                for ticker, uniqueid in fail_list:
-                                    FLOG.ssc_fetchlogdeleted(ticker, uniqueid)
+                        fail_list = fetchssc.FetchSSC().pull_tickerfail()
+                        print("f'FAIL LIST DIRECT")
+                        FLOG = fetchlogssc.FetchLogSSC()
+                        if fail_list:
+                            for ticker, uniqueid in fail_list:
+                                FLOG.ssc_fetchlogdeleted(ticker, uniqueid)
 
+                    print("After Fetch")
+                    GuiStarterSSC.end_fetchstart = True
+                    if GuiStarterSSC.cancel_start:
+                        GuiStarterSSC.schedule_boolfalse()
+                        schedule.clear()
+                        exit_btn["state"] = "normal"
 
-                        print("After Fetch")
-                        GuiStarterSSC.end_fetchstart = True
-                        if GuiStarterSSC.cancel_start:
-                            GuiStarterSSC.schedule_boolfalse()
-                            schedule.clear()
-                            exit_btn["state"] = "normal"
+                    if not GuiStarterSSC.cancel_start:
+                        print("Starting ParseSSC_Sub")
+                        PS = parsessc_sub.ParseStartSub()
 
-                        if not GuiStarterSSC.cancel_start:
-                            print("Starting ParseSSC_Sub")
-                            PS = parsessc_sub.ParseStartSub()
-
-                            schedule.every(1).seconds.do(
-                                lambda: text_update(
-                                    header=PS.pull_parseheader(),
-                                    msg=PS.parse_runfetch(),
-                                )
+                        schedule.every(1).seconds.do(
+                            lambda: text_update(
+                                header=PS.pull_parseheader(),
+                                msg=PS.parse_runfetch(),
                             )
-                            schedule.run_pending()
-                            PS.ssc_parselogstart(fetchssc.FetchSSC.pull_tickerfail())
-                            schedule.clear()
-                        print("After Parse")
-
-                        GuiStarterSSC.end_parsestart = True
-                        if GuiStarterSSC.cancel_start:
-                            GuiStarterSSC.schedule_boolfalse()
-                            schedule.clear()
-                            exit_btn["state"] = "normal"
-
-                        if not GuiStarterSSC.cancel_start:
-                            print("Just Before Grade Start")
-                            # TODO: unsuported operand type(s) for /: 'float' and 'tuple' - check into
-                            GS = gradestarterssc.GradeStartSSC()
-                            print("After Instantiation of GS")
-                            schedule.every(1).seconds.do(
-                                lambda: text_update(
-                                    header=GS.pull_gradeheader(), msg=GS.get_runitem()
-                                )
-                            )
-                            print("After Grade schedule lambda")
-                            schedule.run_pending()
-                            print("After schedule.run_pending")
-                            GS.gradestartssc()
-                            schedule.clear()
-
-                        text_update(
-                            "Ticker List Processed - Click 'Show DB' Button for Grade",
-                            "",
                         )
+                        schedule.run_pending()
+                        PS.ssc_parselogstart(fetchssc.FetchSSC.pull_tickerfail())
+                        schedule.clear()
+                    print("After Parse")
 
-                        GuiStarterSSC.end_gradestart = True
-                        if GuiStarterSSC.cancel_start:
-                            GuiStarterSSC.schedule_boolfalse()
-                            schedule.clear()
-                            exit_btn["state"] = "normal"
+                    GuiStarterSSC.end_parsestart = True
+                    if GuiStarterSSC.cancel_start:
+                        GuiStarterSSC.schedule_boolfalse()
+                        schedule.clear()
+                        exit_btn["state"] = "normal"
 
-                        # TODO: Create a stop process to terminate fetch/parse actions
+                    if not GuiStarterSSC.cancel_start:
+                        print("Just Before Grade Start")
+                        # TODO: unsuported operand type(s) for /: 'float' and 'tuple' - check into
+                        GS = gradestarterssc.GradeStartSSC()
+                        print("After Instantiation of GS")
+                        schedule.every(1).seconds.do(
+                            lambda: text_update(
+                                header=GS.pull_gradeheader(), msg=GS.get_runitem()
+                            )
+                        )
+                        print("After Grade schedule lambda")
+                        schedule.run_pending()
+                        print("After schedule.run_pending")
+                        GS.gradestartssc()
+                        schedule.clear()
 
-                    else:
-                        text_update("File Error - No Stock Ticker List Defined")
-                        print("Error in submit click if/else")
+                    text_update(
+                        "Ticker List Processed - Click 'Show DB' Button for Grade",
+                        "",
+                    )
+
+                    GuiStarterSSC.end_gradestart = True
+                    if GuiStarterSSC.cancel_start:
+                        GuiStarterSSC.schedule_boolfalse()
+                        schedule.clear()
+                        exit_btn["state"] = "normal"
+
+                    # TODO: Create a stop process to terminate fetch/parse actions
+
+                else:
+                    text_update("File Error - No Stock Ticker List Defined")
+                    print("Error in submit click if/else")
 
             else:
                 print("we made it to else")

@@ -6,25 +6,9 @@ import fetchlogssc
 import guistarterssc
 
 
-def gui_ssc_instantiate():
-    print(guistarterssc.GuiStarterSSC.fetch_instcount())
-    if guistarterssc.GuiStarterSSC.fetch_instcount() > 0:
-        pass
-    else:
-        fetchlogssc.FetchLogSSC.ssc_fetchlogclear()
-        guistarterssc.GuiStarterSSC().start_gui_ssc()
-
-
-gui_ssc_instantiate()
-
-
-def cancel_schedule():
-    if guistarterssc.GuiStarterSSC.cancel_start:
-        pass
-
-
 class ControlBoardSSC:
     """
+    This class starts the GUI.
     """
 
     main_cancelf = False

@@ -79,13 +79,12 @@ class ParseIncomeSSC_Sub(parseincomessc.ParseIncome):
             ticker=ticker, fetch_data=output_dict_inc, fetchstorename=fetchstorename
         )
         del FST_SSC
-        print(f'Finished Ticker: {ticker}')
+        print(f"Finished Ticker: {ticker}")
 
         return output_dict_inc
 
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     import fetchshelfssc_mod
     import parsebalancessc_sub
 
@@ -121,10 +120,11 @@ if __name__ == '__main__':
     ticker, tag, uniqid, selfid = inc_key.split("__")
     DS = dictpullssc.DictPullSSC()
     jsonmix = DS.dictpullssc(localdb[inc_key], "incomeStatementHistory")
-    jsonmix = jsonmix['incomeStatementHistory']
+    jsonmix = jsonmix["incomeStatementHistory"]
 
-    test_output = parsebalancessc_sub.incbal_reformat(inc_key, jsonmix, keywordtransferbin)
-
+    test_output = parsebalancessc_sub.incbal_reformat(
+        inc_key, jsonmix, keywordtransferbin
+    )
 
     PB = ParseIncomeSSC_Sub()
     PB.parseincome(inc_key, localdb[inc_key])

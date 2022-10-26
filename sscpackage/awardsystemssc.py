@@ -8,6 +8,8 @@ import os
 import dotenv
 import os
 
+import sscerrors
+
 dotenv.load_dotenv(dotenv_path=os.getenv("LO_ROOT"))
 ROOT_VAR_SSC = os.getenv("CORE_DIR_STOR")
 
@@ -77,7 +79,7 @@ class AwardSystemSSC(shelverssc.ShelverSSC):
 
             for metric in defaultfinratiosscmetrics:
                 temp_sscaward[metric] = {
-                    "pointsgood": .75,
+                    "pointsgood": 0.75,
                     "pointsneutral": 0.5,
                     "pointsbad": 0,
                     "weight": 1,
@@ -108,7 +110,7 @@ class AwardSystemSSC(shelverssc.ShelverSSC):
             ]
 
             for metric in defincasratiometrics:
-                temp_sscaward[metric] = {"points": .5, "weight": 1}
+                temp_sscaward[metric] = {"points": 0.5, "weight": 1}
 
             awardsystemdict["INCASRATIO"] = temp_sscaward
 
@@ -127,7 +129,7 @@ class AwardSystemSSC(shelverssc.ShelverSSC):
             ]
 
             for metric in defaultvaldatametrics:
-                temp_sscaward[metric] = {"points": .5, "weight": 1}
+                temp_sscaward[metric] = {"points": 0.5, "weight": 1}
 
             awardsystemdict["VALMETRICS"] = temp_sscaward
 
@@ -153,24 +155,26 @@ class AwardSystemSSC(shelverssc.ShelverSSC):
             awardsystemdict["ARMETRICS"] = temp_sscaward
 
             awardsystemdict["SECTIONWEIGHTS"] = {
-                "GTLT": {'weight': 2.0},
-                "FINRATIOS": {'weight': .25},
-                "INCASRATIO": {'weight': .25},
-                "VALMETRICS": {'weight': .25},
-                "ARMETRICS": {'weight': 1.25}
+                "GTLT": {"weight": 2.0},
+                "FINRATIOS": {"weight": 0.25},
+                "INCASRATIO": {"weight": 0.25},
+                "VALMETRICS": {"weight": 0.25},
+                "ARMETRICS": {"weight": 1.25},
             }
 
             self.add_shelvecoreelementssc(
                 self.shelvename, defaultawardnamessc, awardsystemdict
             )
 
-
     def fetchawardsystem(self, industry, sector):
-        combokeyindsec = str(industry) + "__" + str(sector)
-        if self.inkeys_shelvercorekeysssc(self.shelvename, combokeyindsec):
-            return self.pull_shelverssc(self.shelvename, combokeyindsec)
-        else:
-            return self.pull_shelverssc(self.shelvename, "DEFAULT")
+        try:
+            combokeyindsec = str(industry) + "__" + str(sector)
+            if self.inkeys_shelvercorekeysssc(self.shelvename, combokeyindsec):
+                return self.pull_shelverssc_award(self.shelvename, combokeyindsec)
+            else:
+                return self.pull_shelverssc_award(self.shelvename, "DEFAULT")
+        except sscerrors.NoShelveException as er:
+            print(er)
 
     def addmetricgroupssc(
         self, awardsystemname_ssc, metricgroupkeyword, data, *args, **kwargs
@@ -187,10 +191,9 @@ class AwardSystemSSC(shelverssc.ShelverSSC):
 
 if __name__ == "__main__":
     AWssc = AwardSystemSSC()
-    AWssc.deleteawardsystem('DEFAULT')
+    AWssc.deleteawardsystem("DEFAULT")
     print(AWssc.awardsystemsprimer())
     printtest = AWssc.fetchawardsystem("Aeurnautics", "Infrastructure")
 
     for key, value in printtest.items():
-        print(f'KEY:: {key} ---> VALUE:: {value}')
-
+        print(f"KEY:: {key} ---> VALUE:: {value}")

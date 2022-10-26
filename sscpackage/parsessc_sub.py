@@ -71,7 +71,7 @@ class ParseStartSub(parsessc.ParseStart):
                 ticker, tag, selfid, uniqueid = logentry.split("__")
                 print(f"PARSESTART: {ticker}")
                 if logentry not in ticker_fail:
-                    ParseStartSub.set_parserun(logentry.split('__')[0])
+                    ParseStartSub.set_parserun(logentry.split("__")[0])
                     if ParseStartSub.parse_cancel:
                         break
                     else:

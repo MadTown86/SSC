@@ -63,7 +63,6 @@ def myownrandom(keylength: int = 10) -> str:
 
 
 class FetchSSC:
-
     def __init__(self, *args, **kwargs) -> None:
         pass
 
@@ -144,7 +143,9 @@ class FetchSSC:
 
                 self.response = response
 
-                self.fetchstorename = f'{self.ticker}__{tag}__{id(self)}__{sscrandomkey}'
+                self.fetchstorename = (
+                    f"{self.ticker}__{tag}__{id(self)}__{sscrandomkey}"
+                )
 
                 if (
                     response.status_code == 200

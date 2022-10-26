@@ -99,6 +99,7 @@ class GradeParseCombineSSCSub(gradeparsecombinessc.GradeParseCombineSSC):
             print("Exception in GradeParseCombineSSC: outer scope")
             print(er)
 
+
 if __name__ == "__main__":
     import fetchshelfssc_mod
 
@@ -111,4 +112,3 @@ if __name__ == "__main__":
     testdict = PS.gradeparsecombinessc(ticker, uniqueid)
 
     print(testdict)
-

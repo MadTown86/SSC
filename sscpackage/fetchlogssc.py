@@ -33,127 +33,126 @@ class FetchLogSSC:
 
     def ssc_fetchlogwrite(self, fetchstorename):
         # Put in Store
-            with shelve.open(FetchLogSSC._fetchlogpath) as shelvelog:
-                if shelvelog.keys():
-                    if self.logname in shelvelog.keys():
-                        temp_log = shelvelog[self.logname]
-                        if fetchstorename not in temp_log:
-                            temp_log.append(fetchstorename)
-                            shelvelog[self.logname] = temp_log
-                        else:
-                            raise sscerrors.AlreadyExistsException
+        with shelve.open(FetchLogSSC._fetchlogpath) as shelvelog:
+            if shelvelog.keys():
+                if self.logname in shelvelog.keys():
+                    temp_log = shelvelog[self.logname]
+                    if fetchstorename not in temp_log:
+                        temp_log.append(fetchstorename)
+                        shelvelog[self.logname] = temp_log
                     else:
-                        shelvelog[self.logname] = [fetchstorename]
+                        raise sscerrors.AlreadyExistsException
                 else:
                     shelvelog[self.logname] = [fetchstorename]
-
+            else:
+                shelvelog[self.logname] = [fetchstorename]
 
     def ssc_logfetch(self) -> shelve:
-            with shelve.open(FetchLogSSC._fetchlogpath) as fl3:
-                if fl3.keys():
-                    if self.logname in fl3.keys():
-                        return fl3[self.logname]
-                    else:
-                        fl3[self.logname] = []
-                        return fl3[self.logname]
-                fl3[self.logname] = []
-                return fl3[self.logname]
-
+        with shelve.open(FetchLogSSC._fetchlogpath) as fl3:
+            if fl3.keys():
+                if self.logname in fl3.keys():
+                    return fl3[self.logname]
+                else:
+                    fl3[self.logname] = []
+                    return fl3[self.logname]
+            fl3[self.logname] = []
+            return fl3[self.logname]
 
     def ssc_logcompletewrite(self, ticker: str, uniqueid: str) -> None:
-            transfer_tocomplete = []
-            with shelve.open(FetchLogSSC._fetchlogpath) as fl4:
-                if fl4.keys():
-                    if fl4[self.logname]:
-                        log_listlocal = fl4[self.logname]
-                        log_listcopy = log_listlocal[:]
-                        for indexno in range(len(log_listcopy)):
-                            if ticker and uniqueid in log_listcopy[indexno]:
-                                transfer_tocomplete.append(log_listlocal.pop(log_listlocal.index(log_listcopy[indexno])))
-                            else:
-                                continue
-                            fl4[self.logname] = log_listlocal
+        transfer_tocomplete = []
+        with shelve.open(FetchLogSSC._fetchlogpath) as fl4:
+            if fl4.keys():
+                if fl4[self.logname]:
+                    log_listlocal = fl4[self.logname]
+                    log_listcopy = log_listlocal[:]
+                    for indexno in range(len(log_listcopy)):
+                        if ticker and uniqueid in log_listcopy[indexno]:
+                            transfer_tocomplete.append(
+                                log_listlocal.pop(
+                                    log_listlocal.index(log_listcopy[indexno])
+                                )
+                            )
+                        else:
+                            continue
+                        fl4[self.logname] = log_listlocal
 
-                if transfer_tocomplete:
-                    if self.logfinish not in fl4.keys():
-                        fl4[self.logfinish] = transfer_tocomplete
-                    else:
-                        tempcopy = fl4[self.logfinish]
-                        for item in transfer_tocomplete:
-                            if item not in tempcopy:
-                                tempcopy.append(item)
-                        fl4[self.logfinish] = tempcopy
+            if transfer_tocomplete:
+                if self.logfinish not in fl4.keys():
+                    fl4[self.logfinish] = transfer_tocomplete
+                else:
+                    tempcopy = fl4[self.logfinish]
+                    for item in transfer_tocomplete:
+                        if item not in tempcopy:
+                            tempcopy.append(item)
+                    fl4[self.logfinish] = tempcopy
 
     def ssc_fetchlogdeleted(self, ticker, uniqueid):
-            transfer_todelete = []
-            with shelve.open(FetchLogSSC._fetchlogpath) as fl4:
-                if fl4.keys():
-                    if fl4[self.logname]:
-                        log_listlocal = [x for x in fl4[self.logname]]
-                        log_listdel = log_listlocal[:]
-                        for indexno in range(len(log_listlocal)):
-                            if ticker and uniqueid in log_listlocal[indexno]:
-                                transfer_todelete.append(
-                                    log_listdel.pop(
-                                        log_listdel.index(log_listlocal[indexno])
-                                    )
+        transfer_todelete = []
+        with shelve.open(FetchLogSSC._fetchlogpath) as fl4:
+            if fl4.keys():
+                if fl4[self.logname]:
+                    log_listlocal = [x for x in fl4[self.logname]]
+                    log_listdel = log_listlocal[:]
+                    for indexno in range(len(log_listlocal)):
+                        if ticker and uniqueid in log_listlocal[indexno]:
+                            transfer_todelete.append(
+                                log_listdel.pop(
+                                    log_listdel.index(log_listlocal[indexno])
                                 )
-                            else:
-                                continue
-                        fl4[self.logname] = log_listdel
-
-                    if transfer_todelete:
-                        if self.logdelete not in fl4.keys():
-                            fl4[self.logdelete] = transfer_todelete
+                            )
                         else:
-                            tempcopy = fl4[self.logdelete]
-                            for item in transfer_todelete:
-                                if item not in tempcopy:
-                                    tempcopy.append(item)
-                            fl4[self.logdelete] = tempcopy
+                            continue
+                    fl4[self.logname] = log_listdel
 
+                if transfer_todelete:
+                    if self.logdelete not in fl4.keys():
+                        fl4[self.logdelete] = transfer_todelete
+                    else:
+                        tempcopy = fl4[self.logdelete]
+                        for item in transfer_todelete:
+                            if item not in tempcopy:
+                                tempcopy.append(item)
+                        fl4[self.logdelete] = tempcopy
 
     def ssc_logdelete_testadd(self, value):
-            with shelve.open(FetchLogSSC._fetchlogpath) as fl8:
-                if fl8.keys():
-                    if self.logdelete in fl8.keys():
-                        if fl8[self.logdelete]:
-                            temp_list = fl8[self.logdelete]
-                            temp_list.append(value)
-                            fl8[self.logdelete] = temp_list
-                        else:
-                            fl8[self.logdelete] = value
+        with shelve.open(FetchLogSSC._fetchlogpath) as fl8:
+            if fl8.keys():
+                if self.logdelete in fl8.keys():
+                    if fl8[self.logdelete]:
+                        temp_list = fl8[self.logdelete]
+                        temp_list.append(value)
+                        fl8[self.logdelete] = temp_list
                     else:
                         fl8[self.logdelete] = value
                 else:
                     fl8[self.logdelete] = value
-
+            else:
+                fl8[self.logdelete] = value
 
     def ssc_logdelete_fetch(self):
-            with shelve.open(FetchLogSSC._fetchlogpath) as fl6:
-                if fl6.keys():
-                    if self.logdelete in fl6.keys():
-                        return fl6[self.logdelete]
-                    else:
-                        fl6[self.logdelete] = []
-                        return fl6[self.logdelete]
+        with shelve.open(FetchLogSSC._fetchlogpath) as fl6:
+            if fl6.keys():
+                if self.logdelete in fl6.keys():
+                    return fl6[self.logdelete]
                 else:
                     fl6[self.logdelete] = []
                     return fl6[self.logdelete]
-
+            else:
+                fl6[self.logdelete] = []
+                return fl6[self.logdelete]
 
     def ssc_logdelete_purge(self):
-            with shelve.open(FetchLogSSC._fetchlogpath) as fl7:
-                if fl7.keys():
-                    if fl7[self.logdelete]:
-                        del fl7[self.logdelete]
-                        fl7[self.logdelete] = []
-                    if fl7[self.logdelete]:
-                        return 0
-                    else:
-                        return 1
-                else:
+        with shelve.open(FetchLogSSC._fetchlogpath) as fl7:
+            if fl7.keys():
+                if fl7[self.logdelete]:
+                    del fl7[self.logdelete]
                     fl7[self.logdelete] = []
+                if fl7[self.logdelete]:
+                    return 0
+                else:
+                    return 1
+            else:
+                fl7[self.logdelete] = []
 
     def ssc_logcomplete_testwrite(self, testentry: str):
         temp_copy = []
@@ -207,4 +206,4 @@ if __name__ == "__main__":
     for item in localdb:
         print(item)
 
-    FLOG.ssc_logcompletewrite('NVDA', 'v6NkvvjeG5M8c1l')
+    FLOG.ssc_logcompletewrite("NVDA", "v6NkvvjeG5M8c1l")
