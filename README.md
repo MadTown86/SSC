@@ -17,13 +17,7 @@ The application has a GUI for ease of file selection.  The GUI has additional ba
 
 After a file is selected and the user clicks 'submit', the app fetches historical financial documents from RapidApi.  The data fetched includes Balance Sheets, Income Statements, Financial Ratios, Analyst Ratings, Industry and Sector information.  SSC reorganizes the data, grades it and outputs the grade and all core associated information into a local mySQL database.
 
-## Known Issues and Future Plans  
-- The multi-threading of the GUI needs correction, the cancel and close button functionality often crash the application.
-- After a list of ticker symbols is graded without issue, the GUI needs to reset to allow for another list to be selected.
-- The grading system needs to be proven and shaped towards Industry and Sector specifics
-- Require a way to visually check and alter a 'awardsystem' due to frequent need to alter
-
-## Requirements  
+## Dependencies 
 - mysql_connector_repackaged==0.3.1  
 - openpyxl==3.0.10  
 - pandas==1.5.1  
@@ -32,7 +26,7 @@ After a file is selected and the user clicks 'submit', the app fetches historica
 - schedule==1.1.0  
 - xlsxwriter==3.0.3  
 
-## Setup Instructions:
+## Setup & Basic Usage
 
 In order to get this application to function locally from within an IDE.  You will need to update the following items on your local machine:
 
@@ -59,7 +53,7 @@ b. "CORE_DIR_STORE" = path to the ".sscpackage\storage\" folder on your local ma
 
 ### 2. API Key Registration and additional Environment Variables  
 
-a. Sign up for a personal free account on *[RapidApi](rapidapi.com)  
+a. Sign up for a personal free account on *[RapidApi](https://rapidapi.com/hub/)
 
 b. Create an 'application' in your rapidapi.com account
 
