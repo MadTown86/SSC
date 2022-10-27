@@ -84,7 +84,7 @@ class StoreSSC:
                     grade VARCHAR(2),
                     parsecombo JSON,
                     points INT,
-                    basepoints INT,
+                    basepoints INT
                 );"""
 
                 with connection.cursor(buffered=True) as cursor:
