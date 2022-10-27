@@ -2,6 +2,8 @@ import json
 import os
 import mysql.connector
 
+import sscpackage.storessc
+
 
 class StoreSSC:
     """
@@ -171,7 +173,7 @@ class StoreSSC:
 if __name__ == "__main__":
     import gradeparsecombinessc
 
-    S_SSC = StoreSSC()
+    S_SSC = sscpackage.storessc.StoreSSC()
     S_SSC.db_chksetup()
     # testlogvaridssc = 'Y8bdxbfeWiliz3B'
     # GS = gradeparsecombinessc.GradeParseCombineSSC()
