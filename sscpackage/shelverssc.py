@@ -55,6 +55,13 @@ class ShelverSSC:
         with shelve.open(self.permstorpathssc + shelvename) as sscshelvemanager:
             del sscshelvemanager[keywordssc]
 
+    def inkeys_shelvercorekeysssc(self, shelvename: str, keyname: str) -> bool:
+        with shelve.open(self.permstorpathssc + shelvename) as sscshelvemanager:
+            if keyname in sscshelvemanager.keys():
+                return True
+            else:
+                return False
+
     def add_shelvesubelement(
         self,
         shelvename: "str",
