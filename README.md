@@ -104,3 +104,5 @@ if __name__ == "__main__":
 Otherwise click on the 'show db' button on the GUI to check stored values  
 ![GUIShowDB Button](https://i.imgur.com/x87dIWu.png "Show DB Button Pulls Data from the MySQL Database")  
 
+## Control Flow Image
+![Imgur](https://i.imgur.com/v5ffOyz.png "SSC Control Flow Logic")
