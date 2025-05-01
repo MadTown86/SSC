@@ -24,7 +24,7 @@ dotenv.load_dotenv(dotenv_path=os.getenv("LO_ROOT"))
 ROOT_VAR_SSC = os.getenv("CORE_DIR_STOR")
 
 
-def theshuffler(basket: [], countage: int) -> None:
+def theshuffler(basket: list, countage: int) -> None:
     while countage > 0:
         random.shuffle(basket)
         countage -= 1
@@ -126,7 +126,7 @@ class FetchSSC:
             try:
                 self.ticker = ticker
                 sscrandomkey = myownrandom(15)
-                FetchRF = sscpackage.fetchurlssc_sub.FetchUrlSSCSUB(self.ticker)
+                FetchRF = fetchurlssc_sub.FetchUrlSSCSUB(self.ticker)
                 FetchRF.fetchshelfinitialize()
                 self.url_bank = FetchRF.pullfetchshelf()
 
@@ -151,7 +151,7 @@ class FetchSSC:
                     response.status_code == 200
                 ):  # If received 'all good' response from API for first request, continue
                     self.fetch_data = dict(response.json())
-                    FSSC = sscpackage.fetchshelfssc_mod.FetchShelfSSC()
+                    FSSC = fetchshelfssc_mod.FetchShelfSSC()
                     FSSC.fetchstore(
                         ticker=ticker,
                         fetchstorename=self.fetchstorename,

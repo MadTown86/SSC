@@ -173,7 +173,7 @@ class StoreSSC:
 if __name__ == "__main__":
     import gradeparsecombinessc
 
-    S_SSC = sscpackage.storessc.StoreSSC()
+    S_SSC = storessc.StoreSSC()
     S_SSC.db_chksetup()
     # testlogvaridssc = 'Y8bdxbfeWiliz3B'
     # GS = gradeparsecombinessc.GradeParseCombineSSC()

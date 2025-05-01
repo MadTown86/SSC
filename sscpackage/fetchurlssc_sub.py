@@ -7,6 +7,8 @@ class FetchUrlSSCSUB(fetchurlssc.FetchUrlSSC):
     def __init__(self, ticker, *args, **kwargs):
         super().__init__(ticker, *args, **kwargs)
 
+
+        # Endpoints changed 05/1/2025
         self.url_income = "https://yh-finance.p.rapidapi.com/stock/v2/get-financials"
         self.url_balance = self.url_income
         self.url_sectordata = "https://yh-finance.p.rapidapi.com/stock/v2/get-profile"
