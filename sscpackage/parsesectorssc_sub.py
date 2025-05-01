@@ -1,12 +1,12 @@
 """
 Subclass of parsesectorssc.ParseSec - to account for change in API
 """
-import sscpackage.parsesectorssc
+import parsesectorssc
 import dictpullssc
 import fetchshelfssc_mod
 
 
-class ParseSec_Sub(sscpackage.parsesectorssc.ParseSector):
+class ParseSec_Sub(parsesectorssc.ParseSector):
     def __init__(self):
         super().__init__()
 

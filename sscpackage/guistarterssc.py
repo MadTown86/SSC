@@ -27,7 +27,7 @@ import parsessc
 import parsessc_sub
 
 # sscpackage imports
-from sscpackage import storessc as sst
+import storessc as sst
 
 # TODO: check into 'globals' use on guistarterssc
 global freq
@@ -45,7 +45,7 @@ error_file = None
 
 class GuiStarterSSC(object):
     global_schedule = True
-    thread_list: [th.Thread] = []
+    thread_list: list[th.Thread] = []
     end_fetchstart = False
     end_parsestart = False
     end_gradestart = False

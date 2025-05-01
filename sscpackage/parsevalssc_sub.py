@@ -1,9 +1,9 @@
-import sscpackage.parsevalssc
+import parsevalssc
 import fetchshelfssc_mod
 import dictpullssc
 
 
-class ParseValSSC_Sub(sscpackage.parsevalssc.ParseVal):
+class ParseValSSC_Sub(parsevalssc.ParseVal):
     def __init__(self):
         super().__init__()
 

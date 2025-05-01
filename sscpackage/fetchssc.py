@@ -16,9 +16,9 @@ import requests
 import fetchlogssc
 
 import sscerrors
-import sscpackage.fetchshelfssc_mod
-import sscpackage.fetchurlssc
-import sscpackage.fetchurlssc_sub
+import fetchshelfssc_mod
+import fetchurlssc
+import fetchurlssc_sub
 
 dotenv.load_dotenv(dotenv_path=os.getenv("LO_ROOT"))
 ROOT_VAR_SSC = os.getenv("CORE_DIR_STOR")

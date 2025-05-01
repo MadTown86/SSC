@@ -1,5 +1,5 @@
 import asyncio
-from sscpackage.fetchssc import FetchSSC
+from fetchssc import FetchSSC
 import dotenv
 import os
 

@@ -2,7 +2,7 @@ import json
 import os
 import mysql.connector
 
-import sscpackage.storessc
+import storessc
 
 
 class StoreSSC:
